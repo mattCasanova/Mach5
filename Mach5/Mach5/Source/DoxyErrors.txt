@@ -1,0 +1,11 @@
+C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5Input.h:111: warning: Compound M5Input is not documented.
+C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5Input.h:146: warning: Member GetGamePadState(void) (function) of class M5Input is not documented.
+C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5Input.h:148: warning: Member SetGamePadButtons(void) (function) of class M5Input is not documented.
+C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5Input.cpp:176: warning: expected whitespace after key command
+C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5Input.h:119: warning: parameters of member M5Input::IsTriggered are not (all) documented
+C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5Input.h:119: warning: return type of member M5Input::IsTriggered is not documented
+C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5Input.h:143: warning: parameters of member M5Input::Reset are not (all) documented
+C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5Graphics.cpp:25: warning: Member InitTextures(void) (function) of namespace M5Graphics is not documented.
+C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5Graphics.cpp:26: warning: Member ShutdownTextures(void) (function) of namespace M5Graphics is not documented.
+C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5Graphics.cpp:24: warning: parameters of member M5Graphics::ValidateTextures are not (all) documented
+error: failed to run html help compiler on index.hhp

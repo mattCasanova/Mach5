@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="States">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="States\GameOver">
+      <UniqueIdentifier>{473cdc9b-bf78-4555-8f88-741bd09b7862}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="States\Splash">
+      <UniqueIdentifier>{32a06eea-19f3-459b-a6aa-5a0e68baa8d6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="States\Game1">
+      <UniqueIdentifier>{96ccbdc2-033d-413d-8c92-75463305b98d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="States\Game2">
+      <UniqueIdentifier>{6bbb08b5-a276-46ee-9a00-c0b93eec10b3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Main">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Source\DemoStates.h">
+      <Filter>States</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\GameOverState.h">
+      <Filter>States\GameOver</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\GameState1.h">
+      <Filter>States\Game1</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\GameState2.h">
+      <Filter>States\Game2</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\SplashState.h">
+      <Filter>States\Splash</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Source\Main.cpp">
+      <Filter>Main</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\GameOverState.cpp">
+      <Filter>States\GameOver</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\GameState1.cpp">
+      <Filter>States\Game1</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\GameState2.cpp">
+      <Filter>States\Game2</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\SplashState.cpp">
+      <Filter>States\Splash</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
