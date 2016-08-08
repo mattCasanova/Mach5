@@ -7,7 +7,7 @@
 \par    Assignment:
 \date   2012/12/6
  
-This is a state for the WarpEngine Demo project. This is a good place to 
+This is a state for the Mach5 Engine Demo project. This is a good place to 
 release resources for anything that was allocated in SplashState. He we just 
 quit the game.
 */

@@ -3,7 +3,7 @@
 \file   M5App.h
 \author Matt Casanova
 \par    email: lazersquad\@gmail.com
-\par    2D Game Engine
+\par    Mach5 Game Engine
 \date   2016/08/6
 
 This is the Application layer for creating and controlling a window in the
@@ -18,7 +18,7 @@ Mach 5 Engine.
 
 /*! Used to exclude rarely-used stuff from Windows */
 #define WIN32_LEAN_AND_MEAN 
-#include <windows.h> /*HINSTANCE*/
+#include <windows.h>
 
 //Forward Declarations
 struct M5GameData;
@@ -37,7 +37,7 @@ struct M5InitData
   bool        fullScreen;  /*!< If the game should begin in fullscreen or not*/
 };
 
-//! Functions to Control the Window
+//! Singleton class to Control the Window
 class M5App
 {
 public:
@@ -65,10 +65,9 @@ public:
   /*Returns the width and height of the window (client area)*/
   static M5Vec2 GetResolution(void);
 
-  //TODO Make this private
-  static void ProcessMessages(void);
 private:
   static LRESULT CALLBACK M5WinProc(HWND win, UINT msg, WPARAM wp, LPARAM lp);
+  static void ProcessMessages(void);
 
 };//end M5App
 

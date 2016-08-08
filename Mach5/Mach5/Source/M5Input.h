@@ -2,12 +2,12 @@
 /*!
 \file   M5Input.h
 \author Matt Casanova
-\par    email: mcasanov\@digipen.edu
-\par    GAM150
-\par    Simple 2D Game Engine
-\date   2012/11/26
+\par    email: lazersquad\@gmail.com
+\par    Mach5 Game Engine
+\date   2016/08/7
 
-Prototypes for input funtions
+
+Singleton class to control get and set input.
 
 */
 /******************************************************************************/
@@ -17,7 +17,7 @@ Prototypes for input funtions
 //Forward Declarations
 struct M5Vec2;
 
-//! The WarpEngine interal set of keys/buttons that can be pressed.
+//! The Mach5 Engine interal set of keys/buttons that can be pressed.
 enum M5KeyCode
 {
   M5_INVALID,
@@ -107,6 +107,8 @@ enum M5KeyCode
   M5_LAST
 };
 
+
+//! Singleton class to control get and set input.
 class M5Input
 {
 public:

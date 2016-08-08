@@ -1,13 +1,14 @@
 /******************************************************************************/
 /*!
-file    M5Input.c
+\file   M5Input.cpp
 \author Matt Casanova
-\par    email: mcasanov\@digipen.edu
-\par    class:
-\par    Assignment:
-\date   2012/12/6
+\par    email: lazersquad\@gmail.com
+\par    Mach5 Game Engine
+\date   2016/08/7
 
-This file has functions for getting input in the WarpEngine.
+
+Singleton class to control get and set input.
+
 */
 /******************************************************************************/
 #include "M5Input.h"
@@ -30,18 +31,18 @@ namespace
 {
 const int CONTROLLER_NUM = 0;
 
-std::bitset<M5_LAST>  s_pressed;   /*!< Array of keys pressed this frame*/
-std::bitset<M5_LAST>  s_triggered; /*!< Array of keys triggered this frame*/
-std::bitset<M5_LAST>  s_repeating;  /*!< Array of keys repeating this frame*/
-std::stack<M5KeyCode> s_unpress;        /*!< The array of keys to unpress*/
-XINPUT_STATE          s_gamePadState; /*The state of the gamePad*/
-M5Vec2                s_mouse;             /*!< The Coordinates of the mouse*/
-M5Vec2                s_leftThumb;
-M5Vec2                s_rightThumb;
-float                 s_leftTrigger;
-float                 s_rightTrigger;
-float                 s_gamePadTimer; /*If we aren't connected, only check every 1 second*/
-bool                  s_isGamePadConnected; /*Bool to tell if gamePad is connected*/
+std::bitset<M5_LAST>  s_pressed;            /*!< Array of keys pressed this frame*/
+std::bitset<M5_LAST>  s_triggered;          /*!< Array of keys triggered this frame*/
+std::bitset<M5_LAST>  s_repeating;          /*!< Array of keys repeating this frame*/
+std::stack<M5KeyCode> s_unpress;            /*!< The array of keys to unpress*/
+XINPUT_STATE          s_gamePadState;       /*!< The state of the gamePad*/
+M5Vec2                s_mouse;              /*!< The Coordinates of the mouse*/
+M5Vec2                s_leftThumb;          /*!< The x/y postion of the left thumbstick*/
+M5Vec2                s_rightThumb;         /*!< The x/y postion of the right thumbstick*/
+float                 s_leftTrigger;        /*!< Array of keys pressed this frame*/
+float                 s_rightTrigger;       /*!< Array of keys pressed this frame*/
+float                 s_gamePadTimer;       /*!< If we aren't connected, only check every 1 second*/
+bool                  s_isGamePadConnected; /*!< Bool to tell if gamePad is connected*/
 }//end unnamed namespace
 
 

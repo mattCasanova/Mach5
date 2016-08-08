@@ -7,7 +7,7 @@ file   DemoState1.c
 \par    Assignment:
 \date   2012/12/6
 
-This is a state for the WarpEngine Demo project. The init state would be a 
+This is a state for the Mach5 Engine Demo project. The init state would be a 
 good place to load game data and initialize the random number 
 generator. For the demo we are testing our math functions.
 */
@@ -77,7 +77,7 @@ void SplashStateInit(void)
   //This code will only show in the console if it is active and you 
   //are in debug mode.
   M5DEBUG_PRINT("This is a demo of the different things you can do\n");
-  M5DEBUG_PRINT("in the WarpEngine.  Play with the demo but you must\n");
+  M5DEBUG_PRINT("in the Mach5 Engine.  Play with the demo but you must\n");
   M5DEBUG_PRINT("also inspect the code and comments.\n\n");
   M5DEBUG_PRINT("If you find errors, report to mcasanov@digipen.edu");
 

@@ -3,7 +3,7 @@
 file    M5App.cpp
 \author Matt Casanova
 \par    email: lazersquad\@gmail.com
-\par    2D Game Engine
+\par    Mach5 Game Engine
 \date   2016/08/6
 
 This is the Application layer for creating and controlling a window for the
@@ -59,19 +59,19 @@ bool        s_isFullScreen;/*!< If the window is in full screen or not*/
 int         s_height;      /*!< The height of the client area of the window */
 int         s_width;       /*!< The width of the client area of the window */
 
-                           /******************************************************************************/
-                           /*!
-                           This function translates a windows key code into a WarpEngine Key code.  This
-                           way, the game doesn't care about windows key codes.
+/******************************************************************************/
+/*!
+This function translates a windows key code into a Mach5 Engine Key code.  This
+way, the game doesn't care about windows key codes.
 
-                           \param [in] wp
-                           The WParam of the windows message.  This contains the windows key code.
+\param [in] wp
+The WParam of the windows message.  This contains the windows key code.
 
-                           \return
-                           The Key code to return.
+\return
+The Key code to return.
 
-                           */
-                           /******************************************************************************/
+*/
+/******************************************************************************/
 M5KeyCode TranslateKey(WPARAM wp)
 {
   switch (wp)

@@ -1,11 +1,10 @@
 /******************************************************************************/
 /*!
-file   M5StageMgr.cpp
+file    M5StageMgr.cpp
 \author Matt Casanova
-\par    email: mcasanov\@digipen.edu
-\par    class:
-\par    Assignment:
-\date   2012/12/5
+\par    email: lazersquad\@gmail.com
+\par    Mach5 Game Engine
+\date   2016/08/7
 
 This provides Support for switching states in your game, such as switching
 between levels and menus.
