@@ -23,7 +23,7 @@ between levels and menus.
 namespace
 {
 //"Private" class data
-static std::vector<M5Stage> s_stages;       /*!< Container to hold my stages*/
+static std::vector<M5Stage*> s_stages;      /*!< Container to hold my stages*/
 static M5GameData*          s_pGameData;    /*!< Pointer to user defined shared data from main*/
 static int                  s_currStage;    /*!< This is the current stage we are in*/
 static int                  s_prevStage;    /*!< This is the last stage we were in*/
@@ -43,7 +43,7 @@ const int INVALID_ID = -1;
 /*!< The number of stages my vector can hold at init time.*/
 const int STARTING_COUNT = 10;
 
-void AddDefaultStage(void)
+/*void AddDefaultStage(void)
 {
   M5Stage defaultStage;
   defaultStage.Load = DefaultLoad;
@@ -56,7 +56,7 @@ void AddDefaultStage(void)
   s_currStage = s_nextStage = stageId;
   s_hasAdded = false;
 
-}
+}*/
 }//end unnamed namespace
 
 /******************************************************************************/
@@ -83,7 +83,7 @@ void M5StageMgr::Init(const M5GameData* pGData, int gameDataSize)
   s_isRestarting = false;
   s_stages.reserve(STARTING_COUNT);
 
-  AddDefaultStage();
+  //AddDefaultStage();
 
   M5DEBUG_ASSERT(gameDataSize >= 1, "M5GameData must have at least size of 1");
 
@@ -101,6 +101,11 @@ by the user.  It will be called automatically by the system.
 /******************************************************************************/
 void M5StageMgr::Shutdown(void)
 {
+  //clear all added stages
+  for (size_t i = 0; i < s_stages.size(); ++i)
+    delete s_stages[i];
+
+
   //This was allocated as an array of bytes
   char* toDelete = reinterpret_cast<char*>(s_pGameData);
   delete[] toDelete;
@@ -125,7 +130,7 @@ A unique id for this stage.
 
 */
 /******************************************************************************/
-int M5StageMgr::AddStage(const M5Stage& stage)
+int M5StageMgr::AddStage(M5Stage* stage)
 {
   if (!s_hasAdded)
   {
@@ -223,7 +228,7 @@ void M5StageMgr::Update(void)
 {
   float frameTime = 0.0f;
   /*Get the Current stage*/
-  M5Stage* pCurrentStage = &s_stages[s_currStage];
+  M5Stage* pCurrentStage = s_stages[s_currStage];
 
 
   /*Only load if we are not restarting*/
@@ -321,7 +326,7 @@ void M5StageMgr::ChangeStage(void)
   s_prevStage = s_currStage;
   s_currStage = s_nextStage;
 }
-
+/*
 #include "M5Gfx.h"
 #include "M5Input.h"
 #include "M5App.h"
@@ -345,7 +350,7 @@ void DefaultInit(void)
 {
   M5Gfx::SetToOrtho();
 }
-void DefaultUpdate(float /*dt*/)
+void DefaultUpdate(float)
 {
   if (M5Input::IsAnyPressed())
     M5StageMgr::Quit();
@@ -366,7 +371,6 @@ void DefaultShutdown(void)
 void DefaultUnload(void)
 {
 
-}
-}
+}*/
 
 

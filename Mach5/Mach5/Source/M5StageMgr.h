@@ -24,7 +24,7 @@ public:
   friend class M5App;
 
   //Adds a stage the the StageMgr
-  static int  AddStage(const M5Stage& stage);
+  static int  AddStage(M5Stage* stage);
   //Sets the given stage ID to the starting stage of the game
   static void SetStartStage(int startStage);
   //Test if the game is quitting

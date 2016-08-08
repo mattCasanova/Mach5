@@ -22,4 +22,9 @@ C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5Input.cpp:167: warning
 C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5Input.h:121: warning: parameters of member M5Input::IsTriggered are not (all) documented
 C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5Input.h:121: warning: return type of member M5Input::IsTriggered is not documented
 C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5Input.h:144: warning: parameters of member M5Input::Reset are not (all) documented
+C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5Stage.h:22: warning: Member Load(void)=0 (function) of class M5Stage is not documented.
+C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5Stage.h:23: warning: Member Init(void)=0 (function) of class M5Stage is not documented.
+C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5Stage.h:24: warning: Member Update(float dt)=0 (function) of class M5Stage is not documented.
+C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5Stage.h:25: warning: Member Shutdown(void)=0 (function) of class M5Stage is not documented.
+C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5Stage.h:26: warning: Member Unload(void)=0 (function) of class M5Stage is not documented.
 error: failed to run html help compiler on index.hhp

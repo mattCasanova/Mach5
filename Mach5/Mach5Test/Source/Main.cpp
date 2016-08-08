@@ -46,48 +46,11 @@ in the DemoStages enum.
 /******************************************************************************/
 void DemoAddStages(void)
 {
-  M5Stage stage;
-  int stageID;
-
-  /*A make sure to add my stage in the order they are in 
-  my DemoStages enum*/
-
-  /*Add my SplashStage*/
-  stage.Load     = SplashStateLoad;
-  stage.Init     = SplashStateInit;
-  stage.Update   = SplashStateUpdate;
-  stage.Shutdown = SplashStateShutdown;
-  stage.Unload   = SplashStateUnload;
-
-  stageID = M5StageMgr::AddStage(stage);
-  M5StageMgr::SetStartStage(stageID);
-  
-  /*Add my first game stage*/
-  stage.Load     = GameState1Load;
-  stage.Init     = GameState1Init;
-  stage.Update   = GameState1Update;
-  stage.Shutdown = GameState1Shutdown;
-  stage.Unload   = GameState1Unload;
-
-  M5StageMgr::AddStage(stage);
-
-  /*Add second game stage*/
-  stage.Load     = GameState2Load;
-  stage.Init     = GameState2Init;
-  stage.Update   = GameState2Update;
-  stage.Shutdown = GameState2Shutdown;
-  stage.Unload   = GameState2Unload;
-
-  M5StageMgr::AddStage(stage);
 
   /*Add my GameOverStage*/
-  stage.Load     = GameOverLoad;
-  stage.Init     = GameOverInit;
-  stage.Update   = GameOverUpdate;
-  stage.Shutdown = GameOverShutdown;
-  stage.Unload   = GameOverUnload;
 
-  M5StageMgr::AddStage(stage);
+  int id = M5StageMgr::AddStage(new GameOverStage);
+  M5StageMgr::SetStartStage(id);
   
 }
 
