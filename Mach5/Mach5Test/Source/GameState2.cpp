@@ -54,9 +54,9 @@ Load my textures here
 void GameState2Load(void)
 {
   /*Load my textures used for this state*/
-  stateData.texture2ID = M5Graphics::LoadTexture("Textures\\MainChar.tga");
-  stateData.texture3ID = M5Graphics::LoadTexture("Textures\\HUD.tga");
-  stateData.texture4ID = M5Graphics::LoadTexture("Textures\\BG.tga");
+  stateData.texture2ID = M5Gfx::LoadTexture("Textures\\MainChar.tga");
+  stateData.texture3ID = M5Gfx::LoadTexture("Textures\\HUD.tga");
+  stateData.texture4ID = M5Gfx::LoadTexture("Textures\\BG.tga");
 
 }
 /******************************************************************************/
@@ -77,7 +77,7 @@ void GameState2Init(void)
   stateData.textcoord = 0.0f;
   stateData.totalTime = 0.0f;
   /*Set the background color*/
-  M5Graphics::SetBackgroundColor(0.0f, 1.0f, 1.0f);
+  M5Gfx::SetBackgroundColor(0.0f, 1.0f, 1.0f);
 
   /*give a time greater than 5 seconds so I don't begin with a 
   small view port.*/
@@ -100,9 +100,9 @@ void GameState2Update(float dt)
   M5Vec2 mouse;
   M5Vec2 windowSize = M5App::GetResolution();
 
-  M5Graphics::GetWorldTopLeft(topLeft);
-  M5Graphics::GetWorldBotRight(botRight);
-  M5Graphics::GetWorldBotLeft(botLeft);
+  M5Gfx::GetWorldTopLeft(topLeft);
+  M5Gfx::GetWorldBotRight(botRight);
+  M5Gfx::GetWorldBotLeft(botLeft);
 
 #ifdef _DEBUG
   M5Vec2 leftThumb;
@@ -132,7 +132,7 @@ void GameState2Update(float dt)
   }
   else if(M5Input::IsTriggered(M5_V))
   {
-    M5Graphics::SetViewport(
+    M5Gfx::SetViewport(
       (int)windowSize.x  /4,
       (int)windowSize.y / 4,
       (int)windowSize.x / 2,
@@ -185,7 +185,7 @@ void GameState2Update(float dt)
   }
 
   /*Update the camera since it could have moved*/
-  M5Graphics::SetCamera(stateData.cameraX, stateData.cameraY, stateData.cameraZ,
+  M5Gfx::SetCamera(stateData.cameraX, stateData.cameraY, stateData.cameraZ,
     stateData.cameraRot);
 
   /*Update state logic*/
@@ -202,23 +202,23 @@ void GameState2Update(float dt)
     if(stateData.viewTimer > M5_MAX_TIME)
     {
       /*Reset our view port*/
-      M5Graphics::SetViewport(0, 0, (int)windowSize.x, (int)windowSize.y);
+      M5Gfx::SetViewport(0, 0, (int)windowSize.x, (int)windowSize.y);
     }
   }
 
   /*Start drawing*/
-  M5Graphics::StartDraw();
+  M5Gfx::StartScene();
   /*Use perspective matrix for world objects with z order*/
-  M5Graphics::SetToPerspective();
+  M5Gfx::SetToPerspective();
 
 
   /*Draw BackGround*/
   /*Set image information*/
-  M5Graphics::SetTexture(stateData.texture4ID);//Background
-  M5Graphics::SetTextureCoords(1.0f, 1.0f, 0.0f, 0.0f, 0.0f);
+  M5Gfx::SetTexture(stateData.texture4ID);//Background
+  M5Gfx::SetTextureCoords(1.0f, 1.0f, 0.0f, 0.0f, 0.0f);
 
   /*Draw an object with a transform and apply a color*/
-  M5Graphics::SetTextureColor(0xFFFFFFFF);
+  M5Gfx::SetTextureColor(0xFFFFFFFF);
   M5Mtx44::MakeTransform(transform, 
     400.f, 
     200.f,
@@ -226,87 +226,87 @@ void GameState2Update(float dt)
     0.f,
     0.f, 
     0.0f);
-  M5Graphics::Draw(transform);
+  M5Gfx::Draw(transform);
 
 
 
   /*Draw Bottom Right*/
   /*Draw an object with different transform and different color*/
-  M5Graphics::SetTextureColor(255, 0, 0, 255);
+  M5Gfx::SetTextureColor(255, 0, 0, 255);
   M5Mtx44::MakeTransform(transform, 15.0f, 25.0f,
     -stateData.rotation / 3,
     botRight.x, 
     botRight.y, 1.0f);
-  M5Graphics::Draw(transform);
+  M5Gfx::Draw(transform);
 
 
 
   /*Draw Top left*/
   /*Another object*/
-  M5Graphics::SetTextureColor(0xFFFF0000);
+  M5Gfx::SetTextureColor(0xFFFF0000);
   M5Mtx44::MakeTransform(transform, 25.0f, 10.0f,
     stateData.rotation * 2,
     topLeft.x, 
     topLeft.y, 1.0f);
-  M5Graphics::Draw(transform);
+  M5Gfx::Draw(transform);
 
 
 
   /*Draw bottom left*/
   /*Another object*/
-  M5Graphics::SetTextureColor(0x55FFFFFF);
+  M5Gfx::SetTextureColor(0x55FFFFFF);
   M5Mtx44::MakeTransform(transform, 10.0f, 10.0f,
     stateData.rotation,
     botLeft.x,
     botLeft.y, 1.0f); 
-  M5Graphics::Draw(transform);
+  M5Gfx::Draw(transform);
   
 
 
   /*Draw main character*/
   /*Set image information for main character*/
-  M5Graphics::SetTexture(stateData.texture2ID);//Main Character
-  M5Graphics::SetTextureColor(0xFFFFFFFF);
+  M5Gfx::SetTexture(stateData.texture2ID);//Main Character
+  M5Gfx::SetTextureColor(0xFFFFFFFF);
   /*Change texture coordinates over time*/
-  M5Graphics::SetTextureCoords(.25f, 1.0f, 0.0f, stateData.textcoord, 0.0f);
+  M5Gfx::SetTextureCoords(.25f, 1.0f, 0.0f, stateData.textcoord, 0.0f);
 
   /*Draw main character at mouse*/
   M5Input::GetMouse(mouse);
-  M5Graphics::ConvertScreenToWorld(mouse.x, mouse.y);
+  M5Gfx::ConvertScreenToWorld(mouse.x, mouse.y);
   
   M5Mtx44::MakeTransform(transform, 20.0f, 20.0f,
     0.0f,
     mouse.x, mouse.y, 0.0f);
-  M5Graphics::Draw(transform);
+  M5Gfx::Draw(transform);
 
 
 
   /*Draw the HUD*/
   /*Set to orthographic mode.  Camera distance has no effect,
   objects are drawn in screen space*/
-  M5Graphics::SetToOrtho();
-  M5Graphics::SetTexture(stateData.texture3ID);//HUD
-  M5Graphics::SetTextureCoords(1.0f, 1.0f, 0.0f, 0.0f, 0.0f);
+  M5Gfx::SetToOrtho();
+  M5Gfx::SetTexture(stateData.texture3ID);//HUD
+  M5Gfx::SetTextureCoords(1.0f, 1.0f, 0.0f, 0.0f, 0.0f);
 
   /*Draw an object with a transform and apply a color*/
   M5Mtx44::MakeTransform(transform, 200.f, 100.f,
     0.0f,
     windowSize.x - 100.f,
     windowSize.y - 50 , 0.0f);
-  M5Graphics::Draw(transform);
+  M5Gfx::Draw(transform);
 
 
 
   /*Reset color*/
-  M5Graphics::SetTextureColor(0xFFFFFFFF);
+  M5Gfx::SetTextureColor(0xFFFFFFFF);
 /*Draw my text*/
-  M5Graphics::WriteText("V: Toggle ViewPort", 640.f, 15.0f);
-  M5Graphics::WriteText("N: Continue", 640.f, 0.0f);
-  M5Graphics::WriteText("WASD: Move Camera", 640.f, 700.f);
-  M5Graphics::WriteText("Mouse Wheel: Zoom", 640.f, 680.f);
-  M5Graphics::WriteText("Q/E: Rotate Camera", 640.f, 640.f);
+  M5Gfx::WriteText("V: Toggle ViewPort", 640.f, 15.0f);
+  M5Gfx::WriteText("N: Continue", 640.f, 0.0f);
+  M5Gfx::WriteText("WASD: Move Camera", 640.f, 700.f);
+  M5Gfx::WriteText("Mouse Wheel: Zoom", 640.f, 680.f);
+  M5Gfx::WriteText("Q/E: Rotate Camera", 640.f, 640.f);
 
-  M5Graphics::EndDraw();
+  M5Gfx::EndScene();
 }
 /******************************************************************************/
 /*!
@@ -328,8 +328,8 @@ A pointer to the shared gameData.
 void GameState2Unload(void)
 {
   /*Make sure to unload all textures*/
-  M5Graphics::UnloadTexture(stateData.texture2ID);
-  M5Graphics::UnloadTexture(stateData.texture3ID);
-  M5Graphics::UnloadTexture(stateData.texture4ID);
+  M5Gfx::UnloadTexture(stateData.texture2ID);
+  M5Gfx::UnloadTexture(stateData.texture3ID);
+  M5Gfx::UnloadTexture(stateData.texture4ID);
 
 }

@@ -10,6 +10,7 @@ Singleton class to control game time related functions.
 
 */
 /******************************************************************************/
+#include "M5GameTimer.h"
 #include "M5DebugTools.h"
 #include <windows.h>
 
@@ -32,9 +33,9 @@ or 60, but could be anything.
 The target frames per second for the game.
 */
 /******************************************************************************/
-void SetTargetFPS(float fps)
+void M5Timer::SetTargetFPS(int fps)
 {
-  s_targetFPS = fps;
+  s_targetFPS = static_cast<float>(fps);
   s_targetFrameTime = 1.0f / fps;
 }
 /******************************************************************************/
@@ -45,7 +46,7 @@ when the system initializes.
 \param [in] fps
 The target frames per second for the game.
 /******************************************************************************/
-void Init(float fps)
+void M5Timer::Init(int fps)
 {
   M5DEBUG_CALL_CHECK(1);
 
@@ -61,7 +62,7 @@ void Init(float fps)
 Gets the clock count at the start of the frame. 
 */
 /******************************************************************************/
-void StartFrame(void)
+void M5Timer::StartFrame(void)
 {
   /*Get the clock count for the start of the frame.*/
   QueryPerformanceCounter(&s_startTime);
@@ -79,7 +80,7 @@ The total time the frame took to complete in milliseconds.
 
 */
 /******************************************************************************/
-float EndFrame(void)
+float M5Timer::EndFrame(void)
 {
   LARGE_INTEGER difference;
   float time;

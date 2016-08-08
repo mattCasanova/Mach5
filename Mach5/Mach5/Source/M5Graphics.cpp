@@ -1,30 +1,26 @@
 /******************************************************************************/
 /*!
-file   M5Graphics.cpp
-\author Matt Casanova 
-\par    email: mcasanov\@digipen.edu
-\par    GAM150
-\par    Simple 2D Game Engine
-\date   2012/11/27
+file    M5Graphics.cpp
+\author Matt Casanova
+\par    email: lazersquad\@gmail.com
+\par    Mach5 Game Engine
+\date   2016/08/8
 
-This File contains all of the Functions for the Graphics Engine
+Singleton class to draw and modify the view of the screen
 */
 /******************************************************************************/
 #include "M5Graphics.h"
 #include "M5Math.h"
+#include "M5Vec2.h"
+#include "M5Mtx44.h"
 #include "M5DebugTools.h"
 
 #include <cmath> /*for tan*/
 #include <cstring> /*memset*/
 #include <string>
 
-namespace M5Graphics
-{
 /*!Prototype for function in M5TextureLoading*/
 int ValidateTextures(std::string& fileNames);
-void InitTextures(void);
-void ShutdownTextures(void);
-}//end namespace Graphics
 
 
 #include "windows.h"
@@ -33,240 +29,97 @@ void ShutdownTextures(void);
 #include "gl/glu.h"
 
 
-namespace 
+namespace
 {
 /************************************************************************/
 /* Defines for my Graphics Engine                                       */
 /************************************************************************/
-
-/*Default values for my projection and view matrices*/
-const GLdouble WIN_FOV          = 90.0;   /*Field of view*/
-const GLdouble CAM_DISTANCE     = 60.0;   /*Camera distance in the Z*/
-const GLdouble CAM_NEAR_CLIP    = 1.0;    /*Near clip plane in the Z*/
-const GLdouble CAM_FAR_CLIP     = 1000.0; /*Far Clip plane in the Z*/
-
-/*Defines for the max and min of my camera*/
-const GLdouble MIN_CAM_DISTANCE = 2.0f; /*Min camera distance*/
-const GLdouble MAX_CAM_DISTANCE = 999.0f;/*Max camera distance*/
-
+const GLdouble WIN_FOV = 90.0;  /*!< Field of view*/
+const GLdouble CAM_DISTANCE = 60.0;  /*!< Camera distance in the Z*/
+const GLdouble CAM_NEAR_CLIP = 1.0;   /*!< Near clip plane in the Z*/
+const GLdouble CAM_FAR_CLIP = 1000.0;/*!< Far Clip plane in the Z*/
+const GLdouble MIN_CAM_DISTANCE = 2.0f;  /*!< Min camera distance*/
+const GLdouble MAX_CAM_DISTANCE = 999.0f;/*!< Max camera distance*/
 /*Information about my font list*/
-const int NUMBER_OF_CHARACTERS  = 96;/*The size*/
-const int STARTING_CHARACTER    = 32;/*Start with the space*/
+const int NUMBER_OF_CHARACTERS = 96;    /*!< The size*/
+const int STARTING_CHARACTER = 32;    /*!< Start with the space*/
 
 /************************************************************************/
 /* Types used by my graphics Engine                                     */
 /************************************************************************/
 
-  /*A struct to hold my Vertex buffer object information*/
-  struct M5TriangleList
-  {
-    unsigned vertexCount; /*The number of vertices's in the list.*/
-    GLuint   vboID;       /*The vbo id from openGl.*/
-  };
-
-  /* A struct to define my vertex.*/
-  struct M5Vertex
-  {
-    float x;/*The x position*/
-    float y;/*The y position*/
-    float z;/*The z position*/
-
-    float tu;/*The u texture coord*/
-    float tv;/*The v texture coord*/
-  };
-
-  /* A struct to hold and share data important to graphics functions.
-  Students should not create one of these */
-  struct M5GraphicsData
-  {
-    /*Camera data*/
-    GLdouble cameraZ;       /*Camera distance in the Z*/
-    GLdouble cameraX;       /*Camera position in the X*/
-    GLdouble cameraY;       /*Camera position int he Y*/
-    GLdouble cameraRot;     /*Camera rotation in radians*/
-
-    /*Projection data*/
-    GLdouble nearClip;      /*Near clip plane in the Z*/
-    GLdouble farClip;       /*Far Clip plane in the Z*/
-    GLdouble aspectRatio;   /*The aspect ration of the window. Width/Height*/
-    GLdouble fov;           /*Field of view*/
-    GLdouble persp[16];     /*A copy of the perspective matrix*/
-    GLdouble camera[16];
-
-    /*Window drawing data*/
-    HGLRC    renderContext; /* To hold the renderContext for OpenGL*/
-    HDC      deviceContext; /* To hold the device context for windows*/
-    HWND     window;        /* To hold the window for windows and openGL*/
-
-    /*Screen/world sizes*/
-    int      width;         /* The width of the client area of the screen*/
-    int      height;        /* The height of the client area of the screen*/
-
-    float    worldMinX;     /*The minimum x extent of the world on screen*/
-    float    worldMaxX;     /*The Maximum x extent of the world on screen*/
-    float    worldMinY;     /*The minimum y extent of the world on screen*/
-    float    worldMaxY;     /*The maximum y extent of the world on screen*/
-
-    M5Vec2   worldTopLeft;  /*The top left point on the screen.*/
-    M5Vec2   worldTopRight; /*The top right point on the screen.*/
-    M5Vec2   worldBotLeft;  /*The bottom Left point on the screen.*/
-    M5Vec2   worldBotRight; /*The bottom right point on the screen.*/
-
-    /*Font data*/
-    HFONT    font;          /*The font to create*/
-    HFONT    oldFont;       /*The old font*/
-    GLuint   fontBase;      /*My font list I will create*/
-  };
-
-  /*An instance of my graphics data to share between my functions*/
-  M5GraphicsData gfxData;
-  M5TriangleList triList;
-
-
-
-/************************************************************************/
-/* Helper functions for the graphics engine                             */
-/************************************************************************/
-/******************************************************************************/
-/*!
-Calculates the corner positions of the world that will be shown on screen.
-*/
-/******************************************************************************/
-void CalulateWorldExtents(void)
+  //!A struct to hold my Vertex buffer object information
+struct M5Mesh
 {
-  float worldMaxY;
-  float worldMaxX;
-  float worldMinY;
-  float worldMinX;
-  M5Mtx44 rotMatrix;
-  rotMatrix.MakeRotateZ((float)-gfxData.cameraRot);
+  unsigned vertexCount; /*!< The number of vertices's in the list.*/
+  GLuint   vboID;       /*!< The vbo id from openGl.*/
+};
 
-  /*Calculate world corners based on camera z*/
-  worldMaxY = (std::tan(M5Math::DegreeToRadian(.5f * (float)gfxData.fov)) *
-    (float)gfxData.cameraZ);
-
-  worldMaxX = worldMaxY * (float)gfxData.aspectRatio;
-  worldMinY = -worldMaxY;
-  worldMinX = -worldMaxX;
-
-  /*Shift the corners based on the camera x and y*/
-  worldMaxY += (float)gfxData.cameraY;
-  worldMinY += (float)gfxData.cameraY;
-  worldMaxX += (float)gfxData.cameraX;
-  worldMinX += (float)gfxData.cameraX;
-
-  /*then rotate the corner points*/
-  gfxData.worldTopLeft.x = worldMinX*rotMatrix.m[0][0] + worldMaxY*rotMatrix.m[1][0];
-  gfxData.worldTopLeft.y = worldMinX*rotMatrix.m[0][1] + worldMaxY*rotMatrix.m[1][1];
-
-  gfxData.worldTopRight.x = worldMaxX*rotMatrix.m[0][0] + worldMaxY*rotMatrix.m[1][0];
-  gfxData.worldTopRight.y = worldMaxX*rotMatrix.m[0][1] + worldMaxY*rotMatrix.m[1][1];
-
-  gfxData.worldBotLeft.x = worldMinX*rotMatrix.m[0][0] + worldMinY*rotMatrix.m[1][0];
-  gfxData.worldBotLeft.y = worldMinX*rotMatrix.m[0][1] + worldMinY*rotMatrix.m[1][1];
-
-  gfxData.worldBotRight.x = worldMaxX*rotMatrix.m[0][0] + worldMinY*rotMatrix.m[1][0];
-  gfxData.worldBotRight.y = worldMaxX*rotMatrix.m[0][1] + worldMinY*rotMatrix.m[1][1];
-}
-
-/******************************************************************************/
-/*!
-Helper function to create a font for debug text drawing to the screen.
-*/
-/******************************************************************************/
-void FontInit(void)
+/*! A struct to define my vertex.*/
+struct M5Vertex
 {
-  /*Get a list of bitmaps from openGl*/
-  gfxData.fontBase = glGenLists(NUMBER_OF_CHARACTERS);
+  float x;/*The x position*/
+  float y;/*The y position*/
+  float z;/*The z position*/
+  float tu;/*The u texture coord*/
+  float tv;/*The v texture coord*/
+};
 
-  /*Create my windows font*/
-  gfxData.font = CreateFont(
-    (int)(gfxData.height * .03f),                  /*Height*/
-    0,                  /*width*/
-    0,                   /*angle of escapement*/
-    0,                   /*orientation,*/
-    400,                 /*font weight*/
-    FALSE,               /*Italic*/
-    FALSE,               /*Underlined*/
-    FALSE,               /*Strike out*/
-    DEFAULT_CHARSET,     /*Char set identifier*/
-    OUT_TT_PRECIS,       /*Output Precision*/
-    CLIP_DEFAULT_PRECIS, /*Clipping Precision*/
-    ANTIALIASED_QUALITY, /*OutputQuality*/
-    DEFAULT_PITCH,       /*Family and Pitch*/
-    "Terminal");         /*Font name*/
+//!! A struct to hold and share data important to graphics functions.
+  /*Camera data*/
+GLdouble s_cameraZ;       /*Camera distance in the Z*/
+GLdouble s_cameraX;       /*Camera position in the X*/
+GLdouble s_cameraY;       /*Camera position int he Y*/
+GLdouble s_cameraRot;     /*Camera rotation in radians*/
 
-  /*Switch to my created font*/
-  gfxData.oldFont = (HFONT)SelectObject(gfxData.deviceContext, gfxData.font);
+/*Projection data*/
+GLdouble s_nearClip;      /*!< Near clip plane in the Z*/
+GLdouble s_farClip;       /*!< Far Clip plane in the Z*/
+GLdouble s_aspectRatio;   /*!< The aspect ration of the window. Width/Height*/
+GLdouble s_fov;           /*!< Field of view*/
+GLdouble s_persp[16];     /*!< A copy of the perspective matrix*/
+GLdouble s_camera[16];    /*!< A copy of the camera matrix*/
 
-  /*Tell open gl about my font*/
-  wglUseFontBitmaps(gfxData.deviceContext,
-    STARTING_CHARACTER, NUMBER_OF_CHARACTERS,
-    gfxData.fontBase);
-  /*Set back to original font*/
-  SelectObject(gfxData.deviceContext, gfxData.oldFont);
+/*Window drawing data*/
+HGLRC    s_renderContext; /*!< The renderContext for OpenGL*/
+HDC      s_deviceContext; /*!< The device context for windows*/
+HWND     s_window;        /*!< The window for windows and openGL*/
 
-  /*Deleted my created font.*/
-  DeleteObject(gfxData.font);
+/*Screen dimensions*/
+int      s_width;         /*!< The width of the client area of the screen*/
+int      s_height;        /*!< The height of the client area of the screen*/
 
-}
+/*Visible corners points of the world*/
+M5Vec2   s_worldTopLeft;  /*!< The top left point on the screen.*/
+M5Vec2   s_worldTopRight; /*!< The top right point on the screen.*/
+M5Vec2   s_worldBotLeft;  /*!< The bottom Left point on the screen.*/
+M5Vec2   s_worldBotRight; /*!< The bottom right point on the screen.*/
+
+/*Font data*/
+HFONT    s_font;          /*!< The font to create*/
+HFONT    s_oldFont;       /*!< The old font*/
+GLuint   s_fontBase;      /*!< My font list I will create*/
+
+M5Mesh   s_mesh;          /*!< Quad Mesh since it is 2D game engine*/
+
 /******************************************************************************/
 /*!
-Here I create my single vertex buffer object.  This engine will only support
-textured quads because that is probably all the students will use.
+Helper function to Set projection matrix is something needs to change.
 
-My verts are like this
-
-2--------(1,6)
-|           |
-|           |
-|           |
-|           |
-(3,4)----- 5
-*/
-/******************************************************************************/
-void VertexBufferInit(void)
-{
-  const int VERT_COUNT = 6;
-  /*Hard code my verts, because we are only supporting one vbo*/
-  M5Vertex vertArray[6] = {
-    { .5f, .5f, 0.f, 1.f, 1.f }, /*1*/
-    { -.5f, .5f, 0.f, 0.f, 1.f }, /*2*/
-    { -.5f, -.5f, 0.f, 0.f, 0.f }, /*3*/
-
-    { -.5f, -.5f, 0.f, 0.f, 0.f }, /*4*/
-    { .5f, -.5f, 0.f, 1.f, 0.f }, /*5*/
-    { .5f, .5f, 0.f, 1.f, 1.f } }; /*6*/
-  GLsizei dataSize = sizeof(M5Vertex) * VERT_COUNT;
-
-  /*Generate my vbo*/
-  glGenBuffers((GLsizei)1, &triList.vboID);
-  triList.vertexCount = VERT_COUNT;
-
-  /*Set my buffer to the current*/
-  glBindBuffer(GL_ARRAY_BUFFER, triList.vboID);
-  /*Fill in data into my vbo*/
-  glBufferData(GL_ARRAY_BUFFER, dataSize, vertArray, GL_STATIC_DRAW);
-}
-/******************************************************************************/
-/*!
-Helper function to Set my projection matrix is something needs to change.
-
-\param fov
+\param [in] fov
 The field of view for the height of the screen, specified in degrees.
 
-\param aspectRatio
+\param [in] aspectRatio
 The value of the width/height of the client area of the screen.
 
-\param nearClip
+\param [in] nearClip
 The distance of the near clip plane.
 
-\param farClip
+\param [in] farClip
 The distance of the far clip plane.
 */
 /******************************************************************************/
-void SetPerspective(GLdouble fov, GLdouble aspectRatio,
-  GLdouble nearClip, GLdouble farClip)
+void SetPerspective(GLdouble fov, GLdouble aspectRatio, GLdouble nearClip, GLdouble farClip)
 {
   //GLdouble modelView[16];
   /*Set our current view mode*/
@@ -274,87 +127,42 @@ void SetPerspective(GLdouble fov, GLdouble aspectRatio,
   glLoadIdentity();
   /*Set up Perspective Matrix*/
   gluPerspective(fov, aspectRatio, nearClip, farClip);
-  glGetDoublev(GL_PROJECTION_MATRIX, gfxData.persp);
+  glGetDoublev(GL_PROJECTION_MATRIX, s_persp);
 
   /*Switch back to Model view*/
   glMatrixMode(GL_MODELVIEW);
 }
-/******************************************************************************/
-/*!
-This function will initialize my render context.  If it fails the program will
-assert in debug or crash in release mode.  After calling this the
-renderContext will be valid.
-*/
-/******************************************************************************/
-void RenderContextInit(void)
-{
-  /*A struct the specifies information about the back buffer*/
-  PIXELFORMATDESCRIPTOR pfd;
-  int pixelFormat; /*The result value after choosing my pixel format*/
-  BOOL result; /*Used to check for errors.*/
-
-  /*Clear my pfd and only set the values I need.*/
-  std::memset(&pfd, 0, sizeof(pfd));
-
-  /*Set up information about pixels for buffer and back buffer*/
-  pfd.nSize = sizeof(PIXELFORMATDESCRIPTOR);
-  pfd.nVersion = 1;
-  /*A set of flags that specify the properties of the pixel buffer*/
-  pfd.dwFlags = PFD_DRAW_TO_WINDOW | PFD_SUPPORT_OPENGL | PFD_DOUBLEBUFFER;
-  pfd.iPixelType = PFD_TYPE_RGBA;
-  pfd.cColorBits = 32;
-  pfd.cDepthBits = 32;
-
-
-  /*Choose back buffer information*/
-  pixelFormat = ChoosePixelFormat(gfxData.deviceContext, &pfd);
-  M5DEBUG_ASSERT(pixelFormat != 0, "Unable to chose PixelFormat. Your video card is out of date");
-
-  /*Set back buffer information*/
-  result = SetPixelFormat(gfxData.deviceContext, pixelFormat, &pfd);
-  M5DEBUG_ASSERT(result != 0, "Unable to Set PixelFormat. Your video card is out of date");
-
-  /*Create openGL render context*/
-  gfxData.renderContext = wglCreateContext(gfxData.deviceContext);
-  M5DEBUG_ASSERT(gfxData.renderContext != 0, "Unable to Create Render Context. Your video card is out of date");
-
-  /*Set the openGl render context*/
-  result = wglMakeCurrent(gfxData.deviceContext, gfxData.renderContext);
-  M5DEBUG_ASSERT(result != 0, "Unable to Set Render Context. Your video card is out of date");
-}
 }//end unnamed namespace
 
-namespace M5Graphics
-{
 /******************************************************************************/
 /*!
 Set the Camera Matrix based on position of camera. The default x and y are 0.
 The default z is 60.
 
-\param cameraX
+\param [in] cameraX
 This is the location of the camera and the target of the camera in the x.
 
-\param cameraY
+\param [in] cameraY
 This is the location of the camera and the target of the camera in the y.
 
-\param cameraZ
+\param [in] cameraZ
 This is the height of the camera.
 
-\param cameraRot
+\param [in] cameraRot
 This is the rotation in radians of the camera around the z axis.
 
 */
 /******************************************************************************/
-void SetCamera(float cameraX, float cameraY,
+void M5Gfx::SetCamera(float cameraX, float cameraY,
   float cameraZ, float cameraRot)
 {
   M5Mtx44 rotMatrix;
-  cameraZ = M5Math::Clamp(cameraZ, (float)MIN_CAM_DISTANCE, 
-                                   (float)MAX_CAM_DISTANCE);
-  gfxData.cameraX = cameraX;
-  gfxData.cameraY = cameraY;
-  gfxData.cameraZ = cameraZ;
-  gfxData.cameraRot = cameraRot;
+  cameraZ = M5Math::Clamp(cameraZ, static_cast<float>(MIN_CAM_DISTANCE),
+    static_cast<float>(MAX_CAM_DISTANCE));
+  s_cameraX = cameraX;
+  s_cameraY = cameraY;
+  s_cameraZ = cameraZ;
+  s_cameraRot = cameraRot;
 
   glMatrixMode(GL_MODELVIEW);
   glLoadIdentity();
@@ -362,11 +170,9 @@ void SetCamera(float cameraX, float cameraY,
     cameraX, cameraY, 0.0,    /*Target*/
     0, 1.0, 0.0);           /*UpVector*/
 
-
-
   rotMatrix.MakeRotateZ(cameraRot);
   glMultMatrixf((GLfloat*)&rotMatrix.m[0][0]);
-  glGetDoublev(GL_MODELVIEW_MATRIX, gfxData.camera);
+  glGetDoublev(GL_MODELVIEW_MATRIX, s_camera);
   /*Re calculate world extents*/
   CalulateWorldExtents();
 }
@@ -374,62 +180,49 @@ void SetCamera(float cameraX, float cameraY,
 
 /******************************************************************************/
 /*!
-Initializes the Graphics "Engine" for drawing.  This will be called automatically
-when the window is created.  Students should NOT call this function.
+Initializes the Graphics Engine for drawing.  This will be called automatically
+when the window is created.
 
-\attention
-Students should NOT call this Function.
-
-\param window
+\param [in] window
 The window to draw to.
 
-\param width
+\param [in] width
 The width of the client area of the window.
 
-\param height
+\param [in] height
 The height of the client area of the window
 */
 /******************************************************************************/
-void Init(HWND window, int width, int height)
+void M5Gfx::Init(HWND window, int width, int height)
 {
-
-#ifdef _DEBUG
-  /*I use this to count how many times this function is called.  It is used only
-  error checking*/
-  static int functionCounter = 0;
-  ++functionCounter;
-
-  M5DEBUG_ASSERT(functionCounter == 1,
-    "This function should NOT be called by students.");
-#endif
-  InitTextures();
+  M5DEBUG_CALL_CHECK(1);
 
   /*Save the data for later use*/
-  gfxData.window = window;
-  gfxData.width = width;
-  gfxData.height = height;
+  s_window = window;
+  s_width = width;
+  s_height = height;
 
   /*Set defaults for projection*/
-  gfxData.fov = WIN_FOV;
-  gfxData.nearClip = CAM_NEAR_CLIP;
-  gfxData.farClip = CAM_FAR_CLIP;
-  gfxData.aspectRatio = (GLdouble)width / height;
+  s_fov = WIN_FOV;
+  s_nearClip = CAM_NEAR_CLIP;
+  s_farClip = CAM_FAR_CLIP;
+  s_aspectRatio = (GLdouble)width / height;
 
-  gfxData.cameraZ = CAM_DISTANCE;
-  gfxData.cameraX = 0.0;
-  gfxData.cameraY = 0.0;
-  gfxData.cameraRot = 0.f;
+  s_cameraZ = CAM_DISTANCE;
+  s_cameraX = 0.0;
+  s_cameraY = 0.0;
+  s_cameraRot = 0.f;
 
   /*Get Device context for window*/
-  gfxData.deviceContext = GetDC(gfxData.window);
+  s_deviceContext = GetDC(s_window);
 
   /*This will assert if it fails otherwise gfxData.renderContext is valid*/
   RenderContextInit();
   FontInit();
 
   /*Give back the resource until we need it again.*/
-  ReleaseDC(gfxData.window, gfxData.deviceContext);
-  gfxData.deviceContext = 0;
+  ReleaseDC(s_window, s_deviceContext);
+  s_deviceContext = 0;
 
   /*Set Background Clear Color*/
   glClearColor(0.f, 0.f, 0.f, 1.f);
@@ -457,19 +250,16 @@ void Init(HWND window, int width, int height)
   glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 
   /*Set my drawing viewPort*/
-  glViewport(0, 0, gfxData.width, gfxData.height);
+  glViewport(0, 0, s_width, s_height);
 
   /*Set my projection matrix*/
-  SetPerspective(gfxData.fov,
-    gfxData.aspectRatio,
-    gfxData.nearClip,
-    gfxData.farClip);
+  SetPerspective(s_fov, s_aspectRatio, s_nearClip, s_farClip);
 
   /*Set my camera*/
-  SetCamera((float)gfxData.cameraX,
-    (float)gfxData.cameraY,
-    (float)gfxData.cameraZ,
-    (float)gfxData.cameraRot);
+  SetCamera(static_cast<float>(s_cameraX), 
+    static_cast<float>(s_cameraY), 
+    static_cast<float>(s_cameraZ), 
+    static_cast<float>(s_cameraRot));
 
   /*Set up glew functions*/
   glewInit();
@@ -477,30 +267,18 @@ void Init(HWND window, int width, int height)
 }
 /******************************************************************************/
 /*!
-Closes all resources associated with the Graphics "Engine".  Students should
-NOT call this function.
-
-\attention
-Students should NOT call this function.
-
+Closes all resources associated with the Graphics Engine.
 */
 /******************************************************************************/
-void Shutdown(void)
+void M5Gfx::Shutdown(void)
 {
-#if defined(DEBUG) | defined(_DEBUG)
-  std::string fileNames;
-  int count = ValidateTextures(fileNames);
-  M5DEBUG_ASSERT(count == 0, fileNames.c_str());
-#endif   
-   ShutdownTextures();
+  M5DEBUG_CALL_CHECK(1);
 
-  glDeleteBuffers((GLsizei)1, &triList.vboID);
-  glDeleteLists(gfxData.fontBase, NUMBER_OF_CHARACTERS);
+  glDeleteBuffers((GLsizei)1, &s_mesh.vboID);
+  glDeleteLists(s_fontBase, NUMBER_OF_CHARACTERS);
   wglMakeCurrent(NULL, NULL);
-  wglDeleteContext(gfxData.renderContext);
-  gfxData.renderContext = 0;
-
- 
+  wglDeleteContext(s_renderContext);
+  s_renderContext = 0;
 }
 /******************************************************************************/
 /*!
@@ -512,10 +290,10 @@ This must be called before drawing anything.
 
 */
 /******************************************************************************/
-void StartDraw(void)
+void M5Gfx::StartScene(void)
 {
-  gfxData.deviceContext = GetDC(gfxData.window);
-  wglMakeCurrent(gfxData.deviceContext, gfxData.renderContext);
+  s_deviceContext = GetDC(s_window);
+  wglMakeCurrent(s_deviceContext, s_renderContext);
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 /******************************************************************************/
@@ -528,31 +306,31 @@ This must be called after all draw calls.
 
 */
 /******************************************************************************/
-void EndDraw(void)
+void M5Gfx::EndScene(void)
 {
-  SwapBuffers(gfxData.deviceContext);
-  ReleaseDC(gfxData.window, gfxData.deviceContext);
-  gfxData.deviceContext = 0;
+  SwapBuffers(s_deviceContext);
+  ReleaseDC(s_window, s_deviceContext);
+  s_deviceContext = 0;
 }
 /******************************************************************************/
 /*!
-Draws Text to the screen. Using an internal font.  This is best used for debug
+Writes Text to the screen. Using an internal font.  This is best used for debug
 text. (It is better to use images for the text you want.)
 
 \attention
 This is best used for debug only.
 
-\param text
+\param [in] text
 The Text you want to draw to the screen.
 
-\param x
+\param [in] x
 The x location to start.
 
-\param y
+\param [in] y
 The y location to start.
 */
 /******************************************************************************/
-void WriteText(const char* text, float x, float y)
+void M5Gfx::WriteText(const char* text, float x, float y)
 {
   /*Disable textures*/
   glDisable(GL_TEXTURE_2D);
@@ -564,11 +342,10 @@ void WriteText(const char* text, float x, float y)
 
   /*Set up display list*/
   glPushAttrib(GL_LIST_BIT);
-  glListBase(gfxData.fontBase - STARTING_CHARACTER);
+  glListBase(s_fontBase - STARTING_CHARACTER);
 
   /*Draw text display list*/
-  glCallLists((GLsizei)strlen(text), GL_UNSIGNED_BYTE, text);
-
+  glCallLists(static_cast<GLsizei>(std::strlen(text)), GL_UNSIGNED_BYTE, text);
 
   /*restore display list and matrix*/
   glPopAttrib();
@@ -579,28 +356,27 @@ void WriteText(const char* text, float x, float y)
 /*!
 Draws the currently set texture at this location, scale and rotation.
 
-\param worldMatrix
+\param [in] worldMatrix
 The world matrix that will define the scale rotation and translation.
 */
 /******************************************************************************/
-void Draw(const M5Mtx44& worldMatrix)
+void M5Gfx::Draw(const M5Mtx44& worldMatrix)
 {
   /*Set the matrix mode*/
   glMatrixMode(GL_MODELVIEW);
   /*Add this matrix to the view*/
   glPushMatrix();
   /*Right now my matrix is the transpose of open gl*/
-  glMultMatrixf((GLfloat*)&worldMatrix.m[0][0]);
+  glMultMatrixf(reinterpret_cast<const GLfloat*>(&worldMatrix.m[0][0]));
 
   /*Set the start of my position data*/
   glVertexPointer(3, GL_FLOAT, sizeof(M5Vertex), 0);
-
   /*Set  my texture positions*/
   glTexCoordPointer(2, GL_FLOAT, sizeof(M5Vertex),
     ((char*)0 + sizeof(float) * 3));
 
   /*Draw my object*/
-  glDrawArrays(GL_TRIANGLES, 0, triList.vertexCount);
+  glDrawArrays(GL_TRIANGLES, 0, s_mesh.vertexCount);
 
   /*Remove this matrix*/
   glPopMatrix();
@@ -612,11 +388,11 @@ Sets the current texture to draw.
 \attention
 The texture ID should be one that was returned from Loading a texture.
 
-\param textureID
+\param [in] textureID
 The texture id to set.
 */
 /******************************************************************************/
-void SetTexture(int textureID)
+void M5Gfx::SetTexture(int textureID)
 {
   glBindTexture(GL_TEXTURE_2D, textureID);
 }
@@ -624,20 +400,19 @@ void SetTexture(int textureID)
 /*!
 Set the Resolution for the game.
 
-\param width
+\param [in] width
 The new width of the game.
 
-\param height
+\param [in] height
 The new height of the game.
 */
 /******************************************************************************/
-void SetResolution(int width, int height)
+void M5Gfx::SetResolution(int width, int height)
 {
-  gfxData.width = width;
-  gfxData.height = height;
-  gfxData.aspectRatio = (GLdouble)width / height;
-  SetPerspective(gfxData.fov, gfxData.aspectRatio, gfxData.nearClip,
-    gfxData.farClip);
+  s_width = width;
+  s_height = height;
+  s_aspectRatio = static_cast<GLdouble>(width) / height;
+  SetPerspective(s_fov, s_aspectRatio, s_nearClip, s_farClip);
   glViewport(0, 0, width, height);
 
   /*update world extents*/
@@ -649,47 +424,45 @@ Uses a 4x4 matrix to set the texture coordinates for the current texture.
 Texture coordinates are default to (0, 0) in the lower left corner and (1,1) in
 the upper right corner.
 
-\param scaleX
+\param [in] scaleX
 The amount to scale in the x direction.
 
-\param scaleY
+\param [in] scaleY
 The amount to scale in the y direction.
 
-\param radians
+\param [in] radians
 The amount to rotate the texture.
 
-\param transX
+\param [in] transX
 The amount to translate in the x direction.
 
-\param transY
+\param [in]transY
 The amount to translate in the y direction.
 */
 /******************************************************************************/
-void SetTextureCoords(float scaleX, float scaleY, float radians,
-  float transX, float transY)
+void M5Gfx::SetTextureCoords(float scaleX, float scaleY, float radians, float transX, float transY)
 {
   M5Mtx44 transform;
-  transform.MakeTransform( scaleX, scaleY, radians, transX,
-    transY, 0.f);
+  transform.MakeTransform(scaleX, scaleY, radians, transX, transY, 0.f);
   glMatrixMode(GL_TEXTURE);
   glLoadMatrixf(&transform.m[0][0]);
   glMatrixMode(GL_MODELVIEW);
 }
 /******************************************************************************/
 /*!
-Set the color of the back ground screen.  These floats must be between 0 and 1.
+Set the color of the back ground screen. These floats must be between 0 and 1.
 
-\param red
+\param [in] red
 The amount of the red in the background.  The default is 0.
 
-\param blue
+\param [in] blue
 The amount of blue in the background.  The default is 0.
 
-\param green
+\param [in] green
 The amount of green in the background.  The default is 0.
 */
 /******************************************************************************/
-void SetBackgroundColor(float red, float green, float blue)
+void M5Gfx::SetBackgroundColor(float red, float green, float blue)
 {
   glClearColor(red, green, blue, 1.0);
 }
@@ -697,49 +470,49 @@ void SetBackgroundColor(float red, float green, float blue)
 /*!
 Gets the top left point on the screen in world coordinates.
 
-\param outParam
+\param [out] outVec
 Gets the top left point on the screen in world coordinates.
 */
 /******************************************************************************/
-void GetWorldTopLeft(M5Vec2& outParam)
+void M5Gfx::GetWorldTopLeft(M5Vec2& outVec)
 {
-  outParam = gfxData.worldTopLeft;
+  outVec = s_worldTopLeft;
 }
 /******************************************************************************/
 /*!
 Gets the top right point on the screen.
 
-\param outParam
+\param [out] outVec
 Gets the top right point on the screen.
 */
 /******************************************************************************/
-void GetWorldTopRight(M5Vec2& outParam)
+void M5Gfx::GetWorldTopRight(M5Vec2& outVec)
 {
-  outParam = gfxData.worldTopRight;
+  outVec = s_worldTopRight;
 }
 /******************************************************************************/
 /*!
 Gets the bottom left point on the screen in world coordinates.
 
-\param outParam
+\param outVec
 Gets the bottom left point on the screen in world coordinates.
 */
 /******************************************************************************/
-void GetWorldBotLeft(M5Vec2& outParam)
+void M5Gfx::GetWorldBotLeft(M5Vec2& outVec)
 {
-  outParam = gfxData.worldBotLeft;
+  outVec = s_worldBotLeft;
 }
 /******************************************************************************/
 /*!
 Gets the bottom right point on the screen in world coordinates.
 
-\param outParam
+\param [out] outVec
 Gets the bottom right point on the screen in world coordinates.
 */
 /******************************************************************************/
-void GetWorldBotRight(M5Vec2& outParam)
+void M5Gfx::GetWorldBotRight(M5Vec2& outVec)
 {
-  outParam = gfxData.worldBotRight;
+  outVec = s_worldBotRight;
 }
 /******************************************************************************/
 /*!
@@ -747,17 +520,17 @@ Sets the color to add to the texture color.  This can be used to change color
 of a texture so you don't need two textures.
 
 /attention
-This will also change the color of DrawText
+This will also change the color of WriteText
 
-\param color
-The color to set.  The color is specified as ABGR, where the most significant 
+\param [in] color
+The color to set.  The color is specified as ABGR, where the most significant
 byte of the int is Alpha.
 
 */
 /******************************************************************************/
-void SetTextureColor(unsigned color)
+void M5Gfx::SetTextureColor(unsigned color)
 {
-  glColor4ubv((const GLubyte*)&color);
+  glColor4ubv(reinterpret_cast<const GLubyte*>(&color));
 }
 /******************************************************************************/
 /*!
@@ -767,23 +540,21 @@ of a texture so you don't need two textures.
 /attention
 This will also change the color of DrawText
 
-
-\param alpha
+\param [in] alpha
 The amount you can see the image.  0 is invisable.
 
-\param blue
+\param [in] blue
 The amount of blue that texture has.
 
-\param green
+\param [in] green
 The amount of green that texture has.
 
-\param red
+\param [in] red
 The amount of red that texture has.
 
 */
 /******************************************************************************/
-void SetTextureColor(unsigned char red, unsigned char green,
-  unsigned char blue, unsigned char alpha)
+void M5Gfx::SetTextureColor(unsigned char red, unsigned char green, unsigned char blue, unsigned char alpha)
 {
   unsigned char color[4];
   color[0] = red;
@@ -800,15 +571,15 @@ converts them to values in world space.
 \attention
 This function will modify the input values.
 
-\param x
+\param [in/out] x
 A pointer to a float in screen space that will be changed to world space.
 
-\param y
+\param [in/out] y
 A pointer to a float in screen space that will be changed to world space.
 
 */
 /******************************************************************************/
-void ConvertScreenToWorld(float& x, float& y)
+void M5Gfx::ConvertScreenToWorld(float& x, float& y)
 {
   GLint viewPort[4];
   GLdouble winX, winY, winZ;
@@ -817,20 +588,17 @@ void ConvertScreenToWorld(float& x, float& y)
   glGetIntegerv(GL_VIEWPORT, viewPort);
 
   /*Get my window z by projecting world space 0*/
-  gluProject(0, 0, 0, gfxData.camera, gfxData.persp, viewPort, &winX, &winY, &winZ);
+  gluProject(0, 0, 0, s_camera, s_persp, viewPort, &winX, &winY, &winZ);
 
   /*Get my window x and y*/
   winX = x;
   winY = y;
 
   /*now figure out what the world location is*/
-  gluUnProject(winX, winY, winZ, gfxData.camera,
-    gfxData.persp, 
-    viewPort, 
-    &posX, &posY, &posZ);
+  gluUnProject(winX, winY, winZ, s_camera, s_persp, viewPort, &posX, &posY, &posZ);
 
-  x = (float)posX;
-  y = (float)posY;
+  x = static_cast<float>(posX);
+  y = static_cast<float>(posY);
 }
 /******************************************************************************/
 /*!
@@ -840,26 +608,24 @@ converts them to values in screen space.
 \attention
 This function will modify the input values.
 
-\param x
+\param [in/out] x
 A pointer to a float in world space that will be changed to screen space.
 
-\param y
+\param [in/out] y
 A pointer to a float in world space that will be changed to screen space.
 
 */
 /******************************************************************************/
-void ConvertWorldToScreen(float& x, float& y)
+void M5Gfx::ConvertWorldToScreen(float& x, float& y)
 {
   GLint viewPort[4];
-  GLdouble winX, winY, winZ;/* = 1.f - 1/(GLfloat)gfxData.cameraZ*/
+  GLdouble winX, winY, winZ;
 
   glGetIntegerv(GL_VIEWPORT, viewPort);
+  gluProject(x, y, 0, s_camera, s_persp, viewPort, &winX, &winY, &winZ);
 
-  gluProject(x, y, 0, gfxData.camera, gfxData.persp, viewPort, &winX, &winY, &winZ);
-
-  x = (float)winX;
-  y = (float)winY;
-
+  x = static_cast<float>(winX);
+  y = static_cast<float>(winY);
 }
 /******************************************************************************/
 /*!
@@ -869,14 +635,13 @@ of the camera effects object size.  The draw location must be in world
 coordinates.
 */
 /******************************************************************************/
-void SetToPerspective(void)
+void M5Gfx::SetToPerspective(void)
 {
-  SetPerspective(gfxData.fov, gfxData.aspectRatio,
-                 gfxData.nearClip, gfxData.farClip);
-  SetCamera((float)gfxData.cameraX,
-    (float)gfxData.cameraY,
-    (float)gfxData.cameraZ,
-    (float)gfxData.cameraRot);
+  SetPerspective(s_fov, s_aspectRatio, s_nearClip, s_farClip);
+  SetCamera(static_cast<float>(s_cameraX), 
+    static_cast<float>(s_cameraY), 
+    static_cast<float>(s_cameraZ), 
+    static_cast<float>(s_cameraRot));
 }
 /******************************************************************************/
 /*!
@@ -887,7 +652,7 @@ from the camera is not.  The draw location must be in screen coordinates.
 You should not set camera position while this mode is active.
 */
 /******************************************************************************/
-void SetToOrtho(void)
+void M5Gfx::SetToOrtho(void)
 {
   /*glDisable(GL_DEPTH_TEST);*/
   /*Set our current view mode*/
@@ -895,7 +660,7 @@ void SetToOrtho(void)
   glLoadIdentity();
   /*Set up Perspective Matrix*/
   /*glOrtho(0, gfxData.width, gfxData.height, 0, -1.0f, 1.0f);*/
-  gluOrtho2D(0, gfxData.width, 0, gfxData.height);
+  gluOrtho2D(0, s_width, 0, s_height);
   /*Switch back to Model view*/
   glMatrixMode(GL_MODELVIEW);
   glLoadIdentity();
@@ -904,24 +669,183 @@ void SetToOrtho(void)
 /*!
 Lets the user set the drawing view port in screen space.
 
-
-\param xStart
+\param [in] xStart
 The new staring location of the viewport in screen space.
 
-\param yStart
+\param [in] yStart
 The new starting location of the viewport in screen space.
 
-\param width
+\param [in] width
 The new width of the viewport in pixels.
 
-\param height
+\param [in] height
 The new height of the viewport in pixels
 */
 /******************************************************************************/
-void SetViewport(int xStart, int yStart, int width, int height)
+void M5Gfx::SetViewport(int xStart, int yStart, int width, int height)
 {
   glViewport(xStart, yStart, width, height);
 }
-}//end namespace Graphics
+/******************************************************************************/
+/*!
+Calculates the corner positions of the world that will be shown on screen.
+*/
+/******************************************************************************/
+void M5Gfx::CalulateWorldExtents(void)
+{
+  float worldMaxY;
+  float worldMaxX;
+  float worldMinY;
+  float worldMinX;
+  M5Mtx44 rotMatrix;
+
+  rotMatrix.MakeRotateZ(static_cast<float>(-s_cameraRot));
+
+  /*Calculate world corners based on camera z*/
+  float angle = M5Math::DegreeToRadian(static_cast<float>(.5f * s_fov));
+
+  worldMaxY = std::tan(angle) * static_cast<float>(s_cameraZ);
+  worldMaxX = worldMaxY * static_cast<float>(s_aspectRatio);
+  worldMinY = -worldMaxY;
+  worldMinX = -worldMaxX;
+
+  /*Shift the corners based on the camera x and y*/
+  worldMaxY += static_cast<float>(s_cameraY);
+  worldMinY += static_cast<float>(s_cameraY);
+  worldMaxX += static_cast<float>(s_cameraX);
+  worldMinX += static_cast<float>(s_cameraX);
+
+  /*then rotate the corner points*/
+  s_worldTopLeft.x = worldMinX*rotMatrix.m[0][0] + worldMaxY*rotMatrix.m[1][0];
+  s_worldTopLeft.y = worldMinX*rotMatrix.m[0][1] + worldMaxY*rotMatrix.m[1][1];
+
+  s_worldTopRight.x = worldMaxX*rotMatrix.m[0][0] + worldMaxY*rotMatrix.m[1][0];
+  s_worldTopRight.y = worldMaxX*rotMatrix.m[0][1] + worldMaxY*rotMatrix.m[1][1];
+
+  s_worldBotLeft.x = worldMinX*rotMatrix.m[0][0] + worldMinY*rotMatrix.m[1][0];
+  s_worldBotLeft.y = worldMinX*rotMatrix.m[0][1] + worldMinY*rotMatrix.m[1][1];
+
+  s_worldBotRight.x = worldMaxX*rotMatrix.m[0][0] + worldMinY*rotMatrix.m[1][0];
+  s_worldBotRight.y = worldMaxX*rotMatrix.m[0][1] + worldMinY*rotMatrix.m[1][1];
+}
+
+/******************************************************************************/
+/*!
+Helper function to create a font for debug text drawing to the screen.
+*/
+/******************************************************************************/
+void M5Gfx::FontInit(void)
+{
+  /*Get a list of bitmaps from openGl*/
+  s_fontBase = glGenLists(NUMBER_OF_CHARACTERS);
+
+  /*Create my windows font*/
+  s_font = CreateFont(
+    (int)(s_height * .03f),/*Height*/ //TODO: Make this const
+    0,                     /*width*/
+    0,                     /*angle of escapement*/
+    0,                     /*orientation,*/
+    400,                   /*font weight*/
+    FALSE,                 /*Italic*/
+    FALSE,                 /*Underlined*/
+    FALSE,                 /*Strike out*/
+    DEFAULT_CHARSET,       /*Char set identifier*/
+    OUT_TT_PRECIS,         /*Output Precision*/
+    CLIP_DEFAULT_PRECIS,   /*Clipping Precision*/
+    ANTIALIASED_QUALITY,   /*OutputQuality*/
+    DEFAULT_PITCH,         /*Family and Pitch*/
+    "Terminal");           /*Font name*/
+
+                           /*Switch to my created font*/
+  s_oldFont = (HFONT)SelectObject(s_deviceContext, s_font);
+
+  /*Tell open gl about my font*/
+  wglUseFontBitmaps(s_deviceContext, STARTING_CHARACTER, NUMBER_OF_CHARACTERS, s_fontBase);
+  /*Set back to original font*/
+  SelectObject(s_deviceContext, s_oldFont);
+  /*Deleted my created font.*/
+  DeleteObject(s_font);
+
+}
+/******************************************************************************/
+/*!
+Creates the single vertex buffer in the game.  Since this is currently only a
+2D game engine it only needs a Quad.
+
+My verts are like this
+
+2--------(1,6)
+|           |
+|           |
+|           |
+|           |
+(3,4)----- 5
+*/
+/******************************************************************************/
+void M5Gfx::VertexBufferInit(void)
+{
+  const int VERT_COUNT = 6;
+  /*Hard code my verts, because we are only supporting one vbo*/
+  M5Vertex vertArray[6] = {
+    { .5f, .5f, 0.f, 1.f, 1.f }, /*1*/
+    { -.5f, .5f, 0.f, 0.f, 1.f }, /*2*/
+    { -.5f, -.5f, 0.f, 0.f, 0.f }, /*3*/
+
+    { -.5f, -.5f, 0.f, 0.f, 0.f }, /*4*/
+    { .5f, -.5f, 0.f, 1.f, 0.f }, /*5*/
+    { .5f, .5f, 0.f, 1.f, 1.f } }; /*6*/
+  GLsizei dataSize = sizeof(M5Vertex) * VERT_COUNT;
+
+  /*Generate my vbo*/
+  glGenBuffers((GLsizei)1, &s_mesh.vboID);
+  s_mesh.vertexCount = VERT_COUNT;
+
+  /*Set my buffer to the current*/
+  glBindBuffer(GL_ARRAY_BUFFER, s_mesh.vboID);
+  /*Fill in data into my vbo*/
+  glBufferData(GL_ARRAY_BUFFER, dataSize, vertArray, GL_STATIC_DRAW);
+}
+/******************************************************************************/
+/*!
+This function will initialize the render context.  If it fails the program will
+assert in debug or crash in release mode.  After calling this the
+renderContext will be valid.
+*/
+/******************************************************************************/
+void M5Gfx::RenderContextInit(void)
+{
+  /*A struct the specifies information about the back buffer*/
+  PIXELFORMATDESCRIPTOR pfd;
+  int pixelFormat; /*The result value after choosing my pixel format*/
+  BOOL result; /*Used to check for errors.*/
+
+               /*Clear my pfd and only set the values I need.*/
+  std::memset(&pfd, 0, sizeof(pfd));
+
+  /*Set up information about pixels for buffer and back buffer*/
+  pfd.nSize = sizeof(PIXELFORMATDESCRIPTOR);
+  pfd.nVersion = 1;
+  /*A set of flags that specify the properties of the pixel buffer*/
+  pfd.dwFlags = PFD_DRAW_TO_WINDOW | PFD_SUPPORT_OPENGL | PFD_DOUBLEBUFFER;
+  pfd.iPixelType = PFD_TYPE_RGBA;
+  pfd.cColorBits = 32;
+  pfd.cDepthBits = 32;
+
+  /*Choose back buffer information*/
+  pixelFormat = ChoosePixelFormat(s_deviceContext, &pfd);
+  M5DEBUG_ASSERT(pixelFormat != 0, "Unable to chose PixelFormat. Your video card is out of date");
+
+  /*Set back buffer information*/
+  result = SetPixelFormat(s_deviceContext, pixelFormat, &pfd);
+  M5DEBUG_ASSERT(result != 0, "Unable to Set PixelFormat. Your video card is out of date");
+
+  /*Create openGL render context*/
+  s_renderContext = wglCreateContext(s_deviceContext);
+  M5DEBUG_ASSERT(s_renderContext != 0, "Unable to Create Render Context. Your video card is out of date");
+
+  /*Set the openGl render context*/
+  result = wglMakeCurrent(s_deviceContext, s_renderContext);
+  M5DEBUG_ASSERT(result != 0, "Unable to Set Render Context. Your video card is out of date");
+}
 
 

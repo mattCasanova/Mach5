@@ -141,7 +141,6 @@ public:
   static bool  GamePadIsConnected(void);
 private:
   static void Init(void);
-  static void Shutdown(void);
   static void Reset(float dt);
   static void SetPressed(M5KeyCode key, int status);
   static void SetMouse(int x, int y);

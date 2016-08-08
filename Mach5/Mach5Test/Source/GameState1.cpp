@@ -72,7 +72,7 @@ void GameState1Update(float dt)
 {
   M5Vec2 mouse;
   M5Vec2 topLeft;
-  M5Graphics::GetWorldTopLeft(topLeft);
+  M5Gfx::GetWorldTopLeft(topLeft);
   
   /*For our font size*/
   float yOffSet = M5_FONT_OFFSET;
@@ -112,40 +112,40 @@ void GameState1Update(float dt)
   }
 
     /*Make sure drawing is in world space*/
-  M5Graphics::SetToPerspective();
+  M5Gfx::SetToPerspective();
 
   /*Get mouse click in screen space*/
   M5Input::GetMouse(mouse);
   /*Convert into world space*/
-  M5Graphics::ConvertScreenToWorld(mouse.x, mouse.y);
+  M5Gfx::ConvertScreenToWorld(mouse.x, mouse.y);
 
 
 
   /*Start drawing*/
-  M5Graphics::StartDraw();
+  M5Gfx::StartScene();
 
   /*Draw my different text starting at the top corner*/
-  M5Graphics::SetTextureColor(0xFFFFFFFF);
+  M5Gfx::SetTextureColor(0xFFFFFFFF);
   topLeft.y -= yOffSet;
-  M5Graphics::WriteText("S: Toggle full screen", topLeft.x, topLeft.y);
+  M5Gfx::WriteText("S: Toggle full screen", topLeft.x, topLeft.y);
 
-  M5Graphics::SetTextureColor(0xFF0000FF);
+  M5Gfx::SetTextureColor(0xFF0000FF);
   topLeft.y -= yOffSet;
-  M5Graphics::WriteText("W: Toggle showing the window", topLeft.x, topLeft.y);
+  M5Gfx::WriteText("W: Toggle showing the window", topLeft.x, topLeft.y);
 
-  M5Graphics::SetTextureColor(0xFF00FFFF);
+  M5Gfx::SetTextureColor(0xFF00FFFF);
   topLeft.y -= yOffSet;
-  M5Graphics::WriteText("N: Continue", topLeft.x, topLeft.y);
+  M5Gfx::WriteText("N: Continue", topLeft.x, topLeft.y);
 
   /*Draw some text at the mouse position*/
-  M5Graphics::SetTextureColor(0xFFFF00FF);
-  M5Graphics::WriteText("Click: Toggle cursor", mouse.x, mouse.y);
+  M5Gfx::SetTextureColor(0xFFFF00FF);
+  M5Gfx::WriteText("Click: Toggle cursor", mouse.x, mouse.y);
 
-  M5Graphics::SetToOrtho();
-  M5Graphics::WriteText(stateData.textAsString, 100, 100);
+  M5Gfx::SetToOrtho();
+  M5Gfx::WriteText(stateData.textAsString, 100, 100);
 
   /*End drawing*/
-  M5Graphics::EndDraw();
+  M5Gfx::EndScene();
 
 }
 /******************************************************************************/
@@ -170,5 +170,5 @@ A pointer to the shared gameData.
 void GameState1Unload(void)
 {
   /*Reset color*/
-  M5Graphics::SetTextureColor(0xFFFFFFFF);
+  M5Gfx::SetTextureColor(0xFFFFFFFF);
 }

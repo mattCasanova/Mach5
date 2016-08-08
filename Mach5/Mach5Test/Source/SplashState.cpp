@@ -58,10 +58,10 @@ void SplashStateLoad(void)
   /*Create a debug console*/
   M5DEBUG_CREATE_CONSOLE();
   /*Load the only texture we need for this state*/
-  s_data.splashTexture = M5Graphics::LoadTexture("Textures\\Mach5Logo.tga");
+  s_data.splashTexture = M5Gfx::LoadTexture("Textures\\Mach5Logo.tga");
 
   /*All drawing in this state is in screen space*/
-  M5Graphics::SetToOrtho();
+  M5Gfx::SetToOrtho();
 }
 /******************************************************************************/
 /*!
@@ -82,7 +82,7 @@ void SplashStateInit(void)
   M5DEBUG_PRINT("If you find errors, report to mcasanov@digipen.edu");
 
 
-  M5Graphics::SetBackgroundColor(0.0f, 0.f, 0.f);
+  M5Gfx::SetBackgroundColor(0.0f, 0.f, 0.f);
 
   /*Reset the timer for this state*/
   s_data.timerCount = 0.f;
@@ -121,19 +121,18 @@ void SplashStateUpdate(float dt)
     0.0);
 
   /*This must be called before any drawing in the frame.*/
-  M5Graphics::StartDraw();
+  M5Gfx::StartScene();
 
   /*Set the image to draw*/
-  M5Graphics::SetTexture(s_data.splashTexture);
+  M5Gfx::SetTexture(s_data.splashTexture);
 
   //Once we have set the texture we can draw it with a transform
-  M5Graphics::Draw(transform);
+  M5Gfx::Draw(transform);
 
   //You can write text too, but this is VERY slow and is best used for debug
   //You cannot control the size of the font, really just use it for debug.
-  M5Graphics::WriteText("Splash Screen Time: ", windowSize.x / 3.0f ,
-    FONT_SPACING);
-  M5Graphics::WriteText(timeAsText, windowSize.x /2.0f + FONT_SPACING , FONT_SPACING);
+  M5Gfx::WriteText("Splash Screen Time: ", windowSize.x / 3.0f , FONT_SPACING);
+  M5Gfx::WriteText(timeAsText, windowSize.x /2.0f + FONT_SPACING , FONT_SPACING);
 
   //This text will only appear on screen in debug mode.  This is how you 
   //should use the WriteText Function
@@ -142,7 +141,7 @@ void SplashStateUpdate(float dt)
   
   
   /*This must be called to after all drawing is completed*/
-  M5Graphics::EndDraw();
+  M5Gfx::EndScene();
 }
 /******************************************************************************/
 /*!
@@ -166,5 +165,5 @@ void SplashStateUnload(void)
 {
 
   /*We must unload the texture when we are done with the state*/
-  M5Graphics::UnloadTexture(s_data.splashTexture);
+  M5Gfx::UnloadTexture(s_data.splashTexture);
 }

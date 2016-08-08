@@ -343,7 +343,7 @@ void DefaultLoad(void)
 }
 void DefaultInit(void)
 {
-  M5Graphics::SetToOrtho();
+  M5Gfx::SetToOrtho();
 }
 void DefaultUpdate(float /*dt*/)
 {
@@ -352,13 +352,13 @@ void DefaultUpdate(float /*dt*/)
 
   M5Vec2 windowSize = M5App::GetResolution();
 
-  M5Graphics::StartDraw();
+  M5Gfx::StartScene();
   for (int i = ARRAY_SIZE - 1; i >= 0; --i)
   {
-    M5Graphics::WriteText(messages[i], windowSize.x / 3.f,
+    M5Gfx::WriteText(messages[i], windowSize.x / 3.f,
       windowSize.y / 2.f + FONT_SIZE * (ARRAY_SIZE - i));
   }
-  M5Graphics::EndDraw();
+  M5Gfx::EndScene();
 }
 void DefaultShutdown(void)
 {

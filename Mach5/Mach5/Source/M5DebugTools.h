@@ -15,12 +15,7 @@ This file contains the prototyes for the Debug functions and Macros.
 #ifndef M5_DEBUGTOOLS_H
 #define M5_DEBUGTOOLS_H
 
-/*Debug helper functions*/
-/*This is the WriteText function prototyped from Graphics.*/
-namespace M5Graphics
-{
-  void WriteText(const char* text, float x, float y);
-}
+#include "M5Graphics.h"
 
 //! Tools used to help debug the game
 namespace M5Debug
@@ -62,7 +57,7 @@ only*/
 /*!Use this macro instead of the function to destroy a console in debug only*/
 #define M5DEBUG_DESTROY_CONSOLE() M5Debug::DestroyConsole();
 /*! Use this macro to draw debug text on the screen*/
-#define M5DEBUG_WRITETEXT(text, x, y) M5Graphics::WriteText((text),(x), (y))
+#define M5DEBUG_WRITETEXT(text, x, y) M5Gfx::WriteText((text),(x), (y))
 /*!Use this to test your code in debug only*/
 #define M5DEBUG_TEST(exp, str) M5Debug::TestResult((exp), (str))
 /*! If you have a leak, there is a number in curly braces next to the error.

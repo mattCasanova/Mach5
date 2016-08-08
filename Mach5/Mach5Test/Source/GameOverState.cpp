@@ -38,7 +38,7 @@ A pointer to the shared gameData.
 /******************************************************************************/
 void GameOverLoad(void)
 {
-  gameOverTexture = M5Graphics::LoadTexture("Textures\\GameOver.tga");
+  gameOverTexture = M5Gfx::LoadTexture("Textures\\GameOver.tga");
   
 }
 /******************************************************************************/
@@ -50,8 +50,8 @@ do anything here.
 /******************************************************************************/
 void GameOverInit(void)
 {
-  M5Graphics::SetToOrtho();
-  M5Graphics::SetBackgroundColor(
+  M5Gfx::SetToOrtho();
+  M5Gfx::SetBackgroundColor(
     114.0f / 255.f, /*The amount of red in the logo texture*/
     0.f, 0.f);
 
@@ -74,10 +74,10 @@ void GameOverUpdate(float /*dt*/)
   M5Mtx44::MakeTransform(transform, windowSize.y, windowSize.y, 0,
     windowSize.x / 2.0f, windowSize.y / 2.0f, 0);
 
-  M5Graphics::StartDraw();
-  M5Graphics::SetTexture(gameOverTexture);
-  M5Graphics::Draw(transform);
-  M5Graphics::EndDraw();
+  M5Gfx::StartScene();
+  M5Gfx::SetTexture(gameOverTexture);
+  M5Gfx::Draw(transform);
+  M5Gfx::EndScene();
 }
 /******************************************************************************/
 /*!
@@ -102,6 +102,6 @@ do anything here.
 /******************************************************************************/
 void GameOverUnload(void)
 {
-  M5Graphics::UnloadTexture(gameOverTexture);
+  M5Gfx::UnloadTexture(gameOverTexture);
   
 }

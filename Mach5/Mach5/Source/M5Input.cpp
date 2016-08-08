@@ -1,6 +1,6 @@
 /******************************************************************************/
 /*!
-\file   M5Input.cpp
+file    M5Input.cpp
 \author Matt Casanova
 \par    email: lazersquad\@gmail.com
 \par    Mach5 Game Engine
@@ -103,16 +103,6 @@ void M5Input::Init(void)
   }
   //Set my timer to 0
   s_gamePadTimer = 0;
-}
-/******************************************************************************/
-/*!
-Function to deallocate my data for input. THIS IS CALLED
-AUTOMATICALLY BY THE SYSTEM.
-*/
-/******************************************************************************/
-void M5Input::Shutdown(void)
-{
-  //This is empty for now but it may change in the future
 }
 /******************************************************************************/
 /*!

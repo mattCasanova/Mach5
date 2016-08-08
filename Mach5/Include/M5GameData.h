@@ -2,10 +2,9 @@
 /*!
 \file   M5GameData.h
 \author Matt Casanova 
-\par    email: mcasanov\@digipen.edu
-\par    class:
-\par    Assignment:Simple 2D Game Engine
-\date   2012/12/5
+\par    email: lazersquad\@gmail.com
+\par    Mach5 Game Engine
+\date   2016/08/8
 
 This is a struct that you can define your own game specific game data in. This
 is data that needs to be shared across states, such as player lives or game

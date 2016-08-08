@@ -10,6 +10,7 @@ file   M5TextureLoading.cpp
 */
 /******************************************************************************/
 #include "M5Math.h"
+#include "M5Graphics.h"
 #include "M5DebugTools.h"
 
 #include <windows.h>
@@ -63,7 +64,7 @@ namespace
   typedef M5TextureMap::iterator M5TextureMapItor;
 
 
-  M5TextureMap* s_TextureMap;
+  M5TextureMap s_TextureMap;
 
 
 /******************************************************************************/
@@ -409,17 +410,6 @@ int LoadTGA(M5Texture* pTexture, const char* fileName)
 }//end unnamed namespace
 
 
-namespace M5Graphics
-{
-  void InitTextures(void)
-  {
-    s_TextureMap = new M5TextureMap;
-  }
-  void ShutdownTextures(void)
-  {
-    delete s_TextureMap;
-    s_TextureMap = 0;
-  }
 /******************************************************************************/
 /*!
 The function to load a texture from a file.  This function will load 24 or 32
@@ -440,14 +430,14 @@ A unique id for the texture.  Use the id to draw later. If if the function
 returns -1, the texture was not loaded.
 */
 /******************************************************************************/
-int LoadTexture(const char* fileName)
+int M5Gfx::LoadTexture(const char* fileName)
 {
   //Make sure the file name is valid
   M5DEBUG_ASSERT(fileName != 0, "LoadTexture: fileName is null");
 
   //Check if we have already loaded the texture
-  M5TextureMapItor itor = s_TextureMap->find(fileName);
-  if (itor != s_TextureMap->end())
+  M5TextureMapItor itor = s_TextureMap.find(fileName);
+  if (itor != s_TextureMap.end())
   {
     ++(itor->second.count);
     return itor->second.id;
@@ -474,7 +464,7 @@ int LoadTexture(const char* fileName)
 
   //Add LoadedTexture to texture map
   M5LoadedTexture loadedTex(fileName, id);
-  s_TextureMap->insert(std::make_pair(fileName, loadedTex));
+  s_TextureMap.insert(std::make_pair(fileName, loadedTex));
 
   /*return given id.*/
   return id;
@@ -493,11 +483,11 @@ You must unload every texture id that you loaded.
 A valid textureID from LoadTexture
 */
 /******************************************************************************/
-void UnloadTexture(int textureID)
+void M5Gfx::UnloadTexture(int textureID)
 {
   //Get itors to start and end
-  M5TextureMapItor begin = s_TextureMap->begin();
-  M5TextureMapItor end = s_TextureMap->end();
+  M5TextureMapItor begin = s_TextureMap.begin();
+  M5TextureMapItor end = s_TextureMap.end();
 
   //loop through and find the correct id
   for (; begin != end; ++begin)
@@ -509,7 +499,7 @@ void UnloadTexture(int textureID)
       //if that was the last load, delete the texture
       if (begin->second.count == 0)
       {
-        s_TextureMap->erase(begin);
+        s_TextureMap.erase(begin);
         glDeleteTextures(1, (GLuint*)&textureID);
         break;
       }    
@@ -530,7 +520,7 @@ The number of textures still allocated.
 int ValidateTextures(std::string& fileNames)
 {
   std::stringstream ss;
-  int textureCount = (int)s_TextureMap->size();
+  int textureCount = (int)s_TextureMap.size();
 
   if (textureCount == 0)
     return 0;
@@ -538,21 +528,18 @@ int ValidateTextures(std::string& fileNames)
   ss << "Error: Some Textures were not Unloaded!!!\n\n";
 
   //Get itors to start and end
-  M5TextureMapItor begin = s_TextureMap->begin();
-  M5TextureMapItor end = s_TextureMap->end();
+  M5TextureMapItor begin = s_TextureMap.begin();
+  M5TextureMapItor end = s_TextureMap.end();
 
   for (; begin != end; ++begin)
   {
     ss << "Count: " << std::setw(2) << " " << begin->second.count << 
           " File name: " << begin->second.fileName << std::endl;
-
-
   }
 
   fileNames = ss.str();
 
   return textureCount;
 }
-}//end namespace M5Graphics
 
 

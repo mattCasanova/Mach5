@@ -17,16 +17,8 @@ Mach 5 Engine
 #include "M5StageMgr.h"
 #include "M5Input.h"
 #include "M5GameTimer.h"
+#include "M5Graphics.h"
 #include "Windowsx.h" /*For GET_X_LPARAM, GET_Y_LPARAM*/
-
-
-namespace M5Graphics
-{
-/*Graphics functions not in header file*/
-void Init(HWND window, int width, int height);
-void Shutdown(void);
-void SetResolution(int width, int height);
-}//end namespace M5Graphics
 
 
 namespace
@@ -374,10 +366,6 @@ void M5App::Shutdown(void)
   if (s_isFullScreen)
     ChangeDisplaySettings(NULL, 0);
 
-  /*Shutdown input*/
-  M5Input::Shutdown();
-  /*Shutdown GameTimer*/
-  M5Timer::Shutdown();
   /*Shut down StageMgr*/
   M5StageMgr::Shutdown();
   /*Clean up windows*/
@@ -436,7 +424,7 @@ void M5App::SetResolution(int width, int height)
 {
   s_width = width;
   s_height = height;
-  M5Graphics::SetResolution(width, height);
+  M5Gfx::SetResolution(width, height);
   SetFullScreen(s_isFullScreen);
 }
 /******************************************************************************/
@@ -466,7 +454,7 @@ LRESULT CALLBACK M5App::M5WinProc(HWND win, UINT msg, WPARAM wp, LPARAM lp)
   case WM_CREATE:
   {
     /*Once the window is create M5 can start graphics*/
-    M5Graphics::Init(win, s_width, s_height);
+    M5Gfx::Init(win, s_width, s_height);
     break;
   }
   case WM_DESTROY:
@@ -495,7 +483,7 @@ LRESULT CALLBACK M5App::M5WinProc(HWND win, UINT msg, WPARAM wp, LPARAM lp)
     else
     {
       /*If we want to quit, destroy graphics and the window*/
-      M5Graphics::Shutdown();
+      M5Gfx::Shutdown();
       DestroyWindow(win);
     }
     break;

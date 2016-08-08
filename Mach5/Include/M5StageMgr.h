@@ -2,12 +2,11 @@
 /*!
 \file   M5StageMgr.h
 \author Matt Casanova
-\par    email: mcasanov\@digipen.edu
-\par    GAM150
-\par    Simple 2D Game Engine
-\date   2012/11/26
+\par    email: lazersquad\@gmail.com
+\par    Mach5 Game Engine
+\date   2016/08/7
 
-Prototypes for the StageMgr functions
+Singleton to control quitting, restarting and switching stages.
 
 */
 /******************************************************************************/
@@ -18,7 +17,7 @@ Prototypes for the StageMgr functions
 struct M5State;
 struct M5GameData;
 
-//! Functions to control the different states of the game.
+//! Singleton to control quitting, restarting and switching stages.
 class M5StageMgr
 {
 public:
