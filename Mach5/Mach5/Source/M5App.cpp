@@ -16,19 +16,9 @@ Mach 5 Engine
 #include "M5Vec2.h"
 #include "M5StageMgr.h"
 #include "M5Input.h"
+#include "M5GameTimer.h"
 #include "Windowsx.h" /*For GET_X_LPARAM, GET_Y_LPARAM*/
 
-
-
-/*Functions prototypes that are not in the header files ******************/
-
-/*GameTimer functions not in header file.*/
-namespace M5Timer
-{
-void Init(void);
-void Shutdown(void);
-void SetTargetFPS(int fps);
-}
 
 namespace M5Graphics
 {
@@ -338,13 +328,10 @@ void M5App::Init(const M5InitData& initData)
   ::ShowWindow(s_window, SW_SHOWNORMAL);
   ::UpdateWindow(s_window);//call the 
 
-  /*Initialize StageMgr*/
-  M5StageMgr::Init(initData.pGData, initData.gameDataSize);
-  /*Initialize GameTimer*/
-  M5Timer::Init();
-  M5Timer::SetTargetFPS(initData.fps);
-  /*Initialize Input*/
-  M5Input::Init();
+  
+  M5StageMgr::Init(initData.pGData, initData.gameDataSize);/*Initialize StageMgr*/
+  M5Timer::Init(initData.fps);/*Initialize GameTimer*/
+  M5Input::Init();/*Initialize Input*/
 }
 /******************************************************************************/
 /*!

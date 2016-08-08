@@ -12,12 +12,6 @@
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
-    <Filter Include="StageManager">
-      <UniqueIdentifier>{1e21e305-e1b8-4f03-a054-d8359d706890}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Timer">
-      <UniqueIdentifier>{7bf50f7c-6fc5-4b6e-a882-779c57c03caa}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Utils">
       <UniqueIdentifier>{083dd43b-5487-4387-a2ee-bd26404d7287}</UniqueIdentifier>
     </Filter>
@@ -41,6 +35,12 @@
     </Filter>
     <Filter Include="Utils\Debug">
       <UniqueIdentifier>{800a806a-66ce-4cf1-9810-f02bcefade99}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="StageMgr">
+      <UniqueIdentifier>{1e21e305-e1b8-4f03-a054-d8359d706890}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameTimer">
+      <UniqueIdentifier>{7bf50f7c-6fc5-4b6e-a882-779c57c03caa}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -75,13 +75,13 @@
       <Filter>Input</Filter>
     </ClCompile>
     <ClCompile Include="Source\M5GameTimer.cpp">
-      <Filter>Timer</Filter>
+      <Filter>GameTimer</Filter>
     </ClCompile>
     <ClCompile Include="Source\M5App.cpp">
       <Filter>App</Filter>
     </ClCompile>
     <ClCompile Include="Source\M5StageMgr.cpp">
-      <Filter>StageManager</Filter>
+      <Filter>StageMgr</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -116,10 +116,13 @@
       <Filter>App</Filter>
     </ClInclude>
     <ClInclude Include="Source\M5StageMgr.h">
-      <Filter>StageManager</Filter>
+      <Filter>StageMgr</Filter>
     </ClInclude>
     <ClInclude Include="Source\M5Stage.h">
-      <Filter>StageManager</Filter>
+      <Filter>StageMgr</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\M5GameTimer.h">
+      <Filter>GameTimer</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

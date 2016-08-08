@@ -13,6 +13,7 @@ between levels and menus.
 #include "M5StageMgr.h"
 #include "M5App.h"
 #include "M5Input.h"
+#include "M5GameTimer.h"
 #include "M5State.h"
 #include "M5DebugTools.h"
 
@@ -57,16 +58,6 @@ void AddDefaultState(void)
 
 }
 }//end unnamed namespace
-
-/*Prototypes from other files that need to be called here.*/
-/*Prototypes for the timer*/
-namespace M5Timer
-{
-void  StartFrame(void);
-float EndFrame(void);
-}
-
-
 
 /******************************************************************************/
 /*!
@@ -144,7 +135,7 @@ int M5StageMgr::AddState(const M5State& state)
 
   /*Add state to state array*/
   s_states.push_back(state);
-  return (int)s_states.size() - 1;/*The id is the index in the array*/
+  return static_cast<int>(s_states.size()) - 1;/*The id is the index in the array*/
 }
 /******************************************************************************/
 /*!
@@ -230,8 +221,6 @@ GameLoop.
 /******************************************************************************/
 void M5StageMgr::Update(void)
 {
-  using namespace M5Timer;
-
   float frameTime = 0.0f;
   /*Get the Current state*/
   M5State* pCurrentState = &s_states[s_currState];
@@ -250,11 +239,11 @@ void M5StageMgr::Update(void)
   while ((s_currState == s_nextState) && !s_isQuitting && !s_isRestarting)
   {
     /*Our main game loop*/
-    StartFrame();/*Save the start time of the frame*/
+    M5Timer::StartFrame();/*Save the start time of the frame*/
     M5Input::Reset(frameTime);
     M5App::ProcessMessages();
     pCurrentState->Update(frameTime);
-    frameTime = EndFrame();/*Get the total frame time*/
+    frameTime = M5Timer::EndFrame();/*Get the total frame time*/
   }
 
   /*Make sure to shutdown the state*/

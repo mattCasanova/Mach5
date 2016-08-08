@@ -173,6 +173,7 @@
     <ClInclude Include="Source\M5App.h" />
     <ClInclude Include="Source\M5DebugTools.h" />
     <ClInclude Include="Source\M5GameData.h" />
+    <ClInclude Include="Source\M5GameTimer.h" />
     <ClInclude Include="Source\M5Graphics.h" />
     <ClInclude Include="Source\M5Input.h" />
     <ClInclude Include="Source\M5Intersect.h" />

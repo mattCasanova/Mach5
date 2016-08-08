@@ -1,130 +1,75 @@
 /******************************************************************************/
 /*!
-file   M5GameTimer.cpp
-\author Matt Casanova 
-\par    email: mcasanov\@digipen.edu
-\par    class: GAM 150
-\par    Assignment: Simple 2D Engine
-\date   2012/11/29
+\file   M5GameTimer.h
+\author Matt Casanova
+\par    email: lazersquad\@gmail.com
+\par    Mach5 Game Engine
+\date   2016/08/8
 
-This file holds the implementation of the GameTime functions.
+Singleton class to control game time related functions.
+
 */
 /******************************************************************************/
 #include "M5DebugTools.h"
 #include <windows.h>
+
+
 namespace
 {
-  /*A struct to store values related to the GameTimer functions.*/
-  struct GameTimerData
-  {
-    LARGE_INTEGER frequency; /*The frequency of the high performance clock*/
-    LARGE_INTEGER startTime; /*The start time of the frame*/
-    LARGE_INTEGER endTime;   /*The end time of the frame*/
-    int targetFPS;           /*The number of frame you want per second*/
-    float targetFrameTime;   /*The time each frame should take*/
-  };
-
-  const int STARTING_FPS = 120;/*My starting frames per second*/
-  /*A static instance of my GameTimerData so share with all of the functions.*/
-  GameTimerData timerData;
+LARGE_INTEGER s_frequency;       /*!< The frequency of the high performance clock*/
+LARGE_INTEGER s_startTime;       /*!< The start time of the frame*/
+LARGE_INTEGER s_endTime;         /*!< The end time of the frame*/
+float         s_targetFPS;       /*!< The number of frame you want per second*/
+float         s_targetFrameTime; /*!< The time each frame should take*/
 }
 
-namespace M5Timer
-{
 /******************************************************************************/
 /*!
 Allows user to set the target frames per second.  Typically this will be 30
 or 60, but could be anything.
 
-\param fps
+\param [in] fps
 The target frames per second for the game.
 */
 /******************************************************************************/
-void SetTargetFPS(int fps)
+void SetTargetFPS(float fps)
 {
-  timerData.targetFPS = fps;
-  timerData.targetFrameTime = 1.0f / (float)fps;
+  s_targetFPS = fps;
+  s_targetFrameTime = 1.0f / fps;
 }
 /******************************************************************************/
 /*!
 Initializes the values of the timer.  This will be called automatically
-when the system initializes.  Students should not call this function.
+when the system initializes. 
 
-\attention
-Students should not call this function.
-*/
+\param [in] fps
+The target frames per second for the game.
 /******************************************************************************/
-void Init(void)
+void Init(float fps)
 {
-#ifdef _DEBUG
-  /*I use this to count how many times this function is called.  It is used only
-  error checking*/
-  static int functionCounter = 0;
-  ++functionCounter;
-
-  M5DEBUG_ASSERT(functionCounter == 1,
-    "This function should NOT be called by students.");
-#endif
+  M5DEBUG_CALL_CHECK(1);
 
   /*Get high performance clock frequency*/
-  QueryPerformanceFrequency(&timerData.frequency);
+  QueryPerformanceFrequency(&s_frequency);
   /*Set other values to 0*/
-  timerData.startTime.QuadPart = 0;
-  timerData.endTime.QuadPart = 0;
-  SetTargetFPS(STARTING_FPS);
-}
-
-/******************************************************************************/
-/*!
-Clears all data and resources related to the Game Timer. This will be called
-automatically when the system is shut down.  Students should not call this
-function.
-
-\attention
-Students should not call this function.
-
-*/
-/******************************************************************************/
-void Shutdown(void)
-{
-#ifdef _DEBUG
-  /*I use this to count how many times this function is called.  It is used only
-  error checking*/
-  static int functionCounter = 0;
-  ++functionCounter;
-
-  M5DEBUG_ASSERT(functionCounter == 1,
-    "This function should NOT be called by students.");
-#endif
-
-  /*Reset all of the data*/
-  timerData.frequency.QuadPart = 0;
-  timerData.startTime.QuadPart = 0;
-  timerData.endTime.QuadPart = 0;
-
+  s_startTime.QuadPart = 0;
+  s_endTime.QuadPart = 0;
+  SetTargetFPS(fps);
 }
 /******************************************************************************/
 /*!
-Gets the clock count at the start of the frame.  Students should not call
-this function.
-
-\attention
-Students should not call this function.
-
+Gets the clock count at the start of the frame. 
 */
 /******************************************************************************/
 void StartFrame(void)
 {
   /*Get the clock count for the start of the frame.*/
-  QueryPerformanceCounter(&timerData.startTime);
+  QueryPerformanceCounter(&s_startTime);
 }
 /******************************************************************************/
 /*!
 Gets the clock count at the end of the frame.  This function will then return
 the total time the frame took to complete in milliseconds.
-
-\attention
-Students should not call this function.
 
 \attention
 The function will return frame time in milliseconds.
@@ -137,22 +82,18 @@ The total time the frame took to complete in milliseconds.
 float EndFrame(void)
 {
   LARGE_INTEGER difference;
+  float time;
 
-  /*Get the clock count for the end of the frame*/
-  QueryPerformanceCounter(&timerData.endTime);
-  /*Subtract end frame from start frame */
-  difference.QuadPart = timerData.endTime.QuadPart - timerData.startTime.QuadPart;
-  float time = (float)(difference.QuadPart) / timerData.frequency.QuadPart;
-  
-  while (time <= timerData.targetFrameTime)
+  do 
   {
-    QueryPerformanceCounter(&timerData.endTime);
-    difference.QuadPart = timerData.endTime.QuadPart - timerData.startTime.QuadPart;
-    time = (float)(difference.QuadPart) / timerData.frequency.QuadPart;
-  }
+    /*Get the clock count for the end of the frame*/
+    QueryPerformanceCounter(&s_endTime);
+    /*Subtract end frame from start frame */
+    difference.QuadPart = s_endTime.QuadPart - s_startTime.QuadPart;
+    time = static_cast<float>(difference.QuadPart) / s_frequency.QuadPart;
+  } while (time < s_targetFrameTime);
 
   /*divide total count by frequency to get frame time In milliseconds*/
   return time;
 }
-}//end namespace M5Timer
 
