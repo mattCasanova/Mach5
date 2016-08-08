@@ -159,7 +159,7 @@
     <ClCompile Include="Source\M5App.cpp" />
     <ClCompile Include="Source\M5DebugTools.cpp" />
     <ClCompile Include="Source\M5GameTimer.cpp" />
-    <ClCompile Include="Source\M5Graphics.cpp" />
+    <ClCompile Include="Source\M5Gfx.cpp" />
     <ClCompile Include="Source\M5Input.cpp" />
     <ClCompile Include="Source\M5Intersect.cpp" />
     <ClCompile Include="Source\M5Math.cpp" />
@@ -174,7 +174,7 @@
     <ClInclude Include="Source\M5DebugTools.h" />
     <ClInclude Include="Source\M5GameData.h" />
     <ClInclude Include="Source\M5GameTimer.h" />
-    <ClInclude Include="Source\M5Graphics.h" />
+    <ClInclude Include="Source\M5Gfx.h" />
     <ClInclude Include="Source\M5Input.h" />
     <ClInclude Include="Source\M5Intersect.h" />
     <ClInclude Include="Source\M5Math.h" />

@@ -1,6 +1,6 @@
 /******************************************************************************/
 /*!
-\file   M5Graphics.h
+\file   M5Gfx.h
 \author Matt Casanova
 \par    email: lazersquad\@gmail.com
 \par    Mach5 Game Engine

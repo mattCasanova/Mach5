@@ -47,9 +47,6 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Source\M5Graphics.cpp">
-      <Filter>Gfx</Filter>
-    </ClCompile>
     <ClCompile Include="Source\M5TextureLoading.cpp">
       <Filter>Gfx</Filter>
     </ClCompile>
@@ -83,11 +80,11 @@
     <ClCompile Include="Source\M5StageMgr.cpp">
       <Filter>StageMgr</Filter>
     </ClCompile>
+    <ClCompile Include="Source\M5Gfx.cpp">
+      <Filter>Gfx</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Source\M5Graphics.h">
-      <Filter>Gfx</Filter>
-    </ClInclude>
     <ClInclude Include="Source\M5DebugTools.h">
       <Filter>Utils\Debug</Filter>
     </ClInclude>
@@ -123,6 +120,9 @@
     </ClInclude>
     <ClInclude Include="Source\M5GameTimer.h">
       <Filter>GameTimer</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\M5Gfx.h">
+      <Filter>Gfx</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
