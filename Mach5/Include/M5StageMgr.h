@@ -14,7 +14,7 @@ Singleton to control quitting, restarting and switching stages.
 #define M5_STAGEMGR_H
 
 //Forward Declarations
-struct M5State;
+struct M5Stage;
 struct M5GameData;
 
 //! Singleton to control quitting, restarting and switching stages.
@@ -23,34 +23,34 @@ class M5StageMgr
 public:
   friend class M5App;
 
-  //Adds a state the the StageMgr
-  static int  AddState(const M5State& state);
-  //Sets the given state ID to the starting state of the game
-  static void SetStartState(int startState);
+  //Adds a stage the the StageMgr
+  static int  AddStage(const M5Stage& stage);
+  //Sets the given stage ID to the starting stage of the game
+  static void SetStartStage(int startStage);
   //Test if the game is quitting
   static bool IsQuitting(void);
-  //Test state is restarting
+  //Test stage is restarting
   static bool IsRestarting(void);
-  //Gets the previous state of the game
-  static int  GetPreviousState(void);
-  //Gets the Current State of the game
-  static int  GetCurrentState(void);
-  //Gets the Next state of the game
-  static int  GetNextState(void);
+  //Gets the previous stage of the game
+  static int  GetPreviousStage(void);
+  //Gets the Current Stage of the game
+  static int  GetCurrentStage(void);
+  //Gets the Next stage of the game
+  static int  GetNextStage(void);
   //Gets the pointer to the users game specific data
   static M5GameData& GetGameData(void);
-  //Sets the next state for the game
-  static void SetNextState(int nextState);
+  //Sets the next stage for the game
+  static void SetNextStage(int nextStage);
   //Tells the game to quit
   static void Quit(void);
-  //Tells the state to restart
+  //Tells the stage to restart
   static void Restart(void);
 
 private:
   static void Init(const M5GameData* gameData, int gameDataSize);
   static void Update(void);
   static void Shutdown(void);
-  static void ChangeState(void);
+  static void ChangeStage(void);
 
 };//end M5StageMgr
 

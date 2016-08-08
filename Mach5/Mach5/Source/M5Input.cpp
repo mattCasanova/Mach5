@@ -35,7 +35,7 @@ std::bitset<M5_LAST>  s_pressed;            /*!< Array of keys pressed this fram
 std::bitset<M5_LAST>  s_triggered;          /*!< Array of keys triggered this frame*/
 std::bitset<M5_LAST>  s_repeating;          /*!< Array of keys repeating this frame*/
 std::stack<M5KeyCode> s_unpress;            /*!< The array of keys to unpress*/
-XINPUT_STATE          s_gamePadState;       /*!< The state of the gamePad*/
+XINPUT_STATE          s_gamePadState;       /*!< The stage of the gamePad*/
 M5Vec2                s_mouse;              /*!< The Coordinates of the mouse*/
 M5Vec2                s_leftThumb;          /*!< The x/y postion of the left thumbstick*/
 M5Vec2                s_rightThumb;         /*!< The x/y postion of the right thumbstick*/
@@ -48,7 +48,7 @@ bool                  s_isGamePadConnected; /*!< Bool to tell if gamePad is conn
 
 /******************************************************************************/
 /*!
-Sets the pressed, triggered, repeating, or unpressed state of a key.
+Sets the pressed, triggered, repeating, or unpressed stage of a key.
 
 \param [in] key
 The key to set

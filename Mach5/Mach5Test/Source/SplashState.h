@@ -7,8 +7,8 @@
 \par    Assignment:
 \date   2012/12/6
 
-This is a state for the Mach5 Engine Demo project. A Splash state is a good 
-place to load data and/or resources that you will need for all of your states.
+This is a stage for the Mach5 Engine Demo project. A Splash stage is a good 
+place to load data and/or resources that you will need for all of your stages.
 */
 /******************************************************************************/
 #ifndef SPLASHSTATE_H

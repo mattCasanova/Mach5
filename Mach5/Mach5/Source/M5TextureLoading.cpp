@@ -10,7 +10,7 @@ file   M5TextureLoading.cpp
 */
 /******************************************************************************/
 #include "M5Math.h"
-#include "M5Graphics.h"
+#include "M5Gfx.h"
 #include "M5DebugTools.h"
 
 #include <windows.h>

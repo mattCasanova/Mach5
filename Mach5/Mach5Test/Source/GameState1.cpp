@@ -1,13 +1,13 @@
 /******************************************************************************/
 /*!
-file    GameState1.c
+file    GameStage1.cpp
 \author Matt Casanova 
 \par    email: mcasanov\@digipen.edu
 \par    Class:Game150
 \par    Assignment:Simple Game Engine
 \date   2012/12/14
 
-This is a state in the game demo. This shows some basic features of the 
+This is a stage in the game demo. This shows some basic features of the 
 window and engine.
 */
 /******************************************************************************/
@@ -19,15 +19,15 @@ window and engine.
 #include "M5StageMgr.h"
 #include "M5Vec2.h"
 #include "M5Mtx44.h"
-#include "M5Graphics.h"
+#include "M5Gfx.h"
 
 #include "DemoStates.h"
 #include <cstdio>
 
 
 
-/*Create a struct of my game shared state data*/
-struct GameState1Data
+/*Create a struct of my game shared stage data*/
+struct GameStage1Data
 {
   bool isFullScreen;
   bool isShowCursor;
@@ -36,14 +36,14 @@ struct GameState1Data
 };
 
 /*Create a static variable so it can't be used in other files.*/
-static GameState1Data stateData;
+static GameStage1Data stageData;
 
 #define M5_MAX_TIME 5.f
 #define M5_FONT_OFFSET 4.f
 
 /******************************************************************************/
 /*!
-We have no resources in this demo state
+We have no resources in this demo stage
 */
 /******************************************************************************/
 void GameState1Load(void)
@@ -56,16 +56,16 @@ Just initialize the values here.
 /******************************************************************************/
 void GameState1Init(void)
 {
-  /*Initialize state data*/
-  stateData.isFullScreen = false;
-  stateData.isShowCursor = true;
+  /*Initialize stage data*/
+  stageData.isFullScreen = false;
+  stageData.isShowCursor = true;
   /*give a time greater than 5 seconds so we don't start with an 
   invisible window*/
-  stateData.timer = M5_MAX_TIME + 1.f;
+  stageData.timer = M5_MAX_TIME + 1.f;
 }
 /******************************************************************************/
 /*!
-This is the update.  All of the input and game logic is here for this state.
+This is the update.  All of the input and game logic is here for this stage.
 */
 /******************************************************************************/
 void GameState1Update(float dt)
@@ -77,34 +77,34 @@ void GameState1Update(float dt)
   /*For our font size*/
   float yOffSet = M5_FONT_OFFSET;
 
-  sprintf_s(stateData.textAsString, "%f", dt);
+  sprintf_s(stageData.textAsString, "%f", dt);
 
   /*Check for input*/
   if(M5Input::IsTriggered(M5_S))
   {
-    stateData.isFullScreen = !stateData.isFullScreen;
-    M5App::SetFullScreen(stateData.isFullScreen);
+    stageData.isFullScreen = !stageData.isFullScreen;
+    M5App::SetFullScreen(stageData.isFullScreen);
   }
   else if(M5Input::IsTriggered(M5_W))
   {
     M5App::ShowWindow(false);
-    stateData.timer = 0.f;
+    stageData.timer = 0.f;
   }
   else if(M5Input::IsTriggered(M5_MOUSE_LEFT))
   {
-    stateData.isShowCursor = !stateData.isShowCursor;
-    M5App::ShowCursor(stateData.isShowCursor);
+    stageData.isShowCursor = !stageData.isShowCursor;
+    M5App::ShowCursor(stageData.isShowCursor);
   }
   else if(M5Input::IsTriggered(M5_N))
   {
-    M5StageMgr::SetNextState(DS_GAME2);
+    M5StageMgr::SetNextStage(DS_GAME2);
   }
 
   /*Check for time*/
-  if(stateData.timer < M5_MAX_TIME)
+  if(stageData.timer < M5_MAX_TIME)
   {
-    stateData.timer += dt;
-    if(stateData.timer > M5_MAX_TIME)
+    stageData.timer += dt;
+    if(stageData.timer > M5_MAX_TIME)
     {
       /*Reset our windows and view port*/
       M5App::ShowWindow(true);
@@ -142,7 +142,7 @@ void GameState1Update(float dt)
   M5Gfx::WriteText("Click: Toggle cursor", mouse.x, mouse.y);
 
   M5Gfx::SetToOrtho();
-  M5Gfx::WriteText(stateData.textAsString, 100, 100);
+  M5Gfx::WriteText(stageData.textAsString, 100, 100);
 
   /*End drawing*/
   M5Gfx::EndScene();

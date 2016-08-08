@@ -7,7 +7,7 @@
 \par    Assignment:Simple 2D game
 \date   2012/12/14
 
-This is a state in the game demo. This shows some basic features of the 
+This is a stage in the game demo. This shows some basic features of the 
 window and engine.
 */
 /******************************************************************************/

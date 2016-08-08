@@ -1,21 +1,21 @@
 /******************************************************************************/
 /*!
-file    GameOverState.cpp
+file    GameOverStage.cpp
 \author Matt Casanova 
 \par    email: mcasanov\@digipen.edu
 \par    class:
 \par    Assignment:
 \date   2012/12/6
 
-The GameOver state is really used just to quit.  Since I have an splash 
-state, I make sure to have an quit state to close resources even though for
+The GameOver stage is really used just to quit.  Since I have an splash 
+stage, I make sure to have an quit stage to close resources even though for
 the demo it is just used for debug stuff.
 */
 /******************************************************************************/
 #include "GameOverState.h"
 #include "M5DebugTools.h"
 #include "M5Input.h"
-#include "M5Graphics.h"
+#include "M5Gfx.h"
 #include "M5StageMgr.h"
 #include "M5App.h"
 #include "M5Mtx44.h"
@@ -28,8 +28,8 @@ namespace
 
 /******************************************************************************/
 /*!
-The Shutdown state is really used just to quit.  Since I have an init 
-state, I make sure to have an quit state even though for the demo I don't 
+The Shutdown stage is really used just to quit.  Since I have an init 
+stage, I make sure to have an quit stage even though for the demo I don't 
 do anything here.
 
 \param pGameData
@@ -43,8 +43,8 @@ void GameOverLoad(void)
 }
 /******************************************************************************/
 /*!
-The Shutdown state is really used just to quit.  Since I have an init 
-state, I make sure to have an quit state even though for the demo I don't 
+The Shutdown stage is really used just to quit.  Since I have an init 
+stage, I make sure to have an quit stage even though for the demo I don't 
 do anything here.
 */
 /******************************************************************************/
@@ -58,8 +58,8 @@ void GameOverInit(void)
 }
 /******************************************************************************/
 /*!
-The Shutdown state is really used just to quit.  Since I have an init 
-state, I make sure to have an quit state even though for the demo I don't 
+The Shutdown stage is really used just to quit.  Since I have an init 
+stage, I make sure to have an quit stage even though for the demo I don't 
 do anything here.
 
 */
@@ -81,8 +81,8 @@ void GameOverUpdate(float /*dt*/)
 }
 /******************************************************************************/
 /*!
-The Shutdown state is really used just to quit.  Since I have an init 
-state, I make sure to have an quit state even though for the demo I don't 
+The Shutdown stage is really used just to quit.  Since I have an init 
+stage, I make sure to have an quit stage even though for the demo I don't 
 do anything here.
 
 */
@@ -94,8 +94,8 @@ void GameOverShutdown(void)
 }
 /******************************************************************************/
 /*!
-The Shutdown state is really used just to quit.  Since I have an init 
-state, I make sure to have an quit state even though for the demo I don't 
+The Shutdown stage is really used just to quit.  Since I have an init 
+stage, I make sure to have an quit stage even though for the demo I don't 
 do anything here.
 
 */

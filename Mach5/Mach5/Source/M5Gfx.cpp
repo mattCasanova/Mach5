@@ -9,7 +9,7 @@ file    M5Gfx.cpp
 Singleton class to draw and modify the view of the screen
 */
 /******************************************************************************/
-#include "M5Graphics.h"
+#include "M5Gfx.h"
 #include "M5Math.h"
 #include "M5Vec2.h"
 #include "M5Mtx44.h"

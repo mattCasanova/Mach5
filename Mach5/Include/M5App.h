@@ -47,7 +47,7 @@ public:
 
   /*This must be called first, before the game is started*/
   static void Init(const M5InitData& initStruct);
-  /*Call this after you add your states to start the game*/
+  /*Call this after you add your stages to start the game*/
   static void Update(void);
   /*Call this after Update is finished*/
   static void Shutdown(void);

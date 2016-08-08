@@ -17,7 +17,7 @@ Mach 5 Engine
 #include "M5StageMgr.h"
 #include "M5Input.h"
 #include "M5GameTimer.h"
-#include "M5Graphics.h"
+#include "M5Gfx.h"
 #include "Windowsx.h" /*For GET_X_LPARAM, GET_Y_LPARAM*/
 
 
@@ -36,7 +36,7 @@ HINSTANCE   s_instance;    /*!< The instance from WinMain*/
 WNDCLASS    s_winClass;    /*!< The window class for creating the window*/
 HWND        s_window;      /*!< The window after creating it*/
 DWORD       s_style;       /*!< The windows style */
-bool        s_isQuitting;  /*!< The quit state of the game*/
+bool        s_isQuitting;  /*!< The quit stage of the game*/
 bool        s_isFullScreen;/*!< If the window is in full screen or not*/
 int         s_height;      /*!< The height of the client area of the window */
 int         s_width;       /*!< The width of the client area of the window */
@@ -327,12 +327,12 @@ void M5App::Init(const M5InitData& initData)
 }
 /******************************************************************************/
 /*!
-Updates the game states based on what the user passed in.  This should be
-called once after M5Application::Init and after the user has added game states
-and start state.
+Updates the game stages based on what the user passed in.  This should be
+called once after M5Application::Init and after the user has added game stages
+and start stage.
 
 \attention
-Add game states and start state before calling this function
+Add game stages and start stage before calling this function
 */
 /******************************************************************************/
 void M5App::Update(void)
@@ -343,7 +343,7 @@ void M5App::Update(void)
     //TODO: do I need this????
 
     //ProcessMessages();
-    /*Update the states*/
+    /*Update the stages*/
     M5StageMgr::Update();
 
     /*If the game manager quit, then the application needs to*/

@@ -23,10 +23,10 @@ This is file contains the main function to make a basic window.
 /*Include the engine functions*/
 #include "M5App.h"
 #include "M5StageMgr.h"
-#include "M5State.h"
+#include "M5Stage.h"
 #include "M5GameData.h"
 
-/*My GameStates*/
+/*My GameStages*/
 #include "SplashState.h"
 #include "GameState1.h"
 #include "GameState2.h"
@@ -36,58 +36,58 @@ This is file contains the main function to make a basic window.
 
 /******************************************************************************/
 /*!
-The user must add states to their game After initializing the Application, and 
+The user must add stages to their game After initializing the Application, and 
 before updating the Application.
 
 \attention
-To make switching states easier, I add the states in the order they are listed
-in the DemoStates enum.
+To make switching stages easier, I add the stages in the order they are listed
+in the DemoStages enum.
 */
 /******************************************************************************/
-void DemoAddStates(void)
+void DemoAddStages(void)
 {
-  M5State state;
-  int stateID;
+  M5Stage stage;
+  int stageID;
 
-  /*A make sure to add my state in the order they are in 
-  my DemoStates enum*/
+  /*A make sure to add my stage in the order they are in 
+  my DemoStages enum*/
 
-  /*Add my SplashState*/
-  state.Load     = SplashStateLoad;
-  state.Init     = SplashStateInit;
-  state.Update   = SplashStateUpdate;
-  state.Shutdown = SplashStateShutdown;
-  state.Unload   = SplashStateUnload;
+  /*Add my SplashStage*/
+  stage.Load     = SplashStateLoad;
+  stage.Init     = SplashStateInit;
+  stage.Update   = SplashStateUpdate;
+  stage.Shutdown = SplashStateShutdown;
+  stage.Unload   = SplashStateUnload;
 
-  stateID = M5StageMgr::AddState(state);
-  M5StageMgr::SetStartState(stateID);
+  stageID = M5StageMgr::AddStage(stage);
+  M5StageMgr::SetStartStage(stageID);
   
-  /*Add my first game state*/
-  state.Load     = GameState1Load;
-  state.Init     = GameState1Init;
-  state.Update   = GameState1Update;
-  state.Shutdown = GameState1Shutdown;
-  state.Unload   = GameState1Unload;
+  /*Add my first game stage*/
+  stage.Load     = GameState1Load;
+  stage.Init     = GameState1Init;
+  stage.Update   = GameState1Update;
+  stage.Shutdown = GameState1Shutdown;
+  stage.Unload   = GameState1Unload;
 
-  M5StageMgr::AddState(state);
+  M5StageMgr::AddStage(stage);
 
-  /*Add second game state*/
-  state.Load     = GameState2Load;
-  state.Init     = GameState2Init;
-  state.Update   = GameState2Update;
-  state.Shutdown = GameState2Shutdown;
-  state.Unload   = GameState2Unload;
+  /*Add second game stage*/
+  stage.Load     = GameState2Load;
+  stage.Init     = GameState2Init;
+  stage.Update   = GameState2Update;
+  stage.Shutdown = GameState2Shutdown;
+  stage.Unload   = GameState2Unload;
 
-  M5StageMgr::AddState(state);
+  M5StageMgr::AddStage(stage);
 
-  /*Add my GameOverState*/
-  state.Load     = GameOverLoad;
-  state.Init     = GameOverInit;
-  state.Update   = GameOverUpdate;
-  state.Shutdown = GameOverShutdown;
-  state.Unload   = GameOverUnload;
+  /*Add my GameOverStage*/
+  stage.Load     = GameOverLoad;
+  stage.Init     = GameOverInit;
+  stage.Update   = GameOverUpdate;
+  stage.Shutdown = GameOverShutdown;
+  stage.Unload   = GameOverUnload;
 
-  M5StageMgr::AddState(state);
+  M5StageMgr::AddStage(stage);
   
 }
 
@@ -143,8 +143,8 @@ int WINAPI WinMain(HINSTANCE instance,
 
   /*Pass InitStruct to Function.  This function must be called first!!!*/
   M5App::Init(initData);
-  /*Function to add all of my game states*/
-  DemoAddStates();
+  /*Function to add all of my game stages*/
+  DemoAddStages();
   /*Start running the game*/
   M5App::Update();
   /*This function must be called after the window has closed!!!*/

@@ -6,7 +6,7 @@
 \par    Class: GAM 150
 \par    Assignment:Simple 2D Engine
 \date   2012/12/14
-This is an enumeration of all of the states in this game.
+This is an enumeration of all of the stages in this game.
 */
 /******************************************************************************/
 #ifndef DEMOSTATES_H

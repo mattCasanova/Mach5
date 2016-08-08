@@ -6,7 +6,7 @@
 \par    Class:Game150
 \par    Assignment:Simple 2D game
 \date   2012/12/14
-This is a state in the game demo.
+This is a stage in the game demo.
 */
 /******************************************************************************/
 #ifndef GAMESTATE2_H

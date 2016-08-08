@@ -15,7 +15,7 @@ This file contains the prototyes for the Debug functions and Macros.
 #ifndef M5_DEBUGTOOLS_H
 #define M5_DEBUGTOOLS_H
 
-#include "M5Graphics.h"
+#include "M5Gfx.h"
 
 //! Tools used to help debug the game
 namespace M5Debug
