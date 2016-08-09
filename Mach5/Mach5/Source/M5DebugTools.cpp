@@ -2,10 +2,9 @@
 /*!
 file   M5DebugTools.cpp
 \author Matt Casanova 
-\par    email: mcasanov\@digipen.edu
-\par    GAM150
-\par    Simple 2D Game Engine
-\date   2012/11/28
+\par    email: lazersquad\@gmail.com
+\par    Mach5 Game Engine
+\date   2016/08/6
 
 This file contains the definition for the Debug functions and Macros.
 */
@@ -18,11 +17,6 @@ This file contains the definition for the Debug functions and Macros.
 #include <sstream>
 #include <cstring>
 #include <cstdio>
-
-
-/*Use a large message because we are crashing anyway*/
-#define MAX_MESSAGE 1024 /*!< The max Assert message size*/
-#define MAX_LINE 10 /*!< The Max line number size*/
 
 namespace M5Debug
 {

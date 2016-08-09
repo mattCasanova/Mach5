@@ -2,10 +2,9 @@
 /*!
 \file   GameState1.h
 \author Matt Casanova 
-\par    email: mcasanov\@digipen.edu
-\par    Class:Game150
-\par    Assignment:Simple 2D game
-\date   2012/12/14
+\par    email: lazersquad\@gmail.com
+\par    Mach5 Game Engine
+\date   2016/08/9
 
 This is a stage in the game demo. This shows some basic features of the 
 window and engine.
@@ -14,11 +13,23 @@ window and engine.
 #ifndef GAMESTATE1_H
 #define GAMESTATE1_H
 
-void GameState1Load(void);
-void GameState1Init(void);
-void GameState1Update(float dt);
-void GameState1Shutdown(void);
-void GameState1Unload(void);
+#include "M5Stage.h"
 
+class GameStage1 : public M5Stage
+{
+public:
+  virtual void Load(void);
+  virtual void Init(void);
+  virtual void Update(float dt);
+  virtual void Shutdown(void);
+  virtual void Unload(void);
+private:
+  static const int   MAX_SIZE = 10;
+  bool               m_isFullScreen;
+  bool               m_isShowCursor;
+  float              m_visableTimer;
+  char               m_textAsString[MAX_SIZE];
+
+};
 
 #endif /*GAMESTATE1_H*/

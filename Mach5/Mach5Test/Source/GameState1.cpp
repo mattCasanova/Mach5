@@ -1,13 +1,12 @@
 /******************************************************************************/
 /*!
 file    GameStage1.cpp
-\author Matt Casanova 
-\par    email: mcasanov\@digipen.edu
-\par    Class:Game150
-\par    Assignment:Simple Game Engine
-\date   2012/12/14
+\author Matt Casanova
+\par    email: lazersquad\@gmail.com
+\par    Mach5 Game Engine
+\date   2016/08/9
 
-This is a stage in the game demo. This shows some basic features of the 
+This is a stage in the game demo. This shows some basic features of the
 window and engine.
 */
 /******************************************************************************/
@@ -24,29 +23,19 @@ window and engine.
 #include "DemoStates.h"
 #include <cstdio>
 
-
-
-/*Create a struct of my game shared stage data*/
-struct GameStage1Data
+namespace
 {
-  bool isFullScreen;
-  bool isShowCursor;
-  float timer;
-  char textAsString[10];
-};
+const float MAX_TIME = 5.f;
+const float FONT_OFFSET = 4.f;
+}
 
-/*Create a static variable so it can't be used in other files.*/
-static GameStage1Data stageData;
-
-#define M5_MAX_TIME 5.f
-#define M5_FONT_OFFSET 4.f
 
 /******************************************************************************/
 /*!
 We have no resources in this demo stage
 */
 /******************************************************************************/
-void GameState1Load(void)
+void GameStage1::Load(void)
 {
 }
 /******************************************************************************/
@@ -54,64 +43,62 @@ void GameState1Load(void)
 Just initialize the values here.
 */
 /******************************************************************************/
-void GameState1Init(void)
+void GameStage1::Init(void)
 {
   /*Initialize stage data*/
-  stageData.isFullScreen = false;
-  stageData.isShowCursor = true;
-  /*give a time greater than 5 seconds so we don't start with an 
-  invisible window*/
-  stageData.timer = M5_MAX_TIME + 1.f;
+  m_isFullScreen = false;
+  m_isShowCursor = true;
+
+  /*give a time greater than 5 seconds so we don't start with an invisible window*/
+  m_visableTimer = MAX_TIME + 1.f;
 }
 /******************************************************************************/
 /*!
 This is the update.  All of the input and game logic is here for this stage.
 */
 /******************************************************************************/
-void GameState1Update(float dt)
+void GameStage1::Update(float dt)
 {
   M5Vec2 mouse;
   M5Vec2 topLeft;
   M5Gfx::GetWorldTopLeft(topLeft);
-  
-  /*For our font size*/
-  float yOffSet = M5_FONT_OFFSET;
 
-  sprintf_s(stageData.textAsString, "%f", dt);
+  /*For our font size*/
+  float yOffSet = FONT_OFFSET;
+
+  sprintf_s(m_textAsString, "%f", dt);
 
   /*Check for input*/
-  if(M5Input::IsTriggered(M5_S))
+  if (M5Input::IsTriggered(M5_S))
   {
-    stageData.isFullScreen = !stageData.isFullScreen;
-    M5App::SetFullScreen(stageData.isFullScreen);
+    m_isFullScreen = !m_isFullScreen;
+    M5App::SetFullScreen(m_isFullScreen);
   }
-  else if(M5Input::IsTriggered(M5_W))
+  else if (M5Input::IsTriggered(M5_W))
   {
     M5App::ShowWindow(false);
-    stageData.timer = 0.f;
+    m_visableTimer = 0.f;
   }
-  else if(M5Input::IsTriggered(M5_MOUSE_LEFT))
+  else if (M5Input::IsTriggered(M5_MOUSE_LEFT))
   {
-    stageData.isShowCursor = !stageData.isShowCursor;
-    M5App::ShowCursor(stageData.isShowCursor);
+    m_isShowCursor = !m_isShowCursor;
+    M5App::ShowCursor(m_isShowCursor);
   }
-  else if(M5Input::IsTriggered(M5_N))
+  else if (M5Input::IsTriggered(M5_N))
   {
     M5StageMgr::SetNextStage(DS_GAME2);
   }
 
   /*Check for time*/
-  if(stageData.timer < M5_MAX_TIME)
+  if (m_visableTimer < MAX_TIME)
   {
-    stageData.timer += dt;
-    if(stageData.timer > M5_MAX_TIME)
-    {
-      /*Reset our windows and view port*/
-      M5App::ShowWindow(true);
-    }
+    m_visableTimer += dt;
+    if (m_visableTimer > MAX_TIME)
+      M5App::ShowWindow(true); /*Reset our windows and view port*/
+
   }
 
-    /*Make sure drawing is in world space*/
+  /*Make sure drawing is in world space*/
   M5Gfx::SetToPerspective();
 
   /*Get mouse click in screen space*/
@@ -142,7 +129,7 @@ void GameState1Update(float dt)
   M5Gfx::WriteText("Click: Toggle cursor", mouse.x, mouse.y);
 
   M5Gfx::SetToOrtho();
-  M5Gfx::WriteText(stageData.textAsString, 100, 100);
+  M5Gfx::WriteText(m_textAsString, 100, 100);
 
   /*End drawing*/
   M5Gfx::EndScene();
@@ -154,20 +141,20 @@ I don't have any resources to shutdown.
 
 */
 /******************************************************************************/
-void GameState1Shutdown(void)
+void GameStage1::Shutdown(void)
 {
 
 }
 /******************************************************************************/
 /*!
-I don't have any textures to unload, but since I changed the color, I reset 
+I don't have any textures to unload, but since I changed the color, I reset
 the to the default.
 
 \param pGameData
 A pointer to the shared gameData.
 */
 /******************************************************************************/
-void GameState1Unload(void)
+void GameStage1::Unload(void)
 {
   /*Reset color*/
   M5Gfx::SetTextureColor(0xFFFFFFFF);

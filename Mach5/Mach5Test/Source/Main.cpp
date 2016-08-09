@@ -46,14 +46,17 @@ in the DemoStages enum.
 /******************************************************************************/
 void DemoAddStages(void)
 {
-
-  /*Add my GameOverStage*/
-
-  int id = M5StageMgr::AddStage(new GameOverStage);
+  /*Add my GameStage1*/
+  int id = M5StageMgr::AddStage(new SplashStage);
   M5StageMgr::SetStartStage(id);
-  
-}
 
+  /*Add my GameStage1*/
+  M5StageMgr::AddStage(new GameStage1);
+  /*Add my GameStage2*/
+  M5StageMgr::AddStage(new GameStage2);
+  /*Add my GameOverStage*/
+  M5StageMgr::AddStage(new GameOverStage);
+}
 /******************************************************************************/
 /*!
 

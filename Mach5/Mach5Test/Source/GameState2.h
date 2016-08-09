@@ -2,21 +2,39 @@
 /*!
 \file   GameState2.h
 \author Matt Casanova 
-\par    email: mcasanov\@digipen.edu
-\par    Class:Game150
-\par    Assignment:Simple 2D game
-\date   2012/12/14
+\par    email: lazersquad\@gmail.com
+\par    Mach5 Game Engine
+\date   2016/08/9
+
+
 This is a stage in the game demo.
 */
 /******************************************************************************/
-#ifndef GAMESTATE2_H
-#define GAMESTATE2_H
+#ifndef GAMESTAGE2_H
+#define GAMESTAGE2_H
 
+#include "M5Stage.h"
 
-void GameState2Load(void);
-void GameState2Init(void);
-void GameState2Update(float dt);
-void GameState2Shutdown(void);
-void GameState2Unload(void);
+class GameStage2 : public M5Stage
+{
+public:
+  virtual void Load(void);
+  virtual void Init(void);
+  virtual void Update(float dt);
+  virtual void Shutdown(void);
+  virtual void Unload(void);
+private:
+  int   m_charTexture;
+  int   m_hudTexture;
+  int   m_bgTexture;
+  float m_cameraZ;
+  float m_cameraX;
+  float m_cameraY;
+  float m_cameraRot;
+  float m_rotation;
+  float m_textcoord;
+  float m_totalTime;
+  float m_viewTimer;
+};
 
-#endif /*GAMESTATE2_H*/
+#endif /*GAMESTAGE2_H*/

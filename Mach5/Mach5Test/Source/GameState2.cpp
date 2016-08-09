@@ -1,11 +1,12 @@
 /******************************************************************************/
 /*!
-file    GameStage2.c
+file    GameStage2.cpp
 \author Matt Casanova 
-\par    email: mcasanov\@digipen.edu
-\par    Class:Game150
-\par    Assignment:Simple Game Engine
-\date   2012/12/14
+\par    email: lazersquad\@gmail.com
+\par    Mach5 Game Engine
+\date   2016/08/9
+
+This is a stage in the game demo.
 
 */
 /******************************************************************************/
@@ -22,42 +23,25 @@ file    GameStage2.c
 #include "M5Input.h"
 #include "DemoStates.h"
 
-/*Create a struct for shared stage data*/
-typedef struct 
+namespace
 {
-  int texture2ID;
-  int texture3ID;
-  int texture4ID;
-  float cameraZ;
-  float cameraX;
-  float cameraY;
-  float cameraRot;
-  float rotation;
-  float textcoord;
-  float totalTime;
-  float viewTimer;
-}GameStage2Data;
-
-/*Create a static variable so it can't be used in other file*/
-static GameStage2Data stageData;
-
 /*How long each frame is.*/
-#define M5_ANI_TIMER .1f
-#define M5_MAX_TIME 5.f
+const float ANI_TIMER = .1f;
+const float MAX_TIME = 5.f;
+}
+
 
 /******************************************************************************/
 /*!
 Load my textures here
-
 */
 /******************************************************************************/
-void GameState2Load(void)
+void GameStage2::Load(void)
 {
   /*Load my textures used for this stage*/
-  stageData.texture2ID = M5Gfx::LoadTexture("Textures\\MainChar.tga");
-  stageData.texture3ID = M5Gfx::LoadTexture("Textures\\HUD.tga");
-  stageData.texture4ID = M5Gfx::LoadTexture("Textures\\BG.tga");
-
+  m_charTexture = M5Gfx::LoadTexture("Textures\\MainChar.tga");
+  m_hudTexture  = M5Gfx::LoadTexture("Textures\\HUD.tga");
+  m_bgTexture   = M5Gfx::LoadTexture("Textures\\BG.tga");
 }
 /******************************************************************************/
 /*!
@@ -65,23 +49,23 @@ Initialize some data
 
 */
 /******************************************************************************/
-void GameState2Init(void)
+void GameStage2::Init(void)
 {
   /*The initial values for my camera*/
-  stageData.cameraZ   = 60.f;
-  stageData.cameraX   = 0.f;
-  stageData.cameraY   = 0.f;
-  stageData.cameraRot = 0.0f;
+  m_cameraZ   = 60.f;
+  m_cameraX   = 0.f;
+  m_cameraY   = 0.f;
+  m_cameraRot = 0.0f;
 
-  stageData.rotation  = 0;
-  stageData.textcoord = 0.0f;
-  stageData.totalTime = 0.0f;
+  m_rotation  = 0;
+  m_textcoord = 0.0f;
+  m_totalTime = 0.0f;
   /*Set the background color*/
   M5Gfx::SetBackgroundColor(0.0f, 1.0f, 1.0f);
 
   /*give a time greater than 5 seconds so I don't begin with a 
   small view port.*/
-  stageData.viewTimer = M5_MAX_TIME + 1;
+  m_viewTimer = MAX_TIME + 1;
 }
 /******************************************************************************/
 /*!
@@ -89,7 +73,7 @@ Update game and draw objects
 
 */
 /******************************************************************************/
-void GameState2Update(float dt)
+void GameStage2::Update(float dt)
 {
   M5Mtx44 transform;
 
@@ -121,12 +105,11 @@ void GameState2Update(float dt)
   
 
   /*Update my counters*/
-  stageData.rotation += dt;
-  stageData.totalTime += dt;
+  m_rotation += dt;
+  m_totalTime += dt;
 
   /*Check for input*/
-  if (M5Input::IsTriggered(M5_N) ||
-      M5Input::IsTriggered(M5_GAMEPAD_START))
+  if (M5Input::IsTriggered(M5_N) || M5Input::IsTriggered(M5_GAMEPAD_START))
   {
     M5StageMgr::SetNextStage(DS_GAMEOVER);
   }
@@ -137,69 +120,58 @@ void GameState2Update(float dt)
       (int)windowSize.y / 4,
       (int)windowSize.x / 2,
       (int)windowSize.y / 2);
-    stageData.viewTimer = 0.f;
+    m_viewTimer = 0.f;
   }
-  else if(M5Input::IsTriggered(M5_R) || 
-          M5Input::IsTriggered(M5_GAMEPAD_BACK))
+  else if(M5Input::IsTriggered(M5_R) ||  M5Input::IsTriggered(M5_GAMEPAD_BACK))
   {
     M5StageMgr::Restart();
   }
 
   /*Check for more input*/
-  if (M5Input::IsPressed(M5_MOUSE_MIDDLE_UP) || 
-      M5Input::IsPressed(M5_GAMEPAD_LEFT_THUMB))
-    --stageData.cameraZ;
-  else if (M5Input::IsPressed(M5_MOUSE_MIDDLE_DOWN) || 
-           M5Input::IsPressed(M5_GAMEPAD_RIGHT_THUMB))
-    ++stageData.cameraZ;
+  if (M5Input::IsPressed(M5_MOUSE_MIDDLE_UP) || M5Input::IsPressed(M5_GAMEPAD_LEFT_THUMB))
+    --m_cameraZ;
+  else if (M5Input::IsPressed(M5_MOUSE_MIDDLE_DOWN) || M5Input::IsPressed(M5_GAMEPAD_RIGHT_THUMB))
+    ++m_cameraZ;
 
   /*Check for more input*/
-  if (M5Input::IsPressed(M5_W) || 
-      M5Input::IsPressed(M5_GAMEPAD_DPAD_UP))
-    ++stageData.cameraY;
-  else if(M5Input::IsPressed(M5_S) || 
-          M5Input::IsPressed(M5_GAMEPAD_DPAD_DOWN))
-    --stageData.cameraY;
+  if (M5Input::IsPressed(M5_W) || M5Input::IsPressed(M5_GAMEPAD_DPAD_UP))
+    ++m_cameraY;
+  else if(M5Input::IsPressed(M5_S) || M5Input::IsPressed(M5_GAMEPAD_DPAD_DOWN))
+    --m_cameraY;
 
   /*Check for more input*/
-  if(M5Input::IsPressed(M5_A) || 
-     M5Input::IsPressed(M5_GAMEPAD_DPAD_LEFT))
-    --stageData.cameraX;
-  else if(M5Input::IsPressed(M5_D) || 
-          M5Input::IsPressed(M5_GAMEPAD_DPAD_RIGHT))
-    ++stageData.cameraX;
+  if(M5Input::IsPressed(M5_A) || M5Input::IsPressed(M5_GAMEPAD_DPAD_LEFT))
+    --m_cameraX;
+  else if(M5Input::IsPressed(M5_D) || M5Input::IsPressed(M5_GAMEPAD_DPAD_RIGHT))
+    ++m_cameraX;
 
 
   /*Check for camera rotation*/
-  if(M5Input::IsPressed(M5_Q) || 
-     M5Input::IsPressed(M5_GAMEPAD_LEFT_SHOULDER))
+  if(M5Input::IsPressed(M5_Q) || M5Input::IsPressed(M5_GAMEPAD_LEFT_SHOULDER))
   {
-    stageData.cameraRot -= .01f;
-    M5Math::Wrap(stageData.cameraRot, 0.0f, M5Math::TWO_PI);
+    m_cameraRot -= .01f;
+    m_cameraRot = M5Math::Wrap(m_cameraRot, 0.0f, M5Math::TWO_PI);
   }
-  else if(M5Input::IsPressed(M5_E) || 
-          M5Input::IsPressed(M5_GAMEPAD_RIGHT_SHOULDER))
+  else if(M5Input::IsPressed(M5_E) || M5Input::IsPressed(M5_GAMEPAD_RIGHT_SHOULDER))
   {
-    stageData.cameraRot += .01f;
-    M5Math::Wrap(stageData.cameraRot, 0.0f, M5Math::TWO_PI);
+    m_cameraRot += .01f;
+    m_cameraRot = M5Math::Wrap(m_cameraRot, 0.0f, M5Math::TWO_PI);
   }
 
   /*Update the camera since it could have moved*/
-  M5Gfx::SetCamera(stageData.cameraX, stageData.cameraY, stageData.cameraZ,
-    stageData.cameraRot);
+  M5Gfx::SetCamera(m_cameraX, m_cameraY, m_cameraZ, m_cameraRot);
 
   /*Update stage logic*/
-  if(stageData.totalTime > M5_ANI_TIMER)
+  if(m_totalTime > ANI_TIMER)
   {
-    stageData.totalTime = 0.0f;
-    stageData.textcoord += .25f;
-    M5Math::Wrap(stageData.textcoord, 0.0f, 1.0f);
+    m_totalTime = 0.0f;
+    m_textcoord = M5Math::Wrap(m_textcoord + .25f, 0.0f, 1.0f);
   }
  
-  if(stageData.viewTimer < M5_MAX_TIME)
+  if(m_viewTimer < MAX_TIME)
   {
-    stageData.viewTimer += dt;
-    if(stageData.viewTimer > M5_MAX_TIME)
+    m_viewTimer += dt;
+    if(m_viewTimer > MAX_TIME)
     {
       /*Reset our view port*/
       M5Gfx::SetViewport(0, 0, (int)windowSize.x, (int)windowSize.y);
@@ -210,13 +182,11 @@ void GameState2Update(float dt)
   M5Gfx::StartScene();
   /*Use perspective matrix for world objects with z order*/
   M5Gfx::SetToPerspective();
-
+  M5Gfx::SetTextureCoords(1.0f, 1.0f, 0.0f, 0.0f, 0.0f);
 
   /*Draw BackGround*/
   /*Set image information*/
-  M5Gfx::SetTexture(stageData.texture4ID);//Background
-  M5Gfx::SetTextureCoords(1.0f, 1.0f, 0.0f, 0.0f, 0.0f);
-
+  M5Gfx::SetTexture(m_bgTexture);//Background
   /*Draw an object with a transform and apply a color*/
   M5Gfx::SetTextureColor(0xFFFFFFFF);
   M5Mtx44::MakeTransform(transform, 
@@ -228,35 +198,29 @@ void GameState2Update(float dt)
     0.0f);
   M5Gfx::Draw(transform);
 
-
-
   /*Draw Bottom Right*/
   /*Draw an object with different transform and different color*/
   M5Gfx::SetTextureColor(255, 0, 0, 255);
   M5Mtx44::MakeTransform(transform, 15.0f, 25.0f,
-    -stageData.rotation / 3,
+    -m_rotation / 3,
     botRight.x, 
     botRight.y, 1.0f);
   M5Gfx::Draw(transform);
-
-
 
   /*Draw Top left*/
   /*Another object*/
   M5Gfx::SetTextureColor(0xFFFF0000);
   M5Mtx44::MakeTransform(transform, 25.0f, 10.0f,
-    stageData.rotation * 2,
+    m_rotation * 2,
     topLeft.x, 
     topLeft.y, 1.0f);
   M5Gfx::Draw(transform);
-
-
 
   /*Draw bottom left*/
   /*Another object*/
   M5Gfx::SetTextureColor(0x55FFFFFF);
   M5Mtx44::MakeTransform(transform, 10.0f, 10.0f,
-    stageData.rotation,
+    m_rotation,
     botLeft.x,
     botLeft.y, 1.0f); 
   M5Gfx::Draw(transform);
@@ -265,10 +229,10 @@ void GameState2Update(float dt)
 
   /*Draw main character*/
   /*Set image information for main character*/
-  M5Gfx::SetTexture(stageData.texture2ID);//Main Character
+  M5Gfx::SetTexture(m_charTexture);//Main Character
   M5Gfx::SetTextureColor(0xFFFFFFFF);
   /*Change texture coordinates over time*/
-  M5Gfx::SetTextureCoords(.25f, 1.0f, 0.0f, stageData.textcoord, 0.0f);
+  M5Gfx::SetTextureCoords(.25f, 1.0f, 0.0f, m_textcoord, 0.0f);
 
   /*Draw main character at mouse*/
   M5Input::GetMouse(mouse);
@@ -285,7 +249,7 @@ void GameState2Update(float dt)
   /*Set to orthographic mode.  Camera distance has no effect,
   objects are drawn in screen space*/
   M5Gfx::SetToOrtho();
-  M5Gfx::SetTexture(stageData.texture3ID);//HUD
+  M5Gfx::SetTexture(m_hudTexture);//HUD
   M5Gfx::SetTextureCoords(1.0f, 1.0f, 0.0f, 0.0f, 0.0f);
 
   /*Draw an object with a transform and apply a color*/
@@ -314,7 +278,7 @@ Nothing to do here
 
 */
 /******************************************************************************/
-void GameState2Shutdown(void)
+void GameStage2::Shutdown(void)
 {
 }
 /******************************************************************************/
@@ -325,11 +289,11 @@ Unload my textures
 A pointer to the shared gameData.
 */
 /******************************************************************************/
-void GameState2Unload(void)
+void GameStage2::Unload(void)
 {
   /*Make sure to unload all textures*/
-  M5Gfx::UnloadTexture(stageData.texture2ID);
-  M5Gfx::UnloadTexture(stageData.texture3ID);
-  M5Gfx::UnloadTexture(stageData.texture4ID);
+  M5Gfx::UnloadTexture(m_charTexture);
+  M5Gfx::UnloadTexture(m_bgTexture);
+  M5Gfx::UnloadTexture(m_hudTexture);
 
 }
