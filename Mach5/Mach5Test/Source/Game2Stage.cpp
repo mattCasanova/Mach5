@@ -21,7 +21,7 @@ This is a stage in the game demo.
 #include "M5StageMgr.h"
 #include "M5Gfx.h"
 #include "M5Input.h"
-#include "DemoStates.h"
+#include "M5GameStages.h"
 
 namespace
 {

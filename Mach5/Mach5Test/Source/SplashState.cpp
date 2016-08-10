@@ -21,7 +21,7 @@ generator. For the demo we are testing our math functions.
 #include "M5Mtx44.h"
 #include "M5StageMgr.h"
 #include "M5Gfx.h"
-#include "DemoStates.h"
+#include "M5GameStages.h"
 
 #include <cstdio>
 

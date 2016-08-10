@@ -20,7 +20,7 @@ window and engine.
 #include "M5Mtx44.h"
 #include "M5Gfx.h"
 
-#include "DemoStates.h"
+#include "M5GameStages.h"
 #include <cstdio>
 
 namespace
