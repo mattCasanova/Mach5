@@ -8,8 +8,8 @@
 
 This is a struct that you can define your own game specific game data in. This
 is data that needs to be shared across stages, such as player lives or game
-score.  You must initilize the values in main before calling 
-M5AppilcationInit.
+score.  You should initilize the values in main before calling 
+M5App::Init.
 */
 /******************************************************************************/
 #ifndef M5GAMEDATA_H
