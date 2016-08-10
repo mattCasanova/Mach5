@@ -1,6 +1,6 @@
 /******************************************************************************/
 /*!
-file    GameStage1.cpp
+file    Game1Stage.cpp
 \author Matt Casanova
 \par    email: lazersquad\@gmail.com
 \par    Mach5 Game Engine
@@ -10,7 +10,7 @@ This is a stage in the game demo. This shows some basic features of the
 window and engine.
 */
 /******************************************************************************/
-#include "GameState1.h"
+#include "Game1Stage.h"
 
 
 #include "M5App.h"
@@ -35,7 +35,7 @@ const float FONT_OFFSET = 4.f;
 We have no resources in this demo stage
 */
 /******************************************************************************/
-void GameStage1::Load(void)
+void Game1Stage::Load(void)
 {
 }
 /******************************************************************************/
@@ -43,7 +43,7 @@ void GameStage1::Load(void)
 Just initialize the values here.
 */
 /******************************************************************************/
-void GameStage1::Init(void)
+void Game1Stage::Init(void)
 {
   /*Initialize stage data*/
   m_isFullScreen = false;
@@ -57,7 +57,7 @@ void GameStage1::Init(void)
 This is the update.  All of the input and game logic is here for this stage.
 */
 /******************************************************************************/
-void GameStage1::Update(float dt)
+void Game1Stage::Update(float dt)
 {
   M5Vec2 mouse;
   M5Vec2 topLeft;
@@ -86,7 +86,7 @@ void GameStage1::Update(float dt)
   }
   else if (M5Input::IsTriggered(M5_N))
   {
-    M5StageMgr::SetNextStage(GS_GAME2);
+    M5StageMgr::SetNextStage(GS_Game2Stage);
   }
 
   /*Check for time*/
@@ -141,7 +141,7 @@ I don't have any resources to shutdown.
 
 */
 /******************************************************************************/
-void GameStage1::Shutdown(void)
+void Game1Stage::Shutdown(void)
 {
 
 }
@@ -154,7 +154,7 @@ the to the default.
 A pointer to the shared gameData.
 */
 /******************************************************************************/
-void GameStage1::Unload(void)
+void Game1Stage::Unload(void)
 {
   /*Reset color*/
   M5Gfx::SetTextureColor(0xFFFFFFFF);

@@ -1,6 +1,6 @@
 /******************************************************************************/
 /*!
-file    GameStage2.cpp
+file    Game2Stage.cpp
 \author Matt Casanova 
 \par    email: lazersquad\@gmail.com
 \par    Mach5 Game Engine
@@ -10,7 +10,7 @@ This is a stage in the game demo.
 
 */
 /******************************************************************************/
-#include "GameState2.h"
+#include "Game2Stage.h"
 
 
 #include "M5App.h"
@@ -36,7 +36,7 @@ const float MAX_TIME = 5.f;
 Load my textures here
 */
 /******************************************************************************/
-void GameStage2::Load(void)
+void Game2Stage::Load(void)
 {
   /*Load my textures used for this stage*/
   m_charTexture = M5Gfx::LoadTexture("Textures\\MainChar.tga");
@@ -49,7 +49,7 @@ Initialize some data
 
 */
 /******************************************************************************/
-void GameStage2::Init(void)
+void Game2Stage::Init(void)
 {
   /*The initial values for my camera*/
   m_cameraZ   = 60.f;
@@ -73,7 +73,7 @@ Update game and draw objects
 
 */
 /******************************************************************************/
-void GameStage2::Update(float dt)
+void Game2Stage::Update(float dt)
 {
   M5Mtx44 transform;
 
@@ -111,7 +111,7 @@ void GameStage2::Update(float dt)
   /*Check for input*/
   if (M5Input::IsTriggered(M5_N) || M5Input::IsTriggered(M5_GAMEPAD_START))
   {
-    M5StageMgr::SetNextStage(GS_GAMEOVER);
+    M5StageMgr::SetNextStage(GS_GameOverStage);
   }
   else if(M5Input::IsTriggered(M5_V))
   {
@@ -278,7 +278,7 @@ Nothing to do here
 
 */
 /******************************************************************************/
-void GameStage2::Shutdown(void)
+void Game2Stage::Shutdown(void)
 {
 }
 /******************************************************************************/
@@ -289,7 +289,7 @@ Unload my textures
 A pointer to the shared gameData.
 */
 /******************************************************************************/
-void GameStage2::Unload(void)
+void Game2Stage::Unload(void)
 {
   /*Make sure to unload all textures*/
   M5Gfx::UnloadTexture(m_charTexture);

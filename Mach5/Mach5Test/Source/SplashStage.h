@@ -1,22 +1,21 @@
 /******************************************************************************/
 /*!
-\file   GameOverState.h
+\file   SplashStage.h
 \author Matt Casanova 
 \par    email: lazersquad\@gmail.com
 \par    Mach5 Game Engine
-\date   2016/08/9
- 
-This is a stage for the Mach5 Engine Demo project. This is a good place to 
-release resources for anything that was allocated in SplashState. He we just 
-quit the game.
+\date   2016/08/10
+
+This is a stage for the Mach5 Engine Demo project. A Splash stage is a good 
+place to load data and/or resources that you will need for all of your stages.
 */
 /******************************************************************************/
-#ifndef GAMEOVERSTAGE_H
-#define GAMEOVERSTAGE_H
+#ifndef SPLASHSTAGE_H
+#define SPLASHSTAGE_H
 
 #include "M5Stage.h"
 
-class GameOverStage : public M5Stage
+class SplashStage : public M5Stage
 {
 public:
   virtual void Load(void);
@@ -25,9 +24,9 @@ public:
   virtual void Shutdown(void);
   virtual void Unload(void);
 private:
-  int m_texture;
+  int   m_splashTexture;
+  float m_changeTimer;
 };
 
 
-
-#endif /* GAMEOVERSTAGE_H */
+#endif /* SPLASHSTAGE_H */

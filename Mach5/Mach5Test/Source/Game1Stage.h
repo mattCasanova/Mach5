@@ -10,12 +10,12 @@ This is a stage in the game demo. This shows some basic features of the
 window and engine.
 */
 /******************************************************************************/
-#ifndef GAMESTATE1_H
-#define GAMESTATE1_H
+#ifndef GAME1_STATE_H
+#define GAME1_STATE_H
 
 #include "M5Stage.h"
 
-class GameStage1 : public M5Stage
+class Game1Stage : public M5Stage
 {
 public:
   virtual void Load(void);

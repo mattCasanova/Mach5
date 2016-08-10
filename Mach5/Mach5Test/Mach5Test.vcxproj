@@ -154,17 +154,17 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Source\DemoStates.h" />
-    <ClInclude Include="Source\GameOverState.h" />
-    <ClInclude Include="Source\GameState1.h" />
-    <ClInclude Include="Source\GameState2.h" />
-    <ClInclude Include="Source\SplashState.h" />
+    <ClInclude Include="Source\GameOverStage.h" />
+    <ClInclude Include="Source\Game1Stage.h" />
+    <ClInclude Include="Source\Game2Stage.h" />
+    <ClInclude Include="Source\SplashStage.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Source\GameOverState.cpp" />
-    <ClCompile Include="Source\GameState1.cpp" />
-    <ClCompile Include="Source\GameState2.cpp" />
+    <ClCompile Include="Source\GameOverStage.cpp" />
+    <ClCompile Include="Source\Game1Stage.cpp" />
+    <ClCompile Include="Source\Game2Stage.cpp" />
     <ClCompile Include="Source\Main.cpp" />
-    <ClCompile Include="Source\SplashState.cpp" />
+    <ClCompile Include="Source\SplashStage.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

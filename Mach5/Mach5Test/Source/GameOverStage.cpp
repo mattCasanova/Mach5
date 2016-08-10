@@ -2,17 +2,17 @@
 /*!
 file    GameOverStage.cpp
 \author Matt Casanova 
-\par    email: mcasanov\@digipen.edu
-\par    class:
-\par    Assignment:
-\date   2012/12/6
+\\par   email: lazersquad\@gmail.com
+\par    Mach5 Game Engine
+\date   2016/08/10
+
 
 The GameOver stage is really used just to quit.  Since I have an splash 
 stage, I make sure to have an quit stage to close resources even though for
 the demo it is just used for debug stuff.
 */
 /******************************************************************************/
-#include "GameOverState.h"
+#include "GameOverStage.h"
 #include "M5Debug.h"
 #include "M5Input.h"
 #include "M5Gfx.h"
@@ -46,10 +46,7 @@ do anything here.
 void GameOverStage::Init(void)
 {
   M5Gfx::SetToOrtho();
-  M5Gfx::SetBackgroundColor(
-    114.0f / 255.f, /*The amount of red in the logo texture*/
-    0.f, 0.f);
-
+  M5Gfx::SetBackgroundColor(0, 0, 0);
 }
 /******************************************************************************/
 /*!

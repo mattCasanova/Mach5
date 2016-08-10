@@ -1,18 +1,16 @@
 /******************************************************************************/
 /*!
-file   DemoStage1.c
+file    SplashStage.cpp
 \author Matt Casanova 
-\par    email: mcasanov\@digipen.edu
-\par    class:
-\par    Assignment:
-\date   2012/12/6
+\\par   email: lazersquad\@gmail.com
+\par    Mach5 Game Engine
+\date   2016/08/10
 
-This is a stage for the Mach5 Engine Demo project. The init stage would be a 
-good place to load game data and initialize the random number 
-generator. For the demo we are testing our math functions.
+This is a stage for the Mach5 Engine Demo project. This would be a 
+good place to load game data and initialize object you need for your game.
 */
 /******************************************************************************/
-#include "SplashState.h"
+#include "SplashStage.h"
 
 #include "M5App.h"
 #include "M5Debug.h"
@@ -103,7 +101,7 @@ void SplashStage::Update(float dt)
   /*Check for time, only be in this stage for the 
   set time*/
   if (m_changeTimer > SPLASH_MAX_TIME)
-    M5StageMgr::SetNextStage(GS_GAME1);
+    M5StageMgr::SetNextStage(GS_Game1Stage);
 
   /*Set position scale and rotation of what I want to draw*/
   M5Mtx44::MakeTransform(transform, 

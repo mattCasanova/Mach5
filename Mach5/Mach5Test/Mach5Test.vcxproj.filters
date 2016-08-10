@@ -26,16 +26,16 @@
     <ClInclude Include="Source\DemoStates.h">
       <Filter>States</Filter>
     </ClInclude>
-    <ClInclude Include="Source\GameOverState.h">
-      <Filter>States\GameOver</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\GameState1.h">
+    <ClInclude Include="Source\Game1Stage.h">
       <Filter>States\Game1</Filter>
     </ClInclude>
-    <ClInclude Include="Source\GameState2.h">
+    <ClInclude Include="Source\Game2Stage.h">
       <Filter>States\Game2</Filter>
     </ClInclude>
-    <ClInclude Include="Source\SplashState.h">
+    <ClInclude Include="Source\GameOverStage.h">
+      <Filter>States\GameOver</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\SplashStage.h">
       <Filter>States\Splash</Filter>
     </ClInclude>
   </ItemGroup>
@@ -43,16 +43,16 @@
     <ClCompile Include="Source\Main.cpp">
       <Filter>Main</Filter>
     </ClCompile>
-    <ClCompile Include="Source\GameOverState.cpp">
-      <Filter>States\GameOver</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\GameState1.cpp">
+    <ClCompile Include="Source\Game1Stage.cpp">
       <Filter>States\Game1</Filter>
     </ClCompile>
-    <ClCompile Include="Source\GameState2.cpp">
+    <ClCompile Include="Source\Game2Stage.cpp">
       <Filter>States\Game2</Filter>
     </ClCompile>
-    <ClCompile Include="Source\SplashState.cpp">
+    <ClCompile Include="Source\GameOverStage.cpp">
+      <Filter>States\GameOver</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\SplashStage.cpp">
       <Filter>States\Splash</Filter>
     </ClCompile>
   </ItemGroup>

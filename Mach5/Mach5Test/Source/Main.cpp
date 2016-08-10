@@ -28,10 +28,10 @@ This is file contains the main function to make a basic window.
 
 /*My GameStages*/
 #include "M5TemplateBuilder.h"
-#include "SplashState.h"
-#include "GameState1.h"
-#include "GameState2.h"
-#include "GameOverState.h"
+#include "SplashStage.h"
+#include "Game1Stage.h"
+#include "Game2Stage.h"
+#include "GameOverStage.h"
 
 #include "M5Debug.h"
 
@@ -47,15 +47,15 @@ in the DemoStages enum.
 /******************************************************************************/
 void DemoAddStages(void)
 {
-  /*Add my GameStage1*/
-  M5StageMgr::AddStage(GS_SPLASH, new M5TemplateBuilder<SplashStage>());
-  M5StageMgr::SetStartStage(GS_SPLASH);
-  /*Add my GameStage1*/
-  M5StageMgr::AddStage(GS_GAME1, new M5TemplateBuilder<GameStage1>());
-  /*Add my GameStage2*/
-  M5StageMgr::AddStage(GS_GAME2, new M5TemplateBuilder<GameStage2>());
+  /*Add my Game1Stage*/
+  M5StageMgr::AddStage(GS_SplashStage, new M5TemplateBuilder<SplashStage>());
+  M5StageMgr::SetStartStage(GS_SplashStage);
+  /*Add my Game1Stage*/
+  M5StageMgr::AddStage(GS_Game1Stage, new M5TemplateBuilder<Game1Stage>());
+  /*Add my Game2Stage*/
+  M5StageMgr::AddStage(GS_Game2Stage, new M5TemplateBuilder<Game2Stage>());
   /*Add my GameOverStage*/
-  M5StageMgr::AddStage(GS_GAMEOVER, new M5TemplateBuilder<GameOverStage>());
+  M5StageMgr::AddStage(GS_GameOverStage, new M5TemplateBuilder<GameOverStage>());
 }
 /******************************************************************************/
 /*!

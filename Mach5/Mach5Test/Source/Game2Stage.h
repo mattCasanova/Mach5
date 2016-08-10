@@ -10,12 +10,12 @@
 This is a stage in the game demo.
 */
 /******************************************************************************/
-#ifndef GAMESTAGE2_H
-#define GAMESTAGE2_H
+#ifndef GAME2_STAGE_H
+#define GAME2_STAGE_H
 
 #include "M5Stage.h"
 
-class GameStage2 : public M5Stage
+class Game2Stage : public M5Stage
 {
 public:
   virtual void Load(void);
