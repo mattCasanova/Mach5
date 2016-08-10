@@ -1,6 +1,6 @@
 /******************************************************************************/
 /*!
-\file   M5GameTimer.h
+\file   M5Timer.h
 \author Matt Casanova
 \par    email: lazersquad\@gmail.com
 \par    Mach5 Game Engine

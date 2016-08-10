@@ -1,6 +1,6 @@
 /******************************************************************************/
 /*!
-file   M5DebugTools.cpp
+file    M5Debug.cpp
 \author Matt Casanova 
 \par    email: lazersquad\@gmail.com
 \par    Mach5 Game Engine

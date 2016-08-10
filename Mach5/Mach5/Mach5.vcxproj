@@ -157,8 +157,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\M5App.cpp" />
-    <ClCompile Include="Source\M5DebugTools.cpp" />
-    <ClCompile Include="Source\M5GameTimer.cpp" />
+    <ClCompile Include="Source\M5Debug.cpp" />
+    <ClCompile Include="Source\M5Timer.cpp" />
     <ClCompile Include="Source\M5Gfx.cpp" />
     <ClCompile Include="Source\M5Input.cpp" />
     <ClCompile Include="Source\M5Intersect.cpp" />
@@ -171,9 +171,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\M5App.h" />
-    <ClInclude Include="Source\M5DebugTools.h" />
+    <ClInclude Include="Source\M5Debug.h" />
     <ClInclude Include="Source\M5GameData.h" />
-    <ClInclude Include="Source\M5GameTimer.h" />
+    <ClInclude Include="Source\M5Timer.h" />
     <ClInclude Include="Source\M5Gfx.h" />
     <ClInclude Include="Source\M5Input.h" />
     <ClInclude Include="Source\M5Intersect.h" />

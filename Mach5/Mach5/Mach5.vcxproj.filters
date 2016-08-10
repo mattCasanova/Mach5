@@ -39,19 +39,13 @@
     <Filter Include="StageMgr">
       <UniqueIdentifier>{1e21e305-e1b8-4f03-a054-d8359d706890}</UniqueIdentifier>
     </Filter>
-    <Filter Include="GameTimer">
+    <Filter Include="Timer">
       <UniqueIdentifier>{7bf50f7c-6fc5-4b6e-a882-779c57c03caa}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="ReadMe.txt" />
-  </ItemGroup>
-  <ItemGroup>
     <ClCompile Include="Source\M5TextureLoading.cpp">
       <Filter>Gfx</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\M5DebugTools.cpp">
-      <Filter>Utils\Debug</Filter>
     </ClCompile>
     <ClCompile Include="Source\M5Math.cpp">
       <Filter>Utils\Math</Filter>
@@ -71,9 +65,6 @@
     <ClCompile Include="Source\M5Input.cpp">
       <Filter>Input</Filter>
     </ClCompile>
-    <ClCompile Include="Source\M5GameTimer.cpp">
-      <Filter>GameTimer</Filter>
-    </ClCompile>
     <ClCompile Include="Source\M5App.cpp">
       <Filter>App</Filter>
     </ClCompile>
@@ -83,11 +74,14 @@
     <ClCompile Include="Source\M5Gfx.cpp">
       <Filter>Gfx</Filter>
     </ClCompile>
+    <ClCompile Include="Source\M5Timer.cpp">
+      <Filter>Timer</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\M5Debug.cpp">
+      <Filter>Utils\Debug</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Source\M5DebugTools.h">
-      <Filter>Utils\Debug</Filter>
-    </ClInclude>
     <ClInclude Include="Source\M5Math.h">
       <Filter>Utils\Math</Filter>
     </ClInclude>
@@ -118,11 +112,17 @@
     <ClInclude Include="Source\M5Stage.h">
       <Filter>StageMgr</Filter>
     </ClInclude>
-    <ClInclude Include="Source\M5GameTimer.h">
-      <Filter>GameTimer</Filter>
-    </ClInclude>
     <ClInclude Include="Source\M5Gfx.h">
       <Filter>Gfx</Filter>
     </ClInclude>
+    <ClInclude Include="Source\M5Timer.h">
+      <Filter>Timer</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\M5Debug.h">
+      <Filter>Utils\Debug</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="ReadMe.txt" />
   </ItemGroup>
 </Project>
