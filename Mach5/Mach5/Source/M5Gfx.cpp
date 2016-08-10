@@ -13,7 +13,7 @@ Singleton class to draw and modify the view of the screen
 #include "M5Math.h"
 #include "M5Vec2.h"
 #include "M5Mtx44.h"
-#include "M5DebugTools.h"
+#include "M5Debug.h"
 
 #include <cmath> /*for tan*/
 #include <cstring> /*memset*/

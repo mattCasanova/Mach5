@@ -1,17 +1,17 @@
 /******************************************************************************/
 /*!
-file   M5TextureLoading.cpp
+file    M5TGALoader.cpp
 \author Matt Casanova 
-\par    email: mcasanov\@digipen.edu
-\par    class: GAM 150
-\par    Assignment: Simple 2D Game Engine
-\date   2012/12/10
+\author Matt Casanova
+\par    email: lazersquad\@gmail.com
+\par    Mach5 Game Engine
+\date   2016/08/10
 
 */
 /******************************************************************************/
 #include "M5Math.h"
 #include "M5Gfx.h"
-#include "M5DebugTools.h"
+#include "M5Debug.h"
 
 #include <windows.h>
 #include "gl/glew.h"
@@ -121,18 +121,15 @@ int UpdateTexture(M5Texture* pTexture, const M5TGAHeader* pHeader)
 
   /*Translate header info*******************************************/
   /*Width is highByte * 256 + lowByte*/
-  pTexture->width = pHeader->headerPart2[1] * 256 +
-    pHeader->headerPart2[0];
+  pTexture->width = pHeader->headerPart2[1] * 256 + pHeader->headerPart2[0];
   /*Height is highByte * 256 + lowbyte*/
-  pTexture->height = pHeader->headerPart2[3] * 256 +
-    pHeader->headerPart2[2];
+  pTexture->height = pHeader->headerPart2[3] * 256 + pHeader->headerPart2[2];
   /*Get bits per pixel*/
-  pTexture->bitsPerPixel = pHeader->headerPart2[4];
+  pTexture->bitsPerPixel  = pHeader->headerPart2[4];
   /*Gets bytes per pixel, 8 bits per byte */
   pTexture->bytesPerPixel = pTexture->bitsPerPixel / 8;
   /*Calculate image size*/
-  pTexture->imageSize = pTexture->bytesPerPixel * pTexture->width *
-    pTexture->height;
+  pTexture->imageSize     = pTexture->bytesPerPixel * pTexture->width * pTexture->height;
 
   /*Set our format for openGL*/
   if (pTexture->bitsPerPixel == RGB_BITS)
@@ -142,9 +139,7 @@ int UpdateTexture(M5Texture* pTexture, const M5TGAHeader* pHeader)
 
   /*Make sure this is a format we support*/
   /*Must have a valid width and height and must be 24 or 32 bits*/
-  if ((pTexture->width <= 0) || (pTexture->height <= 0) ||
-    (pTexture->bitsPerPixel != RGB_BITS &&
-    pTexture->bitsPerPixel != RGBA_BITS))
+  if ((pTexture->width <= 0) || (pTexture->height <= 0) || (pTexture->bitsPerPixel != RGB_BITS && pTexture->bitsPerPixel != RGBA_BITS))
   {
     return false;
   }

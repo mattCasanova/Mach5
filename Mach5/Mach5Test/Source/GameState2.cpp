@@ -14,7 +14,7 @@ This is a stage in the game demo.
 
 
 #include "M5App.h"
-#include "M5DebugTools.h"
+#include "M5Debug.h"
 #include "M5Math.h"
 #include "M5Vec2.h"
 #include "M5Mtx44.h"
@@ -111,7 +111,7 @@ void GameStage2::Update(float dt)
   /*Check for input*/
   if (M5Input::IsTriggered(M5_N) || M5Input::IsTriggered(M5_GAMEPAD_START))
   {
-    M5StageMgr::SetNextStage(DS_GAMEOVER);
+    M5StageMgr::SetNextStage(GS_GAMEOVER);
   }
   else if(M5Input::IsTriggered(M5_V))
   {

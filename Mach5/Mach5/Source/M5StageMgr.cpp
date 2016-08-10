@@ -13,9 +13,12 @@ between levels and menus.
 #include "M5StageMgr.h"
 #include "M5App.h"
 #include "M5Input.h"
-#include "M5GameTimer.h"
+#include "M5Timer.h"
 #include "M5Stage.h"
-#include "M5DebugTools.h"
+#include "M5Debug.h"
+
+#include "M5StageFactory.h"
+#include "M5StageBuilder.h"
 
 #include <vector>
 
@@ -24,13 +27,14 @@ namespace
 {
 //"Private" class data
 static std::vector<M5Stage*> s_stages;      /*!< Container to hold my stages*/
-static M5GameData*          s_pGameData;    /*!< Pointer to user defined shared data from main*/
-static int                  s_currStage;    /*!< This is the current stage we are in*/
-static int                  s_prevStage;    /*!< This is the last stage we were in*/
-static int                  s_nextStage;    /*!< This is the stage we are going into*/
-static bool                 s_isQuitting;   /*!< TRUE if we are quitting, FALSE otherwise*/
-static bool                 s_isRestarting; /*!< TRUE if we are restarting, FALSE otherwise*/
-static bool                 s_hasAdded;     /*!< Checks if the user has added a stage or not*/
+static M5StageFactory        s_stageFactory;
+static M5GameData*           s_pGameData;    /*!< Pointer to user defined shared data from main*/
+static M5GameStages          s_currStage;    /*!< This is the current stage we are in*/
+static M5GameStages          s_prevStage;    /*!< This is the last stage we were in*/
+static M5GameStages          s_nextStage;    /*!< This is the stage we are going into*/
+static bool                  s_isQuitting;   /*!< TRUE if we are quitting, FALSE otherwise*/
+static bool                  s_isRestarting; /*!< TRUE if we are restarting, FALSE otherwise*/
+static bool                  s_hasAdded;     /*!< Checks if the user has added a stage or not*/
 
 void DefaultLoad(void);
 void DefaultInit(void);
@@ -76,14 +80,15 @@ void M5StageMgr::Init(const M5GameData* pGData, int gameDataSize)
   M5DEBUG_CALL_CHECK(1);
 
   /*Initialize stage data*/
-  s_prevStage = INVALID_ID;
-  s_currStage = INVALID_ID;
-  s_nextStage = INVALID_ID;
+  s_prevStage = GS_LAST;
+  s_currStage = GS_LAST;
+  s_nextStage = GS_LAST;
   s_isQuitting = false;
   s_isRestarting = false;
   s_stages.reserve(STARTING_COUNT);
 
   //AddDefaultStage();
+
 
   M5DEBUG_ASSERT(gameDataSize >= 1, "M5GameData must have at least size of 1");
 
@@ -113,34 +118,20 @@ void M5StageMgr::Shutdown(void)
 }
 /******************************************************************************/
 /*!
-Adds a stage to the Stage manager so that you can change to that stage  later.
-The return values of this function are guaranteed to be in numeric order
-start from 0.  The value returned is a unique id for this stage.  Use the
-id to set start stage and when setting the next stage.
+Adds the name/builder pair to the stage factory.  Users should not need to call
+this function.  A batch file will automatically register all stages if they are
+named correctly: eg *Stage
 
-\attention
-This function will return stage ids in numeric order 0, 1, 2, 3, 4, ect.
+\param [in] name
+An enumeration generated from the users Stage names.  
 
-\param [in] stage
-A stage struct that contains the init, update, shutdown, Load and UnLoad
-functions for a stage.
-
-\return
-A unique id for this stage.
-
+\param [in] builder
+A pointer to a new builder type for this stage
 */
 /******************************************************************************/
-int M5StageMgr::AddStage(M5Stage* stage)
+void M5StageMgr::AddStage(M5GameStages name, M5StageBuilder* builder)
 {
-  if (!s_hasAdded)
-  {
-    s_hasAdded = true;
-    s_stages.clear();
-  }
-
-  /*Add stage to stage array*/
-  s_stages.push_back(stage);
-  return static_cast<int>(s_stages.size()) - 1;/*The id is the index in the array*/
+  s_stageFactory.AddBuilder(name, builder);
 }
 /******************************************************************************/
 /*!
@@ -228,14 +219,13 @@ void M5StageMgr::Update(void)
 {
   float frameTime = 0.0f;
   /*Get the Current stage*/
-  M5Stage* pCurrentStage = s_stages[s_currStage];
+  M5Stage* pCurrentStage = s_stageFactory.Build(s_currStage);
 
-
-  /*Only load if we are not restarting*/
-  if (s_isRestarting == false)
-    pCurrentStage->Load();
-  else
+  if (s_isRestarting == true)
     s_isRestarting = false;/*We need to reset our restart flag*/
+  else
+    pCurrentStage->Load();/*Only load if we are not restarting*/
+    
 
   /*Call the initialize function*/
   pCurrentStage->Init();
@@ -255,8 +245,10 @@ void M5StageMgr::Update(void)
   pCurrentStage->Shutdown();
 
   /*Only unload if we are not restarting*/
-  if (s_isRestarting == false)
+  if (s_isRestarting == false) {
     pCurrentStage->Unload();
+    delete pCurrentStage;
+  }
 
   /*Change Stage*/
   ChangeStage();
@@ -273,7 +265,7 @@ THIS SHOULD ONLY BE CALLED ONCE AT THE BEGINNING OF THE GAME.
 A unique id of the stage that the game should start in.
 */
 /******************************************************************************/
-void M5StageMgr::SetStartStage(int startStage)
+void M5StageMgr::SetStartStage(M5GameStages startStage)
 {
   s_prevStage = startStage;
   s_currStage = startStage;
@@ -288,7 +280,7 @@ stage to another.
 A unique id of the next that the game should start in.
 */
 /******************************************************************************/
-void M5StageMgr::SetNextStage(int nextStage)
+void M5StageMgr::SetNextStage(M5GameStages nextStage)
 {
   s_nextStage = nextStage;
 }
@@ -326,51 +318,3 @@ void M5StageMgr::ChangeStage(void)
   s_prevStage = s_currStage;
   s_currStage = s_nextStage;
 }
-/*
-#include "M5Gfx.h"
-#include "M5Input.h"
-#include "M5App.h"
-
-namespace
-{
-const int ARRAY_SIZE = 6;
-const float FONT_SIZE = 20;
-const char* messages[ARRAY_SIZE] =
-{ "You are seeing the default stage for the game",
-"You must add your own stages by calling M5StageMgr::AddStage",
-"After that, you must set your starting stage by ",
-"calling M5StageMgr::SetStartStage\n",
-" ",
-"Press any key to Quit"
-};
-void DefaultLoad(void)
-{
-}
-void DefaultInit(void)
-{
-  M5Gfx::SetToOrtho();
-}
-void DefaultUpdate(float)
-{
-  if (M5Input::IsAnyPressed())
-    M5StageMgr::Quit();
-
-  M5Vec2 windowSize = M5App::GetResolution();
-
-  M5Gfx::StartScene();
-  for (int i = ARRAY_SIZE - 1; i >= 0; --i)
-  {
-    M5Gfx::WriteText(messages[i], windowSize.x / 3.f,
-      windowSize.y / 2.f + FONT_SIZE * (ARRAY_SIZE - i));
-  }
-  M5Gfx::EndScene();
-}
-void DefaultShutdown(void)
-{
-}
-void DefaultUnload(void)
-{
-
-}*/
-
-

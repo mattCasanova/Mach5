@@ -42,11 +42,20 @@
     <Filter Include="Timer">
       <UniqueIdentifier>{7bf50f7c-6fc5-4b6e-a882-779c57c03caa}</UniqueIdentifier>
     </Filter>
+    <Filter Include="StageMgr\BaseStage">
+      <UniqueIdentifier>{007840d8-e61b-43e8-8d82-0ff46e6eb0f0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="StageMgr\StageMgr">
+      <UniqueIdentifier>{830d4a6f-1855-4dfb-b09d-09ad7f3ba7b5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="StageMgr\StageFactory">
+      <UniqueIdentifier>{982a4550-e690-435e-8676-d6e03a2eb9e6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="StageMgr\StageFactory\StageBuilder">
+      <UniqueIdentifier>{98755da1-d0d1-4908-8e97-cb2ca834b68f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Source\M5TextureLoading.cpp">
-      <Filter>Gfx</Filter>
-    </ClCompile>
     <ClCompile Include="Source\M5Math.cpp">
       <Filter>Utils\Math</Filter>
     </ClCompile>
@@ -68,9 +77,6 @@
     <ClCompile Include="Source\M5App.cpp">
       <Filter>App</Filter>
     </ClCompile>
-    <ClCompile Include="Source\M5StageMgr.cpp">
-      <Filter>StageMgr</Filter>
-    </ClCompile>
     <ClCompile Include="Source\M5Gfx.cpp">
       <Filter>Gfx</Filter>
     </ClCompile>
@@ -79,6 +85,15 @@
     </ClCompile>
     <ClCompile Include="Source\M5Debug.cpp">
       <Filter>Utils\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\M5TGALoader.cpp">
+      <Filter>Gfx</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\M5StageFactory.cpp">
+      <Filter>StageMgr\StageFactory</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\M5StageMgr.cpp">
+      <Filter>StageMgr\StageMgr</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -106,12 +121,6 @@
     <ClInclude Include="Source\M5App.h">
       <Filter>App</Filter>
     </ClInclude>
-    <ClInclude Include="Source\M5StageMgr.h">
-      <Filter>StageMgr</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\M5Stage.h">
-      <Filter>StageMgr</Filter>
-    </ClInclude>
     <ClInclude Include="Source\M5Gfx.h">
       <Filter>Gfx</Filter>
     </ClInclude>
@@ -120,6 +129,24 @@
     </ClInclude>
     <ClInclude Include="Source\M5Debug.h">
       <Filter>Utils\Debug</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\M5StageFactory.h">
+      <Filter>StageMgr\StageFactory</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\M5Stage.h">
+      <Filter>StageMgr\BaseStage</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\M5StageBuilder.h">
+      <Filter>StageMgr\StageFactory\StageBuilder</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\M5TemplateBuilder.h">
+      <Filter>StageMgr\StageFactory\StageBuilder</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\M5StageMgr.h">
+      <Filter>StageMgr\StageMgr</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\M5GameStages.h">
+      <Filter>StageMgr\StageFactory</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

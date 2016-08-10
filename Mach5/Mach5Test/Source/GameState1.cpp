@@ -86,7 +86,7 @@ void GameStage1::Update(float dt)
   }
   else if (M5Input::IsTriggered(M5_N))
   {
-    M5StageMgr::SetNextStage(DS_GAME2);
+    M5StageMgr::SetNextStage(GS_GAME2);
   }
 
   /*Check for time*/

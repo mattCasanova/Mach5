@@ -11,7 +11,7 @@ This file contains math functions that are useful in a game.
 */
 /******************************************************************************/
 #include "M5Math.h"
-#include "M5DebugTools.h"
+#include "M5Debug.h"
 #include <cmath>
 #include <cstring> /*memcpy*/
 

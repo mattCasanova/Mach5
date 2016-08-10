@@ -158,6 +158,7 @@
   <ItemGroup>
     <ClCompile Include="Source\M5App.cpp" />
     <ClCompile Include="Source\M5Debug.cpp" />
+    <ClCompile Include="Source\M5StageFactory.cpp" />
     <ClCompile Include="Source\M5Timer.cpp" />
     <ClCompile Include="Source\M5Gfx.cpp" />
     <ClCompile Include="Source\M5Input.cpp" />
@@ -166,13 +167,17 @@
     <ClCompile Include="Source\M5Mtx44.cpp" />
     <ClCompile Include="Source\M5Random.cpp" />
     <ClCompile Include="Source\M5StageMgr.cpp" />
-    <ClCompile Include="Source\M5TextureLoading.cpp" />
+    <ClCompile Include="Source\M5TGALoader.cpp" />
     <ClCompile Include="Source\M5Vec2.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\M5App.h" />
     <ClInclude Include="Source\M5Debug.h" />
     <ClInclude Include="Source\M5GameData.h" />
+    <ClInclude Include="Source\M5GameStages.h" />
+    <ClInclude Include="Source\M5StageBuilder.h" />
+    <ClInclude Include="Source\M5StageFactory.h" />
+    <ClInclude Include="Source\M5TemplateBuilder.h" />
     <ClInclude Include="Source\M5Timer.h" />
     <ClInclude Include="Source\M5Gfx.h" />
     <ClInclude Include="Source\M5Input.h" />

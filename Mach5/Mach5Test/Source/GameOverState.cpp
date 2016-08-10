@@ -13,7 +13,7 @@ the demo it is just used for debug stuff.
 */
 /******************************************************************************/
 #include "GameOverState.h"
-#include "M5DebugTools.h"
+#include "M5Debug.h"
 #include "M5Input.h"
 #include "M5Gfx.h"
 #include "M5StageMgr.h"

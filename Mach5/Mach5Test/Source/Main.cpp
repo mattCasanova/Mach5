@@ -27,12 +27,13 @@ This is file contains the main function to make a basic window.
 #include "M5GameData.h"
 
 /*My GameStages*/
+#include "M5TemplateBuilder.h"
 #include "SplashState.h"
 #include "GameState1.h"
 #include "GameState2.h"
 #include "GameOverState.h"
 
-#include "M5DebugTools.h"
+#include "M5Debug.h"
 
 /******************************************************************************/
 /*!
@@ -47,15 +48,14 @@ in the DemoStages enum.
 void DemoAddStages(void)
 {
   /*Add my GameStage1*/
-  int id = M5StageMgr::AddStage(new SplashStage);
-  M5StageMgr::SetStartStage(id);
-
+  M5StageMgr::AddStage(GS_SPLASH, new M5TemplateBuilder<SplashStage>());
+  M5StageMgr::SetStartStage(GS_SPLASH);
   /*Add my GameStage1*/
-  M5StageMgr::AddStage(new GameStage1);
+  M5StageMgr::AddStage(GS_GAME1, new M5TemplateBuilder<GameStage1>());
   /*Add my GameStage2*/
-  M5StageMgr::AddStage(new GameStage2);
+  M5StageMgr::AddStage(GS_GAME2, new M5TemplateBuilder<GameStage2>());
   /*Add my GameOverStage*/
-  M5StageMgr::AddStage(new GameOverStage);
+  M5StageMgr::AddStage(GS_GAMEOVER, new M5TemplateBuilder<GameOverStage>());
 }
 /******************************************************************************/
 /*!

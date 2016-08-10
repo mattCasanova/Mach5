@@ -12,11 +12,11 @@ Mach 5 Engine
 */
 /******************************************************************************/
 #include "M5App.h"
-#include "M5DebugTools.h"
+#include "M5Debug.h"
 #include "M5Vec2.h"
 #include "M5StageMgr.h"
 #include "M5Input.h"
-#include "M5GameTimer.h"
+#include "M5Timer.h"
 #include "M5Gfx.h"
 #include "Windowsx.h" /*For GET_X_LPARAM, GET_Y_LPARAM*/
 

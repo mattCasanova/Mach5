@@ -12,7 +12,7 @@ Implementation of my Mtx44 Functions
 /******************************************************************************/
 #include "M5Mtx44.h"
 #include "M5Math.h"
-#include "M5DebugTools.h"
+#include "M5Debug.h"
 
 #include <cmath> //sqrt, fabs
 #include <cstring>//memcpy

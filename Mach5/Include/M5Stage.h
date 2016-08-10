@@ -18,7 +18,7 @@ Base class for M5Stage
 struct M5Stage
 {
 public:
-  virtual ~M5Stage(void) {}
+  virtual ~M5Stage(void) {}//emtpy virtual destructor
   virtual void Load(void)       = 0;
   virtual void Init(void)       = 0; 
   virtual void Update(float dt) = 0;

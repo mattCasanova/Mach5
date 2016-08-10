@@ -13,7 +13,7 @@ Singleton class to control get and set input.
 /******************************************************************************/
 #include "M5Input.h"
 #include "M5Vec2.h"
-#include "M5DebugTools.h"
+#include "M5Debug.h"
 
 #include <cmath>    /*sqrt*/
 #include <climits>  /*max short*/

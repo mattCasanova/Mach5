@@ -1,20 +1,24 @@
-C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5GameTimer.h:18: warning: Compound M5Timer is not documented.
+C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5StageBuilder.h:20: warning: Compound M5StageBuilder is not documented.
+C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5Timer.h:18: warning: Compound M5Timer is not documented.
+C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5StageFactory.h:24: warning: Compound M5StageFactory is not documented.
+C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5TemplateBuilder.h:20: warning: Compound M5TemplateBuilder is not documented.
+C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5GameStages.h:16: warning: Member M5GameStages (enumeration) of file M5GameStages.h is not documented.
 C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5Gfx.cpp:568: warning: argument 'in' of command @param is not found in the argument list of M5Gfx::ConvertScreenToWorld(float &x, float &y)
 C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5Gfx.cpp:568: warning: argument 'out' of command @param is not found in the argument list of M5Gfx::ConvertScreenToWorld(float &x, float &y)
 C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5Gfx.cpp:568: warning: argument 'in' of command @param is not found in the argument list of M5Gfx::ConvertScreenToWorld(float &x, float &y)
 C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5Gfx.cpp:568: warning: argument 'out' of command @param is not found in the argument list of M5Gfx::ConvertScreenToWorld(float &x, float &y)
-C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5Gfx.h:60: warning: The following parameters of M5Gfx::ConvertScreenToWorld(float &x, float &y) are not documented:
+C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5Gfx.h:62: warning: The following parameters of M5Gfx::ConvertScreenToWorld(float &x, float &y) are not documented:
   parameter 'x'
   parameter 'y'
 C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5Gfx.cpp:605: warning: argument 'in' of command @param is not found in the argument list of M5Gfx::ConvertWorldToScreen(float &x, float &y)
 C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5Gfx.cpp:605: warning: argument 'out' of command @param is not found in the argument list of M5Gfx::ConvertWorldToScreen(float &x, float &y)
 C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5Gfx.cpp:605: warning: argument 'in' of command @param is not found in the argument list of M5Gfx::ConvertWorldToScreen(float &x, float &y)
 C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5Gfx.cpp:605: warning: argument 'out' of command @param is not found in the argument list of M5Gfx::ConvertWorldToScreen(float &x, float &y)
-C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5Gfx.h:62: warning: The following parameters of M5Gfx::ConvertWorldToScreen(float &x, float &y) are not documented:
+C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5Gfx.h:64: warning: The following parameters of M5Gfx::ConvertWorldToScreen(float &x, float &y) are not documented:
   parameter 'x'
   parameter 'y'
 C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5Gfx.cpp:439: warning: expected whitespace after transY command
-C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5Gfx.h:39: warning: The following parameters of M5Gfx::SetTextureCoords(float scaleX, float scaleY, float radians, float transX, float transY) are not documented:
+C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5Gfx.h:41: warning: The following parameters of M5Gfx::SetTextureCoords(float scaleX, float scaleY, float radians, float transX, float transY) are not documented:
   parameter 'transY'
 C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5Input.h:147: warning: Member GetGamePadState(void) (function) of class M5Input is not documented.
 C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5Input.h:149: warning: Member SetGamePadButtons(void) (function) of class M5Input is not documented.
@@ -27,4 +31,14 @@ C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5Stage.h:23: warning: M
 C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5Stage.h:24: warning: Member Update(float dt)=0 (function) of class M5Stage is not documented.
 C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5Stage.h:25: warning: Member Shutdown(void)=0 (function) of class M5Stage is not documented.
 C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5Stage.h:26: warning: Member Unload(void)=0 (function) of class M5Stage is not documented.
+C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5StageBuilder.h:23: warning: Member Build(void)=0 (function) of class M5StageBuilder is not documented.
+C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5StageFactory.h:27: warning: Member AddBuilder(M5GameStages name, M5StageBuilder *builder) (function) of class M5StageFactory is not documented.
+C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5StageFactory.h:28: warning: Member RemoveBuilder(M5GameStages name) (function) of class M5StageFactory is not documented.
+C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5StageFactory.h:29: warning: Member Build(M5GameStages name) (function) of class M5StageFactory is not documented.
+C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5StageFactory.h:30: warning: Member ClearBuilders(void) (function) of class M5StageFactory is not documented.
+C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5StageFactory.h:34: warning: Member BuilderMap (typedef) of class M5StageFactory is not documented.
+C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5StageFactory.h:35: warning: Member MapItor (typedef) of class M5StageFactory is not documented.
+C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5StageFactory.h:38: warning: Member m_builderMap (variable) of class M5StageFactory is not documented.
+C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5StageMgr.h:32: warning: Member AddStage(M5GameStages name, M5StageBuilder *builder) (function) of class M5StageMgr is not documented.
+C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5TemplateBuilder.h:22: warning: Member Build(void) (function) of class M5TemplateBuilder is not documented.
 error: failed to run html help compiler on index.hhp

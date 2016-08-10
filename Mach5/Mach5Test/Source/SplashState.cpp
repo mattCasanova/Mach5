@@ -15,7 +15,7 @@ generator. For the demo we are testing our math functions.
 #include "SplashState.h"
 
 #include "M5App.h"
-#include "M5DebugTools.h"
+#include "M5Debug.h"
 #include "M5Math.h"
 #include "M5Vec2.h"
 #include "M5Mtx44.h"
@@ -103,7 +103,7 @@ void SplashStage::Update(float dt)
   /*Check for time, only be in this stage for the 
   set time*/
   if (m_changeTimer > SPLASH_MAX_TIME)
-    M5StageMgr::SetNextStage(DS_GAME1);
+    M5StageMgr::SetNextStage(GS_GAME1);
 
   /*Set position scale and rotation of what I want to draw*/
   M5Mtx44::MakeTransform(transform, 

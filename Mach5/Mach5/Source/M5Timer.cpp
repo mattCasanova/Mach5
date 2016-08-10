@@ -10,8 +10,8 @@ Singleton class to control game time related functions.
 
 */
 /******************************************************************************/
-#include "M5GameTimer.h"
-#include "M5DebugTools.h"
+#include "M5Timer.h"
+#include "M5Debug.h"
 #include <windows.h>
 
 

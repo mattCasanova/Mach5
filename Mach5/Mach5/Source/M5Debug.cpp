@@ -9,7 +9,7 @@ file    M5Debug.cpp
 This file contains the definition for the Debug functions and Macros.
 */
 /******************************************************************************/
-#include "M5DebugTools.h"
+#include "M5Debug.h"
 
 #define WIN32_LEAN_AND_MEAN 
 #include <windows.h> /*DebugBreak*/

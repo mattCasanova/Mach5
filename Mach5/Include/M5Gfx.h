@@ -25,6 +25,8 @@ class M5Gfx
 {
 public:
   friend class M5App;
+
+
 /*This should be called once before drawing all objects*/
 static void StartScene(void);
 /*This should be called once after drawing all objects*/

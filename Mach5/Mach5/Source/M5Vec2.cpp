@@ -12,7 +12,7 @@ Implementation of my Vec2 Functions
 /******************************************************************************/
 #include "M5Vec2.h"
 #include "M5Math.h"
-#include "M5DebugTools.h"
+#include "M5Debug.h"
 
 #include <cmath> //sqrt, fabs
 #include <cstring>//memcpy

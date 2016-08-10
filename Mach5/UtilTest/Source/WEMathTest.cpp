@@ -14,7 +14,7 @@ Function to test my math helper functions
 #include "M5Math.h"
 #include "M5Vec2.h"
 #include "M5Mtx44.h"
-#include "M5DebugTools.h"
+#include "M5Debug.h"
 #include <cstdio>
 
 void M5Mtx44Test(void)
