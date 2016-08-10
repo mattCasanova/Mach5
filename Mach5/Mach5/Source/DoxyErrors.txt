@@ -39,6 +39,6 @@ C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5StageFactory.h:30: war
 C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5StageFactory.h:34: warning: Member BuilderMap (typedef) of class M5StageFactory is not documented.
 C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5StageFactory.h:35: warning: Member MapItor (typedef) of class M5StageFactory is not documented.
 C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5StageFactory.h:38: warning: Member m_builderMap (variable) of class M5StageFactory is not documented.
-C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5StageMgr.h:32: warning: Member AddStage(M5GameStages name, M5StageBuilder *builder) (function) of class M5StageMgr is not documented.
+C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5StageMgr.h:31: warning: Member AddStage(M5Stage *stage) (function) of class M5StageMgr is not documented.
 C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5TemplateBuilder.h:22: warning: Member Build(void) (function) of class M5TemplateBuilder is not documented.
 error: failed to run html help compiler on index.hhp

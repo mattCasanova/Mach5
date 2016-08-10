@@ -97,6 +97,9 @@
       <AdditionalLibraryDirectories>$(SolutionDir)\Lib;</AdditionalLibraryDirectories>
       <AdditionalDependencies>Mach5_D.lib;opengl32.lib;glew32.lib;glu32.lib;Xinput9_1_0.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <PreBuildEvent>
+      <Command>UserPreBuild.bat</Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
