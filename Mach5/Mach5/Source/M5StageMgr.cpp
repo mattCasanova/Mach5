@@ -27,6 +27,7 @@ namespace
 {
 //"Private" class data
 static M5StageFactory        s_stageFactory; /*!< Factory for creating Stages based off of the */
+static M5Timer               s_timer;        /*!< Timer used to keep track of frame time.*/
 static M5GameData*           s_pGameData;    /*!< Pointer to user defined shared data from main*/
 static M5GameStages          s_currStage;    /*!< This is the current stage we are in*/
 static M5GameStages          s_prevStage;    /*!< This is the last stage we were in*/
@@ -46,9 +47,12 @@ A pointer to M5GameData struct to copy initial data.
 
 \param [in] gameDataSize
 The size of the M5GameData struct so we know how much memory to allocate.
+
+\param [in] framePerSecond
+The desired number of times per second that the game should update.
 */
 /******************************************************************************/
-void M5StageMgr::Init(const M5GameData* pGData, int gameDataSize)
+void M5StageMgr::Init(const M5GameData* pGData, int gameDataSize, int framesPerSecond)
 {
   M5DEBUG_CALL_CHECK(1);
 
@@ -58,6 +62,7 @@ void M5StageMgr::Init(const M5GameData* pGData, int gameDataSize)
   s_nextStage = GS_INVALID;
   s_isQuitting = false;
   s_isRestarting = false;
+  s_timer.Init(framesPerSecond);
 
   M5DEBUG_ASSERT(gameDataSize >= 1, "M5GameData must have at least size of 1");
 
@@ -198,11 +203,11 @@ void M5StageMgr::Update(void)
   while ((s_currStage == s_nextStage) && !s_isQuitting && !s_isRestarting)
   {
     /*Our main game loop*/
-    M5Timer::StartFrame();/*Save the start time of the frame*/
+    s_timer.StartFrame();/*Save the start time of the frame*/
     M5Input::Reset(frameTime);
     M5App::ProcessMessages();
     pCurrentStage->Update(frameTime);
-    frameTime = M5Timer::EndFrame();/*Get the total frame time*/
+    frameTime = s_timer.EndFrame();/*Get the total frame time*/
   }
 
   /*Make sure to shutdown the stage*/

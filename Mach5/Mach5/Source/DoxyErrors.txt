@@ -1,1 +1,3 @@
+C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5StageMgr.h:54: warning: The following parameters of M5StageMgr::Init(const M5GameData *pGData, int gameDataSize, int framesPerSecond) are not documented:
+  parameter 'framesPerSecond'
 error: failed to run html help compiler on index.hhp

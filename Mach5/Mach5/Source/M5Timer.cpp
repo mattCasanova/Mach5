@@ -6,26 +6,11 @@
 \par    Mach5 Game Engine
 \date   2016/08/8
 
-Singleton class to control game time related functions.
+Class to help control frames per second of the game.
 
 */
 /******************************************************************************/
 #include "M5Timer.h"
-#include "M5Debug.h"
-/*! Used to exclude rarely-used stuff from Windows */
-#define WIN32_LEAN_AND_MEAN 
-#include <windows.h>
-
-
-namespace
-{
-LARGE_INTEGER s_frequency;       /*!< The frequency of the high performance clock*/
-LARGE_INTEGER s_startTime;       /*!< The start time of the frame*/
-LARGE_INTEGER s_endTime;         /*!< The end time of the frame*/
-float         s_targetFPS;       /*!< The number of frame you want per second*/
-float         s_targetFrameTime; /*!< The time each frame should take*/
-}
-
 /******************************************************************************/
 /*!
 Allows user to set the target frames per second.  Typically this will be 30
@@ -50,8 +35,6 @@ The target frames per second for the game.
 /******************************************************************************/
 void M5Timer::Init(int fps)
 {
-  M5DEBUG_CALL_CHECK(1);
-
   /*Get high performance clock frequency*/
   QueryPerformanceFrequency(&s_frequency);
   /*Set other values to 0*/

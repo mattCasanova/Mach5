@@ -51,7 +51,7 @@ public:
   static void Restart(void);
 
 private:
-  static void Init(const M5GameData* gameData, int gameDataSize);
+  static void Init(const M5GameData* gameData, int gameDataSize, int framesPerSecond);
   static void Update(void);
   static void Shutdown(void);
   static void ChangeStage(void);

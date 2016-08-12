@@ -320,8 +320,7 @@ void M5App::Init(const M5InitData& initData)
   ::UpdateWindow(s_window);//call the 
 
   
-  M5StageMgr::Init(initData.pGData, initData.gameDataSize);/*Initialize StageMgr*/
-  M5Timer::Init(initData.fps);/*Initialize GameTimer*/
+  M5StageMgr::Init(initData.pGData, initData.gameDataSize, initData.fps);/*Initialize StageMgr*/
   M5Input::Init();/*Initialize Input*/
 }
 /******************************************************************************/
