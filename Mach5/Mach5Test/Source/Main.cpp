@@ -25,38 +25,10 @@ This is file contains the main function to make a basic window.
 #include "M5StageMgr.h"
 #include "M5Stage.h"
 #include "M5GameData.h"
-
-/*My GameStages*/
-#include "M5TemplateBuilder.h"
-#include "SplashStage.h"
-#include "Game1Stage.h"
-#include "Game2Stage.h"
-#include "GameOverStage.h"
+#include "RegisterGameWithEngine.h"
 
 #include "M5Debug.h"
 
-/******************************************************************************/
-/*!
-The user must add stages to their game After initializing the Application, and 
-before updating the Application.
-
-\attention
-To make switching stages easier, I add the stages in the order they are listed
-in the DemoStages enum.
-*/
-/******************************************************************************/
-void DemoAddStages(void)
-{
-  /*Add my Game1Stage*/
-  M5StageMgr::AddStage(GS_SplashStage, new M5TemplateBuilder<SplashStage>());
-  M5StageMgr::SetStartStage(GS_SplashStage);
-  /*Add my Game1Stage*/
-  M5StageMgr::AddStage(GS_Game1Stage, new M5TemplateBuilder<Game1Stage>());
-  /*Add my Game2Stage*/
-  M5StageMgr::AddStage(GS_Game2Stage, new M5TemplateBuilder<Game2Stage>());
-  /*Add my GameOverStage*/
-  M5StageMgr::AddStage(GS_GameOverStage, new M5TemplateBuilder<GameOverStage>());
-}
 /******************************************************************************/
 /*!
 
@@ -109,16 +81,17 @@ int WINAPI WinMain(HINSTANCE instance,
 
   /*Pass InitStruct to Function.  This function must be called first!!!*/
   M5App::Init(initData);
+  
   /*Function to add all of my game stages*/
-  DemoAddStages();
+  RegisterGameWithEngine();
+  M5StageMgr::SetStartStage(GS_SplashStage);
+
   /*Start running the game*/
   M5App::Update();
+  
   /*This function must be called after the window has closed!!!*/
   M5App::Shutdown();
   
-  //int* p = new int;
-  //p = 0;
-
   return 0;
 }
 

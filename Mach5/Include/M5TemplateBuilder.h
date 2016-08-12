@@ -15,6 +15,8 @@ Template class Builder for easily instantiating Game Stages
 
 #include "M5StageBuilder.h"
 
+/*! Templated builder derived class so I don't need to create a Builder for each
+Stage type*/
 template <typename T>
 class M5TemplateBuilder : public M5StageBuilder
 {
@@ -24,6 +26,7 @@ private:
 };
 
 
+//! Creates a new M5Stage of type T
 template <typename T> 
 M5Stage* M5TemplateBuilder<T>::Build(void)
 {

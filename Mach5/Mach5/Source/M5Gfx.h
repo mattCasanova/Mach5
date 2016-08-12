@@ -12,6 +12,7 @@ Singleton class to draw and modify the view of the screen
 #ifndef M5_GRAPHICS_H
 #define M5_GRAPHICS_H
 
+/*! Used to exclude rarely-used stuff from Windows */
 #define WIN32_LEAN_AND_MEAN 
 #include <windows.h>
 
@@ -41,8 +42,7 @@ static void SetTexture(int textureID);
 static void SetTextureCoords(float scaleX, float scaleY, float radians, float transX, float transY);
 /*Sets the position of the camera in perspective mode.  There
 is no camera in ortho mode.*/
-static void SetCamera(float cameraX, float cameraY, float cameraZ,
-  float cameraRot);
+static void SetCamera(float cameraX, float cameraY, float cameraZ, float cameraRot);
 /*Use this to draw game objects.  Z order and distance from the camera effects the size*/
 static void SetToPerspective(void);
 /*Use this to draw HUD objects. Distance from the camara doesn't  effect the object*/

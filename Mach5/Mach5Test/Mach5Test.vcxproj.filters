@@ -38,6 +38,9 @@
     <ClInclude Include="Source\SplashStage.h">
       <Filter>States\Splash</Filter>
     </ClInclude>
+    <ClInclude Include="Source\RegisterGameWithEngine.h">
+      <Filter>Main</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Main.cpp">

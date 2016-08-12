@@ -13,7 +13,7 @@ Singleton class to control game time related functions.
 #ifndef M5GAME_TIMER_H
 #define M5GAME_TIMER_H
 
-
+/*! Class to calculate time seconds for the game.  Used to get frame time for game */
 class M5Timer
 {
 private:

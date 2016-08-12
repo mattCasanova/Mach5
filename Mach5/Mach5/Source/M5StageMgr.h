@@ -14,7 +14,7 @@ Singleton to control quitting, restarting and switching stages.
 #define M5_STAGEMGR_H
 
 //Forward Declarations
-struct M5Stage;
+class M5Stage;
 struct M5GameData;
 class M5StageBuilder;
 
@@ -27,8 +27,7 @@ class M5StageMgr
 public:
   friend class M5App;
 
-  //Adds a stage the the StageMgr
-  static int  AddStage(M5Stage* stage);
+  //Adds a Registers a GameStage and a builder with the the StageMgr
   static void AddStage(M5GameStages name, M5StageBuilder* builder);
   //Sets the given stage ID to the starting stage of the game
   static void SetStartStage(M5GameStages startStage);

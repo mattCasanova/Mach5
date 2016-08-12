@@ -6,13 +6,12 @@
 \par    Mach5 Game Engine
 \date   2016/08/6
 
-This is the Application layer for creating and controlling a window in the
-Mach 5 Engine.
-
+A globably accessable Static class for Creating and controlling the window in 
+the Mach 5 Engine.
 */
 /******************************************************************************/
-#ifndef M5_APPLICATION_H
-#define M5_APPLICATION_H
+#ifndef M5_APP_H
+#define M5_APP_H
 
 #include "M5Vec2.h"
 
@@ -23,8 +22,7 @@ Mach 5 Engine.
 //Forward Declarations
 struct M5GameData;
 
-/*! A Struct used to initialize the system. Students should create one of these
-and pass it to InitializeSystem*/
+/*! A Struct used to initialize the system.*/
 struct M5InitData
 {
   HINSTANCE   instance;    /*!< The Instance from WinMain*/
@@ -69,7 +67,7 @@ private:
   static LRESULT CALLBACK M5WinProc(HWND win, UINT msg, WPARAM wp, LPARAM lp);
   static void ProcessMessages(void);
 
-};//end M5App
+};//end M5APP
 
 
 

@@ -16,10 +16,11 @@ Class for instantiating stages based on a regiestered name/type.
 #include <unordered_map>
 #include "M5GameStages.h"
 
-struct M5Stage;
+//Forward declarations
+class M5Stage;
 class M5StageBuilder;
 
-
+/*! Class for Easily Creating Stages at runtime.*/
 class M5StageFactory
 {
 public:
@@ -29,13 +30,13 @@ public:
   M5Stage* Build(M5GameStages name);
   void ClearBuilders(void);
 
-
 private:
+	//! Typedef for my Hash Table of M5GameStages and M5StageBuilder's
   typedef std::unordered_map<M5GameStages, M5StageBuilder*> BuilderMap;
+  //! Easy Typedef for the itorator to my BuilderMap.
   typedef BuilderMap::iterator MapItor;
 
-
-  BuilderMap m_builderMap;
+  BuilderMap m_builderMap; //!< Container to map M5GameStages to M5Builders 
 };
 
 

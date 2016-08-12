@@ -20,9 +20,6 @@ Singleton class to control get and set input.
 #include <bitset>
 #include <stack>
 
-/*! Exclude rarely-used stuff from Windows headers*/
-#define WIN32_LEAN_AND_MEAN 
-#include <windows.h> /*for WPARAM*/
 #include <Xinput.h>
 
 
@@ -108,6 +105,10 @@ void M5Input::Init(void)
 /*!
 This function resets my triggered, and repeating data and mouse. This is called
 once per frame before getting windows input.
+
+\param dt
+The time since the last frame.  This is used to check if the controller is 
+plugged in every 1 second (If it is unplugged.)
 */
 /******************************************************************************/
 void M5Input::Reset(float dt)
@@ -155,16 +156,14 @@ TRUE if the key is pressed, false otherwise.
 /******************************************************************************/
 bool M5Input::IsPressed(M5KeyCode key)
 {
-  M5DEBUG_ASSERT((key > M5_INVALID) && (key < M5_LAST),
-    "Key is out of range");
-
+  M5DEBUG_ASSERT((key > M5_INVALID) && (key < M5_LAST), "Key is out of range");
   return s_pressed[key];
 }
 /******************************************************************************/
 /*!
 Use this function to check if a specific key is triggered this frame.
 
-\param [in ]key
+\param [in] key
 The key to check.
 
 \return
@@ -173,9 +172,7 @@ TRUE if the key is triggered, false otherwise.
 /******************************************************************************/
 bool M5Input::IsTriggered(M5KeyCode key)
 {
-  M5DEBUG_ASSERT((key > M5_INVALID) && (key < M5_LAST),
-    "Key is out of range");
-
+  M5DEBUG_ASSERT((key > M5_INVALID) && (key < M5_LAST), "Key is out of range");
   return s_triggered[key];
 }
 /******************************************************************************/
@@ -191,9 +188,7 @@ TRUE if the key is repeating, false otherwise.
 /******************************************************************************/
 bool M5Input::IsRepeating(M5KeyCode key)
 {
-  M5DEBUG_ASSERT((key > M5_INVALID) && (key < M5_LAST),
-    "Key is out of range");
-
+  M5DEBUG_ASSERT((key > M5_INVALID) && (key < M5_LAST),"Key is out of range");
   return s_repeating[key];
 }
 /******************************************************************************/
@@ -323,6 +318,11 @@ float M5Input::GetRightTrigger(void)
 {
   return s_rightTrigger;
 }
+/******************************************************************************/
+/*!
+Helper function to get the state of the game pad and check if it connected.
+*/
+/******************************************************************************/
 void M5Input::GetGamePadState(void)
 {
   DWORD result; /*For testing game pad*/
@@ -332,6 +332,11 @@ void M5Input::GetGamePadState(void)
   s_isGamePadConnected = (result == ERROR_SUCCESS);
   
 }
+/******************************************************************************/
+/*!
+Helper function to Set the pressed state of all GamePad Buttons.
+*/
+/******************************************************************************/
 void M5Input::SetGamePadButtons(void)
 {
   SetPressed(M5_GAMEPAD_START,          s_gamePadState.Gamepad.wButtons & XINPUT_GAMEPAD_START);

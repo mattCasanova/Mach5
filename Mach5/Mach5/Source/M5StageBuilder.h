@@ -14,12 +14,14 @@ Base class Builder for easily instantiating Game Stages
 #define M5STAGE_BUILDER_H
 
 //Forward declaration
-struct M5Stage;
+class M5Stage;
 
+//! Base Builder class to create Game Stages via a StageFactory
 class M5StageBuilder
 {
 public:
-  ~M5StageBuilder() {} //enpty virtual destructor
+  ~M5StageBuilder() {} //empty virtual destructor
+  //! Virtual Build call that must be overloaded by all Derived Builders
   virtual M5Stage* Build(void) = 0;
 private:
 };

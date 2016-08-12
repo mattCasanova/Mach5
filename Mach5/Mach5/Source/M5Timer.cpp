@@ -12,6 +12,8 @@ Singleton class to control game time related functions.
 /******************************************************************************/
 #include "M5Timer.h"
 #include "M5Debug.h"
+/*! Used to exclude rarely-used stuff from Windows */
+#define WIN32_LEAN_AND_MEAN 
 #include <windows.h>
 
 
@@ -70,13 +72,13 @@ void M5Timer::StartFrame(void)
 /******************************************************************************/
 /*!
 Gets the clock count at the end of the frame.  This function will then return
-the total time the frame took to complete in milliseconds.
+the total time the frame took to complete in seconds.
 
 \attention
-The function will return frame time in milliseconds.
+The function will return frame time in seconds.
 
 \return
-The total time the frame took to complete in milliseconds.
+The total time the frame took to complete in seconds.
 
 */
 /******************************************************************************/
@@ -94,7 +96,7 @@ float M5Timer::EndFrame(void)
     time = static_cast<float>(difference.QuadPart) / s_frequency.QuadPart;
   } while (time < s_targetFrameTime);
 
-  /*divide total count by frequency to get frame time In milliseconds*/
+  /*divide total count by frequency to get frame time In seconds*/
   return time;
 }
 

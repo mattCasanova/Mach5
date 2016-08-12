@@ -26,41 +26,14 @@ between levels and menus.
 namespace
 {
 //"Private" class data
-static std::vector<M5Stage*> s_stages;      /*!< Container to hold my stages*/
-static M5StageFactory        s_stageFactory;
+static M5StageFactory        s_stageFactory; /*!< Factory for creating Stages based off of the */
 static M5GameData*           s_pGameData;    /*!< Pointer to user defined shared data from main*/
 static M5GameStages          s_currStage;    /*!< This is the current stage we are in*/
 static M5GameStages          s_prevStage;    /*!< This is the last stage we were in*/
 static M5GameStages          s_nextStage;    /*!< This is the stage we are going into*/
 static bool                  s_isQuitting;   /*!< TRUE if we are quitting, FALSE otherwise*/
 static bool                  s_isRestarting; /*!< TRUE if we are restarting, FALSE otherwise*/
-static bool                  s_hasAdded;     /*!< Checks if the user has added a stage or not*/
 
-void DefaultLoad(void);
-void DefaultInit(void);
-void DefaultUpdate(float dt);
-void DefaultShutdown(void);
-void DefaultUnload(void);
-
-/*!< ID for invalid stage*/
-const int INVALID_ID = -1;
-/*!< The number of stages my vector can hold at init time.*/
-const int STARTING_COUNT = 10;
-
-/*void AddDefaultStage(void)
-{
-  M5Stage defaultStage;
-  defaultStage.Load = DefaultLoad;
-  defaultStage.Init = DefaultInit;
-  defaultStage.Update = DefaultUpdate;
-  defaultStage.Shutdown = DefaultShutdown;
-  defaultStage.Unload = DefaultUnload;
-
-  int stageId = M5StageMgr::AddStage(defaultStage);
-  s_currStage = s_nextStage = stageId;
-  s_hasAdded = false;
-
-}*/
 }//end unnamed namespace
 
 /******************************************************************************/
@@ -80,15 +53,11 @@ void M5StageMgr::Init(const M5GameData* pGData, int gameDataSize)
   M5DEBUG_CALL_CHECK(1);
 
   /*Initialize stage data*/
-  s_prevStage = GS_LAST;
-  s_currStage = GS_LAST;
-  s_nextStage = GS_LAST;
+  s_prevStage = GS_INVALID;
+  s_currStage = GS_INVALID;
+  s_nextStage = GS_INVALID;
   s_isQuitting = false;
   s_isRestarting = false;
-  s_stages.reserve(STARTING_COUNT);
-
-  //AddDefaultStage();
-
 
   M5DEBUG_ASSERT(gameDataSize >= 1, "M5GameData must have at least size of 1");
 
@@ -99,18 +68,13 @@ void M5StageMgr::Init(const M5GameData* pGData, int gameDataSize)
 }
 /******************************************************************************/
 /*!
-Deallocates recourses related to the Stage Manager.  This should NOT be called
+Deallocates resourses related to the Stage Manager.  This should NOT be called
 by the user.  It will be called automatically by the system.
 
 */
 /******************************************************************************/
 void M5StageMgr::Shutdown(void)
 {
-  //clear all added stages
-  for (size_t i = 0; i < s_stages.size(); ++i)
-    delete s_stages[i];
-
-
   //This was allocated as an array of bytes
   char* toDelete = reinterpret_cast<char*>(s_pGameData);
   delete[] toDelete;
@@ -245,9 +209,10 @@ void M5StageMgr::Update(void)
   pCurrentStage->Shutdown();
 
   /*Only unload if we are not restarting*/
-  if (s_isRestarting == false) {
+  if (!s_isRestarting) {
     pCurrentStage->Unload();
     delete pCurrentStage;
+	pCurrentStage = 0;
   }
 
   /*Change Stage*/

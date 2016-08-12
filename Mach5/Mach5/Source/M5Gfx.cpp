@@ -436,7 +436,7 @@ The amount to rotate the texture.
 \param [in] transX
 The amount to translate in the x direction.
 
-\param [in]transY
+\param [in] transY
 The amount to translate in the y direction.
 */
 /******************************************************************************/
@@ -571,10 +571,10 @@ converts them to values in world space.
 \attention
 This function will modify the input values.
 
-\param [in/out] x
+\param [in,out] x
 A pointer to a float in screen space that will be changed to world space.
 
-\param [in/out] y
+\param [in,out] y
 A pointer to a float in screen space that will be changed to world space.
 
 */
@@ -608,10 +608,10 @@ converts them to values in screen space.
 \attention
 This function will modify the input values.
 
-\param [in/out] x
+\param [in,out] x
 A pointer to a float in world space that will be changed to screen space.
 
-\param [in/out] y
+\param [in,out] y
 A pointer to a float in world space that will be changed to screen space.
 
 */

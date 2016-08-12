@@ -6,9 +6,8 @@ file    M5App.cpp
 \par    Mach5 Game Engine
 \date   2016/08/6
 
-This is the Application layer for creating and controlling a window for the
-Mach 5 Engine
-
+A globably accessable Static class for Creating and controlling the window in
+the Mach 5 Engine.
 */
 /******************************************************************************/
 #include "M5App.h"
