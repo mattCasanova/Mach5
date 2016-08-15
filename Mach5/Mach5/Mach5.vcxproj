@@ -156,8 +156,10 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Source\GraphicsComponent.cpp" />
     <ClCompile Include="Source\M5App.cpp" />
     <ClCompile Include="Source\M5Debug.cpp" />
+    <ClCompile Include="Source\M5GameObject.cpp" />
     <ClCompile Include="Source\M5StageFactory.cpp" />
     <ClCompile Include="Source\M5Timer.cpp" />
     <ClCompile Include="Source\M5Gfx.cpp" />
@@ -171,9 +173,13 @@
     <ClCompile Include="Source\M5Vec2.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Source\GraphicsComponent.h" />
     <ClInclude Include="Source\M5App.h" />
+    <ClInclude Include="Source\M5Component.h" />
+    <ClInclude Include="Source\M5ComponentType.h" />
     <ClInclude Include="Source\M5Debug.h" />
     <ClInclude Include="Source\M5GameData.h" />
+    <ClInclude Include="Source\M5GameObject.h" />
     <ClInclude Include="Source\M5GameStages.h" />
     <ClInclude Include="Source\M5StageBuilder.h" />
     <ClInclude Include="Source\M5StageFactory.h" />
@@ -188,6 +194,7 @@
     <ClInclude Include="Source\M5Stage.h" />
     <ClInclude Include="Source\M5StageMgr.h" />
     <ClInclude Include="Source\M5Vec2.h" />
+    <ClInclude Include="Source\M5ObjectManager.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

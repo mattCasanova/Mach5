@@ -14,10 +14,12 @@ Singleton class to draw and modify the view of the screen
 #include "M5Vec2.h"
 #include "M5Mtx44.h"
 #include "M5Debug.h"
+#include "GraphicsComponent.h"
 
 #include <cmath> /*for tan*/
 #include <cstring> /*memset*/
 #include <string>
+#include <vector>
 
 /*!Prototype for function in M5TextureLoading*/
 int ValidateTextures(std::string& fileNames);
@@ -101,6 +103,7 @@ HFONT    s_oldFont;       /*!< The old font*/
 GLuint   s_fontBase;      /*!< My font list I will create*/
 
 M5Mesh   s_mesh;          /*!< Quad Mesh since it is 2D game engine*/
+std::vector<GraphicsComponent*> s_components;
 
 /******************************************************************************/
 /*!
@@ -846,6 +849,34 @@ void M5Gfx::RenderContextInit(void)
   /*Set the openGl render context*/
   result = wglMakeCurrent(s_deviceContext, s_renderContext);
   M5DEBUG_ASSERT(result != 0, "Unable to Set Render Context. Your video card is out of date");
+}
+void M5Gfx::RegisterComponent(GraphicsComponent* pGfxComp)
+{
+	s_components.push_back(pGfxComp);
+}
+void M5Gfx::UnregisterComponent(GraphicsComponent* pGfxComp)
+{
+	size_t size = s_components.size();
+	StartScene();
+	for (size_t i = 0; i < size; ++i)
+	{
+		if (s_components[i] == pGfxComp)
+		{
+			s_components[i] = s_components[size - 1];
+			s_components.pop_back();
+		}
+	}
+}
+void M5Gfx::Update(void)
+{
+	size_t size = s_components.size();
+	StartScene();
+	for (size_t i = 0; i < size; ++i)
+	{
+		s_components[i]->Draw();
+	}
+
+	EndScene();
 }
 
 

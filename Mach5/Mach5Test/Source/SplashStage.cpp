@@ -20,6 +20,8 @@ good place to load game data and initialize object you need for your game.
 #include "M5StageMgr.h"
 #include "M5Gfx.h"
 #include "M5GameStages.h"
+#include "M5GameObject.h"
+#include "GraphicsComponent.h"
 
 #include <cstdio>
 
@@ -33,6 +35,7 @@ const float FONT_SPACING    = 20.f;
 const int   ARRAY_SIZE = 20;
 
   /*Create a static variable for data so it can't be used in other files.*/
+M5GameObject obj;
 }
 
 
@@ -78,6 +81,9 @@ void SplashStage::Init(void)
 
   /*Reset the timer for this stage*/
   m_changeTimer = 0.f;
+  GraphicsComponent* pGfxComp = new GraphicsComponent;
+  pGfxComp->SetTextureID(m_splashTexture);
+  obj.AddComponent(pGfxComp);
 }
 /******************************************************************************/
 /*!
@@ -87,53 +93,20 @@ action, behavoir, drawing and stage changes should happen.
 /******************************************************************************/
 void SplashStage::Update(float dt)
 {
-  M5Mtx44 transform;
-  char timeAsText[ARRAY_SIZE];
   M5Vec2 windowSize = M5App::GetResolution();
 
 
   /*increment timer*/
   m_changeTimer += dt;
 
-  //Save my time as a string.
-  sprintf_s(timeAsText, "%.2f", SPLASH_MAX_TIME - m_changeTimer);
-
   /*Check for time, only be in this stage for the 
   set time*/
   if (m_changeTimer > SPLASH_MAX_TIME)
     M5StageMgr::SetNextStage(GS_Game1Stage);
 
-  /*Set position scale and rotation of what I want to draw*/
-  M5Mtx44::MakeTransform(transform, 
-    windowSize.x,
-    windowSize.y,
-    0.0f,
-    windowSize.x  / 2,
-    windowSize.y / 2,
-    0.0);
+  obj.m_position.Set(windowSize.x / 2, windowSize.y / 2);
+  obj.m_scale.Set(windowSize.x, windowSize.y);
 
-  /*This must be called before any drawing in the frame.*/
-  M5Gfx::StartScene();
-
-  /*Set the image to draw*/
-  M5Gfx::SetTexture(m_splashTexture);
-
-  //Once we have set the texture we can draw it with a transform
-  M5Gfx::Draw(transform);
-
-  //You can write text too, but this is VERY slow and is best used for debug
-  //You cannot control the size of the font, really just use it for debug.
-  M5Gfx::WriteText("Splash Screen Time: ", windowSize.x / 3.0f , FONT_SPACING);
-  M5Gfx::WriteText(timeAsText, windowSize.x /2.0f + FONT_SPACING , FONT_SPACING);
-
-  //This text will only appear on screen in debug mode.  This is how you 
-  //should use the WriteText Function
-  M5DEBUG_WRITETEXT("This string will only appear in debug!", windowSize.x / 3.0f,
-    windowSize.y*.85f);
-  
-  
-  /*This must be called to after all drawing is completed*/
-  M5Gfx::EndScene();
 }
 /******************************************************************************/
 /*!
@@ -155,6 +128,7 @@ load stage.  Here I need to destroy my console and unload my texture.
 /******************************************************************************/
 void SplashStage::Unload(void)
 {
+	obj.RemoveComponent(CT_GraphicsComponent);
   /*We must unload the texture when we are done with the stage*/
   M5Gfx::UnloadTexture(m_splashTexture);
 }

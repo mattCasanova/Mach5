@@ -1,3 +1,42 @@
+C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5GameObject.h:13: warning: Compound M5GameObject is not documented.
+C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5Component.h:8: warning: Compound M5Component is not documented.
+C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/GraphicsComponent.h:7: warning: Compound GraphicsComponent is not documented.
+C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/GraphicsComponent.h:11: warning: Member Draw(void) const  (function) of class GraphicsComponent is not documented.
+C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/GraphicsComponent.h:12: warning: Member Update(float dt) (function) of class GraphicsComponent is not documented.
+C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/GraphicsComponent.h:13: warning: Member Clone(void) (function) of class GraphicsComponent is not documented.
+C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/GraphicsComponent.h:14: warning: Member SetTextureID(int id) (function) of class GraphicsComponent is not documented.
+C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5Component.h:14: warning: Member SetParent(M5GameObject *pParent) (function) of class M5Component is not documented.
+C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5Component.h:15: warning: Member GetParent(void) (function) of class M5Component is not documented.
+C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5Component.h:16: warning: Member GetType(void) const  (function) of class M5Component is not documented.
+C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/GraphicsComponent.h:16: warning: Member m_textureID (variable) of class GraphicsComponent is not documented.
+C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5Component.h:19: warning: Member m_pParent (variable) of class M5Component is not documented.
+C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5Component.h:20: warning: Member m_type (variable) of class M5Component is not documented.
+C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5Component.h:12: warning: Member Update(float dt)=0 (function) of class M5Component is not documented.
+C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5Component.h:13: warning: Member Clone(void)=0 (function) of class M5Component is not documented.
+C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5Component.h:14: warning: Member SetParent(M5GameObject *pParent) (function) of class M5Component is not documented.
+C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5Component.h:15: warning: Member GetParent(void) (function) of class M5Component is not documented.
+C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5Component.h:16: warning: Member GetType(void) const  (function) of class M5Component is not documented.
+C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5Component.h:19: warning: Member m_pParent (variable) of class M5Component is not documented.
+C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5Component.h:20: warning: Member m_type (variable) of class M5Component is not documented.
+C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5GameObject.h:26: warning: Member ComponentVec (typedef) of class M5GameObject is not documented.
+C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5GameObject.h:27: warning: Member VecItor (typedef) of class M5GameObject is not documented.
+C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5GameObject.h:16: warning: Member M5GameObject(const M5Vec2 &pos, const M5Vec2 &scale, const M5Vec2 &vel, float rotation) (function) of class M5GameObject is not documented.
+C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5GameObject.h:18: warning: Member Update(float dt) (function) of class M5GameObject is not documented.
+C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5GameObject.h:19: warning: Member Kill(void) (function) of class M5GameObject is not documented.
+C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5GameObject.h:20: warning: Member AddComponent(M5Component *pComponent) (function) of class M5GameObject is not documented.
+C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5GameObject.h:21: warning: Member RemoveComponent(M5Component *pComponent) (function) of class M5GameObject is not documented.
+C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5GameObject.h:22: warning: Member RemoveComponent(M5ComponentType type) (function) of class M5GameObject is not documented.
+C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5GameObject.h:30: warning: Member m_components (variable) of class M5GameObject is not documented.
+C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5GameObject.h:31: warning: Member m_position (variable) of class M5GameObject is not documented.
+C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5GameObject.h:32: warning: Member m_scale (variable) of class M5GameObject is not documented.
+C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5GameObject.h:33: warning: Member m_velocity (variable) of class M5GameObject is not documented.
+C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5GameObject.h:34: warning: Member m_rotation (variable) of class M5GameObject is not documented.
+C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5GameObject.h:35: warning: Member m_isDead (variable) of class M5GameObject is not documented.
+C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5GameObject.h:36: warning: Member m_id (variable) of class M5GameObject is not documented.
+C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5Gfx.h:75: warning: Member RegisterComponent(GraphicsComponent *pGfxComp) (function) of class M5Gfx is not documented.
+C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5Gfx.h:76: warning: Member UnregisterComponent(GraphicsComponent *pGfxComp) (function) of class M5Gfx is not documented.
+C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5Gfx.h:78: warning: Member Update(void) (function) of class M5Gfx is not documented.
+C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5StageMgr.cpp:43: warning: argument 'framePerSecond' of command @param is not found in the argument list of M5StageMgr::Init(const M5GameData *pGData, int gameDataSize, int framesPerSecond)
 C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5StageMgr.h:54: warning: The following parameters of M5StageMgr::Init(const M5GameData *pGData, int gameDataSize, int framesPerSecond) are not documented:
   parameter 'framesPerSecond'
 error: failed to run html help compiler on index.hhp

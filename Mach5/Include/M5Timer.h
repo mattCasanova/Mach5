@@ -6,7 +6,7 @@
 \par    Mach5 Game Engine
 \date   2016/08/8
 
-Singleton class to control game time related functions.
+Class to help control frames per second of the game.
 
 */
 /******************************************************************************/
