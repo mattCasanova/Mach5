@@ -128,7 +128,7 @@ load stage.  Here I need to destroy my console and unload my texture.
 /******************************************************************************/
 void SplashStage::Unload(void)
 {
-	obj.RemoveComponent(CT_GraphicsComponent);
+	//obj.RemoveComponent(CT_GraphicsComponent);
   /*We must unload the texture when we are done with the stage*/
   M5Gfx::UnloadTexture(m_splashTexture);
 }
