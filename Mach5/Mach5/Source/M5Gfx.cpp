@@ -103,7 +103,7 @@ HFONT    s_oldFont;       /*!< The old font*/
 GLuint   s_fontBase;      /*!< My font list I will create*/
 
 M5Mesh   s_mesh;          /*!< Quad Mesh since it is 2D game engine*/
-std::vector<GraphicsComponent*> s_components;
+std::vector<GfxComponent*> s_components;
 
 /******************************************************************************/
 /*!
@@ -850,11 +850,11 @@ void M5Gfx::RenderContextInit(void)
   result = wglMakeCurrent(s_deviceContext, s_renderContext);
   M5DEBUG_ASSERT(result != 0, "Unable to Set Render Context. Your video card is out of date");
 }
-void M5Gfx::RegisterComponent(GraphicsComponent* pGfxComp)
+void M5Gfx::RegisterComponent(GfxComponent* pGfxComp)
 {
 	s_components.push_back(pGfxComp);
 }
-void M5Gfx::UnregisterComponent(GraphicsComponent* pGfxComp)
+void M5Gfx::UnregisterComponent(GfxComponent* pGfxComp)
 {
 	size_t size = s_components.size();
 	StartScene();

@@ -156,7 +156,7 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Source\GraphicsComponent.cpp" />
+    <ClCompile Include="Source\GfxComponent.cpp" />
     <ClCompile Include="Source\M5App.cpp" />
     <ClCompile Include="Source\M5Debug.cpp" />
     <ClCompile Include="Source\M5GameObject.cpp" />
@@ -173,7 +173,7 @@
     <ClCompile Include="Source\M5Vec2.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Source\GraphicsComponent.h" />
+    <ClInclude Include="Source\GfxComponent.h" />
     <ClInclude Include="Source\M5App.h" />
     <ClInclude Include="Source\M5Component.h" />
     <ClInclude Include="Source\M5ComponentType.h" />

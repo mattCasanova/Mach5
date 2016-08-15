@@ -1,13 +1,13 @@
-#ifndef GRAPHICS_COMPONENT
-#define GRAPHICS_COMPONENT
+#ifndef GFX_COMPONENT
+#define GFX_COMPONENT
 
 #include "M5Component.h"
 
-class GraphicsComponent : public M5Component
+class GfxComponent : public M5Component
 {
 public:
-	GraphicsComponent(void);
-	~GraphicsComponent(void);
+	GfxComponent(void);
+	~GfxComponent(void);
 	void Draw(void) const;
 	virtual void Update(float dt);
 	virtual M5Component* Clone(void);
@@ -17,5 +17,5 @@ private:
 
 };
 
-#endif // !GRAPHICS_COMPONENT
+#endif // !GFX_COMPONENT
 

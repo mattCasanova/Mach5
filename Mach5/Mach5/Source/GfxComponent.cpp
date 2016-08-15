@@ -3,7 +3,7 @@
 #include "M5Mtx44.h"
 #include "M5GameObject.h"
 
-GraphicsComponent::GraphicsComponent(void)
+GfxComponent::GfxComponent(void)
 {
 	m_pParent = 0;
 	m_type = CT_GraphicsComponent;
@@ -11,11 +11,11 @@ GraphicsComponent::GraphicsComponent(void)
 	M5Gfx::RegisterComponent(this);
 
 }
-GraphicsComponent::~GraphicsComponent(void)
+GfxComponent::~GfxComponent(void)
 {
 	M5Gfx::UnregisterComponent(this);
 }
-void GraphicsComponent::Draw(void) const
+void GfxComponent::Draw(void) const
 {
 	M5Mtx44 world;
 	world.MakeTransform(m_pParent->m_scale, 
@@ -25,19 +25,19 @@ void GraphicsComponent::Draw(void) const
 	M5Gfx::SetTexture(m_textureID);
 	M5Gfx::Draw(world);
 }
-void GraphicsComponent::Update(float /*dt*/)
+void GfxComponent::Update(float /*dt*/)
 {
 }
-M5Component* GraphicsComponent::Clone(void)
+M5Component* GfxComponent::Clone(void)
 {
-	GraphicsComponent* pNew = new GraphicsComponent;
+	GfxComponent* pNew = new GfxComponent;
 	pNew->m_pParent = m_pParent;
 	pNew->m_type = m_type;
 	pNew->m_textureID = m_textureID;
 
 	return pNew;
 }
-void GraphicsComponent::SetTextureID(int id)
+void GfxComponent::SetTextureID(int id)
 {
 	m_textureID = id;
 }

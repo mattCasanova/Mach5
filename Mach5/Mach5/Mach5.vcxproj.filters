@@ -60,7 +60,7 @@
     <Filter Include="Components">
       <UniqueIdentifier>{d70fa63a-e0d0-476e-96d7-6055924c0ed8}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Components\GraphicsComponent">
+    <Filter Include="Components\GfxComponent">
       <UniqueIdentifier>{cde13e08-094b-4438-8a29-734a4afa3159}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -107,8 +107,8 @@
     <ClCompile Include="Source\M5GameObject.cpp">
       <Filter>Objects</Filter>
     </ClCompile>
-    <ClCompile Include="Source\GraphicsComponent.cpp">
-      <Filter>Components\GraphicsComponent</Filter>
+    <ClCompile Include="Source\GfxComponent.cpp">
+      <Filter>Components\GfxComponent</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -175,8 +175,8 @@
     <ClInclude Include="Source\M5ComponentType.h">
       <Filter>Components</Filter>
     </ClInclude>
-    <ClInclude Include="Source\GraphicsComponent.h">
-      <Filter>Components\GraphicsComponent</Filter>
+    <ClInclude Include="Source\GfxComponent.h">
+      <Filter>Components\GfxComponent</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
