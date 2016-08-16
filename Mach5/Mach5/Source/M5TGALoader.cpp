@@ -20,10 +20,8 @@ file    M5TGALoader.cpp
 
 #include <cstdio> /*For opening files*/
 #include <cstring> /*memcpy*/
-#include <string>
 #include <sstream>
 #include <iomanip>
-#include <unordered_map>
 
 namespace
 {
@@ -47,24 +45,7 @@ namespace
     GLubyte headerPart2[6]; /*Last 6 bytes from header*/
   };
 
-  /*A struct to hold loaded textures*/
-  struct M5LoadedTexture
-  {
-    M5LoadedTexture(const std::string& str, int newID):
-      fileName(str), id(newID), count(1)
-    {
-    }
-    std::string fileName;
-    int id;
-    int count;
-  };
 
-  //Typedef Container to hold loaded textures
-  typedef std::unordered_map<const char*, M5LoadedTexture> M5TextureMap;
-  typedef M5TextureMap::iterator M5TextureMapItor;
-
-
-  M5TextureMap s_TextureMap;
 
 
 /******************************************************************************/

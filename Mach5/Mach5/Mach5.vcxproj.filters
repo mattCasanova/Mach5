@@ -63,6 +63,9 @@
     <Filter Include="Components\GfxComponent">
       <UniqueIdentifier>{cde13e08-094b-4438-8a29-734a4afa3159}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Gfx\ResourceManager">
+      <UniqueIdentifier>{18ca5a73-75ea-4895-8ef8-d049b9402b11}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\M5Math.cpp">
@@ -95,9 +98,6 @@
     <ClCompile Include="Source\M5Debug.cpp">
       <Filter>Utils\Debug</Filter>
     </ClCompile>
-    <ClCompile Include="Source\M5TGALoader.cpp">
-      <Filter>Gfx</Filter>
-    </ClCompile>
     <ClCompile Include="Source\M5StageFactory.cpp">
       <Filter>Stages\StageFactory</Filter>
     </ClCompile>
@@ -109,6 +109,9 @@
     </ClCompile>
     <ClCompile Include="Source\M5Object.cpp">
       <Filter>Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\M5TGALoader.cpp">
+      <Filter>Gfx\ResourceManager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -177,6 +180,9 @@
     </ClInclude>
     <ClInclude Include="Source\M5Object.h">
       <Filter>Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\M5ResourceManager.h">
+      <Filter>Gfx\ResourceManager</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

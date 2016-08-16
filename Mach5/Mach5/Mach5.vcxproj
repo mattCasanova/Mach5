@@ -181,6 +181,7 @@
     <ClInclude Include="Source\M5GameData.h" />
     <ClInclude Include="Source\M5Object.h" />
     <ClInclude Include="Source\M5GameStages.h" />
+    <ClInclude Include="Source\M5ResourceManager.h" />
     <ClInclude Include="Source\M5StageBuilder.h" />
     <ClInclude Include="Source\M5StageFactory.h" />
     <ClInclude Include="Source\M5TemplateBuilder.h" />
