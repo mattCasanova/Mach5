@@ -26,6 +26,7 @@ This is file contains the main function to make a basic window.
 #include "M5Stage.h"
 #include "M5GameData.h"
 #include "RegisterGameWithEngine.h"
+#include "M5IniFile.h"
 
 #include "M5Debug.h"
 
@@ -67,13 +68,18 @@ int WINAPI WinMain(HINSTANCE instance,
   /*Create my game data initial values*/
   M5GameData gameData = { 0 };
 
+  M5IniFile iniFile;
+
+  iniFile.ReadFile("GameData/InitData.ini");
+  iniFile.SetToSection("InitData");
+
   /*Set up my InitStruct*/
   initData.instance   = instance;
-  initData.width      = 1280;
-  initData.height     = 720;
-  initData.title      = "MyFirstWindow";
-  initData.fps        = 60;
-  initData.fullScreen = false;
+  iniFile.GetValue("width", initData.width);
+  iniFile.GetValue("height", initData.height);
+  iniFile.GetValue("framesPerSecond", initData.fps);
+  iniFile.GetValue("fullScreen", initData.fullScreen);
+  initData.title = "MyFirstWindow";
 
   /*Information about your specific gamedata */
   initData.pGData       = &gameData;

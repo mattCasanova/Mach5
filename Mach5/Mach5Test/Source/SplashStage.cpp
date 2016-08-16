@@ -51,7 +51,6 @@ void SplashStage::Load(void)
   M5DEBUG_CREATE_CONSOLE();
   /*Load the only texture we need for this stage*/
   m_splashTexture = M5Gfx::LoadTexture("Textures\\Mach5Logo.tga");
-  m_splashTexture = M5Gfx::LoadTexture("Textures\\Mach5Logo.tga");
 
   /*All drawing in this stage is in screen space*/
   M5Gfx::SetToOrtho();
@@ -126,5 +125,4 @@ void SplashStage::Unload(void)
 	//obj.RemoveComponent(CT_GraphicsComponent);
   /*We must unload the texture when we are done with the stage*/
   M5Gfx::UnloadTexture(m_splashTexture);
-  //M5Gfx::UnloadTexture(m_splashTexture);
 }
