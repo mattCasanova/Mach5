@@ -160,6 +160,7 @@
     <ClCompile Include="Source\M5App.cpp" />
     <ClCompile Include="Source\M5Debug.cpp" />
     <ClCompile Include="Source\M5Object.cpp" />
+    <ClCompile Include="Source\M5ResourceManager.cpp" />
     <ClCompile Include="Source\M5StageFactory.cpp" />
     <ClCompile Include="Source\M5Timer.cpp" />
     <ClCompile Include="Source\M5Gfx.cpp" />
@@ -169,7 +170,6 @@
     <ClCompile Include="Source\M5Mtx44.cpp" />
     <ClCompile Include="Source\M5Random.cpp" />
     <ClCompile Include="Source\M5StageMgr.cpp" />
-    <ClCompile Include="Source\M5TGALoader.cpp" />
     <ClCompile Include="Source\M5Vec2.cpp" />
   </ItemGroup>
   <ItemGroup>

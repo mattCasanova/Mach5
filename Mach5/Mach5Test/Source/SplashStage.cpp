@@ -52,6 +52,7 @@ void SplashStage::Load(void)
   M5DEBUG_CREATE_CONSOLE();
   /*Load the only texture we need for this stage*/
   m_splashTexture = M5Gfx::LoadTexture("Textures\\Mach5Logo.tga");
+  m_splashTexture = M5Gfx::LoadTexture("Textures\\Mach5Logo.tga");
 
   /*All drawing in this stage is in screen space*/
   M5Gfx::SetToOrtho();
@@ -101,7 +102,7 @@ void SplashStage::Update(float dt)
   /*Check for time, only be in this stage for the 
   set time*/
   if (m_changeTimer > SPLASH_MAX_TIME)
-    M5StageMgr::SetNextStage(GS_Game1Stage);
+	  M5StageMgr::Quit();
 }
 /******************************************************************************/
 /*!
@@ -125,5 +126,6 @@ void SplashStage::Unload(void)
 {
 	//obj.RemoveComponent(CT_GraphicsComponent);
   /*We must unload the texture when we are done with the stage*/
+  M5Gfx::UnloadTexture(m_splashTexture);
   M5Gfx::UnloadTexture(m_splashTexture);
 }

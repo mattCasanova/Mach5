@@ -14,6 +14,7 @@ Singleton class to draw and modify the view of the screen
 #include "M5Vec2.h"
 #include "M5Mtx44.h"
 #include "M5Debug.h"
+#include "M5ResourceManager.h"
 #include "GraphicsComponent.h"
 
 #include <cmath> /*for tan*/
@@ -67,12 +68,6 @@ struct M5Vertex
   float tv;/*The v texture coord*/
 };
 
-struct LoadedTexture
-{
-	std::string fileName;
-	int textureID;
-	int count;
-};
 
 //!! A struct to hold and share data important to graphics functions.
   /*Camera data*/
@@ -111,6 +106,7 @@ GLuint   s_fontBase;      /*!< My font list I will create*/
 
 M5Mesh   s_mesh;          /*!< Quad Mesh since it is 2D game engine*/
 std::vector<GfxComponent*> s_components;
+M5ResourceManager s_resourceManager;
 
 /******************************************************************************/
 /*!
@@ -856,6 +852,48 @@ void M5Gfx::RenderContextInit(void)
   /*Set the openGl render context*/
   result = wglMakeCurrent(s_deviceContext, s_renderContext);
   M5DEBUG_ASSERT(result != 0, "Unable to Set Render Context. Your video card is out of date");
+}
+/******************************************************************************/
+/*!
+The function to load a texture from a file.  This function will load 24 or 32
+bit tga file only. (compressed or uncompressed).  This file will return
+a unique id to the texture, so you can draw it later.  If the file can't
+be loaded, it will return -1;
+
+\attention
+THIS FUNCTION ONLY LOADS 24 OR 32 BIT TGA FILES.  For every texture you
+load, you must also call M5GraphicsUnloadTexture to unload it, when you are
+done.
+
+\param fileName
+The name of the TGA file to load.
+
+\return
+A unique id for the texture.  Use the id to draw later. If if the function
+returns -1, the texture was not loaded.
+*/
+/******************************************************************************/
+int M5Gfx::LoadTexture(const char* fileName)
+{
+	M5DEBUG_ASSERT(fileName != 0, "Filename is NULL");
+	return s_resourceManager.LoadResource(fileName, RT_TEXTURE);
+}
+/******************************************************************************/
+/*!
+This function returns the texture memory (allocated when you called
+LoadTexture) back to the graphics card.  This must be called for every texture
+you loaded.
+
+\attention
+You must unload every texture id that you loaded.
+
+\param textureID
+A valid textureID from LoadTexture
+*/
+/******************************************************************************/
+void M5Gfx::UnloadTexture(int textureID)
+{
+	s_resourceManager.UnloadResource(textureID, RT_TEXTURE);
 }
 void M5Gfx::RegisterComponent(GfxComponent* pGfxComp)
 {

@@ -110,7 +110,7 @@
     <ClCompile Include="Source\M5Object.cpp">
       <Filter>Objects</Filter>
     </ClCompile>
-    <ClCompile Include="Source\M5TGALoader.cpp">
+    <ClCompile Include="Source\M5ResourceManager.cpp">
       <Filter>Gfx\ResourceManager</Filter>
     </ClCompile>
   </ItemGroup>
