@@ -66,6 +66,9 @@
     <Filter Include="Gfx\ResourceManager">
       <UniqueIdentifier>{18ca5a73-75ea-4895-8ef8-d049b9402b11}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Utils\IniFile">
+      <UniqueIdentifier>{df88b6d6-d7dc-4cc7-b5cd-69cd1ccd9d19}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\M5Math.cpp">
@@ -112,6 +115,9 @@
     </ClCompile>
     <ClCompile Include="Source\M5ResourceManager.cpp">
       <Filter>Gfx\ResourceManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\M5IniFile.cpp">
+      <Filter>Utils\IniFile</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -183,6 +189,9 @@
     </ClInclude>
     <ClInclude Include="Source\M5ResourceManager.h">
       <Filter>Gfx\ResourceManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\M5IniFile.h">
+      <Filter>Utils\IniFile</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

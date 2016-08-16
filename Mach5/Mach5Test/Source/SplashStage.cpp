@@ -23,7 +23,6 @@ good place to load game data and initialize object you need for your game.
 #include "M5GameObject.h"
 #include "GraphicsComponent.h"
 
-#include <cstdio>
 
 /*Make a struct for my shared stage data*/
 namespace

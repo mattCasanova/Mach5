@@ -159,6 +159,7 @@
     <ClCompile Include="Source\GfxComponent.cpp" />
     <ClCompile Include="Source\M5App.cpp" />
     <ClCompile Include="Source\M5Debug.cpp" />
+    <ClCompile Include="Source\M5IniFile.cpp" />
     <ClCompile Include="Source\M5Object.cpp" />
     <ClCompile Include="Source\M5ResourceManager.cpp" />
     <ClCompile Include="Source\M5StageFactory.cpp" />
@@ -179,6 +180,7 @@
     <ClInclude Include="Source\M5ComponentType.h" />
     <ClInclude Include="Source\M5Debug.h" />
     <ClInclude Include="Source\M5GameData.h" />
+    <ClInclude Include="Source\M5IniFile.h" />
     <ClInclude Include="Source\M5Object.h" />
     <ClInclude Include="Source\M5GameStages.h" />
     <ClInclude Include="Source\M5ResourceManager.h" />
