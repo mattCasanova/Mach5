@@ -10,7 +10,7 @@ int s_objectID = 0;
 }
 
 
-M5GameObject::M5GameObject(void) :
+M5Object::M5Object(void) :
 	m_components(),
 	m_position(0, 0),
 	m_scale(1, 1),
@@ -21,7 +21,7 @@ M5GameObject::M5GameObject(void) :
 {
 	m_components.reserve(START_SIZE);
 }
-M5GameObject::M5GameObject(const M5Vec2& pos, const M5Vec2& scale, const M5Vec2& vel, float rotation):
+M5Object::M5Object(const M5Vec2& pos, const M5Vec2& scale, const M5Vec2& vel, float rotation):
 	m_components(),
 	m_position(pos), 
 	m_scale(scale), 
@@ -32,7 +32,7 @@ M5GameObject::M5GameObject(const M5Vec2& pos, const M5Vec2& scale, const M5Vec2&
 {
 	m_components.reserve(START_SIZE);
 }
-M5GameObject::~M5GameObject(void)
+M5Object::~M5Object(void)
 {
 	VecItor itor = m_components.begin();
 	VecItor end = m_components.end();
@@ -42,7 +42,7 @@ M5GameObject::~M5GameObject(void)
 		++itor;
 	}
 }
-void M5GameObject::Update(float dt)
+void M5Object::Update(float dt)
 {
 	size_t size = m_components.size();
 	for (size_t i = 0; i < size; ++i)
@@ -50,18 +50,18 @@ void M5GameObject::Update(float dt)
 		m_components[i]->Update(dt);
 	}
 }
-void M5GameObject::Kill(void)
+void M5Object::Kill(void)
 {
 	m_isDead = true;
 }
-void M5GameObject::AddComponent(M5Component* pComponent)
+void M5Object::AddComponent(M5Component* pComponent)
 {
 	VecItor itor = std::find(m_components.begin(), m_components.end(), pComponent);
 	M5DEBUG_ASSERT(itor == m_components.end(), "Trying to add a component that already exists");
 	pComponent->SetParent(this);
 	m_components.push_back(pComponent);
 }
-void M5GameObject::RemoveComponent(M5Component* pComponent)
+void M5Object::RemoveComponent(M5Component* pComponent)
 {
 	VecItor end = m_components.end();
 	VecItor itor = std::find(m_components.begin(), end, pComponent);
@@ -72,7 +72,7 @@ void M5GameObject::RemoveComponent(M5Component* pComponent)
 	delete pComponent;
 
 }
-void M5GameObject::RemoveComponent(M5ComponentType type)
+void M5Object::RemoveComponent(M5ComponentType type)
 {
 	size_t size = m_components.size();
 	for (size_t i = 0; i < size; ++i)

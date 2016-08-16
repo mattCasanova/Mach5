@@ -31,11 +31,9 @@ namespace
 
   /*The max time to be in this stage*/
 const float SPLASH_MAX_TIME = 6.0f;
-const float FONT_SPACING    = 20.f;
-const int   ARRAY_SIZE = 20;
 
   /*Create a static variable for data so it can't be used in other files.*/
-M5GameObject obj;
+M5Object obj;
 }
 
 
@@ -81,9 +79,13 @@ void SplashStage::Init(void)
 
   /*Reset the timer for this stage*/
   m_changeTimer = 0.f;
-  GraphicsComponent* pGfxComp = new GraphicsComponent;
+  GfxComponent* pGfxComp = new GfxComponent;
   pGfxComp->SetTextureID(m_splashTexture);
   obj.AddComponent(pGfxComp);
+
+  M5Vec2 windowSize = M5App::GetResolution();
+  obj.m_position.Set(windowSize.x / 2, windowSize.y / 2);
+  obj.m_scale.Set(windowSize.x, windowSize.y);
 }
 /******************************************************************************/
 /*!
@@ -93,9 +95,6 @@ action, behavoir, drawing and stage changes should happen.
 /******************************************************************************/
 void SplashStage::Update(float dt)
 {
-  M5Vec2 windowSize = M5App::GetResolution();
-
-
   /*increment timer*/
   m_changeTimer += dt;
 
@@ -103,10 +102,6 @@ void SplashStage::Update(float dt)
   set time*/
   if (m_changeTimer > SPLASH_MAX_TIME)
     M5StageMgr::SetNextStage(GS_Game1Stage);
-
-  obj.m_position.Set(windowSize.x / 2, windowSize.y / 2);
-  obj.m_scale.Set(windowSize.x, windowSize.y);
-
 }
 /******************************************************************************/
 /*!

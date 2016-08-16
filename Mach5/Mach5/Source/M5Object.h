@@ -9,12 +9,12 @@
 class M5Component;
 
 
-class M5GameObject
+class M5Object
 {
 public:
-	M5GameObject(void);
-	M5GameObject(const M5Vec2& pos, const M5Vec2& scale, const M5Vec2& vel, float rotation);
-	~M5GameObject(void);
+	M5Object(void);
+	M5Object(const M5Vec2& pos, const M5Vec2& scale, const M5Vec2& vel, float rotation);
+	~M5Object(void);
 	void Update(float dt);
 	void Kill(void);
 	void AddComponent(M5Component* pComponent);

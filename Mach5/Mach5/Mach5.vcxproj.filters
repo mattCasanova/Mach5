@@ -104,11 +104,11 @@
     <ClCompile Include="Source\M5StageMgr.cpp">
       <Filter>Stages\StageMgr</Filter>
     </ClCompile>
-    <ClCompile Include="Source\M5GameObject.cpp">
-      <Filter>Objects</Filter>
-    </ClCompile>
     <ClCompile Include="Source\GfxComponent.cpp">
       <Filter>Components\GfxComponent</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\M5Object.cpp">
+      <Filter>Objects</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -163,9 +163,6 @@
     <ClInclude Include="Source\M5GameStages.h">
       <Filter>Stages\BaseStage</Filter>
     </ClInclude>
-    <ClInclude Include="Source\M5GameObject.h">
-      <Filter>Objects</Filter>
-    </ClInclude>
     <ClInclude Include="Source\M5Component.h">
       <Filter>Components</Filter>
     </ClInclude>
@@ -177,6 +174,9 @@
     </ClInclude>
     <ClInclude Include="Source\GfxComponent.h">
       <Filter>Components\GfxComponent</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\M5Object.h">
+      <Filter>Objects</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

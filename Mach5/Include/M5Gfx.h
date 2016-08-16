@@ -19,7 +19,7 @@ Singleton class to draw and modify the view of the screen
 //Forward declarations
 struct M5Vec2;
 struct M5Mtx44;
-class  GraphicsComponent;
+class  GfxComponent;
 
 
 //! Singleton class to draw and modify the view of the screen
@@ -72,8 +72,8 @@ public:
   static void GetWorldBotLeft(M5Vec2& outParam);
   /*Gets the Bottom Right corner of the world*/
   static void GetWorldBotRight(M5Vec2& outParam);
-  static void RegisterComponent(GraphicsComponent* pGfxComp);
-  static void UnregisterComponent(GraphicsComponent* pGfxComp);
+  static void RegisterComponent(GfxComponent* pGfxComp);
+  static void UnregisterComponent(GfxComponent* pGfxComp);
 private:
 	static void Update(void);
 	static void SetResolution(int width, int height);

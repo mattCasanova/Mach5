@@ -67,6 +67,13 @@ struct M5Vertex
   float tv;/*The v texture coord*/
 };
 
+struct LoadedTexture
+{
+	std::string fileName;
+	int textureID;
+	int count;
+};
+
 //!! A struct to hold and share data important to graphics functions.
   /*Camera data*/
 GLdouble s_cameraZ;       /*Camera distance in the Z*/
