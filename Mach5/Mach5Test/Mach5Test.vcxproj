@@ -153,7 +153,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="Source\DemoStates.h" />
     <ClInclude Include="Source\GameOverStage.h" />
     <ClInclude Include="Source\Game1Stage.h" />
     <ClInclude Include="Source\Game2Stage.h" />

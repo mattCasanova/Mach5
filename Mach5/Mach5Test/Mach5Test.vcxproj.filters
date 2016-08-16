@@ -23,9 +23,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Source\DemoStates.h">
-      <Filter>States</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Game1Stage.h">
       <Filter>States\Game1</Filter>
     </ClInclude>
