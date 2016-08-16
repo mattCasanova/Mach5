@@ -127,5 +127,5 @@ void SplashStage::Unload(void)
 	//obj.RemoveComponent(CT_GraphicsComponent);
   /*We must unload the texture when we are done with the stage*/
   M5Gfx::UnloadTexture(m_splashTexture);
-  M5Gfx::UnloadTexture(m_splashTexture);
+  //M5Gfx::UnloadTexture(m_splashTexture);
 }

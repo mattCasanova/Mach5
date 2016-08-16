@@ -2,8 +2,6 @@ C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5Object.h:13: warning: 
 C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5ObjectManager.h:8: warning: Compound M5ObjectManager is not documented.
 C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5Component.h:8: warning: Compound M5Component is not documented.
 C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/GfxComponent.h:7: warning: Compound GfxComponent is not documented.
-C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5ResourceManager.h:29: warning: Compound M5ResourceManager is not documented.
-C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5ResourceManager.h:41: warning: Compound M5ResourceManager::M5LoadedTexture is not documented.
 C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/GfxComponent.h:11: warning: Member Draw(void) const  (function) of class GfxComponent is not documented.
 C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/GfxComponent.h:12: warning: Member Update(float dt) (function) of class GfxComponent is not documented.
 C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/GfxComponent.h:13: warning: Member Clone(void) (function) of class GfxComponent is not documented.
@@ -43,12 +41,12 @@ C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5ObjectManager.h:13: wa
 C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5ObjectManager.h:16: warning: Member ObjectVec (typedef) of class M5ObjectManager is not documented.
 C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5ObjectManager.h:17: warning: Member VecItor (typedef) of class M5ObjectManager is not documented.
 C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5ObjectManager.h:19: warning: Member m_objects (variable) of class M5ObjectManager is not documented.
-C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5ResourceManager.h:33: warning: Member LoadResource(const char *fileName, M5ResourceType type) (function) of class M5ResourceManager is not documented.
-C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5ResourceManager.h:34: warning: Member UnloadResource(int id, M5ResourceType type) (function) of class M5ResourceManager is not documented.
 C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5ResourceManager.h:49: warning: Member M5TextureMap (typedef) of class M5ResourceManager is not documented.
 C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5ResourceManager.h:50: warning: Member M5TextureMapItor (typedef) of class M5ResourceManager is not documented.
 C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5ResourceManager.h:53: warning: Member m_textureMap (variable) of class M5ResourceManager is not documented.
-C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5ResourceManager.h:42: warning: Member M5LoadedTexture(const std::string &str, int newID) (function) of class M5ResourceManager::M5LoadedTexture is not documented.
+C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5ResourceManager.cpp:460: warning: argument 'fileName' of command @param is not found in the argument list of M5ResourceManager::UnloadResource(int id, M5ResourceType type)
+C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5ResourceManager.h:34: warning: The following parameters of M5ResourceManager::UnloadResource(int id, M5ResourceType type) are not documented:
+  parameter 'id'
 C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5ResourceManager.h:43: warning: Member fileName (variable) of class M5ResourceManager::M5LoadedTexture is not documented.
 C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5ResourceManager.h:44: warning: Member id (variable) of class M5ResourceManager::M5LoadedTexture is not documented.
 C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5ResourceManager.h:45: warning: Member count (variable) of class M5ResourceManager::M5LoadedTexture is not documented.

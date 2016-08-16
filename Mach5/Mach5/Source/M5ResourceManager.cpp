@@ -390,7 +390,13 @@ int LoadTGA(M5Texture* pTexture, const char* fileName)
 
 }//end unnamed namespace
 
-
+ /******************************************************************************/
+ /*!
+Destructor for ResourceManager class.  This checks to make sure all textures 
+have been unloaded.  If they haven't then a MessageBox pops up letting the 
+user know what files were not unloaded.
+ */
+ /******************************************************************************/
 M5ResourceManager::~M5ResourceManager(void)
 {
 	std::stringstream ss;
@@ -414,7 +420,29 @@ M5ResourceManager::~M5ResourceManager(void)
 	M5Debug::MessagePopup(ss.str().c_str());
 
 }
+/******************************************************************************/
+/*!
+The function to load a resource from a file.  This function will load 24 or 32
+bit tga file only. (compressed or uncompressed).  This file will return
+a unique id to the texture, so you can draw it later.  If the file can't
+be loaded, it will return -1;
 
+\attention
+THIS FUNCTION ONLY LOADS 24 OR 32 BIT TGA FILES.  For every texture you
+load, you must also call M5GraphicsUnloadTexture to unload it, when you are
+done.
+
+\param fileName
+The name of the resource file to load.
+
+\param type
+The M5ResourceType to load.
+
+\return
+A unique id for the resource.  Use the id to draw later. If the function
+returns -1, the resource was not loaded.
+*/
+/******************************************************************************/
 int M5ResourceManager::LoadResource(const char* fileName, M5ResourceType type)
 {
 	switch (type)
@@ -425,9 +453,20 @@ int M5ResourceManager::LoadResource(const char* fileName, M5ResourceType type)
 	default:
 		M5DEBUG_ASSERT(true, "Trying to load a bad resourceType");
 	}
-
 	return -1;
 }
+/******************************************************************************/
+/*!
+This funciton unloads a a previously loaded resource.
+
+\param fileName
+The name of the TGA file to load.
+
+\param type
+The type of the resource to unload
+
+*/
+/******************************************************************************/
 void M5ResourceManager::UnloadResource(int id, M5ResourceType type)
 {
 	switch (type)
@@ -531,6 +570,18 @@ void M5ResourceManager::UnloadTexture(int textureID)
 		}
 	}
 }
+/******************************************************************************/
+/*!
+Constructor for the M5LoadedTexture class.  This class is used to help store
+the textures that have already been loaded.
+
+\param str
+The name of the texture that has been loaded.
+
+\param newID
+The id of the texture that is now loaded.
+*/
+/******************************************************************************/
 M5ResourceManager::M5LoadedTexture::M5LoadedTexture(const std::string& str, int newID) :
 	fileName(str), id(newID), count(1)
 {

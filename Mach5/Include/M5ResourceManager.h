@@ -24,19 +24,19 @@ enum M5ResourceType
 	RT_TEXTURE
 };
 
-
+//! Class to Load Resources and hold the associated resource ids used in the game.
 class M5ResourceManager
 {
 public:
 	~M5ResourceManager(void);
 
-	int LoadResource(const char* fileName, M5ResourceType type);
+	int  LoadResource(const char* fileName, M5ResourceType type);
 	void UnloadResource(int id, M5ResourceType type);
 
 private:
 	int LoadTexture(const char* fileName);
 	void UnloadTexture(int textureID);
-	/*A struct to hold loaded textures*/
+	/*!A struct to hold loaded textures and ids so they be placed in a map together*/
 	struct M5LoadedTexture
 	{
 		M5LoadedTexture(const std::string& str, int newID);
