@@ -193,6 +193,9 @@
     <ClInclude Include="Source\M5IniFile.h">
       <Filter>Utils\IniFile</Filter>
     </ClInclude>
+    <ClInclude Include="Source\M5ComponentFactory.h">
+      <Filter>Components</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />

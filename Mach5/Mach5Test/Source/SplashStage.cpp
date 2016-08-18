@@ -71,7 +71,7 @@ void SplashStage::Init(void)
   M5DEBUG_PRINT("This is a demo of the different things you can do\n");
   M5DEBUG_PRINT("in the Mach5 Engine.  Play with the demo but you must\n");
   M5DEBUG_PRINT("also inspect the code and comments.\n\n");
-  M5DEBUG_PRINT("If you find errors, report to mcasanov@digipen.edu");
+  M5DEBUG_PRINT("If you find errors, report to lazersquad@gmail.com");
 
 
   M5Gfx::SetBackgroundColor(0.0f, 0.f, 0.f);
