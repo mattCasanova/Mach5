@@ -90,7 +90,7 @@ int WINAPI WinMain(HINSTANCE instance,
   
   /*Function to add all of my game stages*/
   RegisterGameWithEngine();
-  M5StageMgr::SetStartStage(GS_SplashStage);
+  M5StageMgr::SetStartStage(ST_SplashStage);
 
   /*Start running the game*/
   M5App::Update();

@@ -30,9 +30,9 @@ namespace
 static M5StageFactory        s_stageFactory; /*!< Factory for creating Stages based off of the */
 static M5Timer               s_timer;        /*!< Timer used to keep track of frame time.*/
 static M5GameData*           s_pGameData;    /*!< Pointer to user defined shared data from main*/
-static M5GameStages          s_currStage;    /*!< This is the current stage we are in*/
-static M5GameStages          s_prevStage;    /*!< This is the last stage we were in*/
-static M5GameStages          s_nextStage;    /*!< This is the stage we are going into*/
+static M5StageTypes          s_currStage;    /*!< This is the current stage we are in*/
+static M5StageTypes          s_prevStage;    /*!< This is the last stage we were in*/
+static M5StageTypes          s_nextStage;    /*!< This is the stage we are going into*/
 static bool                  s_isQuitting;   /*!< TRUE if we are quitting, FALSE otherwise*/
 static bool                  s_isRestarting; /*!< TRUE if we are restarting, FALSE otherwise*/
 
@@ -58,9 +58,9 @@ void M5StageMgr::Init(const M5GameData* pGData, int gameDataSize, int framesPerS
   M5DEBUG_CALL_CHECK(1);
 
   /*Initialize stage data*/
-  s_prevStage = GS_INVALID;
-  s_currStage = GS_INVALID;
-  s_nextStage = GS_INVALID;
+  s_prevStage = ST_INVALID;
+  s_currStage = ST_INVALID;
+  s_nextStage = ST_INVALID;
   s_isQuitting = false;
   s_isRestarting = false;
   s_timer.Init(framesPerSecond);
@@ -99,7 +99,7 @@ An enumeration generated from the users Stage names.
 A pointer to a new builder type for this stage
 */
 /******************************************************************************/
-void M5StageMgr::AddStage(M5GameStages name, M5StageBuilder* builder)
+void M5StageMgr::AddStage(M5StageTypes name, M5StageBuilder* builder)
 {
   s_stageFactory.AddBuilder(name, builder);
 }
@@ -237,7 +237,7 @@ THIS SHOULD ONLY BE CALLED ONCE AT THE BEGINNING OF THE GAME.
 A unique id of the stage that the game should start in.
 */
 /******************************************************************************/
-void M5StageMgr::SetStartStage(M5GameStages startStage)
+void M5StageMgr::SetStartStage(M5StageTypes startStage)
 {
   s_prevStage = startStage;
   s_currStage = startStage;
@@ -252,7 +252,7 @@ stage to another.
 A unique id of the next that the game should start in.
 */
 /******************************************************************************/
-void M5StageMgr::SetNextStage(M5GameStages nextStage)
+void M5StageMgr::SetNextStage(M5StageTypes nextStage)
 {
   s_nextStage = nextStage;
 }

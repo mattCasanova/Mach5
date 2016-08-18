@@ -18,7 +18,7 @@ class M5Stage;
 struct M5GameData;
 class M5StageBuilder;
 
-#include "M5GameStages.h"
+#include "M5StageTypes.h"
 
 
 //! Singleton to control quitting, restarting and switching stages.
@@ -28,9 +28,9 @@ public:
   friend class M5App;
 
   //Adds a Registers a GameStage and a builder with the the StageMgr
-  static void AddStage(M5GameStages name, M5StageBuilder* builder);
+  static void AddStage(M5StageTypes name, M5StageBuilder* builder);
   //Sets the given stage ID to the starting stage of the game
-  static void SetStartStage(M5GameStages startStage);
+  static void SetStartStage(M5StageTypes startStage);
   //Test if the game is quitting
   static bool IsQuitting(void);
   //Test stage is restarting
@@ -44,7 +44,7 @@ public:
   //Gets the pointer to the users game specific data
   static M5GameData& GetGameData(void);
   //Sets the next stage for the game
-  static void SetNextStage(M5GameStages nextStage);
+  static void SetNextStage(M5StageTypes nextStage);
   //Tells the game to quit
   static void Quit(void);
   //Tells the stage to restart

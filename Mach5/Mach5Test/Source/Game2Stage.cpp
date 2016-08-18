@@ -21,7 +21,7 @@ This is a stage in the game demo.
 #include "M5StageMgr.h"
 #include "M5Gfx.h"
 #include "M5Input.h"
-#include "M5GameStages.h"
+#include "M5StageTypes.h"
 
 namespace
 {
@@ -111,7 +111,7 @@ void Game2Stage::Update(float dt)
   /*Check for input*/
   if (M5Input::IsTriggered(M5_N) || M5Input::IsTriggered(M5_GAMEPAD_START))
   {
-    M5StageMgr::SetNextStage(GS_GameOverStage);
+    M5StageMgr::SetNextStage(ST_GameOverStage);
   }
   else if(M5Input::IsTriggered(M5_V))
   {

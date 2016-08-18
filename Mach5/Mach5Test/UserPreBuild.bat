@@ -43,7 +43,7 @@ echo. >> %REGISTERFILE%
 
 ::Add includes
 echo #include "M5StageMgr.h" >> %REGISTERFILE%
-echo #include "M5GameStages.h" >> %REGISTERFILE%
+echo #include "M5StageTypes.h" >> %REGISTERFILE%
 echo #include "M5TemplateBuilder.h" >> %REGISTERFILE%
 
 ::Include all Stage header files
@@ -55,8 +55,7 @@ echo inline void RegisterGameWithEngine(void) {  >> %REGISTERFILE%
 
 ::Get all files with the name *Stage in it and output just the file name
 for %%f in ( *Stage.h ) do (
-  ::echo  M5StageMgr::AddStage(GS_%%~nf, new M5TemplateBuilder^< %%~nf ^>()); >> %REGISTERFILE%
-  echo  M5StageMgr::AddStage^(GS_%%~nf, new M5TemplateBuilder^< %%~nf ^>^(^) ^); >> %REGISTERFILE%
+  echo  M5StageMgr::AddStage^(ST_%%~nf, new M5TemplateBuilder^< %%~nf ^>^(^) ^); >> %REGISTERFILE%
 )
 
 
@@ -66,33 +65,35 @@ goto:eof
 
 :CreateEnum
 ::Create 
-set ENUMFILE=M5GameStages.h
+set ENUMFILE=M5StageTypes.h
 echo /******************************************************************************/ > %ENUMFILE%
 echo /*! >> %ENUMFILE%
-echo \file   GSGameStages.h >> %ENUMFILE%
+echo \file   M5StageType.h >> %ENUMFILE%
 echo \author UserPreBuild.bat >> %ENUMFILE%
 echo \par    email: lazersquad\@gmail.com >>%ENUMFILE%
 echo \par    Mach5 Game Engine >> %ENUMFILE%
 echo. >> %ENUMFILE%
 echo This file gets auto generated based on the names of the Stages in the >> %ENUMFILE%
 echo current project.  UserPreBuild.bat looks for files of the type *Stage.h >> %ENUMFILE%
-echo and creates an enumeration value of GS_*Stage. >> %ENUMFILE%
+echo and creates an enumeration value of ST_*Stage. >> %ENUMFILE%
 echo */ >> %ENUMFILE%
 echo /******************************************************************************/ >> %ENUMFILE%
 
-echo #ifndef M5_GAME_STAGES_H >> %ENUMFILE%
-echo #define M5_GAME_STAGES_H >> %ENUMFILE%
-echo enum M5GameStages {  >> %ENUMFILE%
+echo #ifndef M5STAGE_TYPES_H >> %ENUMFILE%
+echo #define M5STAGE_TYPES_H >> %ENUMFILE%
+echo.
+echo.
+echo enum M5StageTypes {  >> %ENUMFILE%
 
 ::Get all files with the name *Stage in it and output just the file name
 for %%f in ( *Stage.h ) do (
-  echo GS_%%~nf, >> %ENUMFILE%
+  echo ST_%%~nf, >> %ENUMFILE%
 )
 ::Add one more to the end without the comma
-echo GS_INVALID >> %ENUMFILE%
+echo ST_INVALID >> %ENUMFILE%
 
 
 echo }; >> %ENUMFILE%
-echo #endif //M5_GAME_STAGES_H >> %ENUMFILE%
+echo #endif //M5STAGE_TYPES_H >> %ENUMFILE%
 mv %ENUMFILE% "..\..\Include\%ENUMFILE%" > nul 2> nul
 goto:eof

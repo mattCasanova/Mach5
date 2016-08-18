@@ -169,9 +169,6 @@
     <ClInclude Include="Source\M5StageMgr.h">
       <Filter>Stages\StageMgr</Filter>
     </ClInclude>
-    <ClInclude Include="Source\M5GameStages.h">
-      <Filter>Stages\BaseStage</Filter>
-    </ClInclude>
     <ClInclude Include="Source\M5Component.h">
       <Filter>Components</Filter>
     </ClInclude>
@@ -195,6 +192,9 @@
     </ClInclude>
     <ClInclude Include="Source\M5ComponentFactory.h">
       <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\M5StageTypes.h">
+      <Filter>Stages\BaseStage</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

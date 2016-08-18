@@ -62,6 +62,10 @@ C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5ResourceManager.h:34: 
 C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5ResourceManager.h:43: warning: Member fileName (variable) of class M5ResourceManager::M5LoadedTexture is not documented.
 C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5ResourceManager.h:44: warning: Member id (variable) of class M5ResourceManager::M5LoadedTexture is not documented.
 C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5ResourceManager.h:45: warning: Member count (variable) of class M5ResourceManager::M5LoadedTexture is not documented.
+C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5ComponentFactory.h:28: warning: Member AddBuilder(M5GameStages name, M5StageBuilder *builder) (function) of class M5StageFactory is not documented.
+C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5ComponentFactory.h:29: warning: Member RemoveBuilder(M5GameStages name) (function) of class M5StageFactory is not documented.
+C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5ComponentFactory.h:30: warning: Member Build(M5GameStages name) (function) of class M5StageFactory is not documented.
+C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5StageFactory.h:31: warning: Member ClearBuilders(void) (function) of class M5StageFactory is not documented.
 C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5StageMgr.cpp:43: warning: argument 'framePerSecond' of command @param is not found in the argument list of M5StageMgr::Init(const M5GameData *pGData, int gameDataSize, int framesPerSecond)
 C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5StageMgr.h:54: warning: The following parameters of M5StageMgr::Init(const M5GameData *pGData, int gameDataSize, int framesPerSecond) are not documented:
   parameter 'framesPerSecond'

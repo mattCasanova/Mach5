@@ -35,7 +35,7 @@ The name to associate with the the give builder.
 A pointer to a StageBuilder that will be owned and deleted by the factory.
 */
 /******************************************************************************/
-void M5StageFactory::AddBuilder(M5GameStages name, M5StageBuilder* pBuilder)
+void M5StageFactory::AddBuilder(M5StageTypes name, M5StageBuilder* pBuilder)
 {
   std::pair<MapItor, bool> itor = m_builderMap.insert(std::make_pair(name, pBuilder));
   M5DEBUG_ASSERT(itor.second == true, "Trying to add a builder that already exists");
@@ -48,7 +48,7 @@ Removes a builder from the factory if it exists.
 The name of the Stage/Builder to remove.
 */
 /******************************************************************************/
-void M5StageFactory::RemoveBuilder(M5GameStages name)
+void M5StageFactory::RemoveBuilder(M5StageTypes name)
 {
   BuilderMap::iterator itor = m_builderMap.find(name);
   M5DEBUG_ASSERT(itor != m_builderMap.end(), 
@@ -72,7 +72,7 @@ A Derived class in the M5Stage inheritance chain.
 
 */
 /******************************************************************************/
-M5Stage* M5StageFactory::Build(M5GameStages name)
+M5Stage* M5StageFactory::Build(M5StageTypes name)
 {
   MapItor itor = m_builderMap.find(name);
   M5DEBUG_ASSERT(itor != m_builderMap.end(), "Trying to use a Builder that doesn't exist");

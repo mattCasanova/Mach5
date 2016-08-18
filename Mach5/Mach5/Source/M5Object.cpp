@@ -1,4 +1,4 @@
-#include "M5GameObject.h"
+#include "M5Object.h"
 #include "M5Debug.h"
 #include "M5Component.h"
 #include <algorithm>

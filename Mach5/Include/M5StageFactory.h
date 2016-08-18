@@ -14,7 +14,7 @@ Class for instantiating stages based on a regiestered name/type.
 #define M5STAGE_FACTORY_h
 
 #include <unordered_map>
-#include "M5GameStages.h"
+#include "M5StageTypes.h"
 
 //Forward declarations
 class M5Stage;
@@ -25,14 +25,14 @@ class M5StageFactory
 {
 public:
   ~M5StageFactory(void);
-  void AddBuilder(M5GameStages name, M5StageBuilder* builder);
-  void RemoveBuilder(M5GameStages name);
-  M5Stage* Build(M5GameStages name);
+  void AddBuilder(M5StageTypes name, M5StageBuilder* builder);
+  void RemoveBuilder(M5StageTypes name);
+  M5Stage* Build(M5StageTypes name);
   void ClearBuilders(void);
 
 private:
 	//! Typedef for my Hash Table of M5GameStages and M5StageBuilder's
-  typedef std::unordered_map<M5GameStages, M5StageBuilder*> BuilderMap;
+  typedef std::unordered_map<M5StageTypes, M5StageBuilder*> BuilderMap;
   //! Easy Typedef for the itorator to my BuilderMap.
   typedef BuilderMap::iterator MapItor;
 

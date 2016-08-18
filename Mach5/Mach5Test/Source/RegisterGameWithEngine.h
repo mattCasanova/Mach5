@@ -14,16 +14,16 @@ and registers those stages with the StageMgr.
 #define REGISTER_GAME_WITH_ENGINE_H 
  
 #include "M5StageMgr.h" 
-#include "M5GameStages.h" 
+#include "M5StageTypes.h" 
 #include "M5TemplateBuilder.h" 
 #include "Game1Stage.h" 
 #include "Game2Stage.h" 
 #include "GameOverStage.h" 
 #include "SplashStage.h" 
 inline void RegisterGameWithEngine(void) {  
- M5StageMgr::AddStage(GS_Game1Stage, new M5TemplateBuilder< Game1Stage >() ); 
- M5StageMgr::AddStage(GS_Game2Stage, new M5TemplateBuilder< Game2Stage >() ); 
- M5StageMgr::AddStage(GS_GameOverStage, new M5TemplateBuilder< GameOverStage >() ); 
- M5StageMgr::AddStage(GS_SplashStage, new M5TemplateBuilder< SplashStage >() ); 
+ M5StageMgr::AddStage(ST_Game1Stage, new M5TemplateBuilder< Game1Stage >() ); 
+ M5StageMgr::AddStage(ST_Game2Stage, new M5TemplateBuilder< Game2Stage >() ); 
+ M5StageMgr::AddStage(ST_GameOverStage, new M5TemplateBuilder< GameOverStage >() ); 
+ M5StageMgr::AddStage(ST_SplashStage, new M5TemplateBuilder< SplashStage >() ); 
 } 
 #endif //REGISTER_GAME_WITH_ENGINE_H 

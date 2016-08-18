@@ -19,9 +19,9 @@ good place to load game data and initialize object you need for your game.
 #include "M5Mtx44.h"
 #include "M5StageMgr.h"
 #include "M5Gfx.h"
-#include "M5GameStages.h"
-#include "M5GameObject.h"
-#include "GraphicsComponent.h"
+#include "M5StageTypes.h"
+#include "M5Object.h"
+#include "GfxComponent.h"
 
 
 /*Make a struct for my shared stage data*/

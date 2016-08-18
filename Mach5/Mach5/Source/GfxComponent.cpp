@@ -1,7 +1,7 @@
-#include "GraphicsComponent.h"
+#include "GfxComponent.h"
 #include "M5Gfx.h"
 #include "M5Mtx44.h"
-#include "M5GameObject.h"
+#include "M5Object.h"
 
 GfxComponent::GfxComponent(void)
 {

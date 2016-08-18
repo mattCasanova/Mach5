@@ -20,7 +20,7 @@ window and engine.
 #include "M5Mtx44.h"
 #include "M5Gfx.h"
 
-#include "M5GameStages.h"
+#include "M5StageTypes.h"
 #include <cstdio>
 
 namespace
@@ -86,7 +86,7 @@ void Game1Stage::Update(float dt)
   }
   else if (M5Input::IsTriggered(M5_N))
   {
-    M5StageMgr::SetNextStage(GS_Game2Stage);
+    M5StageMgr::SetNextStage(ST_Game2Stage);
   }
 
   /*Check for time*/
