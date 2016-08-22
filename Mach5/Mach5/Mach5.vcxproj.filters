@@ -69,6 +69,9 @@
     <Filter Include="Utils\IniFile">
       <UniqueIdentifier>{df88b6d6-d7dc-4cc7-b5cd-69cd1ccd9d19}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Components\BaseComponent">
+      <UniqueIdentifier>{531078ae-7c17-4f9b-b0dc-74916aa1b873}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\M5Math.cpp">
@@ -169,14 +172,8 @@
     <ClInclude Include="Source\M5StageMgr.h">
       <Filter>Stages\StageMgr</Filter>
     </ClInclude>
-    <ClInclude Include="Source\M5Component.h">
-      <Filter>Components</Filter>
-    </ClInclude>
     <ClInclude Include="Source\M5ObjectManager.h">
       <Filter>Objects</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\M5ComponentType.h">
-      <Filter>Components</Filter>
     </ClInclude>
     <ClInclude Include="Source\GfxComponent.h">
       <Filter>Components\GfxComponent</Filter>
@@ -195,6 +192,12 @@
     </ClInclude>
     <ClInclude Include="Source\M5StageTypes.h">
       <Filter>Stages\BaseStage</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\M5Component.h">
+      <Filter>Components\BaseComponent</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\M5ComponentTypes.h">
+      <Filter>Components\BaseComponent</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

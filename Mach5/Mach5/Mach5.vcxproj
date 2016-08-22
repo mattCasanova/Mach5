@@ -178,7 +178,7 @@
     <ClInclude Include="Source\M5App.h" />
     <ClInclude Include="Source\M5Component.h" />
     <ClInclude Include="Source\M5ComponentFactory.h" />
-    <ClInclude Include="Source\M5ComponentType.h" />
+    <ClInclude Include="Source\M5ComponentTypes.h" />
     <ClInclude Include="Source\M5Debug.h" />
     <ClInclude Include="Source\M5GameData.h" />
     <ClInclude Include="Source\M5IniFile.h" />

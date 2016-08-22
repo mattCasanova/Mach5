@@ -14,14 +14,14 @@ Class for instantiating components based on a regiestered name/type.
 #define M5COMPONENT_FACTORY_H
 
 #include <unordered_map>
-#include "M5GameStages.h"
+#include "M5ComponentTypes.h"
 
 //Forward declarations
-class M5Stage;
-class M5StageBuilder;
+class M5Component;
+class M5ComponentBuilder;
 
-/*! Class for Easily Creating Stages at runtime.*/
-class M5StageFactory
+/*! Class for Easily Creating Component at runtime.*/
+class M5ComponentFactory
 {
 public:
 	~M5StageFactory(void);
