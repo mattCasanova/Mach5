@@ -72,6 +72,18 @@
     <Filter Include="Components\BaseComponent">
       <UniqueIdentifier>{531078ae-7c17-4f9b-b0dc-74916aa1b873}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Components\ComponentFactory">
+      <UniqueIdentifier>{f8ba421f-190c-438c-971b-eefb1a89b9a4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Components\ComponentBuilder">
+      <UniqueIdentifier>{6d63b0b3-252a-4cfb-b8d6-23b9e2d7fe0f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Objects\Object">
+      <UniqueIdentifier>{48bcc803-021e-4443-a263-4336ed1fb5f0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Objects\ObjectManager">
+      <UniqueIdentifier>{a37a2059-22dc-4a32-abac-eee53f67b702}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\M5Math.cpp">
@@ -113,14 +125,20 @@
     <ClCompile Include="Source\GfxComponent.cpp">
       <Filter>Components\GfxComponent</Filter>
     </ClCompile>
-    <ClCompile Include="Source\M5Object.cpp">
-      <Filter>Objects</Filter>
-    </ClCompile>
     <ClCompile Include="Source\M5ResourceManager.cpp">
       <Filter>Gfx\ResourceManager</Filter>
     </ClCompile>
     <ClCompile Include="Source\M5IniFile.cpp">
       <Filter>Utils\IniFile</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\M5ComponentFactory.cpp">
+      <Filter>Components\ComponentFactory</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\M5Object.cpp">
+      <Filter>Objects\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\M5ObjectManager.cpp">
+      <Filter>Objects\ObjectManager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -166,29 +184,17 @@
     <ClInclude Include="Source\M5StageBuilder.h">
       <Filter>Stages\StageBuilder</Filter>
     </ClInclude>
-    <ClInclude Include="Source\M5TemplateBuilder.h">
-      <Filter>Stages\StageBuilder</Filter>
-    </ClInclude>
     <ClInclude Include="Source\M5StageMgr.h">
       <Filter>Stages\StageMgr</Filter>
     </ClInclude>
-    <ClInclude Include="Source\M5ObjectManager.h">
-      <Filter>Objects</Filter>
-    </ClInclude>
     <ClInclude Include="Source\GfxComponent.h">
       <Filter>Components\GfxComponent</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\M5Object.h">
-      <Filter>Objects</Filter>
     </ClInclude>
     <ClInclude Include="Source\M5ResourceManager.h">
       <Filter>Gfx\ResourceManager</Filter>
     </ClInclude>
     <ClInclude Include="Source\M5IniFile.h">
       <Filter>Utils\IniFile</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\M5ComponentFactory.h">
-      <Filter>Components</Filter>
     </ClInclude>
     <ClInclude Include="Source\M5StageTypes.h">
       <Filter>Stages\BaseStage</Filter>
@@ -198,6 +204,18 @@
     </ClInclude>
     <ClInclude Include="Source\M5ComponentTypes.h">
       <Filter>Components\BaseComponent</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\M5ComponentFactory.h">
+      <Filter>Components\ComponentFactory</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\M5ComponentBuilder.h">
+      <Filter>Components\ComponentBuilder</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\M5Object.h">
+      <Filter>Objects\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\M5ObjectManager.h">
+      <Filter>Objects\ObjectManager</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

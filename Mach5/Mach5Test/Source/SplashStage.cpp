@@ -22,6 +22,9 @@ good place to load game data and initialize object you need for your game.
 #include "M5StageTypes.h"
 #include "M5Object.h"
 #include "GfxComponent.h"
+#include "M5ObjectManager.h"
+#include "M5ComponentTypes.h"
+#include "M5Input.h"
 
 
 /*Make a struct for my shared stage data*/
@@ -32,7 +35,7 @@ namespace
 const float SPLASH_MAX_TIME = 6.0f;
 
   /*Create a static variable for data so it can't be used in other files.*/
-M5Object obj;
+M5Object* pObj = 0;
 }
 
 
@@ -78,13 +81,13 @@ void SplashStage::Init(void)
 
   /*Reset the timer for this stage*/
   m_changeTimer = 0.f;
-  GfxComponent* pGfxComp = new GfxComponent;
-  pGfxComp->SetTextureID(m_splashTexture);
-  obj.AddComponent(pGfxComp);
+  pObj = M5ObjectManager::CreateObject(CT_GfxComponent);
+  pObj->GetComponent<GfxComponent>(CT_GfxComponent)->SetTextureID(m_splashTexture);
+
 
   M5Vec2 windowSize = M5App::GetResolution();
-  obj.m_position.Set(windowSize.x / 2, windowSize.y / 2);
-  obj.m_scale.Set(windowSize.x, windowSize.y);
+  pObj->m_position.Set(windowSize.x / 2, windowSize.y / 2);
+  pObj->m_scale.Set(windowSize.x, windowSize.y);
 }
 /******************************************************************************/
 /*!
@@ -99,8 +102,27 @@ void SplashStage::Update(float dt)
 
   /*Check for time, only be in this stage for the 
   set time*/
-  if (m_changeTimer > SPLASH_MAX_TIME)
+  //if (m_changeTimer > SPLASH_MAX_TIME)
+	//  M5StageMgr::Quit();
+
+  if (M5Input::IsPressed(M5_ESCAPE))
 	  M5StageMgr::Quit();
+
+  else if (M5Input::IsTriggered(M5_Q))
+  {
+	  pObj = M5ObjectManager::CreateObject(CT_GfxComponent);
+	  pObj->GetComponent<GfxComponent>(CT_GfxComponent)->SetTextureID(m_splashTexture);
+
+
+	  M5Vec2 windowSize = M5App::GetResolution();
+	  pObj->m_position.Set(windowSize.x / 2, windowSize.y / 2);
+	  pObj->m_scale.Set(windowSize.x, windowSize.y);
+  }
+  else if (M5Input::IsTriggered(M5_E))
+  {
+	  M5ObjectManager::DestroyObject(pObj);
+  }
+
 }
 /******************************************************************************/
 /*!

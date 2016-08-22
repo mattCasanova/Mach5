@@ -158,9 +158,11 @@
   <ItemGroup>
     <ClCompile Include="Source\GfxComponent.cpp" />
     <ClCompile Include="Source\M5App.cpp" />
+    <ClCompile Include="Source\M5ComponentFactory.cpp" />
     <ClCompile Include="Source\M5Debug.cpp" />
     <ClCompile Include="Source\M5IniFile.cpp" />
     <ClCompile Include="Source\M5Object.cpp" />
+    <ClCompile Include="Source\M5ObjectManager.cpp" />
     <ClCompile Include="Source\M5ResourceManager.cpp" />
     <ClCompile Include="Source\M5StageFactory.cpp" />
     <ClCompile Include="Source\M5Timer.cpp" />
@@ -177,6 +179,7 @@
     <ClInclude Include="Source\GfxComponent.h" />
     <ClInclude Include="Source\M5App.h" />
     <ClInclude Include="Source\M5Component.h" />
+    <ClInclude Include="Source\M5ComponentBuilder.h" />
     <ClInclude Include="Source\M5ComponentFactory.h" />
     <ClInclude Include="Source\M5ComponentTypes.h" />
     <ClInclude Include="Source\M5Debug.h" />
@@ -187,7 +190,6 @@
     <ClInclude Include="Source\M5ResourceManager.h" />
     <ClInclude Include="Source\M5StageBuilder.h" />
     <ClInclude Include="Source\M5StageFactory.h" />
-    <ClInclude Include="Source\M5TemplateBuilder.h" />
     <ClInclude Include="Source\M5Timer.h" />
     <ClInclude Include="Source\M5Gfx.h" />
     <ClInclude Include="Source\M5Input.h" />

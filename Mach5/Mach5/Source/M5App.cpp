@@ -14,6 +14,7 @@ the Mach 5 Engine.
 #include "M5Debug.h"
 #include "M5Vec2.h"
 #include "M5StageMgr.h"
+#include "M5ObjectManager.h"
 #include "M5Input.h"
 #include "M5Timer.h"
 #include "M5Gfx.h"
@@ -320,8 +321,9 @@ void M5App::Init(const M5InitData& initData)
   ::UpdateWindow(s_window);//call the 
 
   
-  M5StageMgr::Init(initData.pGData, initData.gameDataSize, initData.fps);/*Initialize StageMgr*/
-  M5Input::Init();/*Initialize Input*/
+  M5StageMgr::Init(initData.pGData, initData.gameDataSize, initData.fps);
+  M5ObjectManager::Init();
+  M5Input::Init();
 }
 /******************************************************************************/
 /*!
@@ -364,6 +366,7 @@ void M5App::Shutdown(void)
   if (s_isFullScreen)
     ChangeDisplaySettings(NULL, 0);
 
+  M5ObjectManager::Shutdown();
   /*Shut down StageMgr*/
   M5StageMgr::Shutdown();
   /*Clean up windows*/

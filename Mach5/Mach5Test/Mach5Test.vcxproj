@@ -156,7 +156,8 @@
     <ClInclude Include="Source\GameOverStage.h" />
     <ClInclude Include="Source\Game1Stage.h" />
     <ClInclude Include="Source\Game2Stage.h" />
-    <ClInclude Include="Source\RegisterGameWithEngine.h" />
+    <ClInclude Include="Source\RegisterComponents.h" />
+    <ClInclude Include="Source\RegisterStages.h" />
     <ClInclude Include="Source\SplashStage.h" />
   </ItemGroup>
   <ItemGroup>

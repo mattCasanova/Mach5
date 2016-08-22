@@ -1,5 +1,6 @@
+C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5ComponentBuilder.h:3: warning: the name `M5ComonentBuilder.h' supplied as the second argument in the \file statement is not an input file
 C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5Object.h:13: warning: Compound M5Object is not documented.
-C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5ObjectManager.h:8: warning: Compound M5ObjectManager is not documented.
+C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5ObjectManager.h:13: warning: Compound M5ObjectManager is not documented.
 C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5Component.h:8: warning: Compound M5Component is not documented.
 C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/GfxComponent.h:7: warning: Compound GfxComponent is not documented.
 C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/GfxComponent.h:11: warning: Member Draw(void) const  (function) of class GfxComponent is not documented.
@@ -34,25 +35,26 @@ C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5IniFile.h:55: warning:
 C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5IniFile.h:59: warning: argument 'outInt' of command @param is not found in the argument list of M5IniFile::GetValue(const std::string &key, T &value) const
 C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5IniFile.h:29: warning: The following parameters of M5IniFile::GetValue(const std::string &key, T &value) const are not documented:
   parameter 'value'
-C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5Object.h:26: warning: Member ComponentVec (typedef) of class M5Object is not documented.
-C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5Object.h:27: warning: Member VecItor (typedef) of class M5Object is not documented.
-C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5Object.h:16: warning: Member M5Object(const M5Vec2 &pos, const M5Vec2 &scale, const M5Vec2 &vel, float rotation) (function) of class M5Object is not documented.
-C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5Object.h:18: warning: Member Update(float dt) (function) of class M5Object is not documented.
-C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5Object.h:19: warning: Member Kill(void) (function) of class M5Object is not documented.
-C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5Object.h:20: warning: Member AddComponent(M5Component *pComponent) (function) of class M5Object is not documented.
-C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5Object.h:21: warning: Member RemoveComponent(M5Component *pComponent) (function) of class M5Object is not documented.
-C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5Object.h:22: warning: Member RemoveComponent(M5ComponentType type) (function) of class M5Object is not documented.
-C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5Object.h:30: warning: Member m_components (variable) of class M5Object is not documented.
-C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5Object.h:31: warning: Member m_position (variable) of class M5Object is not documented.
-C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5Object.h:32: warning: Member m_scale (variable) of class M5Object is not documented.
-C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5Object.h:33: warning: Member m_velocity (variable) of class M5Object is not documented.
-C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5Object.h:34: warning: Member m_rotation (variable) of class M5Object is not documented.
-C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5Object.h:35: warning: Member m_isDead (variable) of class M5Object is not documented.
-C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5Object.h:36: warning: Member m_id (variable) of class M5Object is not documented.
-C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5ObjectManager.h:13: warning: Member CreateObject(void) (function) of class M5ObjectManager is not documented.
-C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5ObjectManager.h:16: warning: Member ObjectVec (typedef) of class M5ObjectManager is not documented.
-C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5ObjectManager.h:17: warning: Member VecItor (typedef) of class M5ObjectManager is not documented.
-C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5ObjectManager.h:19: warning: Member m_objects (variable) of class M5ObjectManager is not documented.
+C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5Object.h:17: warning: Member Update(float dt) (function) of class M5Object is not documented.
+C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5Object.h:18: warning: Member AddComponent(M5Component *pComponent) (function) of class M5Object is not documented.
+C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5Object.h:19: warning: Member RemoveComponent(M5Component *pComponent) (function) of class M5Object is not documented.
+C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5Object.h:20: warning: Member RemoveAllComponents(M5ComponentTypes type) (function) of class M5Object is not documented.
+C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5Object.h:21: warning: Member GetID(void) const  (function) of class M5Object is not documented.
+C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5Object.h:23: warning: Member GetComponent(M5ComponentTypes type) (function) of class M5Object is not documented.
+C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5Object.h:25: warning: Member m_position (variable) of class M5Object is not documented.
+C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5Object.h:26: warning: Member m_scale (variable) of class M5Object is not documented.
+C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5Object.h:27: warning: Member m_velocity (variable) of class M5Object is not documented.
+C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5Object.h:28: warning: Member m_rotation (variable) of class M5Object is not documented.
+C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5Object.h:30: warning: Member ComponentVec (typedef) of class M5Object is not documented.
+C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5Object.h:31: warning: Member VecItor (typedef) of class M5Object is not documented.
+C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5Object.h:34: warning: Member m_components (variable) of class M5Object is not documented.
+C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5Object.h:35: warning: Member m_id (variable) of class M5Object is not documented.
+C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5ObjectManager.h:15: warning: Member Init(void) (function) of class M5ObjectManager is not documented.
+C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5ObjectManager.h:16: warning: Member Shutdown(void) (function) of class M5ObjectManager is not documented.
+C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5ObjectManager.h:17: warning: Member CreateObject(M5ComponentTypes type) (function) of class M5ObjectManager is not documented.
+C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5ObjectManager.h:18: warning: Member DestroyObject(M5Object *pToDestroy) (function) of class M5ObjectManager is not documented.
+C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5ObjectManager.h:19: warning: Member AddComponent(M5ComponentTypes type, M5ComponentBuilder *pBuilder) (function) of class M5ObjectManager is not documented.
+C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5ObjectManager.h:20: warning: Member RemoveComponent(M5ComponentTypes type) (function) of class M5ObjectManager is not documented.
 C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5ResourceManager.h:49: warning: Member M5TextureMap (typedef) of class M5ResourceManager is not documented.
 C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5ResourceManager.h:50: warning: Member M5TextureMapItor (typedef) of class M5ResourceManager is not documented.
 C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5ResourceManager.h:53: warning: Member m_textureMap (variable) of class M5ResourceManager is not documented.
@@ -62,10 +64,6 @@ C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5ResourceManager.h:34: 
 C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5ResourceManager.h:43: warning: Member fileName (variable) of class M5ResourceManager::M5LoadedTexture is not documented.
 C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5ResourceManager.h:44: warning: Member id (variable) of class M5ResourceManager::M5LoadedTexture is not documented.
 C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5ResourceManager.h:45: warning: Member count (variable) of class M5ResourceManager::M5LoadedTexture is not documented.
-C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5ComponentFactory.h:28: warning: Member AddBuilder(M5GameStages name, M5StageBuilder *builder) (function) of class M5StageFactory is not documented.
-C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5ComponentFactory.h:29: warning: Member RemoveBuilder(M5GameStages name) (function) of class M5StageFactory is not documented.
-C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5ComponentFactory.h:30: warning: Member Build(M5GameStages name) (function) of class M5StageFactory is not documented.
-C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5StageFactory.h:31: warning: Member ClearBuilders(void) (function) of class M5StageFactory is not documented.
 C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5StageMgr.cpp:43: warning: argument 'framePerSecond' of command @param is not found in the argument list of M5StageMgr::Init(const M5GameData *pGData, int gameDataSize, int framesPerSecond)
 C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5StageMgr.h:54: warning: The following parameters of M5StageMgr::Init(const M5GameData *pGData, int gameDataSize, int framesPerSecond) are not documented:
   parameter 'framesPerSecond'

@@ -26,6 +26,23 @@ public:
 private:
 };
 
+/*! Templated builder derived class so I don't need to create a Builder for each
+Stage type*/
+template <typename T>
+class M5StageTBuilder : public M5StageBuilder
+{
+public:
+	virtual M5Stage* Build(void);
+private:
+};
+
+
+//! Creates a new M5Stage of type T
+template <typename T>
+M5Stage* M5StageTBuilder<T>::Build(void)
+{
+	return new T();
+}
 
 
 

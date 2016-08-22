@@ -1,6 +1,6 @@
 #ifndef M5COMPONENT_H
 #define M5COMPONENT_H
-#include "M5ComponentType.h"
+#include "M5ComponentTypes.h"
 
 class M5Object;
 
@@ -13,11 +13,11 @@ public:
 	virtual M5Component* Clone(void) = 0;
 	void SetParent(M5Object* pParent) { m_pParent = pParent; }
 	M5Object* GetParent(void) { return m_pParent; }
-	M5ComponentType GetType(void) const { return m_type; }
+	M5ComponentTypes GetType(void) const { return m_type; }
 
 protected:
 	M5Object*   m_pParent;
-	M5ComponentType m_type;
+	M5ComponentTypes m_type;
 };
 
 

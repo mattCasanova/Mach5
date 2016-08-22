@@ -29,7 +29,7 @@ M5StageFactory::~M5StageFactory(void)
 Adds a StageBuilder to the Factory if it doesn't already exist.
 
 \param [in] name
-The name to associate with the the give builder.
+The name to associate with the given builder.
 
 \param [in] pBuilder
 A pointer to a StageBuilder that will be owned and deleted by the factory.

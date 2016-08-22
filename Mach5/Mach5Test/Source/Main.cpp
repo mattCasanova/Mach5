@@ -25,7 +25,8 @@ This is file contains the main function to make a basic window.
 #include "M5StageMgr.h"
 #include "M5Stage.h"
 #include "M5GameData.h"
-#include "RegisterGameWithEngine.h"
+#include "RegisterStages.h"
+#include "RegisterComponents.h"
 #include "M5IniFile.h"
 
 #include "M5Debug.h"
@@ -89,12 +90,12 @@ int WINAPI WinMain(HINSTANCE instance,
   M5App::Init(initData);
   
   /*Function to add all of my game stages*/
-  RegisterGameWithEngine();
+  RegisterStages();
   M5StageMgr::SetStartStage(ST_SplashStage);
+  RegisterComponents();
 
   /*Start running the game*/
   M5App::Update();
-  
   /*This function must be called after the window has closed!!!*/
   M5App::Shutdown();
   
