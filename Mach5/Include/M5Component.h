@@ -1,3 +1,15 @@
+/******************************************************************************/
+/*!
+\file   M5Component.h
+\author Matt Casanova
+\par    email: lazersquad\@gmail.com
+\par    Mach5 Game Engine
+\date   2016/08/18
+
+Base class component for M5Objects
+
+*/
+/******************************************************************************/
 #ifndef M5COMPONENT_H
 #define M5COMPONENT_H
 #include "M5ComponentTypes.h"
@@ -7,17 +19,22 @@ class M5Object;
 class M5Component
 {
 public:
-	M5Component(void) { m_type = CT_INVALID; }
-	virtual ~M5Component(void) {}//Empty Base Class destructor
-	virtual void Update(float dt) = 0;
+	M5Component(void);
+	virtual ~M5Component(void);
+	virtual void Update(float dt)    = 0;
 	virtual M5Component* Clone(void) = 0;
-	void SetParent(M5Object* pParent) { m_pParent = pParent; }
-	M5Object* GetParent(void) { return m_pParent; }
-	M5ComponentTypes GetType(void) const { return m_type; }
+
+	void             SetParent(M5Object* pParent);
+	M5Object*        GetParent(void);
+	M5ComponentTypes GetType(void) const;
+	int              GetID(void) const;
 
 protected:
-	M5Object*   m_pParent;
+	M5Object*        m_pObj;
 	M5ComponentTypes m_type;
+private:
+	static int       s_componentID;
+	int              m_id;
 };
 
 

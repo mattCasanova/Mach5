@@ -5,11 +5,9 @@
 
 GfxComponent::GfxComponent(void)
 {
-	m_pParent = 0;
+	m_pObj = 0;
 	m_type = CT_GraphicsComponent;
 	m_textureID = 0;
-	M5Gfx::RegisterComponent(this);
-
 }
 GfxComponent::~GfxComponent(void)
 {
@@ -18,9 +16,9 @@ GfxComponent::~GfxComponent(void)
 void GfxComponent::Draw(void) const
 {
 	M5Mtx44 world;
-	world.MakeTransform(m_pParent->m_scale, 
-		m_pParent->m_rotation, 
-		m_pParent->m_position, 
+	world.MakeTransform(m_pObj->m_scale, 
+		m_pObj->m_rotation, 
+		m_pObj->m_position, 
 		0);
 	M5Gfx::SetTexture(m_textureID);
 	M5Gfx::Draw(world);
@@ -31,7 +29,7 @@ void GfxComponent::Update(float /*dt*/)
 M5Component* GfxComponent::Clone(void)
 {
 	GfxComponent* pNew = new GfxComponent;
-	pNew->m_pParent = m_pParent;
+	pNew->m_pObj = m_pObj;
 	pNew->m_type = m_type;
 	pNew->m_textureID = m_textureID;
 

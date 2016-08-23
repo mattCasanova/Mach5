@@ -29,31 +29,23 @@ public:
 	friend class M5App;
 	friend class M5StageMgr;
 
-	/*This should be called once before drawing all objects*/
-	static void StartScene(void);
-	/*This should be called once after drawing all objects*/
-	static void EndScene(void);
+	
 	/*Use this to load a texture from file*/
 	static int LoadTexture(const char* fileName);
 	/*You must unload every texture that you load*/
 	static void UnloadTexture(int textureID);
-	/*Use this to select the texture that you want to draw*/
-	static void SetTexture(int textureID);
-	/*This is used to scale, rotate, or translate a texture. It is best used for frame animation*/
-	static void SetTextureCoords(float scaleX, float scaleY, float radians, float transX, float transY);
-	/*Sets the position of the camera in perspective mode.  There
-	is no camera in ortho mode.*/
+	/*Sets the position of the camera in perspective mode.  There is no camera in ortho mode.*/
 	static void SetCamera(float cameraX, float cameraY, float cameraZ, float cameraRot);
-	/*Use this to draw game objects.  Z order and distance from the camera effects the size*/
-	static void SetToPerspective(void);
-	/*Use this to draw HUD objects. Distance from the camara doesn't  effect the object*/
-	static void SetToOrtho(void);
+	/*Changes the background color*/
+	static void SetBackgroundColor(float red, float green, float blue);
 	/*Draws the selected texture based on the matrix*/
 	static void Draw(const M5Mtx44& worldMatrix);
 	/*Writes text on the screen*/
 	static void WriteText(const char* text, float x, float y);
-	/*Changes the background color*/
-	static void SetBackgroundColor(float red, float green, float blue);
+	/*Use this to select the texture that you want to draw*/
+	static void SetTexture(int textureID);
+	/*This is used to scale, rotate, or translate a texture. It is best used for frame animation*/
+	static void SetTextureCoords(float scaleX, float scaleY, float radians, float transX, float transY);
 	/*Blends the given color with the texture*/
 	static void SetTextureColor(unsigned color);
 	/*Blends the given color with the texture*/
@@ -72,9 +64,18 @@ public:
 	static void GetWorldBotLeft(M5Vec2& outParam);
 	/*Gets the Bottom Right corner of the world*/
 	static void GetWorldBotRight(M5Vec2& outParam);
-	static void RegisterComponent(GfxComponent* pGfxComp);
+	static void RegisterWorldComponent(GfxComponent* pGfxComp);
+	static void RegisterHudComponent(GfxComponent* pGfxComp);
 	static void UnregisterComponent(GfxComponent* pGfxComp);
 private:
+	/*This should be called once before drawing all objects*/
+	static void StartScene(void);
+	/*This should be called once after drawing all objects*/
+	static void EndScene(void);
+	/*Use this to draw game objects.  Z order and distance from the camera effects the size*/
+	static void SetToPerspective(void);
+	/*Use this to draw HUD objects. Distance from the camara doesn't  effect the object*/
+	static void SetToOrtho(void);
 	static void Update(void);
 	static void SetResolution(int width, int height);
 	static void CalulateWorldExtents(void);

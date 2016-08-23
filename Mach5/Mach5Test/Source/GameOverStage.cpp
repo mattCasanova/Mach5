@@ -45,7 +45,7 @@ do anything here.
 /******************************************************************************/
 void GameOverStage::Init(void)
 {
-  M5Gfx::SetToOrtho();
+  //M5Gfx::SetToOrtho();
   M5Gfx::SetBackgroundColor(0, 0, 0);
 }
 /******************************************************************************/
@@ -66,10 +66,10 @@ void GameOverStage::Update(float /*dt*/)
   M5Mtx44::MakeTransform(transform, windowSize.y, windowSize.y, 0,
     windowSize.x / 2.0f, windowSize.y / 2.0f, 0);
 
-  M5Gfx::StartScene();
+ // M5Gfx::StartScene();
   M5Gfx::SetTexture(m_texture);
   M5Gfx::Draw(transform);
-  M5Gfx::EndScene();
+  //M5Gfx::EndScene();
 }
 /******************************************************************************/
 /*!

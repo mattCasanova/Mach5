@@ -158,6 +158,7 @@
   <ItemGroup>
     <ClCompile Include="Source\GfxComponent.cpp" />
     <ClCompile Include="Source\M5App.cpp" />
+    <ClCompile Include="Source\M5Component.cpp" />
     <ClCompile Include="Source\M5ComponentFactory.cpp" />
     <ClCompile Include="Source\M5Debug.cpp" />
     <ClCompile Include="Source\M5IniFile.cpp" />
@@ -178,6 +179,7 @@
   <ItemGroup>
     <ClInclude Include="Source\GfxComponent.h" />
     <ClInclude Include="Source\M5App.h" />
+    <ClInclude Include="Source\M5ArcheTypes.h" />
     <ClInclude Include="Source\M5Component.h" />
     <ClInclude Include="Source\M5ComponentBuilder.h" />
     <ClInclude Include="Source\M5ComponentFactory.h" />

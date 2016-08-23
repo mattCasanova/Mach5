@@ -30,8 +30,8 @@ private:
 	typedef std::vector<M5Component*> ComponentVec;
 	typedef ComponentVec::iterator VecItor;
 
-
 	ComponentVec m_components;
+	static int   s_objectID;
 	int          m_id;
 };
 

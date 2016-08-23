@@ -51,7 +51,7 @@ void M5ObjectManager::DestroyObject(M5Object* pToDestroy)
 	VecItor itor = std::find(s_objects.begin(), s_objects.end(), pToDestroy);
 	M5DEBUG_ASSERT(itor != s_objects.end(), "Trying to destroy an object that doesn't exist");
 
-	//delete *itor;
+	delete *itor;
 	std::iter_swap(itor, --s_objects.end());
 	s_objects.pop_back();
 }

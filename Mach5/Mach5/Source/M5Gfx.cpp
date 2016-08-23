@@ -22,10 +22,6 @@ Singleton class to draw and modify the view of the screen
 #include <string>
 #include <vector>
 
-/*!Prototype for function in M5TextureLoading*/
-int ValidateTextures(std::string& fileNames);
-
-
 #include "windows.h"
 #include "gl/glew.h"
 #include "gl/gl.h"
@@ -105,7 +101,8 @@ HFONT    s_oldFont;       /*!< The old font*/
 GLuint   s_fontBase;      /*!< My font list I will create*/
 
 M5Mesh   s_mesh;          /*!< Quad Mesh since it is 2D game engine*/
-std::vector<GfxComponent*> s_components;
+std::vector<GfxComponent*> s_worldComponents;
+std::vector<GfxComponent*> s_hudComponents;
 M5ResourceManager s_resourceManager;
 
 /******************************************************************************/
@@ -895,31 +892,49 @@ void M5Gfx::UnloadTexture(int textureID)
 {
 	s_resourceManager.UnloadResource(textureID, RT_TEXTURE);
 }
-void M5Gfx::RegisterComponent(GfxComponent* pGfxComp)
+void M5Gfx::RegisterWorldComponent(GfxComponent* pGfxComp)
 {
-	s_components.push_back(pGfxComp);
+	s_worldComponents.push_back(pGfxComp);
+}
+void M5Gfx::RegisterHudComponent(GfxComponent* pGfxComp)
+{
+	s_hudComponents.push_back(pGfxComp);
 }
 void M5Gfx::UnregisterComponent(GfxComponent* pGfxComp)
 {
-	size_t size = s_components.size();
-	StartScene();
+	size_t size = s_worldComponents.size();
 	for (size_t i = 0; i < size; ++i)
 	{
-		if (s_components[i] == pGfxComp)
+		if (s_worldComponents[i] == pGfxComp)
 		{
-			s_components[i] = s_components[size - 1];
-			s_components.pop_back();
+			s_worldComponents[i] = s_worldComponents[size - 1];
+			s_worldComponents.pop_back();
+		}
+	}
+
+	size = s_hudComponents.size();
+	for (size_t i = 0; i < size; ++i)
+	{
+		if (s_hudComponents[i] == pGfxComp)
+		{
+			s_hudComponents[i] = s_hudComponents[size - 1];
+			s_hudComponents.pop_back();
 		}
 	}
 }
 void M5Gfx::Update(void)
 {
-	size_t size = s_components.size();
+	size_t size = s_worldComponents.size();
 	StartScene();
+
+	SetToPerspective();
 	for (size_t i = 0; i < size; ++i)
-	{
-		s_components[i]->Draw();
-	}
+		s_worldComponents[i]->Draw();
+
+	SetToOrtho();
+	size = s_hudComponents.size();
+	for (size_t i = 0; i < size; ++i)
+		s_hudComponents[i]->Draw();
 
 	EndScene();
 }

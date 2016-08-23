@@ -99,7 +99,7 @@ void Game1Stage::Update(float dt)
   }
 
   /*Make sure drawing is in world space*/
-  M5Gfx::SetToPerspective();
+  //M5Gfx::SetToPerspective();
 
   /*Get mouse click in screen space*/
   M5Input::GetMouse(mouse);
@@ -109,7 +109,7 @@ void Game1Stage::Update(float dt)
 
 
   /*Start drawing*/
-  M5Gfx::StartScene();
+ // M5Gfx::StartScene();
 
   /*Draw my different text starting at the top corner*/
   M5Gfx::SetTextureColor(0xFFFFFFFF);
@@ -128,11 +128,11 @@ void Game1Stage::Update(float dt)
   M5Gfx::SetTextureColor(0xFFFF00FF);
   M5Gfx::WriteText("Click: Toggle cursor", mouse.x, mouse.y);
 
-  M5Gfx::SetToOrtho();
+  //M5Gfx::SetToOrtho();
   M5Gfx::WriteText(m_textAsString, 100, 100);
 
   /*End drawing*/
-  M5Gfx::EndScene();
+ // M5Gfx::EndScene();
 
 }
 /******************************************************************************/

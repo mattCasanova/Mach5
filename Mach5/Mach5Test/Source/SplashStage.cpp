@@ -56,7 +56,7 @@ void SplashStage::Load(void)
   m_splashTexture = M5Gfx::LoadTexture("Textures\\Mach5Logo.tga");
 
   /*All drawing in this stage is in screen space*/
-  M5Gfx::SetToOrtho();
+  //M5Gfx::SetToOrtho();
 }
 /******************************************************************************/
 /*!
@@ -111,12 +111,17 @@ void SplashStage::Update(float dt)
   else if (M5Input::IsTriggered(M5_Q))
   {
 	  pObj = M5ObjectManager::CreateObject(CT_GfxComponent);
-	  pObj->GetComponent<GfxComponent>(CT_GfxComponent)->SetTextureID(m_splashTexture);
+	  GfxComponent* gComp = pObj->GetComponent<GfxComponent>(CT_GfxComponent);
+	 gComp->SetTextureID(m_splashTexture);
+	 M5Gfx::RegisterWorldComponent(gComp);
 
 
 	  M5Vec2 windowSize = M5App::GetResolution();
-	  pObj->m_position.Set(windowSize.x / 2, windowSize.y / 2);
-	  pObj->m_scale.Set(windowSize.x, windowSize.y);
+	  //pObj->m_position.Set(windowSize.x / 2, windowSize.y / 2);
+	  //pObj->m_scale.Set(windowSize.x, windowSize.y);
+
+	  pObj->m_position.Set(0, 0);
+	  pObj->m_scale.Set(100, 100);
   }
   else if (M5Input::IsTriggered(M5_E))
   {

@@ -179,9 +179,9 @@ void Game2Stage::Update(float dt)
   }
 
   /*Start drawing*/
-  M5Gfx::StartScene();
+  //M5Gfx::StartScene();
   /*Use perspective matrix for world objects with z order*/
-  M5Gfx::SetToPerspective();
+  //M5Gfx::SetToPerspective();
   M5Gfx::SetTextureCoords(1.0f, 1.0f, 0.0f, 0.0f, 0.0f);
 
   /*Draw BackGround*/
@@ -248,7 +248,7 @@ void Game2Stage::Update(float dt)
   /*Draw the HUD*/
   /*Set to orthographic mode.  Camera distance has no effect,
   objects are drawn in screen space*/
-  M5Gfx::SetToOrtho();
+  //M5Gfx::SetToOrtho();
   M5Gfx::SetTexture(m_hudTexture);//HUD
   M5Gfx::SetTextureCoords(1.0f, 1.0f, 0.0f, 0.0f, 0.0f);
 
@@ -270,7 +270,7 @@ void Game2Stage::Update(float dt)
   M5Gfx::WriteText("Mouse Wheel: Zoom", 640.f, 680.f);
   M5Gfx::WriteText("Q/E: Rotate Camera", 640.f, 640.f);
 
-  M5Gfx::EndScene();
+ // M5Gfx::EndScene();
 }
 /******************************************************************************/
 /*!

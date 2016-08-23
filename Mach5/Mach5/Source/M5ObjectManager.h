@@ -12,12 +12,17 @@ class M5ComponentBuilder;
 class M5ObjectManager
 {
 public:
-	static void Init(void);
-	static void Shutdown(void);
+	friend class M5App;
+
+
 	static M5Object* CreateObject(M5ComponentTypes type);
 	static void DestroyObject(M5Object* pToDestroy);
+	static void DestroyAllObjects(void);
 	static void AddComponent(M5ComponentTypes type, M5ComponentBuilder* pBuilder);
 	static void RemoveComponent(M5ComponentTypes type);
+private:
+	static void Init(void);
+	static void Shutdown(void);
 };
 
 

@@ -6,8 +6,9 @@
 namespace
 {
 const int START_SIZE = 8;
-int s_objectID = 0;
 }
+
+int M5Object::s_objectID = 0;
 
 
 M5Object::M5Object(void) :
