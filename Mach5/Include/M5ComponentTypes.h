@@ -12,8 +12,15 @@ and creates an enumeration value of CT_*Component.
 /******************************************************************************/ 
 #ifndef M5COMPONENT_TYPE_H 
 #define M5COMPONENT_TYPE_H 
+#include <string> 
 enum M5ComponentTypes {  
 CT_GfxComponent, 
 CT_INVALID 
 }; 
+ 
+ 
+inline M5ComponentTypes StringToComponent(const std::string& string) { 
+if(string == "GfxComponent") return CT_GfxComponent; 
+return CT_INVALID; 
+} 
 #endif //M5COMPONENT_TYPE_H 

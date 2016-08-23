@@ -1,29 +1,32 @@
 C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5ComponentBuilder.h:3: warning: the name `M5ComonentBuilder.h' supplied as the second argument in the \file statement is not an input file
 C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5Object.h:13: warning: Compound M5Object is not documented.
 C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5ObjectManager.h:13: warning: Compound M5ObjectManager is not documented.
-C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5Component.h:20: warning: Compound M5Component is not documented.
+C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5Component.h:22: warning: Compound M5Component is not documented.
 C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/GfxComponent.h:7: warning: Compound GfxComponent is not documented.
+C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5ComponentTypes.h:25: warning: Member StringToComponent(const std::string &) (function) of file M5ComponentTypes.h is not documented.
 C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/GfxComponent.h:11: warning: Member Draw(void) const  (function) of class GfxComponent is not documented.
 C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/GfxComponent.h:12: warning: Member Update(float dt) (function) of class GfxComponent is not documented.
 C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/GfxComponent.h:13: warning: Member Clone(void) (function) of class GfxComponent is not documented.
-C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/GfxComponent.h:14: warning: Member SetTextureID(int id) (function) of class GfxComponent is not documented.
-C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5Component.h:27: warning: Member SetParent(M5Object *pParent) (function) of class M5Component is not documented.
-C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5Component.h:28: warning: Member GetParent(void) (function) of class M5Component is not documented.
-C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5Component.h:29: warning: Member GetType(void) const  (function) of class M5Component is not documented.
-C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5Component.h:30: warning: Member GetID(void) const  (function) of class M5Component is not documented.
-C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/GfxComponent.h:16: warning: Member m_textureID (variable) of class GfxComponent is not documented.
-C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5Component.h:33: warning: Member m_pObj (variable) of class M5Component is not documented.
-C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5Component.h:34: warning: Member m_type (variable) of class M5Component is not documented.
-C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5Component.h:24: warning: Member Update(float dt)=0 (function) of class M5Component is not documented.
-C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5Component.h:25: warning: Member Clone(void)=0 (function) of class M5Component is not documented.
-C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5Component.h:27: warning: Member SetParent(M5Object *pParent) (function) of class M5Component is not documented.
-C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5Component.h:28: warning: Member GetParent(void) (function) of class M5Component is not documented.
-C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5Component.h:29: warning: Member GetType(void) const  (function) of class M5Component is not documented.
-C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5Component.h:30: warning: Member GetID(void) const  (function) of class M5Component is not documented.
-C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5Component.h:33: warning: Member m_pObj (variable) of class M5Component is not documented.
-C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5Component.h:34: warning: Member m_type (variable) of class M5Component is not documented.
-C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5Component.h:37: warning: Member m_id (variable) of class M5Component is not documented.
-C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5Component.h:36: warning: Member s_componentID (variable) of class M5Component is not documented.
+C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/GfxComponent.h:14: warning: Member FromFile(M5IniFile &iniFile) (function) of class GfxComponent is not documented.
+C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/GfxComponent.h:15: warning: Member SetTextureID(int id) (function) of class GfxComponent is not documented.
+C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5Component.h:30: warning: Member SetParent(M5Object *pParent) (function) of class M5Component is not documented.
+C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5Component.h:31: warning: Member GetParent(void) (function) of class M5Component is not documented.
+C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5Component.h:32: warning: Member GetType(void) const  (function) of class M5Component is not documented.
+C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5Component.h:33: warning: Member GetID(void) const  (function) of class M5Component is not documented.
+C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/GfxComponent.h:17: warning: Member m_textureID (variable) of class GfxComponent is not documented.
+C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5Component.h:36: warning: Member m_pObj (variable) of class M5Component is not documented.
+C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5Component.h:37: warning: Member m_type (variable) of class M5Component is not documented.
+C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5Component.h:26: warning: Member Update(float dt)=0 (function) of class M5Component is not documented.
+C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5Component.h:27: warning: Member Clone(void)=0 (function) of class M5Component is not documented.
+C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5Component.h:28: warning: Member FromFile(M5IniFile &) (function) of class M5Component is not documented.
+C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5Component.h:30: warning: Member SetParent(M5Object *pParent) (function) of class M5Component is not documented.
+C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5Component.h:31: warning: Member GetParent(void) (function) of class M5Component is not documented.
+C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5Component.h:32: warning: Member GetType(void) const  (function) of class M5Component is not documented.
+C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5Component.h:33: warning: Member GetID(void) const  (function) of class M5Component is not documented.
+C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5Component.h:36: warning: Member m_pObj (variable) of class M5Component is not documented.
+C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5Component.h:37: warning: Member m_type (variable) of class M5Component is not documented.
+C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5Component.h:40: warning: Member m_id (variable) of class M5Component is not documented.
+C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5Component.h:39: warning: Member s_componentID (variable) of class M5Component is not documented.
 C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5Gfx.h:67: warning: Member RegisterWorldComponent(GfxComponent *pGfxComp) (function) of class M5Gfx is not documented.
 C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5Gfx.h:68: warning: Member RegisterHudComponent(GfxComponent *pGfxComp) (function) of class M5Gfx is not documented.
 C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5Gfx.h:69: warning: Member UnregisterComponent(GfxComponent *pGfxComp) (function) of class M5Gfx is not documented.
@@ -39,6 +42,9 @@ C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5IniFile.h:54: warning:
 C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5IniFile.h:55: warning: Member m_currSection (variable) of class M5IniFile is not documented.
 C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5IniFile.h:59: warning: argument 'outInt' of command @param is not found in the argument list of M5IniFile::GetValue(const std::string &key, T &value) const
 C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5IniFile.h:29: warning: The following parameters of M5IniFile::GetValue(const std::string &key, T &value) const are not documented:
+  parameter 'value'
+C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5IniFile.h:78: warning: argument 'outInt' of command @param is not found in the argument list of M5IniFile::GetValue(const std::string &key, std::string &value) const
+C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5IniFile.h:87: warning: The following parameters of M5IniFile::GetValue(const std::string &key, std::string &value) const are not documented:
   parameter 'value'
 C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5Object.h:17: warning: Member Update(float dt) (function) of class M5Object is not documented.
 C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5Object.h:18: warning: Member AddComponent(M5Component *pComponent) (function) of class M5Object is not documented.
@@ -60,8 +66,9 @@ C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5ObjectManager.h:19: wa
 C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5ObjectManager.h:20: warning: Member DestroyAllObjects(void) (function) of class M5ObjectManager is not documented.
 C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5ObjectManager.h:21: warning: Member AddComponent(M5ComponentTypes type, M5ComponentBuilder *pBuilder) (function) of class M5ObjectManager is not documented.
 C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5ObjectManager.h:22: warning: Member RemoveComponent(M5ComponentTypes type) (function) of class M5ObjectManager is not documented.
-C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5ObjectManager.h:24: warning: Member Init(void) (function) of class M5ObjectManager is not documented.
-C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5ObjectManager.h:25: warning: Member Shutdown(void) (function) of class M5ObjectManager is not documented.
+C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5ObjectManager.h:23: warning: Member AddArchetype(M5ArcheTypes type, const char *fileName) (function) of class M5ObjectManager is not documented.
+C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5ObjectManager.h:25: warning: Member Init(void) (function) of class M5ObjectManager is not documented.
+C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5ObjectManager.h:26: warning: Member Shutdown(void) (function) of class M5ObjectManager is not documented.
 C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5ResourceManager.h:49: warning: Member M5TextureMap (typedef) of class M5ResourceManager is not documented.
 C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5ResourceManager.h:50: warning: Member M5TextureMapItor (typedef) of class M5ResourceManager is not documented.
 C:/Users/Matt/Dropbox/Personal/Mach5/Mach5/Mach5/Source/M5ResourceManager.h:53: warning: Member m_textureMap (variable) of class M5ResourceManager is not documented.

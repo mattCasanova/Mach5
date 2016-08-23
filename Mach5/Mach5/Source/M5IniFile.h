@@ -70,9 +70,26 @@ void M5IniFile::GetValue(const std::string& key, T& value) const
 	KeyValMapCItor itor = m_currSection->find(key);
 	M5DEBUG_ASSERT(itor != m_currSection->end(), "Ini Key could not be found");
 
-	std::stringstream ss;
-	ss << itor->second;
+	std::stringstream ss(itor->second);
 	ss >> value;
+}
+/******************************************************************************/
+/*!
+Takes a key and returns a value of type int
+
+\param key
+The key from the file
+\param outInt
+The value that will be filled in if the key exists
+*/
+/******************************************************************************/
+template<>
+inline void M5IniFile::GetValue(const std::string& key, std::string& value) const
+{
+	KeyValMapCItor itor = m_currSection->find(key);
+	M5DEBUG_ASSERT(itor != m_currSection->end(), "Ini Key could not be found");
+
+	value = itor->second;
 }
 
 #endif //M5INI_FILE_H

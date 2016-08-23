@@ -18,6 +18,8 @@ call:CreateStageEnum
 call:CreateComponentEnum
 call:CreateRegisterStages
 call:CreateRegisterComponent
+call:CreateArcheTypesEnum
+
 goto:eof
 
 ::******************************************************************************
@@ -190,6 +192,7 @@ echo /**************************************************************************
 
 echo #ifndef M5COMPONENT_TYPE_H >> %ENUMFILE%
 echo #define M5COMPONENT_TYPE_H >> %ENUMFILE%
+echo #include ^<string^> >> %ENUMFILE%
 echo.
 echo.
 echo enum M5ComponentTypes {  >> %ENUMFILE%
@@ -207,6 +210,72 @@ echo CT_INVALID >> %ENUMFILE%
 
 
 echo }; >> %ENUMFILE%
+echo. >> %ENUMFILE%
+echo. >> %ENUMFILE%
+
+::Generates a function that will convert strings to our M5ComponentTypes type
+echo inline M5ComponentTypes StringToComponent^(const std::string^& string^) { >> %ENUMFILE%
+
+for %%f in ( ..\..\Include\*???Component.h ) do (
+  echo if^(string ^=^= "%%~nf"^) return CT_%%~nf; >> %ENUMFILE%
+)
+for %%f in ( *Component.h ) do (
+  echo if^(string ^=^= "%%~nf"^) return CT_%%~nf; >> %ENUMFILE%
+)
+echo return CT_INVALID; >> %ENUMFILE%
+echo } >> %ENUMFILE%
 echo #endif //M5COMPONENT_TYPE_H >> %ENUMFILE%
+mv %ENUMFILE% "..\..\Include\%ENUMFILE%" > nul 2> nul
+goto:eof
+
+::******************************************************************************
+::Auto generates the enum for M5ArcheTypes based on the files that
+:: the user created.
+::******************************************************************************
+:CreateArcheTypesEnum
+::Create 
+set ENUMFILE=M5ArcheTypes.h
+echo /******************************************************************************/ > %ENUMFILE%
+echo /*! >> %ENUMFILE%
+echo \file   M5ArcheTypes.h >> %ENUMFILE%
+echo \author UserPreBuild.bat >> %ENUMFILE%
+echo \par    email: lazersquad\@gmail.com >>%ENUMFILE%
+echo \par    Mach5 Game Engine >> %ENUMFILE%
+echo. >> %ENUMFILE%
+echo This file gets auto generated based on the names of the ArcheTypes in the >> %ENUMFILE%
+echo current project.  UserPreBuild.bat looks for files of the type *.ini in the ArcheTypes folder >> %ENUMFILE%
+echo and creates an enumeration value of AT_*. >> %ENUMFILE%
+echo */ >> %ENUMFILE%
+echo /******************************************************************************/ >> %ENUMFILE%
+
+echo #ifndef M5ARCHE_TYPES_H >> %ENUMFILE%
+echo #define M5ARCHE_TYPES_H >> %ENUMFILE%
+echo #include ^<string^> >> %ENUMFILE%
+echo. >> %ENUMFILE%
+echo. >> %ENUMFILE%
+echo enum M5ArcheTypes {  >> %ENUMFILE%
+
+::Get all files with the name *Stage in it and output just the file name
+for %%f in ( ..\ArcheTypes\*.ini ) do (
+  echo AT_%%~nf, >> %ENUMFILE%
+)
+
+::Add one more to the end without the comma
+echo AT_INVALID >> %ENUMFILE%
+echo }; >> %ENUMFILE%
+
+echo. >> %ENUMFILE%
+echo. >> %ENUMFILE%
+
+::Generates a function that will convert strings to our M5ArcheTypes type
+echo inline M5ArcheTypes StringToArcheType^(const std::string^& string^) { >> %ENUMFILE%
+
+for %%f in ( ..\ArcheTypes\*.ini ) do (
+  echo if^(string ^=^= "%%~nf"^) return AT_%%~nf; >> %ENUMFILE%
+)
+echo return AT_INVALID; >> %ENUMFILE%
+echo } >> %ENUMFILE%
+
+echo #endif //M5ARCHE_TYPES_H >> %ENUMFILE%
 mv %ENUMFILE% "..\..\Include\%ENUMFILE%" > nul 2> nul
 goto:eof

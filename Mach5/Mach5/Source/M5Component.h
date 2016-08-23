@@ -14,7 +14,9 @@ Base class component for M5Objects
 #define M5COMPONENT_H
 #include "M5ComponentTypes.h"
 
+
 class M5Object;
+class M5IniFile;
 
 class M5Component
 {
@@ -23,6 +25,7 @@ public:
 	virtual ~M5Component(void);
 	virtual void Update(float dt)    = 0;
 	virtual M5Component* Clone(void) = 0;
+	virtual void FromFile(M5IniFile&) {}//empty for the base class
 
 	void             SetParent(M5Object* pParent);
 	M5Object*        GetParent(void);

@@ -14,16 +14,12 @@ good place to load game data and initialize object you need for your game.
 
 #include "M5App.h"
 #include "M5Debug.h"
-#include "M5Math.h"
 #include "M5Vec2.h"
-#include "M5Mtx44.h"
 #include "M5StageMgr.h"
-#include "M5Gfx.h"
-#include "M5StageTypes.h"
 #include "M5Object.h"
-#include "GfxComponent.h"
 #include "M5ObjectManager.h"
-#include "M5ComponentTypes.h"
+#include "GfxComponent.h"
+#include "M5ArcheTypes.h"
 #include "M5Input.h"
 
 
@@ -52,11 +48,6 @@ void SplashStage::Load(void)
 {
   /*Create a debug console*/
   M5DEBUG_CREATE_CONSOLE();
-  /*Load the only texture we need for this stage*/
-  m_splashTexture = M5Gfx::LoadTexture("Textures\\Mach5Logo.tga");
-
-  /*All drawing in this stage is in screen space*/
-  //M5Gfx::SetToOrtho();
 }
 /******************************************************************************/
 /*!
@@ -81,13 +72,6 @@ void SplashStage::Init(void)
 
   /*Reset the timer for this stage*/
   m_changeTimer = 0.f;
-  pObj = M5ObjectManager::CreateObject(CT_GfxComponent);
-  pObj->GetComponent<GfxComponent>(CT_GfxComponent)->SetTextureID(m_splashTexture);
-
-
-  M5Vec2 windowSize = M5App::GetResolution();
-  pObj->m_position.Set(windowSize.x / 2, windowSize.y / 2);
-  pObj->m_scale.Set(windowSize.x, windowSize.y);
 }
 /******************************************************************************/
 /*!
@@ -110,18 +94,8 @@ void SplashStage::Update(float dt)
 
   else if (M5Input::IsTriggered(M5_Q))
   {
-	  pObj = M5ObjectManager::CreateObject(CT_GfxComponent);
-	  GfxComponent* gComp = pObj->GetComponent<GfxComponent>(CT_GfxComponent);
-	 gComp->SetTextureID(m_splashTexture);
-	 M5Gfx::RegisterWorldComponent(gComp);
-
-
-	  M5Vec2 windowSize = M5App::GetResolution();
-	  //pObj->m_position.Set(windowSize.x / 2, windowSize.y / 2);
-	  //pObj->m_scale.Set(windowSize.x, windowSize.y);
-
-	  pObj->m_position.Set(0, 0);
-	  pObj->m_scale.Set(100, 100);
+	  pObj = M5ObjectManager::AddArchetype(AT_Splash, "ArcheTypes\\Splash.ini");
+	  M5Gfx::RegisterHudComponent(pObj->GetComponent<GfxComponent>(CT_GfxComponent));
   }
   else if (M5Input::IsTriggered(M5_E))
   {
@@ -150,6 +124,4 @@ load stage.  Here I need to destroy my console and unload my texture.
 void SplashStage::Unload(void)
 {
 	//obj.RemoveComponent(CT_GraphicsComponent);
-  /*We must unload the texture when we are done with the stage*/
-  M5Gfx::UnloadTexture(m_splashTexture);
 }

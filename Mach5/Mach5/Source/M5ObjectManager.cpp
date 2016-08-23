@@ -14,6 +14,11 @@ Class for managing the creation, updating and deletion of game objects.
 #include "M5Object.h"
 #include "M5Debug.h"
 #include "M5ComponentBuilder.h"
+#include "M5Component.h"
+#include "M5IniFile.h"
+#include <vector>
+#include <string>
+#include <sstream>
 
 namespace
 {
@@ -31,6 +36,10 @@ void M5ObjectManager::Init(void)
 }
 void M5ObjectManager::Shutdown(void)
 {
+	DestroyAllObjects();
+}
+void M5ObjectManager::DestroyAllObjects(void)
+{
 	size_t size = s_objects.size();
 
 	for (size_t i = 0; i < size; ++i)
@@ -38,6 +47,8 @@ void M5ObjectManager::Shutdown(void)
 		delete s_objects[i];
 		s_objects[i] = 0;
 	}
+
+	s_objects.clear();
 }
 M5Object* M5ObjectManager::CreateObject(M5ComponentTypes type)
 {
@@ -62,4 +73,29 @@ void M5ObjectManager::AddComponent(M5ComponentTypes type, M5ComponentBuilder* pB
 void M5ObjectManager::RemoveComponent(M5ComponentTypes type)
 {
 	s_componentFactory.RemoveBuilder(type);
+}
+M5Object* M5ObjectManager::AddArchetype(M5ArcheTypes /*type*/, const char* fileName)
+{
+	M5IniFile file;
+	std::string components;
+	file.ReadFile(fileName);
+
+	M5Object* pObj = new M5Object;
+	file.GetValue("components", components);
+	file.GetValue("posX",   pObj->m_position.x);
+	file.GetValue("posY",   pObj->m_position.y);
+	file.GetValue("scaleX", pObj->m_scale.x);
+	file.GetValue("scaleY", pObj->m_scale.y);
+	file.GetValue("rot",    pObj->m_rotation);
+	
+	std::stringstream ss(components);
+	std::string name;
+	while (ss >> name)
+	{
+		M5Component* pComp = s_componentFactory.Build(StringToComponent(name));
+		pComp->FromFile(file);
+		pObj->AddComponent(pComp);
+	}
+
+	return pObj;
 }
