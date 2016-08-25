@@ -24,19 +24,19 @@ class M5StageBuilder;
 class M5StageFactory
 {
 public:
-  ~M5StageFactory(void);
-  void AddBuilder(M5StageTypes name, M5StageBuilder* builder);
-  void RemoveBuilder(M5StageTypes name);
-  M5Stage* Build(M5StageTypes name);
-  void ClearBuilders(void);
+	~M5StageFactory(void);
+	void AddBuilder(M5StageTypes name, M5StageBuilder* builder);
+	void RemoveBuilder(M5StageTypes name);
+	M5Stage* Build(M5StageTypes name);
+	void ClearBuilders(void);
 
 private:
 	//! Typedef for my Hash Table of M5GameStages and M5StageBuilder's
-  typedef std::unordered_map<M5StageTypes, M5StageBuilder*> BuilderMap;
-  //! Easy Typedef for the itorator to my BuilderMap.
-  typedef BuilderMap::iterator MapItor;
+	typedef std::unordered_map<M5StageTypes, M5StageBuilder*> BuilderMap;
+	//! Easy Typedef for the itorator to my BuilderMap.
+	typedef BuilderMap::iterator MapItor;
 
-  BuilderMap m_builderMap; //!< Container to map M5GameStages to M5Builders 
+	BuilderMap m_builderMap; //!< Container to map M5GameStages to M5Builders 
 };
 
 

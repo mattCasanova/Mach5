@@ -15,7 +15,6 @@ Class for instantiating components based on a regiestered name/type.
 #include "M5Component.h"
 #include "M5ComponentBuilder.h"
 
-
 /******************************************************************************/
 /*!
 Destructor makes sure to delete all builders from the factory

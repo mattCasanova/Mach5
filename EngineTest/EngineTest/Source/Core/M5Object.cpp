@@ -11,17 +11,22 @@ const int START_SIZE = 8;
 int M5Object::s_objectID = 0;
 
 
-M5Object::M5Object(void) :
+M5Object::M5Object(M5ArcheTypes type) :
 	m_components(),
-	m_position(0, 0),
-	m_scale(1, 1),
-	m_velocity(0, 0),
-	m_rotation(0),
+	m_type(type),
+	pos(0, 0),
+	scale(1, 1),
+	vel(0, 0),
+	rotation(0),
 	m_id(++s_objectID)
 {
 	m_components.reserve(START_SIZE);
 }
 M5Object::~M5Object(void)
+{
+	RemoveAllComponents();
+}
+void M5Object::RemoveAllComponents(void)
 {
 	VecItor itor = m_components.begin();
 	VecItor end = m_components.end();
@@ -42,6 +47,26 @@ void M5Object::Update(float dt)
 int M5Object::GetID(void) const
 {
 	return m_id;
+}
+M5Object* M5Object::Clone(void)
+{
+	//create new object
+	M5Object* pClone = new M5Object(m_type);
+	//copy this internal data
+	pClone->pos   = pos;
+	pClone->vel   = vel;
+	pClone->scale = scale;
+	pClone->m_id  = ++s_objectID;
+
+	//clone all components
+	size_t size = m_components.size();
+	for (size_t i = 0; i < size; ++i)
+	{
+		M5Component* pComp = m_components[i]->Clone();
+		pClone->AddComponent(pComp);
+	}
+
+	return pClone;
 }
 void M5Object::AddComponent(M5Component* pComponent)
 {
@@ -73,4 +98,8 @@ void M5Object::RemoveAllComponents(M5ComponentTypes type)
 			m_components.pop_back();
 		}
 	}
+}
+M5ArcheTypes M5Object::GetType(void) const
+{
+	return m_type;
 }

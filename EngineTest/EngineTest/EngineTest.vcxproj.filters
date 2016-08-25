@@ -67,6 +67,12 @@
     <Filter Include="Core\Components\CompFactory">
       <UniqueIdentifier>{2136b82a-16f5-46d3-92c4-c1ba468b9901}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Core\Stages\Base">
+      <UniqueIdentifier>{e7f65e6e-897d-4e76-b5ba-0efa725d44a7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Stages\StageFactory">
+      <UniqueIdentifier>{a3d3458e-c613-437a-8cda-251a5b138c3c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Core\M5Object.cpp">
@@ -111,9 +117,6 @@
     <ClCompile Include="Source\Core\M5Timer.cpp">
       <Filter>Core\Singletons\StageManager</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Core\M5StageFactory.cpp">
-      <Filter>Core\Stages</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Core\M5ResourceManager.cpp">
       <Filter>Core\Singletons\Gfx</Filter>
     </ClCompile>
@@ -131,6 +134,9 @@
     </ClCompile>
     <ClCompile Include="Source\Core\M5ComponentFactory.cpp">
       <Filter>Core\Components\CompFactory</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Core\M5StageFactory.cpp">
+      <Filter>Core\Stages\StageFactory</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -188,15 +194,6 @@
     <ClInclude Include="Source\Core\M5Timer.h">
       <Filter>Core\Singletons\StageManager</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Core\M5StageFactory.h">
-      <Filter>Core\Stages</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Core\M5StageBuilder.h">
-      <Filter>Core\Stages</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Core\M5Stage.h">
-      <Filter>Core\Stages</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Core\M5ResourceManager.h">
       <Filter>Core\Singletons\Gfx</Filter>
     </ClInclude>
@@ -220,6 +217,15 @@
     </ClInclude>
     <ClInclude Include="Source\Core\M5ComponentFactory.h">
       <Filter>Core\Components\CompFactory</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Core\M5Stage.h">
+      <Filter>Core\Stages\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Core\M5StageFactory.h">
+      <Filter>Core\Stages\StageFactory</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Core\M5StageBuilder.h">
+      <Filter>Core\Stages\StageFactory</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

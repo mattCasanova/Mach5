@@ -63,25 +63,21 @@ int WINAPI WinMain(HINSTANCE instance,
   /*This should appear at the top of winmain to have windws find memory leaks*/
   M5DEBUG_LEAK_CHECKS(-1);
 
-
-  /*Declare my InitStruct*/
-  M5InitData initData;
-  /*Create my game data initial values*/
-  M5GameData gameData = { 0 };
-
-  M5IniFile iniFile;
+  M5InitData initData;          /*Declare my InitStruct*/
+  M5GameData gameData = { 0 };  /*Create my game data initial values*/
+  M5IniFile iniFile;            /*To load my init data from file*/
 
   iniFile.ReadFile("GameData/InitData.ini");
   iniFile.SetToSection("InitData");
 
   /*Set up my InitStruct*/
-  initData.instance   = instance;
   iniFile.GetValue("width", initData.width);
   iniFile.GetValue("height", initData.height);
   iniFile.GetValue("framesPerSecond", initData.fps);
   iniFile.GetValue("fullScreen", initData.fullScreen);
-  initData.title = "MyFirstWindow";
-
+  
+  initData.title        = "MyFirstWindow";
+  initData.instance     = instance;
   /*Information about your specific gamedata */
   initData.pGData       = &gameData;
   initData.gameDataSize = sizeof(M5GameData);
@@ -89,10 +85,8 @@ int WINAPI WinMain(HINSTANCE instance,
   /*Pass InitStruct to Function.  This function must be called first!!!*/
   M5App::Init(initData);
   
-  /*Function to add all of my game stages*/
-  RegisterStages();
+  /*Make sure to add what stage we will start in*/
   M5StageMgr::SetStartStage(ST_SplashStage);
-  RegisterComponents();
 
   /*Start running the game*/
   M5App::Update();

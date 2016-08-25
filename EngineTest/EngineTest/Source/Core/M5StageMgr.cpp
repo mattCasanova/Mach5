@@ -17,6 +17,7 @@ between levels and menus.
 #include "M5Timer.h"
 #include "M5Stage.h"
 #include "M5Debug.h"
+#include "..\RegisterStages.h"
 
 #include "M5StageFactory.h"
 #include "M5StageBuilder.h"
@@ -58,10 +59,10 @@ void M5StageMgr::Init(const M5GameData* pGData, int gameDataSize, int framesPerS
   M5DEBUG_CALL_CHECK(1);
 
   /*Initialize stage data*/
-  s_prevStage = ST_INVALID;
-  s_currStage = ST_INVALID;
-  s_nextStage = ST_INVALID;
-  s_isQuitting = false;
+  s_prevStage    = ST_INVALID;
+  s_currStage    = ST_INVALID;
+  s_nextStage    = ST_INVALID;
+  s_isQuitting   = false;
   s_isRestarting = false;
   s_timer.Init(framesPerSecond);
 
@@ -71,6 +72,7 @@ void M5StageMgr::Init(const M5GameData* pGData, int gameDataSize, int framesPerS
   s_pGameData = reinterpret_cast<M5GameData*>(new char[gameDataSize]);
   /*Copy all data*/
   std::memcpy(s_pGameData, pGData, (size_t)gameDataSize);
+  RegisterStages();
 }
 /******************************************************************************/
 /*!

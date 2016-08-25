@@ -6,42 +6,79 @@
 \par    Mach5 Game Engine
 \date   2016/08/22
 
-Class for managing the creation, updating and deletion of game objects.
+Globally accessible static class for easy creation and destruction of
+game objects.
 
 */
 /******************************************************************************/
 #include "M5ObjectManager.h"
 #include "M5Object.h"
 #include "M5Debug.h"
-#include "M5ComponentBuilder.h"
 #include "M5Component.h"
+#include "M5ComponentBuilder.h"
 #include "M5IniFile.h"
+#include "../RegisterComponents.h"
 #include <vector>
+#include <unordered_map>
 #include <string>
 #include <sstream>
 
 namespace
 {
-const int START_SIZE = 100;
-typedef std::vector<M5Object*> ObjectVec;
-typedef ObjectVec::iterator VecItor;
+typedef std::vector<M5Object*>                      ObjectVec;   //!< typedef Container to hold all game objects
+typedef ObjectVec::iterator                         VecItor;     //!< typdef Iterator for object container
+typedef std::unordered_map<M5ArcheTypes, M5Object*> PrototypeMap;//!< typedef Container to hold prototypes
+typedef PrototypeMap::iterator                      MapItor;     //!< typedef Iterator for prototypes
 
-static ObjectVec s_objects;
-static M5ComponentFactory s_componentFactory;
+const int START_SIZE = 100;                                      //!< Starting alloc count of object pointers
+
+static PrototypeMap       s_prototypes;                          //!< Map of active prototypes in game
+static ObjectVec          s_objects;                             //!< Vector of active objects in game
+static M5ComponentFactory s_componentFactory;                    //!< Factory of all registered components
 }//end unnamed namespace
 
+ /******************************************************************************/
+ /*!
+   Init function for the M5ObjectMangager.  This function reserves space for
+   objects as well as Registers all M5Components.
+ */
+ /******************************************************************************/
 void M5ObjectManager::Init(void)
 {
+	M5DEBUG_CALL_CHECK(1);
 	s_objects.reserve(START_SIZE);
+	//We must register components before we can create our prototypes
+	RegisterComponents();
 }
+/******************************************************************************/
+/*!
+Shutdown function clears all game objects and destroys prototypes.
+*/
+/******************************************************************************/
 void M5ObjectManager::Shutdown(void)
 {
+	M5DEBUG_CALL_CHECK(1);
 	DestroyAllObjects();
+
+	//Delete prototypes
+	MapItor itor = s_prototypes.begin();
+	MapItor end = s_prototypes.end();
+
+	while (itor != end)
+	{
+		delete itor->second;
+		itor->second = 0;
+		++itor;
+	}
 }
+/******************************************************************************/
+/*!
+Function to delete all currently active game objects.
+*/
+/******************************************************************************/
 void M5ObjectManager::DestroyAllObjects(void)
 {
 	size_t size = s_objects.size();
-
 	for (size_t i = 0; i < size; ++i)
 	{
 		delete s_objects[i];
@@ -50,13 +87,56 @@ void M5ObjectManager::DestroyAllObjects(void)
 
 	s_objects.clear();
 }
-M5Object* M5ObjectManager::CreateObject(M5ComponentTypes type)
+/******************************************************************************/
+/*!
+Function to delete all currently active game objects of the given type.
+
+\param [in] type
+The Archetype to delete
+*/
+/******************************************************************************/
+void M5ObjectManager::DestroyAllObjects(M5ArcheTypes type)
 {
-	M5Object* pNew = new M5Object;
-	pNew->AddComponent(s_componentFactory.Build(type));
-	s_objects.push_back(pNew);
-	return pNew;
+	for (size_t i = 0; i < s_objects.size(); ++i)
+	{
+		if (s_objects[i]->GetType() == type)
+		{
+			delete s_objects[i];
+			s_objects[i] = s_objects[s_objects.size() - 1];
+			s_objects.pop_back();
+		}
+	}
 }
+/******************************************************************************/
+/*!
+Function to create a game object from a previsuoly loaded ArchType ini file.
+
+\param [in] type
+The M5ArcheType to create
+*/
+/******************************************************************************/
+M5Object* M5ObjectManager::CreateObject(M5ArcheTypes type)
+{
+	MapItor found = s_prototypes.find(type);
+	M5DEBUG_ASSERT(found != s_prototypes.end(), "Trying to create and Archetype that doesn't exist");
+
+	M5Object* pClone = found->second->Clone();
+	s_objects.push_back(pClone);
+	return pClone;
+
+}
+/******************************************************************************/
+/*!
+Finds a specific instance of a game object and deletes it.
+
+\param [in,out] pToDestory
+An instance of an M5Object to remove and delete.
+
+\attention
+This will delete the parameter object.  It can no longer be used after this
+function.
+*/
+/******************************************************************************/
 void M5ObjectManager::DestroyObject(M5Object* pToDestroy)
 {
 	VecItor itor = std::find(s_objects.begin(), s_objects.end(), pToDestroy);
@@ -66,28 +146,63 @@ void M5ObjectManager::DestroyObject(M5Object* pToDestroy)
 	std::iter_swap(itor, --s_objects.end());
 	s_objects.pop_back();
 }
+/******************************************************************************/
+/*!
+  Adds a component to the M5ObjectManager component factory.
+
+  \param [in] type
+  The component type to associate with the pBuilder.
+
+  \param [in] pBuilder
+  The M5ComponentBuilder to use when creating new component of the given type.
+*/
+/******************************************************************************/
 void M5ObjectManager::AddComponent(M5ComponentTypes type, M5ComponentBuilder* pBuilder)
 {
 	s_componentFactory.AddBuilder(type, pBuilder);
 }
+/******************************************************************************/
+/*!
+Removes a component and deletes the builder associated with the component type.
+
+\param [in] type
+The component type to remove
+*/
+/******************************************************************************/
 void M5ObjectManager::RemoveComponent(M5ComponentTypes type)
 {
 	s_componentFactory.RemoveBuilder(type);
 }
-M5Object* M5ObjectManager::AddArchetype(M5ArcheTypes /*type*/, const char* fileName)
+/******************************************************************************/
+/*!
+Adds and Archetype from an ini file.
+
+\param [in] type
+The type archetype to associate with the given file.
+
+\param [in] fileName
+The of an ini file that will load data bout the archetype
+*/
+/******************************************************************************/
+void M5ObjectManager::AddArcheType(M5ArcheTypes type, const char* fileName)
 {
-	M5IniFile file;
-	std::string components;
+	MapItor found = s_prototypes.find(type);
+	M5DEBUG_ASSERT(found == s_prototypes.end(), "Trying to add a prototype that already exists");
+
+
+	M5IniFile file;//My inifile to open
+	std::string components;//A string of all my components
 	file.ReadFile(fileName);
 
-	M5Object* pObj = new M5Object;
+	M5Object* pObj = new M5Object(type);
 	file.GetValue("components", components);
-	file.GetValue("posX",   pObj->m_position.x);
-	file.GetValue("posY",   pObj->m_position.y);
-	file.GetValue("scaleX", pObj->m_scale.x);
-	file.GetValue("scaleY", pObj->m_scale.y);
-	file.GetValue("rot",    pObj->m_rotation);
-	
+	file.GetValue("posX", pObj->pos.x);
+	file.GetValue("posY", pObj->pos.y);
+	file.GetValue("scaleX", pObj->scale.x);
+	file.GetValue("scaleY", pObj->scale.y);
+	file.GetValue("rot", pObj->rotation);
+
+	//parse the component string and create each component
 	std::stringstream ss(components);
 	std::string name;
 	while (ss >> name)
@@ -96,6 +211,23 @@ M5Object* M5ObjectManager::AddArchetype(M5ArcheTypes /*type*/, const char* fileN
 		pComp->FromFile(file);
 		pObj->AddComponent(pComp);
 	}
-	s_objects.push_back(pObj);
-	return pObj;
+
+	//Add the prototype to the prototype map
+	s_prototypes.insert(std::make_pair(type, pObj));
+}
+/******************************************************************************/
+/*!
+Removes and deletes the associated Archetype from the prototype map.
+
+\param [in] type
+The archetype to remove and delete
+*/
+/******************************************************************************/
+void M5ObjectManager::RemoveArcheType(M5ArcheTypes type)
+{
+	MapItor found = s_prototypes.find(type);
+	M5DEBUG_ASSERT(found != s_prototypes.end(), "Trying to Remove a prototype that doesn't exist");
+	delete found->second;
+	found->second = 0;
+	s_prototypes.erase(found);
 }

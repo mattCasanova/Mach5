@@ -19,9 +19,9 @@ GfxComponent::~GfxComponent(void)
 void GfxComponent::Draw(void) const
 {
 	M5Mtx44 world;
-	world.MakeTransform(m_pObj->m_scale, 
-		m_pObj->m_rotation, 
-		m_pObj->m_position, 
+	world.MakeTransform(m_pObj->scale, 
+		m_pObj->rotation, 
+		m_pObj->pos, 
 		0);
 	M5Gfx::SetTexture(m_textureID);
 	M5Gfx::Draw(world);

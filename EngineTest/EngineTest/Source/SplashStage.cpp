@@ -26,12 +26,9 @@ good place to load game data and initialize object you need for your game.
 /*Make a struct for my shared stage data*/
 namespace
 {
-
   /*The max time to be in this stage*/
-const float SPLASH_MAX_TIME = 6.0f;
+const float MAX_SPLASH_TIME = 6.0f;
 
-  /*Create a static variable for data so it can't be used in other files.*/
-M5Object* pObj = 0;
 }
 
 
@@ -67,11 +64,21 @@ void SplashStage::Init(void)
   M5DEBUG_PRINT("also inspect the code and comments.\n\n");
   M5DEBUG_PRINT("If you find errors, report to lazersquad@gmail.com");
 
-
   M5Gfx::SetBackgroundColor(0.0f, 0.f, 0.f);
 
   /*Reset the timer for this stage*/
   m_changeTimer = 0.f;
+
+  M5Vec2 windowSize = M5App::GetResolution();
+
+  M5ObjectManager::AddArcheType(AT_Splash, "ArcheTypes\\Splash.ini");
+  M5Object* pObj = M5ObjectManager::CreateObject(AT_Splash);
+  pObj->scale.x = windowSize.y;
+  pObj->scale.y = windowSize.y;
+  pObj->pos.x = windowSize.x / 2;
+  pObj->pos.y = windowSize.y / 2;
+  M5Gfx::RegisterHudComponent(pObj->GetComponent<GfxComponent>(CT_GfxComponent));
+
 }
 /******************************************************************************/
 /*!
@@ -84,24 +91,9 @@ void SplashStage::Update(float dt)
   /*increment timer*/
   m_changeTimer += dt;
 
-  /*Check for time, only be in this stage for the 
-  set time*/
-  //if (m_changeTimer > SPLASH_MAX_TIME)
-	//  M5StageMgr::Quit();
-
-  if (M5Input::IsPressed(M5_ESCAPE))
+  /*Check for time, only be in this stage for the set time*/
+  if (m_changeTimer > MAX_SPLASH_TIME)
 	  M5StageMgr::Quit();
-
-  else if (M5Input::IsTriggered(M5_Q))
-  {
-	  pObj = M5ObjectManager::AddArchetype(AT_Splash, "ArcheTypes\\Splash.ini");
-	  M5Gfx::RegisterHudComponent(pObj->GetComponent<GfxComponent>(CT_GfxComponent));
-  }
-  else if (M5Input::IsTriggered(M5_E))
-  {
-	  M5ObjectManager::DestroyObject(pObj);
-  }
-
 }
 /******************************************************************************/
 /*!
@@ -113,6 +105,7 @@ here.
 /******************************************************************************/
 void SplashStage::Shutdown(void)
 {
+	M5ObjectManager::DestroyAllObjects();
 }
 /******************************************************************************/
 /*!
@@ -123,5 +116,5 @@ load stage.  Here I need to destroy my console and unload my texture.
 /******************************************************************************/
 void SplashStage::Unload(void)
 {
-	//obj.RemoveComponent(CT_GraphicsComponent);
+
 }
