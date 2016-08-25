@@ -1,0 +1,43 @@
+/******************************************************************************/
+/*!
+\file   M5Component.h
+\author Matt Casanova
+\par    email: lazersquad\@gmail.com
+\par    Mach5 Game Engine
+\date   2016/08/18
+
+Base class component for M5Objects
+
+*/
+/******************************************************************************/
+#include "M5Component.h"
+
+int M5Component::s_componentID = 0;
+
+
+M5Component::M5Component(void): 
+	m_pObj(0), 
+	m_type(CT_INVALID),
+	m_id(++s_componentID)
+{
+}
+M5Component::~M5Component(void) 
+{
+	 //Empty Base Class virtual destructor 
+}
+void M5Component::SetParent(M5Object* pParent)
+{ 
+	m_pObj = pParent; 
+}
+M5Object* M5Component::GetParent(void) 
+{ 
+	return m_pObj; 
+}
+M5ComponentTypes M5Component::GetType(void) const 
+{ 
+	return m_type; 
+}
+int M5Component::GetID(void)const 
+{ 
+	return m_id; 
+}
