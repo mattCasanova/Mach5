@@ -1,6 +1,6 @@
 /******************************************************************************/
 /*!
-\file   M5ObjectManager.cpp
+\file   M5ObjectManager.h
 \author Matt Casanova
 \par    email: lazersquad\@gmail.com
 \par    Mach5 Game Engine
@@ -20,11 +20,12 @@ game objects.
 class M5Object;
 class M5ComponentBuilder;
 
-
+//! Globally accessible static class for easy creation and destruction of game objects.
 class M5ObjectManager
 {
 public:
 	friend class M5App;
+	friend class M5StageMgr;
 
 
 	static M5Object* CreateObject(M5ArcheTypes type);
@@ -38,6 +39,7 @@ public:
 private:
 	static void Init(void);
 	static void Shutdown(void);
+	static void Update(float dt);
 };
 
 

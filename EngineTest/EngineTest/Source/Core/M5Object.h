@@ -1,3 +1,14 @@
+/******************************************************************************/
+/*!
+\file   M5Object.h
+\author Matt Casanova
+\par    email: lazersquad\@gmail.com
+\par    Mach5 Game Engine
+\date   2016/08/20
+
+//! Component based Game object used in the Mach 5 Engine
+*/
+/******************************************************************************/
 #ifndef M5GAME_OBJECT_H
 #define M5GAME_OBJECT_H
 
@@ -9,28 +20,31 @@
 //Forward Declarations
 class M5Component;
 
-
+//! Component based Game object used in the Mach 5 Engine
 class M5Object
 {
 public:
 	M5Object(M5ArcheTypes type);
 	~M5Object(void);
-	void Update(float dt);
-	void AddComponent(M5Component* pComponent);
-	void RemoveComponent(M5Component* pComponent);
-	void RemoveAllComponents(void);
-	void RemoveAllComponents(M5ComponentTypes type);
-	M5Object* Clone(void);
-	int  GetID(void) const;
+
+	void         Update(float dt);
+	void         AddComponent(M5Component* pComponent);
+	void         RemoveComponent(M5Component* pComponent);
+	void         RemoveAllComponents(void);
+	void         RemoveAllComponents(M5ComponentTypes type);
+	int          GetID(void) const;
 	M5ArcheTypes GetType(void) const;
+	M5Object*    Clone(void);
 
 	template<typename T>
 	T* GetComponent(M5ComponentTypes type);
+	
 
 	M5Vec2       pos;
 	M5Vec2       scale;
 	M5Vec2       vel;
 	float        rotation;
+	float        rotationVel;
 private:
 	typedef std::vector<M5Component*> ComponentVec;
 	typedef ComponentVec::iterator VecItor;

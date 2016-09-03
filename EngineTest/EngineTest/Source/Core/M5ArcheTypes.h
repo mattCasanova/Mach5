@@ -16,12 +16,14 @@ and creates an enumeration value of AT_*.
  
  
 enum M5ArcheTypes {  
+AT_Player, 
 AT_Splash, 
 AT_INVALID 
 }; 
  
  
 inline M5ArcheTypes StringToArcheType(const std::string& string) { 
+if(string == "Player") return AT_Player; 
 if(string == "Splash") return AT_Splash; 
 return AT_INVALID; 
 } 

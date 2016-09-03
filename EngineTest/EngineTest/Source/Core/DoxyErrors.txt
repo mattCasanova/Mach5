@@ -1,25 +1,19 @@
-C:/Users/Matt/Dropbox/Personal/Mach5/EngineTest/EngineTest/Source/Core/M5ComponentBuilder.h:3: warning: the name `M5ComonentBuilder.h' supplied as the second argument in the \file statement is not an input file
-C:/Users/Matt/Dropbox/Personal/Mach5/EngineTest/EngineTest/Source/Core/M5StageTypes.h:3: warning: the name `M5StageType.h' supplied as the second argument in the \file statement is not an input file
-C:/Users/Matt/Dropbox/Personal/Mach5/EngineTest/EngineTest/Source/Core/M5Object.h:14: warning: Compound M5Object is not documented.
-C:/Users/Matt/Dropbox/Personal/Mach5/EngineTest/EngineTest/Source/Core/M5ObjectManager.h:25: warning: Compound M5ObjectManager is not documented.
-C:/Users/Matt/Dropbox/Personal/Mach5/EngineTest/EngineTest/Source/Core/M5Component.h:22: warning: Compound M5Component is not documented.
-C:/Users/Matt/Dropbox/Personal/Mach5/EngineTest/EngineTest/Source/Core/GfxComponent.h:7: warning: Compound GfxComponent is not documented.
 C:/Users/Matt/Dropbox/Personal/Mach5/EngineTest/EngineTest/Source/Core/M5ArcheTypes.h:18: warning: Member M5ArcheTypes (enumeration) of file M5ArcheTypes.h is not documented.
-C:/Users/Matt/Dropbox/Personal/Mach5/EngineTest/EngineTest/Source/Core/M5ArcheTypes.h:24: warning: Member StringToArcheType(const std::string &string) (function) of file M5ArcheTypes.h is not documented.
-C:/Users/Matt/Dropbox/Personal/Mach5/EngineTest/EngineTest/Source/Core/M5ComponentTypes.h:16: warning: Member M5ComponentTypes (enumeration) of file M5ComponentTypes.h is not documented.
-C:/Users/Matt/Dropbox/Personal/Mach5/EngineTest/EngineTest/Source/Core/M5ComponentTypes.h:22: warning: Member StringToComponent(const std::string &string) (function) of file M5ComponentTypes.h is not documented.
-C:/Users/Matt/Dropbox/Personal/Mach5/EngineTest/EngineTest/Source/Core/GfxComponent.h:11: warning: Member Draw(void) const  (function) of class GfxComponent is not documented.
-C:/Users/Matt/Dropbox/Personal/Mach5/EngineTest/EngineTest/Source/Core/GfxComponent.h:12: warning: Member Update(float dt) (function) of class GfxComponent is not documented.
-C:/Users/Matt/Dropbox/Personal/Mach5/EngineTest/EngineTest/Source/Core/GfxComponent.h:13: warning: Member Clone(void) (function) of class GfxComponent is not documented.
-C:/Users/Matt/Dropbox/Personal/Mach5/EngineTest/EngineTest/Source/Core/GfxComponent.h:14: warning: Member FromFile(M5IniFile &iniFile) (function) of class GfxComponent is not documented.
-C:/Users/Matt/Dropbox/Personal/Mach5/EngineTest/EngineTest/Source/Core/GfxComponent.h:15: warning: Member SetTextureID(int id) (function) of class GfxComponent is not documented.
+C:/Users/Matt/Dropbox/Personal/Mach5/EngineTest/EngineTest/Source/Core/M5ArcheTypes.h:25: warning: Member StringToArcheType(const std::string &string) (function) of file M5ArcheTypes.h is not documented.
+C:/Users/Matt/Dropbox/Personal/Mach5/EngineTest/EngineTest/Source/Core/M5ComponentTypes.h:18: warning: Member M5ComponentTypes (enumeration) of file M5ComponentTypes.h is not documented.
+C:/Users/Matt/Dropbox/Personal/Mach5/EngineTest/EngineTest/Source/Core/M5ComponentTypes.h:25: warning: Member StringToComponent(const std::string &string) (function) of file M5ComponentTypes.h is not documented.
+C:/Users/Matt/Dropbox/Personal/Mach5/EngineTest/EngineTest/Source/Core/M5StageTypes.h:17: warning: Member M5StageTypes (enumeration) of file M5StageTypes.h is not documented.
+C:/Users/Matt/Dropbox/Personal/Mach5/EngineTest/EngineTest/Source/Core/GfxComponent.h:23: warning: Member Draw(void) const  (function) of class GfxComponent is not documented.
+C:/Users/Matt/Dropbox/Personal/Mach5/EngineTest/EngineTest/Source/Core/GfxComponent.h:24: warning: Member Update(float dt) (function) of class GfxComponent is not documented.
+C:/Users/Matt/Dropbox/Personal/Mach5/EngineTest/EngineTest/Source/Core/GfxComponent.h:25: warning: Member Clone(void) (function) of class GfxComponent is not documented.
+C:/Users/Matt/Dropbox/Personal/Mach5/EngineTest/EngineTest/Source/Core/GfxComponent.h:26: warning: Member FromFile(M5IniFile &iniFile) (function) of class GfxComponent is not documented.
+C:/Users/Matt/Dropbox/Personal/Mach5/EngineTest/EngineTest/Source/Core/GfxComponent.h:27: warning: Member SetTextureID(int id) (function) of class GfxComponent is not documented.
+C:/Users/Matt/Dropbox/Personal/Mach5/EngineTest/EngineTest/Source/Core/M5Component.h:24: warning: Member M5Component(M5ComponentTypes type) (function) of class M5Component is not documented.
 C:/Users/Matt/Dropbox/Personal/Mach5/EngineTest/EngineTest/Source/Core/M5Component.h:30: warning: Member SetParent(M5Object *pParent) (function) of class M5Component is not documented.
 C:/Users/Matt/Dropbox/Personal/Mach5/EngineTest/EngineTest/Source/Core/M5Component.h:31: warning: Member GetParent(void) (function) of class M5Component is not documented.
 C:/Users/Matt/Dropbox/Personal/Mach5/EngineTest/EngineTest/Source/Core/M5Component.h:32: warning: Member GetType(void) const  (function) of class M5Component is not documented.
 C:/Users/Matt/Dropbox/Personal/Mach5/EngineTest/EngineTest/Source/Core/M5Component.h:33: warning: Member GetID(void) const  (function) of class M5Component is not documented.
-C:/Users/Matt/Dropbox/Personal/Mach5/EngineTest/EngineTest/Source/Core/GfxComponent.h:17: warning: Member m_textureID (variable) of class GfxComponent is not documented.
-C:/Users/Matt/Dropbox/Personal/Mach5/EngineTest/EngineTest/Source/Core/M5Component.h:36: warning: Member m_pObj (variable) of class M5Component is not documented.
-C:/Users/Matt/Dropbox/Personal/Mach5/EngineTest/EngineTest/Source/Core/M5Component.h:37: warning: Member m_type (variable) of class M5Component is not documented.
+C:/Users/Matt/Dropbox/Personal/Mach5/EngineTest/EngineTest/Source/Core/M5Component.h:24: warning: Member M5Component(M5ComponentTypes type) (function) of class M5Component is not documented.
 C:/Users/Matt/Dropbox/Personal/Mach5/EngineTest/EngineTest/Source/Core/M5Component.h:26: warning: Member Update(float dt)=0 (function) of class M5Component is not documented.
 C:/Users/Matt/Dropbox/Personal/Mach5/EngineTest/EngineTest/Source/Core/M5Component.h:27: warning: Member Clone(void)=0 (function) of class M5Component is not documented.
 C:/Users/Matt/Dropbox/Personal/Mach5/EngineTest/EngineTest/Source/Core/M5Component.h:28: warning: Member FromFile(M5IniFile &) (function) of class M5Component is not documented.
@@ -27,10 +21,6 @@ C:/Users/Matt/Dropbox/Personal/Mach5/EngineTest/EngineTest/Source/Core/M5Compone
 C:/Users/Matt/Dropbox/Personal/Mach5/EngineTest/EngineTest/Source/Core/M5Component.h:31: warning: Member GetParent(void) (function) of class M5Component is not documented.
 C:/Users/Matt/Dropbox/Personal/Mach5/EngineTest/EngineTest/Source/Core/M5Component.h:32: warning: Member GetType(void) const  (function) of class M5Component is not documented.
 C:/Users/Matt/Dropbox/Personal/Mach5/EngineTest/EngineTest/Source/Core/M5Component.h:33: warning: Member GetID(void) const  (function) of class M5Component is not documented.
-C:/Users/Matt/Dropbox/Personal/Mach5/EngineTest/EngineTest/Source/Core/M5Component.h:36: warning: Member m_pObj (variable) of class M5Component is not documented.
-C:/Users/Matt/Dropbox/Personal/Mach5/EngineTest/EngineTest/Source/Core/M5Component.h:37: warning: Member m_type (variable) of class M5Component is not documented.
-C:/Users/Matt/Dropbox/Personal/Mach5/EngineTest/EngineTest/Source/Core/M5Component.h:40: warning: Member m_id (variable) of class M5Component is not documented.
-C:/Users/Matt/Dropbox/Personal/Mach5/EngineTest/EngineTest/Source/Core/M5Component.h:39: warning: Member s_componentID (variable) of class M5Component is not documented.
 C:/Users/Matt/Dropbox/Personal/Mach5/EngineTest/EngineTest/Source/Core/M5Gfx.h:67: warning: Member RegisterWorldComponent(GfxComponent *pGfxComp) (function) of class M5Gfx is not documented.
 C:/Users/Matt/Dropbox/Personal/Mach5/EngineTest/EngineTest/Source/Core/M5Gfx.h:68: warning: Member RegisterHudComponent(GfxComponent *pGfxComp) (function) of class M5Gfx is not documented.
 C:/Users/Matt/Dropbox/Personal/Mach5/EngineTest/EngineTest/Source/Core/M5Gfx.h:69: warning: Member UnregisterComponent(GfxComponent *pGfxComp) (function) of class M5Gfx is not documented.
@@ -50,30 +40,27 @@ C:/Users/Matt/Dropbox/Personal/Mach5/EngineTest/EngineTest/Source/Core/M5IniFile
 C:/Users/Matt/Dropbox/Personal/Mach5/EngineTest/EngineTest/Source/Core/M5IniFile.h:78: warning: argument 'outInt' of command @param is not found in the argument list of M5IniFile::GetValue(const std::string &key, std::string &value) const
 C:/Users/Matt/Dropbox/Personal/Mach5/EngineTest/EngineTest/Source/Core/M5IniFile.h:87: warning: The following parameters of M5IniFile::GetValue(const std::string &key, std::string &value) const are not documented:
   parameter 'value'
-C:/Users/Matt/Dropbox/Personal/Mach5/EngineTest/EngineTest/Source/Core/M5Object.h:16: warning: Member M5Object(M5ArcheTypes type) (function) of class M5Object is not documented.
-C:/Users/Matt/Dropbox/Personal/Mach5/EngineTest/EngineTest/Source/Core/M5Object.h:18: warning: Member Update(float dt) (function) of class M5Object is not documented.
-C:/Users/Matt/Dropbox/Personal/Mach5/EngineTest/EngineTest/Source/Core/M5Object.h:19: warning: Member AddComponent(M5Component *pComponent) (function) of class M5Object is not documented.
-C:/Users/Matt/Dropbox/Personal/Mach5/EngineTest/EngineTest/Source/Core/M5Object.h:20: warning: Member RemoveComponent(M5Component *pComponent) (function) of class M5Object is not documented.
-C:/Users/Matt/Dropbox/Personal/Mach5/EngineTest/EngineTest/Source/Core/M5Object.h:21: warning: Member RemoveAllComponents(void) (function) of class M5Object is not documented.
-C:/Users/Matt/Dropbox/Personal/Mach5/EngineTest/EngineTest/Source/Core/M5Object.h:22: warning: Member RemoveAllComponents(M5ComponentTypes type) (function) of class M5Object is not documented.
-C:/Users/Matt/Dropbox/Personal/Mach5/EngineTest/EngineTest/Source/Core/M5Object.h:23: warning: Member Clone(void) (function) of class M5Object is not documented.
-C:/Users/Matt/Dropbox/Personal/Mach5/EngineTest/EngineTest/Source/Core/M5Object.h:24: warning: Member GetID(void) const  (function) of class M5Object is not documented.
-C:/Users/Matt/Dropbox/Personal/Mach5/EngineTest/EngineTest/Source/Core/M5Object.h:25: warning: Member GetType(void) const  (function) of class M5Object is not documented.
-C:/Users/Matt/Dropbox/Personal/Mach5/EngineTest/EngineTest/Source/Core/M5Object.h:28: warning: Member GetComponent(M5ComponentTypes type) (function) of class M5Object is not documented.
-C:/Users/Matt/Dropbox/Personal/Mach5/EngineTest/EngineTest/Source/Core/M5Object.h:30: warning: Member pos (variable) of class M5Object is not documented.
-C:/Users/Matt/Dropbox/Personal/Mach5/EngineTest/EngineTest/Source/Core/M5Object.h:31: warning: Member scale (variable) of class M5Object is not documented.
-C:/Users/Matt/Dropbox/Personal/Mach5/EngineTest/EngineTest/Source/Core/M5Object.h:32: warning: Member vel (variable) of class M5Object is not documented.
-C:/Users/Matt/Dropbox/Personal/Mach5/EngineTest/EngineTest/Source/Core/M5Object.h:33: warning: Member rotation (variable) of class M5Object is not documented.
-C:/Users/Matt/Dropbox/Personal/Mach5/EngineTest/EngineTest/Source/Core/M5Object.h:35: warning: Member ComponentVec (typedef) of class M5Object is not documented.
-C:/Users/Matt/Dropbox/Personal/Mach5/EngineTest/EngineTest/Source/Core/M5Object.h:36: warning: Member VecItor (typedef) of class M5Object is not documented.
-C:/Users/Matt/Dropbox/Personal/Mach5/EngineTest/EngineTest/Source/Core/M5Object.h:38: warning: Member m_components (variable) of class M5Object is not documented.
-C:/Users/Matt/Dropbox/Personal/Mach5/EngineTest/EngineTest/Source/Core/M5Object.h:39: warning: Member m_type (variable) of class M5Object is not documented.
-C:/Users/Matt/Dropbox/Personal/Mach5/EngineTest/EngineTest/Source/Core/M5Object.h:40: warning: Member m_id (variable) of class M5Object is not documented.
-C:/Users/Matt/Dropbox/Personal/Mach5/EngineTest/EngineTest/Source/Core/M5Object.h:42: warning: Member s_objectID (variable) of class M5Object is not documented.
-C:/Users/Matt/Dropbox/Personal/Mach5/EngineTest/EngineTest/Source/Core/M5ObjectManager.h:30: warning: return type of member M5ObjectManager::CreateObject is not documented
-C:/Users/Matt/Dropbox/Personal/Mach5/EngineTest/EngineTest/Source/Core/M5ObjectManager.cpp:130: warning: argument 'pToDestory' of command @param is not found in the argument list of M5ObjectManager::DestroyObject(M5Object *pToDestroy)
-C:/Users/Matt/Dropbox/Personal/Mach5/EngineTest/EngineTest/Source/Core/M5ObjectManager.h:31: warning: The following parameters of M5ObjectManager::DestroyObject(M5Object *pToDestroy) are not documented:
+C:/Users/Matt/Dropbox/Personal/Mach5/EngineTest/EngineTest/Source/Core/M5Object.h:40: warning: Member GetComponent(M5ComponentTypes type) (function) of class M5Object is not documented.
+C:/Users/Matt/Dropbox/Personal/Mach5/EngineTest/EngineTest/Source/Core/M5Object.h:43: warning: Member pos (variable) of class M5Object is not documented.
+C:/Users/Matt/Dropbox/Personal/Mach5/EngineTest/EngineTest/Source/Core/M5Object.h:44: warning: Member scale (variable) of class M5Object is not documented.
+C:/Users/Matt/Dropbox/Personal/Mach5/EngineTest/EngineTest/Source/Core/M5Object.h:45: warning: Member vel (variable) of class M5Object is not documented.
+C:/Users/Matt/Dropbox/Personal/Mach5/EngineTest/EngineTest/Source/Core/M5Object.h:46: warning: Member rotation (variable) of class M5Object is not documented.
+C:/Users/Matt/Dropbox/Personal/Mach5/EngineTest/EngineTest/Source/Core/M5Object.h:47: warning: Member rotationVel (variable) of class M5Object is not documented.
+C:/Users/Matt/Dropbox/Personal/Mach5/EngineTest/EngineTest/Source/Core/M5Object.h:49: warning: Member ComponentVec (typedef) of class M5Object is not documented.
+C:/Users/Matt/Dropbox/Personal/Mach5/EngineTest/EngineTest/Source/Core/M5Object.h:50: warning: Member VecItor (typedef) of class M5Object is not documented.
+C:/Users/Matt/Dropbox/Personal/Mach5/EngineTest/EngineTest/Source/Core/M5Object.h:52: warning: Member m_components (variable) of class M5Object is not documented.
+C:/Users/Matt/Dropbox/Personal/Mach5/EngineTest/EngineTest/Source/Core/M5Object.h:53: warning: Member m_type (variable) of class M5Object is not documented.
+C:/Users/Matt/Dropbox/Personal/Mach5/EngineTest/EngineTest/Source/Core/M5Object.h:54: warning: Member m_id (variable) of class M5Object is not documented.
+C:/Users/Matt/Dropbox/Personal/Mach5/EngineTest/EngineTest/Source/Core/M5Object.h:56: warning: Member s_objectID (variable) of class M5Object is not documented.
+C:/Users/Matt/Dropbox/Personal/Mach5/EngineTest/EngineTest/Source/Core/M5Object.h:37: warning: return type of member M5Object::Clone is not documented
+C:/Users/Matt/Dropbox/Personal/Mach5/EngineTest/EngineTest/Source/Core/M5Object.h:35: warning: return type of member M5Object::GetID is not documented
+C:/Users/Matt/Dropbox/Personal/Mach5/EngineTest/EngineTest/Source/Core/M5Object.h:36: warning: return type of member M5Object::GetType is not documented
+C:/Users/Matt/Dropbox/Personal/Mach5/EngineTest/EngineTest/Source/Core/M5Object.h:30: warning: parameters of member M5Object::Update are not (all) documented
+C:/Users/Matt/Dropbox/Personal/Mach5/EngineTest/EngineTest/Source/Core/M5ObjectManager.h:31: warning: return type of member M5ObjectManager::CreateObject is not documented
+C:/Users/Matt/Dropbox/Personal/Mach5/EngineTest/EngineTest/Source/Core/M5ObjectManager.cpp:141: warning: argument 'pToDestory' of command @param is not found in the argument list of M5ObjectManager::DestroyObject(M5Object *pToDestroy)
+C:/Users/Matt/Dropbox/Personal/Mach5/EngineTest/EngineTest/Source/Core/M5ObjectManager.h:32: warning: The following parameters of M5ObjectManager::DestroyObject(M5Object *pToDestroy) are not documented:
   parameter 'pToDestroy'
+C:/Users/Matt/Dropbox/Personal/Mach5/EngineTest/EngineTest/Source/Core/M5ObjectManager.h:42: warning: parameters of member M5ObjectManager::Update are not (all) documented
 C:/Users/Matt/Dropbox/Personal/Mach5/EngineTest/EngineTest/Source/Core/M5ResourceManager.h:49: warning: Member M5TextureMap (typedef) of class M5ResourceManager is not documented.
 C:/Users/Matt/Dropbox/Personal/Mach5/EngineTest/EngineTest/Source/Core/M5ResourceManager.h:50: warning: Member M5TextureMapItor (typedef) of class M5ResourceManager is not documented.
 C:/Users/Matt/Dropbox/Personal/Mach5/EngineTest/EngineTest/Source/Core/M5ResourceManager.h:53: warning: Member m_textureMap (variable) of class M5ResourceManager is not documented.
@@ -83,7 +70,7 @@ C:/Users/Matt/Dropbox/Personal/Mach5/EngineTest/EngineTest/Source/Core/M5Resourc
 C:/Users/Matt/Dropbox/Personal/Mach5/EngineTest/EngineTest/Source/Core/M5ResourceManager.h:43: warning: Member fileName (variable) of class M5ResourceManager::M5LoadedTexture is not documented.
 C:/Users/Matt/Dropbox/Personal/Mach5/EngineTest/EngineTest/Source/Core/M5ResourceManager.h:44: warning: Member id (variable) of class M5ResourceManager::M5LoadedTexture is not documented.
 C:/Users/Matt/Dropbox/Personal/Mach5/EngineTest/EngineTest/Source/Core/M5ResourceManager.h:45: warning: Member count (variable) of class M5ResourceManager::M5LoadedTexture is not documented.
-C:/Users/Matt/Dropbox/Personal/Mach5/EngineTest/EngineTest/Source/Core/M5StageMgr.cpp:44: warning: argument 'framePerSecond' of command @param is not found in the argument list of M5StageMgr::Init(const M5GameData *pGData, int gameDataSize, int framesPerSecond)
+C:/Users/Matt/Dropbox/Personal/Mach5/EngineTest/EngineTest/Source/Core/M5StageMgr.cpp:45: warning: argument 'framePerSecond' of command @param is not found in the argument list of M5StageMgr::Init(const M5GameData *pGData, int gameDataSize, int framesPerSecond)
 C:/Users/Matt/Dropbox/Personal/Mach5/EngineTest/EngineTest/Source/Core/M5StageMgr.h:54: warning: The following parameters of M5StageMgr::Init(const M5GameData *pGData, int gameDataSize, int framesPerSecond) are not documented:
   parameter 'framesPerSecond'
 error: failed to run html help compiler on index.hhp

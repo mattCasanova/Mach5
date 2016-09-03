@@ -24,7 +24,6 @@ public:
   virtual void Shutdown(void);
   virtual void Unload(void);
 private:
-  int   m_splashTexture;
   float m_changeTimer;
 };
 

@@ -1,3 +1,14 @@
+/******************************************************************************/
+/*!
+\file   GfxComponent.h
+\author Matt Casanova
+\par    email: lazersquad\@gmail.com
+\par    Mach5 Game Engine
+\date   2016/08/20
+
+Base graphics component.  For now it just contains a texture.
+*/
+/******************************************************************************/
 #include "GfxComponent.h"
 #include "M5Gfx.h"
 #include "M5Mtx44.h"
@@ -5,11 +16,11 @@
 #include "M5IniFile.h"
 #include <string>
 
-GfxComponent::GfxComponent(void)
+
+GfxComponent::GfxComponent(void):
+	M5Component(CT_GfxComponent),
+	m_textureID(0)
 {
-	m_pObj = 0;
-	m_type = CT_GfxComponent;
-	m_textureID = 0;
 }
 GfxComponent::~GfxComponent(void)
 {
@@ -33,7 +44,6 @@ M5Component* GfxComponent::Clone(void)
 {
 	GfxComponent* pNew = new GfxComponent;
 	pNew->m_pObj = m_pObj;
-	pNew->m_type = m_type;
 	pNew->m_textureID = m_textureID;
 
 	return pNew;

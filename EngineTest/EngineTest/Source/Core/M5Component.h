@@ -7,21 +7,21 @@
 \date   2016/08/18
 
 Base class component for M5Objects
-
 */
 /******************************************************************************/
 #ifndef M5COMPONENT_H
 #define M5COMPONENT_H
 #include "M5ComponentTypes.h"
 
-
+//Forward declarations
 class M5Object;
 class M5IniFile;
 
+//! Base class component for M5Objects
 class M5Component
 {
 public:
-	M5Component(void);
+	M5Component(M5ComponentTypes type);
 	virtual ~M5Component(void);
 	virtual void Update(float dt)    = 0;
 	virtual M5Component* Clone(void) = 0;
@@ -33,11 +33,12 @@ public:
 	int              GetID(void) const;
 
 protected:
-	M5Object*        m_pObj;
-	M5ComponentTypes m_type;
+	M5Object*        m_pObj; //!< Pointer to parent object
+	
 private:
-	static int       s_componentID;
-	int              m_id;
+	int              m_id;   //!< Unique Id for all componnents
+	M5ComponentTypes m_type; //!< To of Component used for searching
+	static int       s_componentID; //!< Static id counter shared by all components.
 };
 
 

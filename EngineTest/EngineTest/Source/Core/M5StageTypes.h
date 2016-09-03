@@ -1,6 +1,6 @@
 /******************************************************************************/ 
 /*! 
-\file   M5StageType.h 
+\file   M5StageTypes.h 
 \author UserPreBuild.bat 
 \par    email: lazersquad\@gmail.com 
 \par    Mach5 Game Engine 
@@ -12,7 +12,10 @@ and creates an enumeration value of ST_*Stage.
 /******************************************************************************/ 
 #ifndef M5STAGE_TYPES_H 
 #define M5STAGE_TYPES_H 
+ 
+ 
 enum M5StageTypes {  
+ST_GamePlayStage, 
 ST_SplashStage, 
 ST_INVALID 
 }; 

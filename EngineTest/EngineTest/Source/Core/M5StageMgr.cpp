@@ -17,6 +17,7 @@ between levels and menus.
 #include "M5Timer.h"
 #include "M5Stage.h"
 #include "M5Debug.h"
+#include "M5ObjectManager.h"
 #include "..\RegisterStages.h"
 
 #include "M5StageFactory.h"
@@ -210,6 +211,7 @@ void M5StageMgr::Update(void)
     M5Input::Reset(frameTime);
     M5App::ProcessMessages();
     pCurrentStage->Update(frameTime);
+	M5ObjectManager::Update(frameTime);
 	M5Gfx::Update();
     frameTime = s_timer.EndFrame();/*Get the total frame time*/
   }

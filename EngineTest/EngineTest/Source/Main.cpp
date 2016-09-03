@@ -76,7 +76,7 @@ int WINAPI WinMain(HINSTANCE instance,
   iniFile.GetValue("framesPerSecond", initData.fps);
   iniFile.GetValue("fullScreen", initData.fullScreen);
   
-  initData.title        = "MyFirstWindow";
+  initData.title        = "AstroShot";
   initData.instance     = instance;
   /*Information about your specific gamedata */
   initData.pGData       = &gameData;

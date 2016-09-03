@@ -23,15 +23,12 @@ good place to load game data and initialize object you need for your game.
 #include "Core\M5Input.h"
 
 
-/*Make a struct for my shared stage data*/
 namespace
 {
   /*The max time to be in this stage*/
 const float MAX_SPLASH_TIME = 6.0f;
 
 }
-
-
 
 /******************************************************************************/
 /*!
@@ -60,7 +57,7 @@ void SplashStage::Init(void)
   //This code will only show in the console if it is active and you 
   //are in debug mode.
   M5DEBUG_PRINT("This is a demo of the different things you can do\n");
-  M5DEBUG_PRINT("in the Mach5 Engine.  Play with the demo but you must\n");
+  M5DEBUG_PRINT("in the Mach 5 Engine.  Play with the demo but you must\n");
   M5DEBUG_PRINT("also inspect the code and comments.\n\n");
   M5DEBUG_PRINT("If you find errors, report to lazersquad@gmail.com");
 
@@ -72,6 +69,8 @@ void SplashStage::Init(void)
   M5Vec2 windowSize = M5App::GetResolution();
 
   M5ObjectManager::AddArcheType(AT_Splash, "ArcheTypes\\Splash.ini");
+  M5ObjectManager::AddArcheType(AT_Player, "ArcheTypes\\Player.ini");
+ 
   M5Object* pObj = M5ObjectManager::CreateObject(AT_Splash);
   pObj->scale.x = windowSize.y;
   pObj->scale.y = windowSize.y;
@@ -93,7 +92,7 @@ void SplashStage::Update(float dt)
 
   /*Check for time, only be in this stage for the set time*/
   if (m_changeTimer > MAX_SPLASH_TIME)
-	  M5StageMgr::Quit();
+	  M5StageMgr::SetNextStage(ST_GamePlayStage);
 }
 /******************************************************************************/
 /*!
@@ -116,5 +115,4 @@ load stage.  Here I need to destroy my console and unload my texture.
 /******************************************************************************/
 void SplashStage::Unload(void)
 {
-
 }

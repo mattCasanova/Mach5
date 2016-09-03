@@ -15,9 +15,9 @@ Base class component for M5Objects
 int M5Component::s_componentID = 0;
 
 
-M5Component::M5Component(void): 
+M5Component::M5Component(M5ComponentTypes type):
 	m_pObj(0), 
-	m_type(CT_INVALID),
+	m_type(type),
 	m_id(++s_componentID)
 {
 }

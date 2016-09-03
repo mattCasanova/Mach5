@@ -1,6 +1,6 @@
 /******************************************************************************/
 /*!
-\file   M5ComonentBuilder.h
+\file   M5ComponentBuilder.h
 \author Matt Casanova
 \par    email: lazersquad\@gmail.com
 \par    Mach5 Game Engine

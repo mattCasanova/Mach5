@@ -14,10 +14,19 @@
 ::Change to source directory
 cd Source
 
+echo CreateStageEnum
 call:CreateStageEnum
+
+echo CreateComponentEnum
 call:CreateComponentEnum
+
+echo CreateRegisterStages
 call:CreateRegisterStages
+
+echo CreateRegisterComponent
 call:CreateRegisterComponent
+
+echo CreateArcheTypeEnum
 call:CreateArcheTypesEnum
 
 goto:eof
@@ -81,7 +90,7 @@ goto:eof
 set ENUMFILE=Core\M5StageTypes.h
 echo /******************************************************************************/ > %ENUMFILE%
 echo /*! >> %ENUMFILE%
-echo \file   M5StageType.h >> %ENUMFILE%
+echo \file   M5StageTypes.h >> %ENUMFILE%
 echo \author UserPreBuild.bat >> %ENUMFILE%
 echo \par    email: lazersquad\@gmail.com >>%ENUMFILE%
 echo \par    Mach5 Game Engine >> %ENUMFILE%
@@ -94,8 +103,8 @@ echo /**************************************************************************
 
 echo #ifndef M5STAGE_TYPES_H >> %ENUMFILE%
 echo #define M5STAGE_TYPES_H >> %ENUMFILE%
-echo.
-echo.
+echo. >> %ENUMFILE%
+echo. >> %ENUMFILE%
 echo enum M5StageTypes {  >> %ENUMFILE%
 
 ::Get all files with the name *Stage in it and output just the file name
@@ -193,8 +202,8 @@ echo /**************************************************************************
 echo #ifndef M5COMPONENT_TYPE_H >> %ENUMFILE%
 echo #define M5COMPONENT_TYPE_H >> %ENUMFILE%
 echo #include ^<string^> >> %ENUMFILE%
-echo.
-echo.
+echo. >> %ENUMFILE%
+echo. >> %ENUMFILE%
 echo enum M5ComponentTypes {  >> %ENUMFILE%
 
 ::Get all files with the name *Stage in it and output just the file name

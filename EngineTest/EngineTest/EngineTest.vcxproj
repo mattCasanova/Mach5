@@ -181,7 +181,9 @@
     <ClCompile Include="Source\Core\M5StageMgr.cpp" />
     <ClCompile Include="Source\Core\M5Timer.cpp" />
     <ClCompile Include="Source\Core\M5Vec2.cpp" />
+    <ClCompile Include="Source\GamePlayStage.cpp" />
     <ClCompile Include="Source\Main.cpp" />
+    <ClCompile Include="Source\PlayerInputComponent.cpp" />
     <ClCompile Include="Source\SplashStage.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -211,6 +213,8 @@
     <ClInclude Include="Source\Core\M5StageTypes.h" />
     <ClInclude Include="Source\Core\M5Timer.h" />
     <ClInclude Include="Source\Core\M5Vec2.h" />
+    <ClInclude Include="Source\GamePlayStage.h" />
+    <ClInclude Include="Source\PlayerInputComponent.h" />
     <ClInclude Include="Source\RegisterComponents.h" />
     <ClInclude Include="Source\RegisterStages.h" />
     <ClInclude Include="Source\SplashStage.h" />

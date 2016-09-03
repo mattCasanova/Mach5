@@ -73,6 +73,17 @@ void M5ObjectManager::Shutdown(void)
 }
 /******************************************************************************/
 /*!
+Updates all game objects
+*/
+/******************************************************************************/
+void M5ObjectManager::Update(float dt)
+{
+	size_t size = s_objects.size();
+	for (size_t i = 0; i < size; ++i)
+		s_objects[i]->Update(dt);
+}
+/******************************************************************************/
+/*!
 Function to delete all currently active game objects.
 */
 /******************************************************************************/
