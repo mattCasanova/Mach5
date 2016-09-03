@@ -66,11 +66,7 @@ void SplashStage::Init(void)
   /*Reset the timer for this stage*/
   m_changeTimer = 0.f;
 
-  M5Vec2 windowSize = M5App::GetResolution();
-
-  M5ObjectManager::AddArcheType(AT_Splash, "ArcheTypes\\Splash.ini");
-  M5ObjectManager::AddArcheType(AT_Player, "ArcheTypes\\Player.ini");
- 
+  M5Vec2 windowSize = M5App::GetResolution(); 
   M5Object* pObj = M5ObjectManager::CreateObject(AT_Splash);
   pObj->scale.x = windowSize.y;
   pObj->scale.y = windowSize.y;

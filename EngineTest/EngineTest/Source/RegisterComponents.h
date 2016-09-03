@@ -16,12 +16,18 @@ and registers those with the ObjectManager.
 #include "Core\M5ObjectManager.h" 
 #include "Core\M5ComponentTypes.h" 
 #include "Core\M5ComponentBuilder.h" 
+#include "Core\ClampComponent.h" 
 #include "Core\GfxComponent.h" 
+#include "Core\OutsideViewKillComponent.h" 
+#include "Core\WrapComponent.h" 
 #include "PlayerInputComponent.h" 
  
  
 inline void RegisterComponents(void) {  
+ M5ObjectManager::AddComponent(CT_ClampComponent, new M5ComponentTBuilder< ClampComponent >() ); 
  M5ObjectManager::AddComponent(CT_GfxComponent, new M5ComponentTBuilder< GfxComponent >() ); 
+ M5ObjectManager::AddComponent(CT_OutsideViewKillComponent, new M5ComponentTBuilder< OutsideViewKillComponent >() ); 
+ M5ObjectManager::AddComponent(CT_WrapComponent, new M5ComponentTBuilder< WrapComponent >() ); 
  M5ObjectManager::AddComponent(CT_PlayerInputComponent, new M5ComponentTBuilder< PlayerInputComponent >() ); 
 } 
 #endif //REGISTER_COMPONENTS_H 

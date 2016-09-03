@@ -89,6 +89,12 @@ only*/
 #define M5DEBUG_WRITETEXT(text, x, y)
 /*!Use this to test your code in debug only*/
 #define M5DEBUG_TEST(exp, str) 
+/*! If you have a leak, there is a number in curly braces next to the error.
+Put that number in this function and check the call stack to see when and
+where the allocation happened. Set it to -1 to have it not break.*/
+#define M5DEBUG_LEAK_CHECKS(x)
+/*!Use this to make sure a function is only called one time*/
+#define M5DEBUG_CALL_CHECK(x)
 #endif
 
 

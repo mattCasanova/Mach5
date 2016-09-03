@@ -40,23 +40,34 @@ public:
 	T* GetComponent(M5ComponentTypes type);
 	
 
-	M5Vec2       pos;
-	M5Vec2       scale;
-	M5Vec2       vel;
-	float        rotation;
-	float        rotationVel;
+	M5Vec2       pos;         //!< Position of the Game Object
+	M5Vec2       scale;       //!< Size of the Game Object
+	M5Vec2       vel;         //!< Velocity of the Game Object
+	float        rotation;    //!< Rotation of the Game Object
+	float        rotationVel; //!< Rotational Velocity of the Game Object
+	bool         isDead;      //!< flag to control when a game object should be destroyed
 private:
-	typedef std::vector<M5Component*> ComponentVec;
-	typedef ComponentVec::iterator VecItor;
+	typedef std::vector<M5Component*> ComponentVec; //!< Typedef for my Vector of Components
+	typedef ComponentVec::iterator VecItor;         //!< Typedef for my container iterator
 
-	ComponentVec m_components;
-	M5ArcheTypes m_type;
-	int          m_id;
-
-	static int   s_objectID;
+	ComponentVec m_components;                      //!< Vector of Components to Update
+	M5ArcheTypes m_type;                            //!< The ArcheType of the Game Object
+	int          m_id;                              //!< Unique ID of the Game Object
+	static int   s_objectIDCounter;                 //!< Shared ID counter for all Game Objects 
 
 };
+/******************************************************************************/
+/*!
+Template function to find and Cast the desired component to the correct type.
 
+\param type
+The type of component to Find
+
+\return 
+A pointer to the correct component type or 0 if it doesn't exist.
+
+*/
+/******************************************************************************/
 template<typename T>
 T* M5Object::GetComponent(M5ComponentTypes type)
 {

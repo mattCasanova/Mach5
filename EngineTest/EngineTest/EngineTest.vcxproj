@@ -162,6 +162,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Source\Core\ClampComponent.cpp" />
     <ClCompile Include="Source\Core\GfxComponent.cpp" />
     <ClCompile Include="Source\Core\M5App.cpp" />
     <ClCompile Include="Source\Core\M5Component.cpp" />
@@ -181,12 +182,15 @@
     <ClCompile Include="Source\Core\M5StageMgr.cpp" />
     <ClCompile Include="Source\Core\M5Timer.cpp" />
     <ClCompile Include="Source\Core\M5Vec2.cpp" />
+    <ClCompile Include="Source\Core\OutsideViewKillComponent.cpp" />
+    <ClCompile Include="Source\Core\WrapComponent.cpp" />
     <ClCompile Include="Source\GamePlayStage.cpp" />
     <ClCompile Include="Source\Main.cpp" />
     <ClCompile Include="Source\PlayerInputComponent.cpp" />
     <ClCompile Include="Source\SplashStage.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Source\Core\ClampComponent.h" />
     <ClInclude Include="Source\Core\GfxComponent.h" />
     <ClInclude Include="Source\Core\M5App.h" />
     <ClInclude Include="Source\Core\M5ArcheTypes.h" />
@@ -213,8 +217,11 @@
     <ClInclude Include="Source\Core\M5StageTypes.h" />
     <ClInclude Include="Source\Core\M5Timer.h" />
     <ClInclude Include="Source\Core\M5Vec2.h" />
+    <ClInclude Include="Source\Core\OutsideViewKillComponent.h" />
+    <ClInclude Include="Source\Core\WrapComponent.h" />
     <ClInclude Include="Source\GamePlayStage.h" />
     <ClInclude Include="Source\PlayerInputComponent.h" />
+    <ClInclude Include="Source\RegisterArcheTypes.h" />
     <ClInclude Include="Source\RegisterComponents.h" />
     <ClInclude Include="Source\RegisterStages.h" />
     <ClInclude Include="Source\SplashStage.h" />

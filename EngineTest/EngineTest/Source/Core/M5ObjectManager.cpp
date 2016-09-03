@@ -18,6 +18,8 @@ game objects.
 #include "M5ComponentBuilder.h"
 #include "M5IniFile.h"
 #include "../RegisterComponents.h"
+#include "../RegisterArcheTypes.h"
+
 #include <vector>
 #include <unordered_map>
 #include <string>
@@ -49,6 +51,7 @@ void M5ObjectManager::Init(void)
 	s_objects.reserve(START_SIZE);
 	//We must register components before we can create our prototypes
 	RegisterComponents();
+	RegisterArcheTypes();
 }
 /******************************************************************************/
 /*!
@@ -78,9 +81,20 @@ Updates all game objects
 /******************************************************************************/
 void M5ObjectManager::Update(float dt)
 {
-	size_t size = s_objects.size();
-	for (size_t i = 0; i < size; ++i)
-		s_objects[i]->Update(dt);
+	for (size_t i = 0; i < s_objects.size(); ++i)
+	{
+		if (s_objects[i]->isDead)
+		{
+			delete s_objects[i];
+			s_objects[i] = s_objects[s_objects.size() - 1];
+			s_objects.pop_back();
+			--i;//so that we can update the shifted object 
+		}
+		else
+		{
+			s_objects[i]->Update(dt);
+		}
+	}
 }
 /******************************************************************************/
 /*!
@@ -159,6 +173,48 @@ void M5ObjectManager::DestroyObject(M5Object* pToDestroy)
 }
 /******************************************************************************/
 /*!
+Finds a specific instance of a game object based on ID and deletes it.
+
+\param [in] objectID
+An instance of an M5Object to remove and delete.
+*/
+/******************************************************************************/
+void M5ObjectManager::DestroyObject(int objectID)
+{
+	for (size_t i = 0; i < s_objects.size(); ++i)
+	{
+		if (s_objects[i]->GetID() == objectID)
+		{
+			delete s_objects[i];
+			s_objects[i] = s_objects[s_objects.size() - 1];
+			s_objects.pop_back();
+		}
+	}
+}
+/******************************************************************************/
+/*!
+Finds all instances of the specifed object type and returns the collection
+
+\param [in] type
+The type to find
+
+\param [in,out] A vector that will be filled with objects of the correct type.
+
+\attention
+The pointers in the container are only valid this frame.  They could be destroyed
+at any time.
+*/
+/******************************************************************************/
+void M5ObjectManager::GetAllObjects(M5ArcheTypes type, std::vector<M5Object*>& returnVec)
+{
+	for (size_t i = 0; i < s_objects.size(); ++i)
+	{
+		if (s_objects[i]->GetType() == type)
+			returnVec.push_back(s_objects[i]);
+	}
+}
+/******************************************************************************/
+/*!
   Adds a component to the M5ObjectManager component factory.
 
   \param [in] type
@@ -209,9 +265,12 @@ void M5ObjectManager::AddArcheType(M5ArcheTypes type, const char* fileName)
 	file.GetValue("components", components);
 	file.GetValue("posX", pObj->pos.x);
 	file.GetValue("posY", pObj->pos.y);
+	file.GetValue("velX", pObj->vel.x);
+	file.GetValue("velY", pObj->vel.y);
 	file.GetValue("scaleX", pObj->scale.x);
 	file.GetValue("scaleY", pObj->scale.y);
 	file.GetValue("rot", pObj->rotation);
+	file.GetValue("rotVel", pObj->rotationVel);
 
 	//parse the component string and create each component
 	std::stringstream ss(components);

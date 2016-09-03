@@ -21,7 +21,6 @@ doxygen > nul 2> DoxyErrors.txt
 ::Step into doxygen directory and get index.chm
 cd html
 copy index.chm "..\Mach5Dox.chm" > nul 2> nul
-
 ::Step out
 cd..
 

@@ -19,7 +19,7 @@ namespace
 const int START_SIZE = 8;
 }
 
-int M5Object::s_objectID = 0;
+int M5Object::s_objectIDCounter = 0;
 
 /******************************************************************************/
 /*!
@@ -39,7 +39,8 @@ M5Object::M5Object(M5ArcheTypes type) :
 	vel(0, 0),
 	rotation(0),
 	rotationVel(0),
-	m_id(++s_objectID)
+	isDead(false),
+	m_id(++s_objectIDCounter)
 {
 	m_components.reserve(START_SIZE);
 }
@@ -82,6 +83,11 @@ void M5Object::Update(float dt)
 	{
 		m_components[i]->Update(dt);
 	}
+
+	//Update object data
+	pos.x += vel.x * dt;
+	pos.y += vel.y * dt;
+	rotation += rotationVel * dt;
 }
 /******************************************************************************/
 /*!
@@ -107,7 +113,7 @@ M5Object* M5Object::Clone(void)
 	pClone->pos   = pos;
 	pClone->vel   = vel;
 	pClone->scale = scale;
-	pClone->m_id  = ++s_objectID;
+	pClone->m_id  = ++s_objectIDCounter;
 
 	//clone all components
 	size_t size = m_components.size();
