@@ -44,22 +44,16 @@ void GamePlayStage::Update(float /*dt*/)
 	else if (M5Input::IsTriggered(M5_Z))//Dynamically Wrap Object
 	{
 		//TODO add getObjectsbytype to objectmanager
-		M5Component* pComp = player[0]->GetComponent<WrapComponent>(CT_WrapComponent);
-		if (pComp != 0)
-		{
-			player[0]->RemoveComponent(pComp);
-			player[0]->AddComponent(new ClampComponent);
-		}
+		player[0]->RemoveAllComponents(CT_WrapComponent);
+		player[0]->AddComponent(new ClampComponent);
+
 	}
 	else if (M5Input::IsTriggered(M5_X))//Dynamically Clamp Object
 	{
-		//TODO add getObjectsbytype to objectmanager
-		M5Component* pComp = player[0]->GetComponent<ClampComponent>(CT_ClampComponent);
-		if (pComp != 0)
-		{
-			player[0]->RemoveComponent(pComp);
-			player[0]->AddComponent(new WrapComponent);
-		}
+		//TODO add getObjects by type to objectmanager
+		player[0]->RemoveAllComponents(CT_ClampComponent);
+		player[0]->AddComponent(new WrapComponent);
+
 	}
 }
 void GamePlayStage::Shutdown(void)

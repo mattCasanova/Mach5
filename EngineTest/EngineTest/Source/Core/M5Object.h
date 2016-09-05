@@ -34,7 +34,7 @@ public:
 	void         RemoveAllComponents(M5ComponentTypes type);
 	int          GetID(void) const;
 	M5ArcheTypes GetType(void) const;
-	M5Object*    Clone(void);
+	M5Object*    Clone(void) const;
 
 	template<typename T>
 	T* GetComponent(M5ComponentTypes type);

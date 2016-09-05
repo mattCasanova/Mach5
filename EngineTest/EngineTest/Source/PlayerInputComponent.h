@@ -25,6 +25,7 @@ public:
 	virtual void FromFile(M5IniFile& iniFile);
 private:
 	float m_forwardSpeed;
+	float m_bulletSpeed;
 	float m_rotationSpeed;
 
 };

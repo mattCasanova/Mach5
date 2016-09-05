@@ -49,9 +49,6 @@ struct M5TGAHeader
 
 
 
-
-
-
 /******************************************************************************/
 /*!
 Helper function to delete data and close a file, because there are many chances
@@ -393,90 +390,26 @@ int LoadTGA(M5Texture* pTexture, const char* fileName)
  /******************************************************************************/
  /*!
 Destructor for ResourceManager class.  This checks to make sure all textures 
-have been unloaded.  If they haven't then a MessageBox pops up letting the 
-user know what files were not unloaded.
+have been unloaded.
  */
  /******************************************************************************/
 M5ResourceManager::~M5ResourceManager(void)
 {
-	std::stringstream ss;
-	size_t textureCount = m_textureMap.size();
-
-	if (textureCount == 0)
-		return;
-
-	ss << "Error: Some Textures were not Unloaded!!!\n\n";
-
+	Clear();
+}
+void M5ResourceManager::Clear(void)
+{
 	//Get itors to start and end
-	M5TextureMapItor begin = m_textureMap.begin();
-	M5TextureMapItor end   = m_textureMap.end();
+	M5TextureMapItor itor = m_textureMap.begin();
+	M5TextureMapItor end = m_textureMap.end();
 
-	for (; begin != end; ++begin)
+	while(itor != end)
 	{
-		ss << "Count: " << std::setw(2) << " " << begin->second.count <<
-			" File name: " << begin->second.fileName << std::endl;
+		glDeleteTextures(1, (GLuint*)&itor->second.id);
+		++itor;
 	}
 
-	M5Debug::MessagePopup(ss.str().c_str());
-
-}
-/******************************************************************************/
-/*!
-The function to load a resource from a file.  This function will load 24 or 32
-bit tga file only. (compressed or uncompressed).  This file will return
-a unique id to the texture, so you can draw it later.  If the file can't
-be loaded, it will return -1;
-
-\attention
-THIS FUNCTION ONLY LOADS 24 OR 32 BIT TGA FILES.  For every texture you
-load, you must also call M5GraphicsUnloadTexture to unload it, when you are
-done.
-
-\param fileName
-The name of the resource file to load.
-
-\param type
-The M5ResourceType to load.
-
-\return
-A unique id for the resource.  Use the id to draw later. If the function
-returns -1, the resource was not loaded.
-*/
-/******************************************************************************/
-int M5ResourceManager::LoadResource(const char* fileName, M5ResourceType type)
-{
-	switch (type)
-	{
-	case RT_TEXTURE:
-		return LoadTexture(fileName);
-		break;
-	default:
-		M5DEBUG_ASSERT(true, "Trying to load a bad resourceType");
-	}
-	return -1;
-}
-/******************************************************************************/
-/*!
-This funciton unloads a a previously loaded resource.
-
-\param fileName
-The name of the TGA file to load.
-
-\param type
-The type of the resource to unload
-
-*/
-/******************************************************************************/
-void M5ResourceManager::UnloadResource(int id, M5ResourceType type)
-{
-	switch (type)
-	{
-	case RT_TEXTURE:
-		UnloadTexture(id);
-		break;
-	default:
-		M5DEBUG_ASSERT(true, "Trying to unload a bad ResourceType");
-	}
+	m_textureMap.clear();
 }
 /******************************************************************************/
 /*!

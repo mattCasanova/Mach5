@@ -25,6 +25,6 @@ copy index.chm "..\Mach5Dox.chm" > nul 2> nul
 cd..
 
 ::Delete doxygen folder
-rmdir /S /Q html
+rmdir /S /Q html > nul 2> nul
 
 

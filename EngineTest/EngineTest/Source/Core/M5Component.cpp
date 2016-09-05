@@ -25,6 +25,10 @@ M5Component::~M5Component(void)
 {
 	 //Empty Base Class virtual destructor 
 }
+void M5Component::FromFile(M5IniFile&)
+{
+	//empty for the base class
+}
 void M5Component::SetParent(M5Object* pParent)
 { 
 	m_pObj = pParent; 

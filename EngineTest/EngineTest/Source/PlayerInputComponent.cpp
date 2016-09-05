@@ -13,8 +13,10 @@ Player input for AstroShot
 #include "Core\M5IniFile.h"
 #include "Core\M5Input.h"
 #include "Core\M5Vec2.h"
-#include "Core\M5ObjecT.h"
+#include "Core\M5Object.h"
+#include "Core\M5ObjectManager.h"
 #include "Core\M5Gfx.h"
+#include "Core\GfxComponent.h"
 #include <cmath>
 
 namespace
@@ -55,13 +57,35 @@ void PlayerInputComponent::Update(float dt)
 	if (M5Input::GamePadIsConnected())
 	{
 		M5Vec2 leftThumb;
+		M5Vec2 dir;
 		M5Input::GetLeftThumb(leftThumb);
 		if(M5Vec2::LengthSquared(leftThumb) > 0)
 		  m_pObj->rotation = std::atan2(leftThumb.y, leftThumb.x);
 
-		M5Vec2::Scale(leftThumb, leftThumb, m_forwardSpeed * dt);
-		m_pObj->vel += leftThumb;
+		M5Vec2::Scale(dir, leftThumb, m_forwardSpeed * dt);
+		m_pObj->vel += dir;
 		M5Vec2::Scale(m_pObj->vel, m_pObj->vel, DAMP_EFFECT);
+
+		if (M5Input::IsTriggered(M5_GAMEPAD_A))
+		{
+			M5Vec2 perp;
+			M5Object* bullet1 = M5ObjectManager::CreateObject(AT_Bullet);
+			M5Object* bullet2 = M5ObjectManager::CreateObject(AT_Bullet);
+			bullet2->rotation = bullet1->rotation = m_pObj->rotation;
+
+			dir.Set(std::cos(bullet1->rotation), std::sin(bullet1->rotation));
+			perp.Set(dir.y, -dir.x);
+			bullet1->pos = m_pObj->pos + perp * .2f * m_pObj->scale.x;
+			bullet2->pos = m_pObj->pos - perp * .2f * m_pObj->scale.x;
+
+
+			M5Vec2::Scale(dir, dir, m_bulletSpeed * dt);
+
+			bullet1->vel = m_pObj->vel + dir;
+			bullet2->vel = m_pObj->vel + dir;
+			M5Gfx::RegisterWorldComponent(bullet1->GetComponent<GfxComponent>(CT_GfxComponent));
+			M5Gfx::RegisterWorldComponent(bullet2->GetComponent<GfxComponent>(CT_GfxComponent));
+		}
 	}
 	
 	//Back up controls to rotate if there is no game pad.
@@ -76,17 +100,11 @@ void PlayerInputComponent::Update(float dt)
 	}
 
 	if (M5Input::IsPressed(M5_A))
-	{
 		m_pObj->rotationVel += m_rotationSpeed * dt;
-	}
 	else if (M5Input::IsPressed(M5_D))
-	{
 		m_pObj->rotationVel -= m_rotationSpeed * dt;
-	}
 	else
-	{
 		m_pObj->rotationVel = 0;
-	}
 
 
 }
@@ -99,6 +117,7 @@ M5Component* PlayerInputComponent::Clone(void)
 {
 	PlayerInputComponent* pNew = new PlayerInputComponent;
 	pNew->m_forwardSpeed  = m_forwardSpeed;
+	pNew->m_bulletSpeed = m_bulletSpeed;
 	pNew->m_rotationSpeed = m_rotationSpeed;
 	return pNew;
 }
@@ -114,5 +133,6 @@ void PlayerInputComponent::FromFile(M5IniFile& iniFile)
 {
 	iniFile.SetToSection("PlayerInputComponent");
 	iniFile.GetValue("forwardSpeed", m_forwardSpeed);
+	iniFile.GetValue("bulletSpeed", m_bulletSpeed);
 	iniFile.GetValue("rotationSpeed", m_rotationSpeed);
 }

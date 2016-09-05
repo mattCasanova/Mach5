@@ -32,14 +32,14 @@ The type that this object will be.
 */
 /******************************************************************************/
 M5Object::M5Object(M5ArcheTypes type) :
-	m_components(),
-	m_type(type),
 	pos(0, 0),
 	scale(1, 1),
 	vel(0, 0),
 	rotation(0),
 	rotationVel(0),
 	isDead(false),
+	m_components(),
+	m_type(type),
 	m_id(++s_objectIDCounter)
 {
 	m_components.reserve(START_SIZE);
@@ -69,6 +69,7 @@ void M5Object::RemoveAllComponents(void)
 		delete (*itor);
 		++itor;
 	}
+	m_components.clear();
 }
 /******************************************************************************/
 /*!
@@ -105,7 +106,7 @@ Creates a copy of this game object including all components
 
 */
 /******************************************************************************/
-M5Object* M5Object::Clone(void)
+M5Object* M5Object::Clone(void) const
 {
 	//create new object
 	M5Object* pClone = new M5Object(m_type);
@@ -177,14 +178,14 @@ The type of component to remove
 /******************************************************************************/
 void M5Object::RemoveAllComponents(M5ComponentTypes type)
 {
-	size_t size = m_components.size();
-	for (size_t i = 0; i < size; ++i)
+	for (size_t i = 0; i < m_components.size(); ++i)
 	{
 		if (m_components[i]->GetType() == type)
 		{
 			delete m_components[i];
-			m_components[i] = m_components[size - 1];
+			m_components[i] = m_components[m_components.size() - 1];
 			m_components.pop_back();
+			--i;//we need to check the one we just swapped.
 		}
 	}
 }

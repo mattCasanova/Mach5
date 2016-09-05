@@ -24,7 +24,6 @@ GfxComponent::GfxComponent(void):
 }
 GfxComponent::~GfxComponent(void)
 {
-	M5Gfx::UnloadTexture(this->m_textureID);
 	M5Gfx::UnregisterComponent(this);
 }
 void GfxComponent::Draw(void) const

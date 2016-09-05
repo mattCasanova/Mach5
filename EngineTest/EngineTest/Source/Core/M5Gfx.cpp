@@ -277,6 +277,14 @@ void M5Gfx::Shutdown(void)
 {
   M5DEBUG_CALL_CHECK(1);
 
+  M5DEBUG_ASSERT(s_hudComponents.size() == 0 && s_worldComponents.size() == 0, 
+	  "Some Components were not unloaded.")
+
+  s_hudComponents.clear();
+  s_worldComponents.clear();
+
+  s_resourceManager.Clear();
+
   glDeleteBuffers((GLsizei)1, &s_mesh.vboID);
   glDeleteLists(s_fontBase, NUMBER_OF_CHARACTERS);
   wglMakeCurrent(NULL, NULL);
@@ -873,7 +881,7 @@ returns -1, the texture was not loaded.
 int M5Gfx::LoadTexture(const char* fileName)
 {
 	M5DEBUG_ASSERT(fileName != 0, "Filename is NULL");
-	return s_resourceManager.LoadResource(fileName, RT_TEXTURE);
+	return s_resourceManager.LoadTexture(fileName);
 }
 /******************************************************************************/
 /*!
@@ -890,7 +898,7 @@ A valid textureID from LoadTexture
 /******************************************************************************/
 void M5Gfx::UnloadTexture(int textureID)
 {
-	s_resourceManager.UnloadResource(textureID, RT_TEXTURE);
+	s_resourceManager.UnloadTexture(textureID);
 }
 void M5Gfx::RegisterWorldComponent(GfxComponent* pGfxComp)
 {
@@ -901,23 +909,21 @@ void M5Gfx::RegisterHudComponent(GfxComponent* pGfxComp)
 	s_hudComponents.push_back(pGfxComp);
 }
 void M5Gfx::UnregisterComponent(GfxComponent* pGfxComp)
-{
-	size_t size = s_worldComponents.size();
-	for (size_t i = 0; i < size; ++i)
+{;
+	for (size_t i = 0; i < s_worldComponents.size(); ++i)
 	{
 		if (s_worldComponents[i] == pGfxComp)
 		{
-			s_worldComponents[i] = s_worldComponents[size - 1];
+			s_worldComponents[i] = s_worldComponents[s_worldComponents.size() - 1];
 			s_worldComponents.pop_back();
 		}
 	}
 
-	size = s_hudComponents.size();
-	for (size_t i = 0; i < size; ++i)
+	for (size_t i = 0; i < s_hudComponents.size(); ++i)
 	{
 		if (s_hudComponents[i] == pGfxComp)
 		{
-			s_hudComponents[i] = s_hudComponents[size - 1];
+			s_hudComponents[i] = s_hudComponents[s_hudComponents.size() - 1];
 			s_hudComponents.pop_back();
 		}
 	}

@@ -1,6 +1,6 @@
 C:/Users/Matt/Dropbox/Personal/Mach5/EngineTest/EngineTest/Source/Core/ClampComponent.h:17: warning: Compound ClampComponent is not documented.
 C:/Users/Matt/Dropbox/Personal/Mach5/EngineTest/EngineTest/Source/Core/M5ArcheTypes.h:18: warning: Member M5ArcheTypes (enumeration) of file M5ArcheTypes.h is not documented.
-C:/Users/Matt/Dropbox/Personal/Mach5/EngineTest/EngineTest/Source/Core/M5ArcheTypes.h:25: warning: Member StringToArcheType(const std::string &string) (function) of file M5ArcheTypes.h is not documented.
+C:/Users/Matt/Dropbox/Personal/Mach5/EngineTest/EngineTest/Source/Core/M5ArcheTypes.h:26: warning: Member StringToArcheType(const std::string &string) (function) of file M5ArcheTypes.h is not documented.
 C:/Users/Matt/Dropbox/Personal/Mach5/EngineTest/EngineTest/Source/Core/M5ComponentTypes.h:18: warning: Member M5ComponentTypes (enumeration) of file M5ComponentTypes.h is not documented.
 C:/Users/Matt/Dropbox/Personal/Mach5/EngineTest/EngineTest/Source/Core/M5ComponentTypes.h:28: warning: Member StringToComponent(const std::string &string) (function) of file M5ComponentTypes.h is not documented.
 C:/Users/Matt/Dropbox/Personal/Mach5/EngineTest/EngineTest/Source/Core/M5StageTypes.h:17: warning: Member M5StageTypes (enumeration) of file M5StageTypes.h is not documented.
@@ -61,15 +61,13 @@ C:/Users/Matt/Dropbox/Personal/Mach5/EngineTest/EngineTest/Source/Core/M5ObjectM
 C:/Users/Matt/Dropbox/Personal/Mach5/EngineTest/EngineTest/Source/Core/M5ObjectManager.h:37: warning: The following parameters of M5ObjectManager::GetAllObjects(M5ArcheTypes type, std::vector< M5Object * > &returnVec) are not documented:
   parameter 'returnVec'
 C:/Users/Matt/Dropbox/Personal/Mach5/EngineTest/EngineTest/Source/Core/M5ObjectManager.h:45: warning: parameters of member M5ObjectManager::Update are not (all) documented
-C:/Users/Matt/Dropbox/Personal/Mach5/EngineTest/EngineTest/Source/Core/M5ResourceManager.h:49: warning: Member M5TextureMap (typedef) of class M5ResourceManager is not documented.
-C:/Users/Matt/Dropbox/Personal/Mach5/EngineTest/EngineTest/Source/Core/M5ResourceManager.h:50: warning: Member M5TextureMapItor (typedef) of class M5ResourceManager is not documented.
-C:/Users/Matt/Dropbox/Personal/Mach5/EngineTest/EngineTest/Source/Core/M5ResourceManager.h:53: warning: Member m_textureMap (variable) of class M5ResourceManager is not documented.
-C:/Users/Matt/Dropbox/Personal/Mach5/EngineTest/EngineTest/Source/Core/M5ResourceManager.cpp:460: warning: argument 'fileName' of command @param is not found in the argument list of M5ResourceManager::UnloadResource(int id, M5ResourceType type)
-C:/Users/Matt/Dropbox/Personal/Mach5/EngineTest/EngineTest/Source/Core/M5ResourceManager.h:34: warning: The following parameters of M5ResourceManager::UnloadResource(int id, M5ResourceType type) are not documented:
-  parameter 'id'
-C:/Users/Matt/Dropbox/Personal/Mach5/EngineTest/EngineTest/Source/Core/M5ResourceManager.h:43: warning: Member fileName (variable) of class M5ResourceManager::M5LoadedTexture is not documented.
-C:/Users/Matt/Dropbox/Personal/Mach5/EngineTest/EngineTest/Source/Core/M5ResourceManager.h:44: warning: Member id (variable) of class M5ResourceManager::M5LoadedTexture is not documented.
-C:/Users/Matt/Dropbox/Personal/Mach5/EngineTest/EngineTest/Source/Core/M5ResourceManager.h:45: warning: Member count (variable) of class M5ResourceManager::M5LoadedTexture is not documented.
+C:/Users/Matt/Dropbox/Personal/Mach5/EngineTest/EngineTest/Source/Core/M5ResourceManager.h:27: warning: Member Clear(void) (function) of class M5ResourceManager is not documented.
+C:/Users/Matt/Dropbox/Personal/Mach5/EngineTest/EngineTest/Source/Core/M5ResourceManager.h:41: warning: Member M5TextureMap (typedef) of class M5ResourceManager is not documented.
+C:/Users/Matt/Dropbox/Personal/Mach5/EngineTest/EngineTest/Source/Core/M5ResourceManager.h:42: warning: Member M5TextureMapItor (typedef) of class M5ResourceManager is not documented.
+C:/Users/Matt/Dropbox/Personal/Mach5/EngineTest/EngineTest/Source/Core/M5ResourceManager.h:45: warning: Member m_textureMap (variable) of class M5ResourceManager is not documented.
+C:/Users/Matt/Dropbox/Personal/Mach5/EngineTest/EngineTest/Source/Core/M5ResourceManager.h:35: warning: Member fileName (variable) of class M5ResourceManager::M5LoadedTexture is not documented.
+C:/Users/Matt/Dropbox/Personal/Mach5/EngineTest/EngineTest/Source/Core/M5ResourceManager.h:36: warning: Member id (variable) of class M5ResourceManager::M5LoadedTexture is not documented.
+C:/Users/Matt/Dropbox/Personal/Mach5/EngineTest/EngineTest/Source/Core/M5ResourceManager.h:37: warning: Member count (variable) of class M5ResourceManager::M5LoadedTexture is not documented.
 C:/Users/Matt/Dropbox/Personal/Mach5/EngineTest/EngineTest/Source/Core/M5StageMgr.cpp:45: warning: argument 'framePerSecond' of command @param is not found in the argument list of M5StageMgr::Init(const M5GameData *pGData, int gameDataSize, int framesPerSecond)
 C:/Users/Matt/Dropbox/Personal/Mach5/EngineTest/EngineTest/Source/Core/M5StageMgr.h:54: warning: The following parameters of M5StageMgr::Init(const M5GameData *pGData, int gameDataSize, int framesPerSecond) are not documented:
   parameter 'framesPerSecond'

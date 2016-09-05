@@ -282,6 +282,7 @@ void M5ObjectManager::AddArcheType(M5ArcheTypes type, const char* fileName)
 		pObj->AddComponent(pComp);
 	}
 
+
 	//Add the prototype to the prototype map
 	s_prototypes.insert(std::make_pair(type, pObj));
 }
