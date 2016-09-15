@@ -7,13 +7,13 @@
  
 This file gets auto generated based on the names of the Stages in the 
 current project.  UserPreBuild.bat looks for files named *Stage.h 
-and registers those stages with the StageMgr. 
+and registers those stages with the StageManager. 
 */ 
 /******************************************************************************/ 
 #ifndef REGISTER_STAGES_H 
 #define REGISTER_STAGES_H 
  
-#include "Core\M5StageMgr.h" 
+#include "Core\M5StageManager.h" 
 #include "Core\M5StageTypes.h" 
 #include "Core\M5StageBuilder.h" 
 #include "GamePlayStage.h" 
@@ -21,7 +21,7 @@ and registers those stages with the StageMgr.
  
  
 inline void RegisterStages(void) {  
- M5StageMgr::AddStage(ST_GamePlayStage, new M5StageTBuilder< GamePlayStage >() ); 
- M5StageMgr::AddStage(ST_SplashStage, new M5StageTBuilder< SplashStage >() ); 
+ M5StageManager::AddStage(ST_GamePlayStage, new M5StageTBuilder< GamePlayStage >() ); 
+ M5StageManager::AddStage(ST_SplashStage, new M5StageTBuilder< SplashStage >() ); 
 } 
 #endif //REGISTER_STAGES_H 

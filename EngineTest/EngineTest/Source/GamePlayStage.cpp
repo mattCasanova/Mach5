@@ -12,7 +12,7 @@ good place to load game data and initialize object you need for your game.
 /******************************************************************************/
 #include "GamePlayStage.h"
 #include "Core\M5Input.h"
-#include "Core\M5StageMgr.h"
+#include "Core\M5StageManager.h"
 #include "Core\M5Object.h"
 #include "Core\M5ObjectManager.h"
 #include "Core\M5Gfx.h"
@@ -53,9 +53,9 @@ void GamePlayStage::Update(float /*dt*/)
 	M5ObjectManager::GetAllObjects(AT_Player, player);
 
 	if (M5Input::IsPressed(M5_ESCAPE))
-		M5StageMgr::Quit();
+		M5StageManager::Quit();
 	else if(player.size() == 0)
-		M5StageMgr::Quit();
+		M5StageManager::Quit();
 	else if (M5Input::IsTriggered(M5_Z))//Dynamically Shrink
 	{
 		player[0]->AddComponent(new ShrinkComponent);

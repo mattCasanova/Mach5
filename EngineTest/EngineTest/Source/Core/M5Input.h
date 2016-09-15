@@ -113,7 +113,7 @@ class M5Input
 {
 public:
   friend class M5App;
-  friend class M5StageMgr;
+  friend class M5StageManager;
 
   /*Check if a specific key is being held down*/
   static bool  IsPressed(M5KeyCode key);

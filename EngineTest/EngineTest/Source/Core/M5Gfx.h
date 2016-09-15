@@ -27,7 +27,7 @@ class M5Gfx
 {
 public:
 	friend class M5App;
-	friend class M5StageMgr;
+	friend class M5StageManager;
 
 	
 	/*Use this to load a texture from file*/

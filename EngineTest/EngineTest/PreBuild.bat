@@ -50,7 +50,7 @@ echo \par    Mach5 Game Engine >> %REGISTERFILE%
 echo. >> %REGISTERFILE%
 echo This file gets auto generated based on the names of the Stages in the >> %REGISTERFILE%
 echo current project.  UserPreBuild.bat looks for files named *Stage.h >> %REGISTERFILE%
-echo and registers those stages with the StageMgr. >> %REGISTERFILE%
+echo and registers those stages with the StageManager. >> %REGISTERFILE%
 echo */ >> %REGISTERFILE%
 echo /******************************************************************************/ >> %REGISTERFILE%
 
@@ -60,7 +60,7 @@ echo #define REGISTER_STAGES_H >> %REGISTERFILE%
 echo. >> %REGISTERFILE%
 
 ::Add includes
-echo #include "Core\M5StageMgr.h" >> %REGISTERFILE%
+echo #include "Core\M5StageManager.h" >> %REGISTERFILE%
 echo #include "Core\M5StageTypes.h" >> %REGISTERFILE%
 echo #include "Core\M5StageBuilder.h" >> %REGISTERFILE%
 
@@ -75,7 +75,7 @@ echo inline void RegisterStages(void) {  >> %REGISTERFILE%
 
 ::Get all files with the name *Stage in it and output just the file name
 for %%f in ( *Stage.h ) do (
-  echo  M5StageMgr::AddStage^(ST_%%~nf, new M5StageTBuilder^< %%~nf ^>^(^) ^); >> %REGISTERFILE%
+  echo  M5StageManager::AddStage^(ST_%%~nf, new M5StageTBuilder^< %%~nf ^>^(^) ^); >> %REGISTERFILE%
 )
 
 

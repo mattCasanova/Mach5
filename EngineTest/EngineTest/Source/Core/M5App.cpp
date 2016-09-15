@@ -13,7 +13,7 @@ the Mach 5 Engine.
 #include "M5App.h"
 #include "M5Debug.h"
 #include "M5Vec2.h"
-#include "M5StageMgr.h"
+#include "M5StageManager.h"
 #include "M5ObjectManager.h"
 #include "M5Input.h"
 #include "M5Timer.h"
@@ -321,7 +321,7 @@ void M5App::Init(const M5InitData& initData)
   ::UpdateWindow(s_window);//call the 
 
   
-  M5StageMgr::Init(initData.pGData, initData.gameDataSize, initData.fps);
+  M5StageManager::Init(initData.pGData, initData.gameDataSize, initData.fps);
   M5ObjectManager::Init();
   M5Input::Init();
 }
@@ -344,10 +344,10 @@ void M5App::Update(void)
 
     //ProcessMessages();
     /*Update the stages*/
-    M5StageMgr::Update();
+    M5StageManager::Update();
 
     /*If the game manager quit, then the application needs to*/
-    if (M5StageMgr::IsQuitting())
+    if (M5StageManager::IsQuitting())
       SendMessage(s_window, WM_CLOSE, 0, 0);
   }
 }
@@ -368,7 +368,7 @@ void M5App::Shutdown(void)
 
   M5ObjectManager::Shutdown();
   /*Shut down StageMgr*/
-  M5StageMgr::Shutdown();
+  M5StageManager::Shutdown();
   /*Clean up windows*/
   UnregisterClass(CLASS_NAME, s_instance);
 }
@@ -477,9 +477,9 @@ LRESULT CALLBACK M5App::M5WinProc(HWND win, UINT msg, WPARAM wp, LPARAM lp)
   }
   case WM_CLOSE:
   {
-    if (!M5StageMgr::IsQuitting())
+    if (!M5StageManager::IsQuitting())
     {
-      M5StageMgr::Quit();
+      M5StageManager::Quit();
     }
     else
     {

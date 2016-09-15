@@ -182,7 +182,7 @@
     <ClCompile Include="Source\Core\M5Random.cpp" />
     <ClCompile Include="Source\Core\M5ResourceManager.cpp" />
     <ClCompile Include="Source\Core\M5StageFactory.cpp" />
-    <ClCompile Include="Source\Core\M5StageMgr.cpp" />
+    <ClCompile Include="Source\Core\M5StageManager.cpp" />
     <ClCompile Include="Source\Core\M5Timer.cpp" />
     <ClCompile Include="Source\Core\M5Vec2.cpp" />
     <ClCompile Include="Source\Core\OutsideViewKillComponent.cpp" />
@@ -222,7 +222,7 @@
     <ClInclude Include="Source\Core\M5Stage.h" />
     <ClInclude Include="Source\Core\M5StageBuilder.h" />
     <ClInclude Include="Source\Core\M5StageFactory.h" />
-    <ClInclude Include="Source\Core\M5StageMgr.h" />
+    <ClInclude Include="Source\Core\M5StageManager.h" />
     <ClInclude Include="Source\Core\M5StageTypes.h" />
     <ClInclude Include="Source\Core\M5Timer.h" />
     <ClInclude Include="Source\Core\M5Vec2.h" />

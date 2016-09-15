@@ -39,7 +39,7 @@ struct M5InitData
 class M5App
 {
 public:
-  friend class M5StageMgr;
+  friend class M5StageManager;
 
   /*Call These in Main*/
 

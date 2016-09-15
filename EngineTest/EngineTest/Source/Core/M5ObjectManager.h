@@ -26,7 +26,7 @@ class M5ObjectManager
 {
 public:
 	friend class M5App;
-	friend class M5StageMgr;
+	friend class M5StageManager;
 
 
 	static M5Object* CreateObject(M5ArcheTypes type);

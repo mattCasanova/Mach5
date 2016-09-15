@@ -1,6 +1,6 @@
 /******************************************************************************/
 /*!
-\file   M5StageMgr.h
+\file   M5StageManager.h
 \author Matt Casanova
 \par    email: lazersquad\@gmail.com
 \par    Mach5 Game Engine
@@ -22,8 +22,7 @@ class M5StageBuilder;
 
 
 //! Singleton to control quitting, restarting and switching stages.
-//TODO: Fix Name
-class M5StageMgr
+class M5StageManager
 {
 public:
   friend class M5App;
@@ -61,7 +60,7 @@ private:
   static void Shutdown(void);
   static void ChangeStage(void);
 
-};//end M5StageMgr
+};//end M5StageManager
 
 
 

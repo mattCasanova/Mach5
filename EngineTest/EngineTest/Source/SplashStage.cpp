@@ -15,7 +15,7 @@ good place to load game data and initialize object you need for your game.
 #include "Core\M5App.h"
 #include "Core\M5Debug.h"
 #include "Core\M5Vec2.h"
-#include "Core\M5StageMgr.h"
+#include "Core\M5StageManager.h"
 #include "Core\M5Object.h"
 #include "Core\M5ObjectManager.h"
 #include "Core\GfxComponent.h"
@@ -94,7 +94,7 @@ void SplashStage::Update(float dt)
 
   /*Check for time, only be in this stage for the set time*/
   if (m_changeTimer > MAX_SPLASH_TIME)
-	  M5StageMgr::SetNextStage(ST_GamePlayStage);
+	  M5StageManager::SetNextStage(ST_GamePlayStage);
 }
 /******************************************************************************/
 /*!
