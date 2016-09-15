@@ -15,29 +15,31 @@ Finite Statemachine base class component
 #include "M5Component.h"
 #include "M5Vec2.h"
 
-//!< Base State for M5StateMachines
+//! Base State for M5StateMachines
 class M5State
 {
 public:
+	//! Empty virtual destructor
 	virtual ~M5State(void) {}
-	virtual void Enter(float dt) = 0;
+	//! Called when we first enter a state
+	virtual void Enter(float dt)  = 0;
+	//! called once per frame
 	virtual void Update(float dt) = 0;
-	virtual void Exit(float dt) = 0;
+	//! called before we exit a state
+	virtual void Exit(float dt)   = 0;
 };
 
-//!< Base class for Finite statemanchine component for AstroShot
+//! Base class for Finite statemanchine component for AstroShot
 class M5StateMachine : public M5Component
 {
 public:
 	M5StateMachine(M5ComponentTypes type);
 	virtual ~M5StateMachine(void);
 	virtual void Update(float dt);
-	virtual M5Component* Clone(void) = 0;
 	void SetNextState(M5State* pNext);
-	void SetStartState(M5State* pStart);
 private:
-	M5State* m_pCurr;
-	M5State* m_pNext;
+	M5State* m_pCurr; //!< a pointer to our current state to be updated
+	M5State* m_pNext; //!< a pointer to the next state to be updated
 };
 
 #endif //M5STATEMACNINE_H

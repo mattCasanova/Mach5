@@ -34,13 +34,21 @@ public:
 	void WriteFile(const std::string& fileName) const;
 private:
 	///Template types 
+	//! String pair used for reading key/values
 	typedef std::pair<std::string, std::string>        StringPair;
+	//! Map of keys to values
 	typedef std::map<std::string, std::string>         KeyValMap;
+	//! Iterator for key/value map
 	typedef KeyValMap::iterator                        KeyValMapItor;
+	//! Const interator for key/value map
 	typedef KeyValMap::const_iterator                  KeyValMapCItor;
+	//! Pair for sections
 	typedef std::pair<std::string, KeyValMap>          StringMapPair;
+	//! Map of names to sections
 	typedef std::map<std::string, KeyValMap>           SectionMap;
+	//! Iterator for name/section map
 	typedef SectionMap::iterator                       SectionMapItor;
+	//! Const Interator for name/section map
 	typedef SectionMap::const_iterator                 SectionMapCItor;
 
 	//Functions to parse file
@@ -51,16 +59,18 @@ private:
 	void ParseSectionName(StringMapPair& currSection, std::string& line, size_t& begin, size_t& end);
 	void ParseKeyValue(StringMapPair& currSection, std::string& line, size_t& begin, size_t& end);
 
+	//! Map of all loaded sections in the ini file
 	SectionMap m_sections;
+	//! a pointer to the currectly selected section
 	KeyValMap* m_currSection;
 };
 /******************************************************************************/
 /*!
-Takes a key and returns a value of type int
+Takes a key and returns a value of templated type
 
-\param key
+\param [in] key
 The key from the file
-\param outInt
+\param [in, out] value
 The value that will be filled in if the key exists
 */
 /******************************************************************************/
@@ -75,11 +85,11 @@ void M5IniFile::GetValue(const std::string& key, T& value) const
 }
 /******************************************************************************/
 /*!
-Takes a key and returns a value of type int
+Takes a key and returns a value of type type string
 
-\param key
+\param [in] key
 The key from the file
-\param outInt
+\param [in, out] value
 The value that will be filled in if the key exists
 */
 /******************************************************************************/

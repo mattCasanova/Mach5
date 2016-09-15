@@ -27,21 +27,20 @@ public:
 	void Clear(void);
 
 private:
-
 	/*!A struct to hold loaded textures and ids so they be placed in a map together*/
 	struct M5LoadedTexture
 	{
 		M5LoadedTexture(const std::string& str, int newID);
-		std::string fileName;
-		int id;
-		int count;
+		std::string fileName; //!< The name of the loaded texture
+		int id;               //!< GFX API's return id for this texture
+		int count;            //!< The number of times this texture has been loaded.
 	};
 
-	//Typedef Container to hold loaded textures
+	//! Typedef Container to hold loaded textures
 	typedef std::unordered_map<std::string, M5LoadedTexture> M5TextureMap;
+	//! typedef for my texturemap interators
 	typedef M5TextureMap::iterator M5TextureMapItor;
-
-
+	//!
 	M5TextureMap m_textureMap;
 };
 

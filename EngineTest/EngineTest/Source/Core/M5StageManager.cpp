@@ -91,20 +91,42 @@ void M5StageManager::Shutdown(void)
 }
 /******************************************************************************/
 /*!
-Adds the name/builder pair to the stage factory.  Users should not need to call
-this function.  A batch file will automatically register all stages if they are
-named correctly: eg *Stage
+Adds the type/M5StageBuilder pair to the stage factory.  Users should not need 
+to call this function.  A batch file will automatically register all stages 
+if they are named correctly: eg *Stage
 
-\param [in] name
-An enumeration generated from the users Stage names.  
+\param [in] type
+The stage type to assocaite the M5StageBuilder with  
 
 \param [in] builder
-A pointer to a new builder type for this stage
+A pointer to a new M5StageBuilder type for this stage
 */
 /******************************************************************************/
-void M5StageManager::AddStage(M5StageTypes name, M5StageBuilder* builder)
+void M5StageManager::AddStage(M5StageTypes type, M5StageBuilder* builder)
 {
-  s_stageFactory.AddBuilder(name, builder);
+  s_stageFactory.AddBuilder(type, builder);
+}
+/******************************************************************************/
+/*!
+Removes a M5StageBuilder from the stage factory.
+
+\param [in] type
+The M5StageBuilder to remove based on the association when added.
+
+*/
+/******************************************************************************/
+void M5StageManager::RemoveStage(M5StageTypes type)
+{
+	s_stageFactory.RemoveBuilder(type);
+}
+/******************************************************************************/
+/*!
+Clears all M5StageBuilders from the StageFactory
+*/
+/******************************************************************************/
+void M5StageManager::ClearStages(void)
+{
+	s_stageFactory.ClearBuilders();
 }
 /******************************************************************************/
 /*!

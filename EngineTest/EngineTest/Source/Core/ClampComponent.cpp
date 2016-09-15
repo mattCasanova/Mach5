@@ -14,14 +14,23 @@ Component to clamp an object in the screen
 #include "M5Math.h"
 #include "M5Object.h"
 
-
+/******************************************************************************/
+/*!
+Constructor to set the Type of the component.
+*/
+/******************************************************************************/
 ClampComponent::ClampComponent(void) :
 	M5Component(CT_ClampComponent)
 {
 }
-ClampComponent::~ClampComponent(void)
-{
-}
+/******************************************************************************/
+/*!
+Returns a new Stage based on the type of the builder.
+
+\param [in] dt
+The time in seconds since the last frame
+*/
+/******************************************************************************/
 void ClampComponent::Update(float /*dt*/)
 {
 	M5Vec2 botLeft;
@@ -31,6 +40,15 @@ void ClampComponent::Update(float /*dt*/)
 	m_pObj->pos.x = M5Math::Clamp(m_pObj->pos.x, botLeft.x, topRight.x);
 	m_pObj->pos.y = M5Math::Clamp(m_pObj->pos.y, botLeft.y, topRight.y);
 }
+/******************************************************************************/
+/*!
+Virtual constructor the class.
+
+\return
+A new clamp component that is a copy of this one.
+
+*/
+/******************************************************************************/
 M5Component* ClampComponent::Clone(void)
 {
 	ClampComponent* pNew = new ClampComponent;
