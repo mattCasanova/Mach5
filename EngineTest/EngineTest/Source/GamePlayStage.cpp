@@ -17,8 +17,7 @@ good place to load game data and initialize object you need for your game.
 #include "Core\M5ObjectManager.h"
 #include "Core\M5Gfx.h"
 #include "Core\GfxComponent.h"
-#include "Core\WrapComponent.h"
-#include "Core\ClampComponent.h"
+#include "ShrinkComponent.h"
 
 #include <vector>
 
@@ -30,7 +29,23 @@ void GamePlayStage::Load(void)
 void GamePlayStage::Init(void)
 {
 	M5Object* pObj = M5ObjectManager::CreateObject(AT_Player);
-	M5Gfx::RegisterWorldComponent(pObj->GetComponent<GfxComponent>(CT_GfxComponent));
+	GfxComponent* pGfxComp = 0;
+	pObj->GetComponent(CT_GfxComponent, pGfxComp);
+	M5Gfx::RegisterWorldComponent(pGfxComp);
+
+	pObj = M5ObjectManager::CreateObject(AT_Raider);
+	pGfxComp = 0;
+	pObj->GetComponent(CT_GfxComponent, pGfxComp);
+	M5Gfx::RegisterWorldComponent(pGfxComp);
+
+	for (int i = 0; i < 4; ++i)
+	{
+		pObj = M5ObjectManager::CreateObject(AT_Ufo);
+		pGfxComp = 0;
+		pObj->GetComponent(CT_GfxComponent, pGfxComp);
+		M5Gfx::RegisterWorldComponent(pGfxComp);
+	}
+
 }
 void GamePlayStage::Update(float /*dt*/)
 {
@@ -41,18 +56,9 @@ void GamePlayStage::Update(float /*dt*/)
 		M5StageMgr::Quit();
 	else if(player.size() == 0)
 		M5StageMgr::Quit();
-	else if (M5Input::IsTriggered(M5_Z))//Dynamically Wrap Object
+	else if (M5Input::IsTriggered(M5_Z))//Dynamically Shrink
 	{
-		//TODO add getObjectsbytype to objectmanager
-		player[0]->RemoveAllComponents(CT_WrapComponent);
-		player[0]->AddComponent(new ClampComponent);
-
-	}
-	else if (M5Input::IsTriggered(M5_X))//Dynamically Clamp Object
-	{
-		//TODO add getObjects by type to objectmanager
-		player[0]->RemoveAllComponents(CT_ClampComponent);
-		player[0]->AddComponent(new WrapComponent);
+		player[0]->AddComponent(new ShrinkComponent);
 
 	}
 }

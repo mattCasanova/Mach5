@@ -20,6 +20,8 @@ and registers those with the ObjectManager.
 inline void RegisterArcheTypes(void) {  
 M5ObjectManager::AddArcheType(AT_Bullet, "ArcheTypes\\Bullet.ini"); 
 M5ObjectManager::AddArcheType(AT_Player, "ArcheTypes\\Player.ini"); 
+M5ObjectManager::AddArcheType(AT_Raider, "ArcheTypes\\Raider.ini"); 
 M5ObjectManager::AddArcheType(AT_Splash, "ArcheTypes\\Splash.ini"); 
+M5ObjectManager::AddArcheType(AT_Ufo, "ArcheTypes\\Ufo.ini"); 
 } 
 #endif //REGISTER_ARCHETYPES_H 

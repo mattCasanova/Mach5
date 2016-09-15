@@ -37,7 +37,9 @@ public:
 	M5Object*    Clone(void) const;
 
 	template<typename T>
-	T* GetComponent(M5ComponentTypes type);
+	void GetComponent(M5ComponentTypes type, T*& pComp);
+	template<typename T>
+	void GetAllComponent(M5ComponentTypes type, std::vector<T*>& comps);
 	
 
 	M5Vec2       pos;         //!< Position of the Game Object
@@ -58,30 +60,42 @@ private:
 };
 /******************************************************************************/
 /*!
-Template function to find and Cast the desired component to the correct type.
+Template function to find the first component of the correct type.
 
-\param type
+\param [in] type
 The type of component to Find
 
-\return 
+\param [out] 
 A pointer to the correct component type or 0 if it doesn't exist.
 
 */
 /******************************************************************************/
 template<typename T>
-T* M5Object::GetComponent(M5ComponentTypes type)
+void M5Object::GetComponent(M5ComponentTypes type, T*& pComp)
 {
 	size_t size = m_components.size();
 	for (size_t i = 0; i < size; ++i)
 	{
+		//if we found the correct type, set and return
 		if (m_components[i]->GetType() == type)
-			return static_cast<T*>(m_components[i]);
+		{
+			pComp = static_cast<T*>(m_components[i]);
+			return;
+		}
 	}
-
-	return 0;
-
+	pComp =  0;
 }
-
+template<typename T>
+void GetAllComponent(M5ComponentTypes type, std::vector<T*>& comps)
+{
+	size_t size = m_components.size();
+	for (size_t i = 0; i < size; ++i)
+	{
+		//if we found the correct type, add to vector
+		if (m_components[i]->GetType() == type)
+			comps.push_back(static_cast<T*>(m_components[i]));
+	}
+}
 
 
 #endif // M5GAME_OBJECT_H

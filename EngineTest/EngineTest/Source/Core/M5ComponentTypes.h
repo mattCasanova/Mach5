@@ -20,7 +20,10 @@ CT_ClampComponent,
 CT_GfxComponent, 
 CT_OutsideViewKillComponent, 
 CT_WrapComponent, 
+CT_ChasePlayerComponent, 
 CT_PlayerInputComponent, 
+CT_RandomGoComponent, 
+CT_ShrinkComponent, 
 CT_INVALID 
 }; 
  
@@ -30,7 +33,10 @@ if(string == "ClampComponent") return CT_ClampComponent;
 if(string == "GfxComponent") return CT_GfxComponent; 
 if(string == "OutsideViewKillComponent") return CT_OutsideViewKillComponent; 
 if(string == "WrapComponent") return CT_WrapComponent; 
+if(string == "ChasePlayerComponent") return CT_ChasePlayerComponent; 
 if(string == "PlayerInputComponent") return CT_PlayerInputComponent; 
+if(string == "RandomGoComponent") return CT_RandomGoComponent; 
+if(string == "ShrinkComponent") return CT_ShrinkComponent; 
 return CT_INVALID; 
 } 
 #endif //M5COMPONENT_TYPE_H 

@@ -22,13 +22,18 @@ class M5StageBuilder;
 
 
 //! Singleton to control quitting, restarting and switching stages.
+//TODO: Fix Name
 class M5StageMgr
 {
 public:
   friend class M5App;
 
-  //Adds a Registers a GameStage and a builder with the the StageMgr
-  static void AddStage(M5StageTypes name, M5StageBuilder* builder);
+  //Registers a GameStage and a builder with the the StageManger
+  static void AddStage(M5StageTypes type, M5StageBuilder* builder);
+  //Removes a Stage Builder from the Manager
+  static void RemoveStage(M5StageTypes type);
+  //Clears all stages from the StageManager
+  static void ClearStages(void);
   //Sets the given stage ID to the starting stage of the game
   static void SetStartStage(M5StageTypes startStage);
   //Test if the game is quitting

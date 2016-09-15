@@ -16,6 +16,7 @@ int M5Component::s_componentID = 0;
 
 
 M5Component::M5Component(M5ComponentTypes type):
+	isDead(false),
 	m_pObj(0), 
 	m_type(type),
 	m_id(++s_componentID)
@@ -32,10 +33,6 @@ void M5Component::FromFile(M5IniFile&)
 void M5Component::SetParent(M5Object* pParent)
 { 
 	m_pObj = pParent; 
-}
-M5Object* M5Component::GetParent(void) 
-{ 
-	return m_pObj; 
 }
 M5ComponentTypes M5Component::GetType(void) const 
 { 

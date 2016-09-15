@@ -20,10 +20,9 @@ class M5Stage;
 class M5StageBuilder
 {
 public:
-  ~M5StageBuilder() {} //empty virtual destructor
+  virtual ~M5StageBuilder() {} //empty virtual destructor
   //! Virtual Build call that must be overloaded by all Derived Builders
   virtual M5Stage* Build(void) = 0;
-private:
 };
 
 /*! Templated builder derived class so I don't need to create a Builder for each
@@ -33,7 +32,6 @@ class M5StageTBuilder : public M5StageBuilder
 {
 public:
 	virtual M5Stage* Build(void);
-private:
 };
 
 

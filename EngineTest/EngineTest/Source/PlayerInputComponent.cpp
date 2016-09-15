@@ -75,16 +75,19 @@ void PlayerInputComponent::Update(float dt)
 
 			dir.Set(std::cos(bullet1->rotation), std::sin(bullet1->rotation));
 			perp.Set(dir.y, -dir.x);
-			bullet1->pos = m_pObj->pos + perp * .2f * m_pObj->scale.x;
-			bullet2->pos = m_pObj->pos - perp * .2f * m_pObj->scale.x;
+			bullet1->pos = m_pObj->pos + perp * .5f * m_pObj->scale.y;
+			bullet2->pos = m_pObj->pos - perp * .5f * m_pObj->scale.y;
 
 
 			M5Vec2::Scale(dir, dir, m_bulletSpeed * dt);
 
 			bullet1->vel = m_pObj->vel + dir;
 			bullet2->vel = m_pObj->vel + dir;
-			M5Gfx::RegisterWorldComponent(bullet1->GetComponent<GfxComponent>(CT_GfxComponent));
-			M5Gfx::RegisterWorldComponent(bullet2->GetComponent<GfxComponent>(CT_GfxComponent));
+			GfxComponent* pGfxComp = 0;
+			bullet1->GetComponent(CT_GfxComponent, pGfxComp);
+			M5Gfx::RegisterWorldComponent(pGfxComp);
+			bullet2->GetComponent(CT_GfxComponent, pGfxComp);
+			M5Gfx::RegisterWorldComponent(pGfxComp);
 		}
 	}
 	

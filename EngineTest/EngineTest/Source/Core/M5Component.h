@@ -23,18 +23,16 @@ class M5Component
 public:
 	M5Component(M5ComponentTypes type);
 	virtual ~M5Component(void);
-	virtual void Update(float dt)    = 0;
 	virtual M5Component* Clone(void) = 0;
-	virtual void FromFile(M5IniFile&);
-
+	virtual void     Update(float dt)= 0;
+	virtual void     FromFile(M5IniFile&);
 	void             SetParent(M5Object* pParent);
-	M5Object*        GetParent(void);
 	M5ComponentTypes GetType(void) const;
 	int              GetID(void) const;
-
+	//Public data
+	bool             isDead;
 protected:
 	M5Object*        m_pObj; //!< Pointer to parent object
-	
 private:
 	int              m_id;   //!< Unique Id for all componnents
 	M5ComponentTypes m_type; //!< To of Component used for searching

@@ -79,10 +79,19 @@ Updates all components in the game object
 /******************************************************************************/
 void M5Object::Update(float dt)
 {
-	size_t size = m_components.size();
-	for (size_t i = 0; i < size; ++i)
+	for (size_t i = 0; i < m_components.size(); ++i)
 	{
-		m_components[i]->Update(dt);
+		if (m_components[i]->isDead)
+		{
+			delete m_components[i];
+			m_components[i] = m_components[m_components.size() - 1];
+			m_components.pop_back();
+			--i;//so that we can update the shifted object 
+		}
+		else
+		{
+			m_components[i]->Update(dt);
+		}
 	}
 
 	//Update object data

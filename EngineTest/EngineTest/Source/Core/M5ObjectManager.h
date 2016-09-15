@@ -30,6 +30,7 @@ public:
 
 
 	static M5Object* CreateObject(M5ArcheTypes type);
+	static void AddObject(M5Object* toAdd);
 	static void DestroyObject(M5Object* pToDestroy);
 	static void DestroyObject(int objectID);
 	static void DestroyAllObjects(void);

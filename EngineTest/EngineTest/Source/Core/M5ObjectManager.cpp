@@ -152,6 +152,21 @@ M5Object* M5ObjectManager::CreateObject(M5ArcheTypes type)
 }
 /******************************************************************************/
 /*!
+Adds the given M5Object to the ObjectManager to be updated.
+
+\param [in] pToAdd
+The M5Object To Add
+*/
+/******************************************************************************/
+void M5ObjectManager::AddObject(M5Object* pToAdd)
+{
+	VecItor found = std::find(s_objects.begin(), s_objects.end(), pToAdd);
+	M5DEBUG_ASSERT(found == s_objects.end(), "Trying to Add an Object that already exists");
+
+	s_objects.push_back(pToAdd);
+}
+/******************************************************************************/
+/*!
 Finds a specific instance of a game object and deletes it.
 
 \param [in,out] pToDestory

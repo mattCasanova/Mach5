@@ -21,6 +21,8 @@ good place to load game data and initialize object you need for your game.
 #include "Core\GfxComponent.h"
 #include "Core\M5ArcheTypes.h"
 #include "Core\M5Input.h"
+#include "Core\M5Random.h"
+#include <ctime>
 
 
 namespace
@@ -42,6 +44,7 @@ void SplashStage::Load(void)
 {
   /*Create a debug console*/
   M5DEBUG_CREATE_CONSOLE();
+  M5Random::Seed(static_cast<unsigned>(std::time(0)));
 }
 /******************************************************************************/
 /*!
@@ -72,7 +75,10 @@ void SplashStage::Init(void)
   pObj->scale.y = windowSize.y;
   pObj->pos.x = windowSize.x / 2;
   pObj->pos.y = windowSize.y / 2;
-  M5Gfx::RegisterHudComponent(pObj->GetComponent<GfxComponent>(CT_GfxComponent));
+  
+  GfxComponent* pGfxComp = 0;
+  pObj->GetComponent(CT_GfxComponent, pGfxComp);
+  M5Gfx::RegisterHudComponent(pGfxComp);
 
 }
 /******************************************************************************/
