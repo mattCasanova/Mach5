@@ -75,6 +75,9 @@ void M5Object::RemoveAllComponents(void)
 /*!
 Updates all components in the game object
 
+\param [in] dt
+The time in seconds since the last frame.
+
 */
 /******************************************************************************/
 void M5Object::Update(float dt)
@@ -103,6 +106,9 @@ void M5Object::Update(float dt)
 /*!
 Gets the unique id of this game object
 
+\return 
+The unique object ID of this object.
+
 */
 /******************************************************************************/
 int M5Object::GetID(void) const
@@ -112,6 +118,9 @@ int M5Object::GetID(void) const
 /******************************************************************************/
 /*!
 Creates a copy of this game object including all components
+
+\return 
+A new M5Object instance that is a copy of this one.
 
 */
 /******************************************************************************/
@@ -201,6 +210,9 @@ void M5Object::RemoveAllComponents(M5ComponentTypes type)
 /******************************************************************************/
 /*!
 Returns the type of Component.
+
+\return
+The M5ArcheType of this object
 */
 /******************************************************************************/
 M5ArcheTypes M5Object::GetType(void) const

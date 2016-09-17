@@ -286,7 +286,7 @@ float RectRect(const M5Vec2& rectCenter0, float width0, float height0,
 }
 }//end namespace M5Distance
 
-namespace M5Intersection
+namespace M5Intersect
 {
 /******************************************************************************/
 /*!
@@ -469,5 +469,5 @@ bool RectRect(const M5Vec2& rectCenter0,
   return PointRect(rectCenter0, rectCenter1, width0 + width1,
     height0 + height1);
 }
-}//end namespace M5Intersection
+}//end namespace M5Intersect
 

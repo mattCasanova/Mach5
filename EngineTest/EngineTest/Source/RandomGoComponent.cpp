@@ -76,7 +76,7 @@ void RLCGoState::Enter(float )
 }
 void RLCGoState::Update(float )
 {
-	if (M5Intersection::PointCircle(m_parent->m_target,
+	if (M5Intersect::PointCircle(m_parent->m_target,
 		m_parent->m_pObj->pos,
 		m_parent->m_pObj->scale.x))
 	{

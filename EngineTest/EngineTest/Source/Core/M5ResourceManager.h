@@ -40,7 +40,7 @@ private:
 	typedef std::unordered_map<std::string, M5LoadedTexture> M5TextureMap;
 	//! typedef for my texturemap interators
 	typedef M5TextureMap::iterator M5TextureMapItor;
-	//!
+	//! Map of ids to loadedtexture info
 	M5TextureMap m_textureMap;
 };
 

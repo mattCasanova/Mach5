@@ -77,6 +77,9 @@ void M5ObjectManager::Shutdown(void)
 /******************************************************************************/
 /*!
 Updates all game objects
+
+\param [in] dt
+The time in seconds since the last frame.
 */
 /******************************************************************************/
 void M5ObjectManager::Update(float dt)
@@ -138,6 +141,9 @@ Function to create a game object from a previsuoly loaded ArchType ini file.
 
 \param [in] type
 The M5ArcheType to create
+
+\return
+A new object of the given M5ArcheTypes type.
 */
 /******************************************************************************/
 M5Object* M5ObjectManager::CreateObject(M5ArcheTypes type)
@@ -169,12 +175,13 @@ void M5ObjectManager::AddObject(M5Object* pToAdd)
 /*!
 Finds a specific instance of a game object and deletes it.
 
-\param [in,out] pToDestory
-An instance of an M5Object to remove and delete.
-
 \attention
 This will delete the parameter object.  It can no longer be used after this
 function.
+
+\param [in,out] pToDestroy
+An instance of an M5Object to remove and delete.
+
 */
 /******************************************************************************/
 void M5ObjectManager::DestroyObject(M5Object* pToDestroy)
@@ -213,7 +220,8 @@ Finds all instances of the specifed object type and returns the collection
 \param [in] type
 The type to find
 
-\param [in,out] A vector that will be filled with objects of the correct type.
+\param [out] returnVec 
+A vector that will be filled with objects of the correct type.
 
 \attention
 The pointers in the container are only valid this frame.  They could be destroyed

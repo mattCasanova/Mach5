@@ -397,6 +397,11 @@ M5ResourceManager::~M5ResourceManager(void)
 {
 	Clear();
 }
+/******************************************************************************/
+/*!
+Helper function to clear all textures in the texture map
+*/
+/******************************************************************************/
 void M5ResourceManager::Clear(void)
 {
 	//Get itors to start and end

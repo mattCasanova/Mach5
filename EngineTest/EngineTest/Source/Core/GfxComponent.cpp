@@ -16,16 +16,30 @@ Base graphics component.  For now it just contains a texture.
 #include "M5IniFile.h"
 #include <string>
 
-
+/******************************************************************************/
+/*!
+Construtor for GFX component.  Sets default values 
+*/
+/******************************************************************************/
 GfxComponent::GfxComponent(void):
 	M5Component(CT_GfxComponent),
 	m_textureID(0)
 {
 }
+/******************************************************************************/
+/*!
+Destructor for component.  Unregisters from graphics enigne.
+*/
+/******************************************************************************/
 GfxComponent::~GfxComponent(void)
 {
 	M5Gfx::UnregisterComponent(this);
 }
+/******************************************************************************/
+/*!
+This component know how to draw itself.
+*/
+/******************************************************************************/
 void GfxComponent::Draw(void) const
 {
 	M5Mtx44 world;
@@ -36,9 +50,26 @@ void GfxComponent::Draw(void) const
 	M5Gfx::SetTexture(m_textureID);
 	M5Gfx::Draw(world);
 }
+/******************************************************************************/
+/*!
+There is nothing to update.  We could have the object draw itself here,
+but I have chosento let graphics take care of all drawing.
+
+\param [in] dt
+The time in seconds since the last frame.
+*/
+/******************************************************************************/
 void GfxComponent::Update(float /*dt*/)
 {
 }
+/******************************************************************************/
+/*!
+Shutdown function clears all game objects and destroys prototypes.
+
+\return
+A new GfxComponent that is a clone of this one
+*/
+/******************************************************************************/
 M5Component* GfxComponent::Clone(void)
 {
 	GfxComponent* pNew = new GfxComponent;
@@ -47,10 +78,26 @@ M5Component* GfxComponent::Clone(void)
 
 	return pNew;
 }
+/******************************************************************************/
+/*!
+Allows users to set the texture id.
+
+\param [in] id
+The new texture id for this component
+*/
+/******************************************************************************/
 void GfxComponent::SetTextureID(int id)
 {
 	m_textureID = id;
 }
+/******************************************************************************/
+/*!
+Reads in data from a preloaded ini file.
+
+\param [in] iniFile
+The preloaded inifile to read from.
+*/
+/******************************************************************************/
 void GfxComponent::FromFile(M5IniFile& iniFile)
 {
 	std::string path("Textures\\");

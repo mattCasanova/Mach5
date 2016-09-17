@@ -46,7 +46,7 @@ float RectRect(const M5Vec2& rectCenter0, float width0, float height0,
 
 
 //! Functions to test if two objects are simply intersecting
-namespace M5Intersection
+namespace M5Intersect
 {
 //! Test if a point intersects a circle
 bool PointCircle(const M5Vec2& point, const M5Vec2& circleCenter, 
@@ -66,7 +66,7 @@ bool CircleLine(const M5Vec2& circleCenter, float radius,
 //! Tests if two rectangles intersect
 bool RectRect(const M5Vec2& rectCenter0, float width0, float height0,
   const M5Vec2& rectCenter1, float width1, float height1);
-}//end namespace M5Intersection
+}//end namespace M5Intersect
 
 
 

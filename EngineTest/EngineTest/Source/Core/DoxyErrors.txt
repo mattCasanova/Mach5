@@ -1,28 +1,3 @@
-C:/Users/Matt/Dropbox/Matt/Personal/Mach5/EngineTest/EngineTest/Source/Core/M5Object.h:89: warning: Member GetAllComponent(M5ComponentTypes type, std::vector< T * > &comps) (function) of file M5Object.h is not documented.
-C:/Users/Matt/Dropbox/Matt/Personal/Mach5/EngineTest/EngineTest/Source/Core/GfxComponent.h:23: warning: Member Draw(void) const  (function) of class GfxComponent is not documented.
-C:/Users/Matt/Dropbox/Matt/Personal/Mach5/EngineTest/EngineTest/Source/Core/GfxComponent.h:27: warning: Member SetTextureID(int id) (function) of class GfxComponent is not documented.
-C:/Users/Matt/Dropbox/Matt/Personal/Mach5/EngineTest/EngineTest/Source/Core/M5Gfx.h:67: warning: Member RegisterWorldComponent(GfxComponent *pGfxComp) (function) of class M5Gfx is not documented.
-C:/Users/Matt/Dropbox/Matt/Personal/Mach5/EngineTest/EngineTest/Source/Core/M5Gfx.h:68: warning: Member RegisterHudComponent(GfxComponent *pGfxComp) (function) of class M5Gfx is not documented.
-C:/Users/Matt/Dropbox/Matt/Personal/Mach5/EngineTest/EngineTest/Source/Core/M5Gfx.h:69: warning: Member UnregisterComponent(GfxComponent *pGfxComp) (function) of class M5Gfx is not documented.
-C:/Users/Matt/Dropbox/Matt/Personal/Mach5/EngineTest/EngineTest/Source/Core/M5Gfx.h:79: warning: Member Update(void) (function) of class M5Gfx is not documented.
-C:/Users/Matt/Dropbox/Matt/Personal/Mach5/EngineTest/EngineTest/Source/Core/M5Object.h:42: warning: Member GetAllComponent(M5ComponentTypes type, std::vector< T * > &comps) (function) of class M5Object is not documented.
-C:/Users/Matt/Dropbox/Matt/Personal/Mach5/EngineTest/EngineTest/Source/Core/M5Object.h:37: warning: return type of member M5Object::Clone is not documented
-C:/Users/Matt/Dropbox/Matt/Personal/Mach5/EngineTest/EngineTest/Source/Core/M5Object.h:63: warning: argument 'A' of command @param is not found in the argument list of M5Object::GetComponent(M5ComponentTypes type, T *&pComp)
-C:/Users/Matt/Dropbox/Matt/Personal/Mach5/EngineTest/EngineTest/Source/Core/M5Object.h:40: warning: The following parameters of M5Object::GetComponent(M5ComponentTypes type, T *&pComp) are not documented:
-  parameter 'pComp'
-C:/Users/Matt/Dropbox/Matt/Personal/Mach5/EngineTest/EngineTest/Source/Core/M5Object.h:35: warning: return type of member M5Object::GetID is not documented
-C:/Users/Matt/Dropbox/Matt/Personal/Mach5/EngineTest/EngineTest/Source/Core/M5Object.h:36: warning: return type of member M5Object::GetType is not documented
-C:/Users/Matt/Dropbox/Matt/Personal/Mach5/EngineTest/EngineTest/Source/Core/M5Object.h:30: warning: parameters of member M5Object::Update are not (all) documented
-C:/Users/Matt/Dropbox/Matt/Personal/Mach5/EngineTest/EngineTest/Source/Core/M5ObjectManager.h:32: warning: return type of member M5ObjectManager::CreateObject is not documented
-C:/Users/Matt/Dropbox/Matt/Personal/Mach5/EngineTest/EngineTest/Source/Core/M5ObjectManager.cpp:170: warning: argument 'pToDestory' of command @param is not found in the argument list of M5ObjectManager::DestroyObject(M5Object *pToDestroy)
-C:/Users/Matt/Dropbox/Matt/Personal/Mach5/EngineTest/EngineTest/Source/Core/M5ObjectManager.h:34: warning: The following parameters of M5ObjectManager::DestroyObject(M5Object *pToDestroy) are not documented:
-  parameter 'pToDestroy'
-C:/Users/Matt/Dropbox/Matt/Personal/Mach5/EngineTest/EngineTest/Source/Core/M5ObjectManager.cpp:211: warning: argument 'A' of command @param is not found in the argument list of M5ObjectManager::GetAllObjects(M5ArcheTypes type, std::vector< M5Object * > &returnVec)
-C:/Users/Matt/Dropbox/Matt/Personal/Mach5/EngineTest/EngineTest/Source/Core/M5ObjectManager.h:38: warning: The following parameters of M5ObjectManager::GetAllObjects(M5ArcheTypes type, std::vector< M5Object * > &returnVec) are not documented:
-  parameter 'returnVec'
-C:/Users/Matt/Dropbox/Matt/Personal/Mach5/EngineTest/EngineTest/Source/Core/M5ObjectManager.h:46: warning: parameters of member M5ObjectManager::Update are not (all) documented
-C:/Users/Matt/Dropbox/Matt/Personal/Mach5/EngineTest/EngineTest/Source/Core/M5ResourceManager.h:27: warning: Member Clear(void) (function) of class M5ResourceManager is not documented.
-C:/Users/Matt/Dropbox/Matt/Personal/Mach5/EngineTest/EngineTest/Source/Core/M5ResourceManager.h:44: warning: Member m_textureMap (variable) of class M5ResourceManager is not documented.
 C:/Users/Matt/Dropbox/Matt/Personal/Mach5/EngineTest/EngineTest/Source/Core/M5StageManager.cpp:45: warning: argument 'framePerSecond' of command @param is not found in the argument list of M5StageManager::Init(const M5GameData *pGData, int gameDataSize, int framesPerSecond)
 C:/Users/Matt/Dropbox/Matt/Personal/Mach5/EngineTest/EngineTest/Source/Core/M5StageManager.h:58: warning: The following parameters of M5StageManager::Init(const M5GameData *pGData, int gameDataSize, int framesPerSecond) are not documented:
   parameter 'framesPerSecond'

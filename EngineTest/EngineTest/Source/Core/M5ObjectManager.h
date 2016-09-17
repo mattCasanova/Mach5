@@ -28,7 +28,6 @@ public:
 	friend class M5App;
 	friend class M5StageManager;
 
-
 	static M5Object* CreateObject(M5ArcheTypes type);
 	static void AddObject(M5Object* toAdd);
 	static void DestroyObject(M5Object* pToDestroy);

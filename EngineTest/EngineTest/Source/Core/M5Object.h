@@ -39,7 +39,7 @@ public:
 	template<typename T>
 	void GetComponent(M5ComponentTypes type, T*& pComp);
 	template<typename T>
-	void GetAllComponent(M5ComponentTypes type, std::vector<T*>& comps);
+	void GetAllComponents(M5ComponentTypes type, std::vector<T*>& comps);
 	
 
 	M5Vec2       pos;         //!< Position of the Game Object
@@ -65,7 +65,7 @@ Template function to find the first component of the correct type.
 \param [in] type
 The type of component to Find
 
-\param [out] 
+\param [out] pComp
 A pointer to the correct component type or 0 if it doesn't exist.
 
 */
@@ -85,8 +85,20 @@ void M5Object::GetComponent(M5ComponentTypes type, T*& pComp)
 	}
 	pComp =  0;
 }
+/******************************************************************************/
+/*!
+Template function to find all components of the correct type.
+
+\param [in] type
+The type of component to Find
+
+\param [out] comps
+An STL vector of pointers to the correct component type
+
+*/
+/******************************************************************************/
 template<typename T>
-void GetAllComponent(M5ComponentTypes type, std::vector<T*>& comps)
+void M5Object::GetAllComponents(M5ComponentTypes type, std::vector<T*>& comps)
 {
 	size_t size = m_components.size();
 	for (size_t i = 0; i < size; ++i)

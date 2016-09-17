@@ -900,14 +900,38 @@ void M5Gfx::UnloadTexture(int textureID)
 {
 	s_resourceManager.UnloadTexture(textureID);
 }
+/******************************************************************************/
+/*!
+Adds the given GfxComponent to the list of world object.
+
+\param pGfxComp
+The Component to register.
+*/
+/******************************************************************************/
 void M5Gfx::RegisterWorldComponent(GfxComponent* pGfxComp)
 {
 	s_worldComponents.push_back(pGfxComp);
 }
+/******************************************************************************/
+/*!
+Adds the given GfxComponent to the list of HUD objects.
+
+\param pGfxComp
+The Component to register.
+*/
+/******************************************************************************/
 void M5Gfx::RegisterHudComponent(GfxComponent* pGfxComp)
 {
 	s_hudComponents.push_back(pGfxComp);
 }
+/******************************************************************************/
+/*!
+Seaches the HUD and World Lists and removes the given component from both.
+
+\param pGfxComp
+The Component to unregister.
+*/
+/******************************************************************************/
 void M5Gfx::UnregisterComponent(GfxComponent* pGfxComp)
 {;
 	for (size_t i = 0; i < s_worldComponents.size(); ++i)
@@ -928,6 +952,12 @@ void M5Gfx::UnregisterComponent(GfxComponent* pGfxComp)
 		}
 	}
 }
+/******************************************************************************/
+/*!
+Draws all registered components 
+
+*/
+/******************************************************************************/
 void M5Gfx::Update(void)
 {
 	size_t size = s_worldComponents.size();
