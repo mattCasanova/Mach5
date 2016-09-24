@@ -75,11 +75,6 @@ void SplashStage::Init(void)
   pObj->scale.y = windowSize.y;
   pObj->pos.x = windowSize.x / 2;
   pObj->pos.y = windowSize.y / 2;
-  
-  GfxComponent* pGfxComp = 0;
-  pObj->GetComponent(CT_GfxComponent, pGfxComp);
-  M5Gfx::RegisterHudComponent(pGfxComp);
-
 }
 /******************************************************************************/
 /*!

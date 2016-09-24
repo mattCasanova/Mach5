@@ -25,9 +25,9 @@ class M5StageFactory
 {
 public:
 	~M5StageFactory(void);
-	void AddBuilder(M5StageTypes name, M5StageBuilder* builder);
-	void RemoveBuilder(M5StageTypes name);
-	M5Stage* Build(M5StageTypes name);
+	void AddBuilder(M5StageTypes type, M5StageBuilder* builder);
+	void RemoveBuilder(M5StageTypes type);
+	M5Stage* Build(M5StageTypes type);
 	void ClearBuilders(void);
 
 private:
@@ -35,8 +35,8 @@ private:
 	typedef std::unordered_map<M5StageTypes, M5StageBuilder*> BuilderMap;
 	//! Easy Typedef for the itorator to my BuilderMap.
 	typedef BuilderMap::iterator MapItor;
-
-	BuilderMap m_builderMap; //!< Container to map M5GameStages to M5Builders 
+	//! Container to map M5StageTypes to M5StageBuilder 
+	BuilderMap m_builderMap; 
 };
 
 

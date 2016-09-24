@@ -14,6 +14,12 @@ Base graphics component.  For now it just contains a texture.
 
 #include "M5Component.h"
 
+enum class DrawSpace
+{
+	DS_WORLD,
+	DS_HUD
+};
+
 //!< Base graphics component.  For now it just contains a texture.
 class GfxComponent : public M5Component
 {
@@ -25,8 +31,10 @@ public:
 	virtual M5Component* Clone(void);
 	virtual void FromFile(M5IniFile& iniFile);
 	void SetTextureID(int id);
+	void SetDrawSpace(DrawSpace drawSpace);
 private:
-	int m_textureID;  //!< Texture id loaded from graphics.
+	int       m_textureID;  //!< Texture id loaded from graphics.
+	DrawSpace m_drawSpace;  //!The space to draw in
 
 };
 

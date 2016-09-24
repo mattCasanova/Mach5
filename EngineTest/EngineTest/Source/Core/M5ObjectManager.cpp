@@ -14,11 +14,13 @@ game objects.
 #include "M5ObjectManager.h"
 #include "M5Object.h"
 #include "M5Debug.h"
-#include "M5Component.h"
-#include "M5ComponentBuilder.h"
 #include "M5IniFile.h"
 #include "../RegisterComponents.h"
 #include "../RegisterArcheTypes.h"
+
+#include "M5Component.h"
+#include "M5ComponentBuilder.h"
+#include "M5Factory.h"
 
 #include <vector>
 #include <unordered_map>
@@ -34,9 +36,10 @@ typedef PrototypeMap::iterator                      MapItor;     //!< typedef It
 
 const int START_SIZE = 100;                                      //!< Starting alloc count of object pointers
 
+static M5Factory<M5ComponentTypes, M5ComponentBuilder, M5Component>
+                          s_componentFactory;                    //!< Factory of all registered components
 static PrototypeMap       s_prototypes;                          //!< Map of active prototypes in game
-static ObjectVec          s_objects;                             //!< Vector of active objects in game
-static M5ComponentFactory s_componentFactory;                    //!< Factory of all registered components
+static ObjectVec          s_objects;                             //!< Vector of active objects in game                 
 }//end unnamed namespace
 
  /******************************************************************************/

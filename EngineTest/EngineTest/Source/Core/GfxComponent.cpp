@@ -15,6 +15,7 @@ Base graphics component.  For now it just contains a texture.
 #include "M5Object.h"
 #include "M5IniFile.h"
 #include <string>
+#include <algorithm>
 
 /******************************************************************************/
 /*!
@@ -75,6 +76,12 @@ M5Component* GfxComponent::Clone(void)
 	GfxComponent* pNew = new GfxComponent;
 	pNew->m_pObj = m_pObj;
 	pNew->m_textureID = m_textureID;
+	pNew->m_drawSpace = m_drawSpace;
+
+	if (m_drawSpace == DrawSpace::DS_WORLD)
+		M5Gfx::RegisterWorldComponent(pNew);
+	else
+		M5Gfx::RegisterHudComponent(pNew);
 
 	return pNew;
 }
@@ -92,6 +99,23 @@ void GfxComponent::SetTextureID(int id)
 }
 /******************************************************************************/
 /*!
+Allows users to set the Drawspace.  This will unregiseter from the opposite 
+space if needed.
+
+\param [in] drawSpace
+The new drawSpace to draw in
+*/
+/******************************************************************************/
+void GfxComponent::SetDrawSpace(DrawSpace drawSpace)
+{
+	M5Gfx::UnregisterComponent(this);
+	if (drawSpace == DrawSpace::DS_WORLD)
+		M5Gfx::RegisterWorldComponent(this);
+	else
+		M5Gfx::RegisterHudComponent(this);
+}
+/******************************************************************************/
+/*!
 Reads in data from a preloaded ini file.
 
 \param [in] iniFile
@@ -100,10 +124,22 @@ The preloaded inifile to read from.
 /******************************************************************************/
 void GfxComponent::FromFile(M5IniFile& iniFile)
 {
+	//Get texture
 	std::string path("Textures\\");
 	std::string fileName;
 	iniFile.SetToSection("GfxComponent");
 	iniFile.GetValue("texture", fileName);
 	path += fileName;
 	m_textureID = M5Gfx::LoadTexture(path.c_str());
+
+	//Get drawspace
+	std::string drawSpace;
+	iniFile.GetValue("drawSpace", drawSpace);
+
+	//Note, should be lowercase
+	if (drawSpace == "world")
+		m_drawSpace = DrawSpace::DS_WORLD;
+	else
+		m_drawSpace = DrawSpace::DS_HUD;
+
 }

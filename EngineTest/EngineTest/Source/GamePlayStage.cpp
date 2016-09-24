@@ -15,8 +15,6 @@ good place to load game data and initialize object you need for your game.
 #include "Core\M5StageManager.h"
 #include "Core\M5Object.h"
 #include "Core\M5ObjectManager.h"
-#include "Core\M5Gfx.h"
-#include "Core\GfxComponent.h"
 #include "ShrinkComponent.h"
 
 #include <vector>
@@ -28,22 +26,13 @@ void GamePlayStage::Load(void)
 }
 void GamePlayStage::Init(void)
 {
-	M5Object* pObj = M5ObjectManager::CreateObject(AT_Player);
-	GfxComponent* pGfxComp = 0;
-	pObj->GetComponent(CT_GfxComponent, pGfxComp);
-	M5Gfx::RegisterWorldComponent(pGfxComp);
+	 M5ObjectManager::CreateObject(AT_Player);
+	 M5ObjectManager::CreateObject(AT_Raider);
 
-	pObj = M5ObjectManager::CreateObject(AT_Raider);
-	pGfxComp = 0;
-	pObj->GetComponent(CT_GfxComponent, pGfxComp);
-	M5Gfx::RegisterWorldComponent(pGfxComp);
 
 	for (int i = 0; i < 4; ++i)
 	{
-		pObj = M5ObjectManager::CreateObject(AT_Ufo);
-		pGfxComp = 0;
-		pObj->GetComponent(CT_GfxComponent, pGfxComp);
-		M5Gfx::RegisterWorldComponent(pGfxComp);
+		M5ObjectManager::CreateObject(AT_Ufo);
 	}
 
 }

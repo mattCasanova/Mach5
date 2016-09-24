@@ -15,13 +15,13 @@ between levels and menus.
 #include "M5Gfx.h"
 #include "M5Input.h"
 #include "M5Timer.h"
-#include "M5Stage.h"
 #include "M5Debug.h"
 #include "M5ObjectManager.h"
 #include "..\RegisterStages.h"
 
-#include "M5StageFactory.h"
+#include "M5Stage.h"
 #include "M5StageBuilder.h"
+#include "M5Factory.h"
 
 #include <vector>
 
@@ -29,7 +29,8 @@ between levels and menus.
 namespace
 {
 //"Private" class data
-static M5StageFactory        s_stageFactory; /*!< Factory for creating Stages based off of the */
+static M5Factory<M5StageTypes, M5StageBuilder, M5Stage> 
+                             s_stageFactory; /*!< Factory for creating Stages based off of the */
 static M5Timer               s_timer;        /*!< Timer used to keep track of frame time.*/
 static M5GameData*           s_pGameData;    /*!< Pointer to user defined shared data from main*/
 static M5StageTypes          s_currStage;    /*!< This is the current stage we are in*/

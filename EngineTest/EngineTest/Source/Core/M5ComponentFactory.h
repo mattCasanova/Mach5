@@ -20,7 +20,7 @@ Class for instantiating components based on a regiestered name/type.
 class M5Component;
 class M5ComponentBuilder;
 
-/*! Class for Easily Creating Component at runtime.*/
+/*! Class for Easily Creating Components at runtime.*/
 class M5ComponentFactory
 {
 public:
@@ -29,14 +29,13 @@ public:
 	void RemoveBuilder(M5ComponentTypes name);
 	M5Component* Build(M5ComponentTypes name);
 	void ClearBuilders(void);
-
 private:
 	//! Typedef for my Hash Table of M5ComponentTypes and M5ComponentBuilders
 	typedef std::unordered_map<M5ComponentTypes, M5ComponentBuilder*> BuilderMap;
 	//! Easy Typedef for the itorator to my BuilderMap.
 	typedef BuilderMap::iterator MapItor;
-
-	BuilderMap m_builderMap; //!< Container to map M5ComponentTypes to M5Builders 
+	//! Container to map M5ComponentTypes to M5Builders 
+	BuilderMap m_builderMap; 
 };
 
 

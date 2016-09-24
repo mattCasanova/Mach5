@@ -66,7 +66,7 @@ void PlayerInputComponent::Update(float dt)
 		m_pObj->vel += dir;
 		M5Vec2::Scale(m_pObj->vel, m_pObj->vel, DAMP_EFFECT);
 
-		if (M5Input::IsTriggered(M5_GAMEPAD_A))
+		if (M5Input::IsTriggered(M5_GAMEPAD_A) || M5Input::IsTriggered(M5_SPACE))
 		{
 			M5Vec2 perp;
 			M5Object* bullet1 = M5ObjectManager::CreateObject(AT_Bullet);
@@ -78,20 +78,15 @@ void PlayerInputComponent::Update(float dt)
 			bullet1->pos = m_pObj->pos + perp * .5f * m_pObj->scale.y;
 			bullet2->pos = m_pObj->pos - perp * .5f * m_pObj->scale.y;
 
-
 			M5Vec2::Scale(dir, dir, m_bulletSpeed * dt);
 
 			bullet1->vel = m_pObj->vel + dir;
 			bullet2->vel = m_pObj->vel + dir;
-			GfxComponent* pGfxComp = 0;
-			bullet1->GetComponent(CT_GfxComponent, pGfxComp);
-			M5Gfx::RegisterWorldComponent(pGfxComp);
-			bullet2->GetComponent(CT_GfxComponent, pGfxComp);
-			M5Gfx::RegisterWorldComponent(pGfxComp);
+
 		}
 	}
 	
-	//Back up controls to rotate if there is no game pad.
+	//Back up controls to rotate and shoot if there is no game pad.
 
 	if (M5Input::IsPressed(M5_W))
 	{
@@ -99,7 +94,6 @@ void PlayerInputComponent::Update(float dt)
 		M5Vec2::Scale(dir, dir, m_forwardSpeed * dt);
 		m_pObj->vel += dir;
 		M5Vec2::Scale(m_pObj->vel, m_pObj->vel, DAMP_EFFECT);
-
 	}
 
 	if (M5Input::IsPressed(M5_A))
