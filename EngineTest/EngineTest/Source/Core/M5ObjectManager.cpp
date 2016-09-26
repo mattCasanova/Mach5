@@ -240,6 +240,20 @@ void M5ObjectManager::GetFirstObjectByType(M5ArcheTypes type, M5Object*& pObj)
 		}	
 	}
 }
+/******************************************************************************/
+/*!
+Finds the first object of the specifed by the objectID and returns it via 
+the parameter
+
+\param [in] objectID
+The id to find
+
+\param [out] pObj
+A pointer to an M5Object to be filled in.
+
+\attention If the type isn't found, the parameter is not set at all.
+*/
+/******************************************************************************/
 void M5ObjectManager::GetObjectByID(int objectID, M5Object*& pObj)
 {
 	for (size_t i = 0; i < s_objects.size(); ++i)

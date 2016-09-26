@@ -133,4 +133,5 @@ load stage.  Here I need to destroy my console and unload my texture.
 /******************************************************************************/
 void SplashStage::Unload(void)
 {
+	M5ObjectManager::RemoveArcheType(AT_Splash);
 }
