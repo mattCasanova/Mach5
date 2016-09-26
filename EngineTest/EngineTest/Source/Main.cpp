@@ -60,7 +60,7 @@ int WINAPI WinMain(HINSTANCE instance,
                    LPSTR /*commandLine*/, 
                    int /*show*/)
 {
-  /*This should appear at the top of winmain to have windws find memory leaks*/
+  /*This should appear at the top of winmain to have windows find memory leaks*/
   M5DEBUG_LEAK_CHECKS(-1);
 
   M5InitData initData;          /*Declare my InitStruct*/

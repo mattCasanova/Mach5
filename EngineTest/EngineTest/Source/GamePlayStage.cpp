@@ -11,43 +11,101 @@ good place to load game data and initialize object you need for your game.
 */
 /******************************************************************************/
 #include "GamePlayStage.h"
+#include "Core\M5GameData.h"
 #include "Core\M5Input.h"
 #include "Core\M5StageManager.h"
 #include "Core\M5Object.h"
 #include "Core\M5ObjectManager.h"
+#include "Core\M5IniFile.h"
+#include "Core\M5Phy.h"
 #include "ShrinkComponent.h"
+#include "SpaceShooterHelp.h"
 
-#include <vector>
+#include "Core\M5Random.h"
 
-std::vector<M5Object*> player;
+#include <sstream>
+#include <iomanip>
+
+float maxTime = 1;
+float timer = 0;
 
 void GamePlayStage::Load(void)
 {
 }
 void GamePlayStage::Init(void)
 {
-	 M5ObjectManager::CreateObject(AT_Player);
-	 M5ObjectManager::CreateObject(AT_Raider);
+	//Construct file to read
+	std::stringstream file;
+	file << "Stages\\Level";
+	file << std::setw(2) << std::setfill('0') << 
+		M5StageManager::GetGameData().level << ".ini";
 
+	//Open IniFIle
+	M5IniFile iniFile;
+	iniFile.ReadFile(file.str());
+	LoadObjects(iniFile);
+	
 
-	for (int i = 0; i < 4; ++i)
-	{
-		M5ObjectManager::CreateObject(AT_Ufo);
-	}
+	timer = 0;
 
 }
-void GamePlayStage::Update(float /*dt*/)
+void GamePlayStage::Update(float dt)
 {
-	player.clear();
-	M5ObjectManager::GetAllObjects(AT_Player, player);
+	M5Object* pPlayer;
+	M5ObjectManager::GetFirstObjectByType(AT_Player, pPlayer);
 
 	if (M5Input::IsPressed(M5_ESCAPE))
 		M5StageManager::Quit();
-	else if(player.size() == 0)
+	else if(pPlayer == nullptr)
 		M5StageManager::Quit();
 	else if (M5Input::IsTriggered(M5_Z))//Dynamically Shrink
 	{
-		player[0]->AddComponent(new ShrinkComponent);
+		pPlayer->AddComponent(new ShrinkComponent);
+	}
+	else if (M5Input::IsTriggered(M5_N))
+	{
+		M5StageManager::GetGameData().level++;
+		M5StageManager::SetNextStage(ST_GamePlayStage);
+	}
+
+	timer += dt;
+	if (timer > maxTime)
+	{
+		timer = 0;
+		M5Object* pRaider = M5ObjectManager::CreateObject(AT_Raider);
+		M5Object* pUfo = M5ObjectManager::CreateObject(AT_Ufo);
+		pUfo->pos.x = M5Random::GetFloat(-100, 100);
+		pUfo->pos.y = M5Random::GetFloat(-60, 60);
+		pRaider->pos.x = M5Random::GetFloat(-100, 100);
+		pRaider->pos.y = M5Random::GetFloat(-60, 60);
+	}
+
+
+	CollisionPairs pairs;
+	M5Phy::GetCollisionPairs(pairs);
+	size_t size = pairs.size();
+	for (size_t i = 0; i < size; ++i)
+	{
+		M5Object* pFirst = nullptr;
+		M5Object* pSecond = nullptr;
+		M5ObjectManager::GetObjectByID(pairs[i].first, pFirst);
+		M5ObjectManager::GetObjectByID(pairs[i].second, pSecond);
+
+		if (pFirst == nullptr || pSecond == nullptr)
+			continue;
+
+		if (pFirst->GetType() == pSecond->GetType())
+		{
+			M5Vec2 dir;
+			M5Vec2::Sub(dir, pSecond->pos, pFirst->pos);
+			pFirst->pos  -= dir * dt;
+			pSecond->pos  += dir *  dt;
+		}
+		else
+		{
+			M5ObjectManager::DestroyObject(pairs[i].first);
+			M5ObjectManager::DestroyObject(pairs[i].second);
+		}
 
 	}
 }

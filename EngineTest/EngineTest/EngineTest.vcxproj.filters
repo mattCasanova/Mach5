@@ -82,9 +82,6 @@
     <Filter Include="SpaceShooter\Stages\GamePlay">
       <UniqueIdentifier>{dcd80015-b33f-4682-9ef9-fcfa58edc26e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="SpaceShooter\Stages\SplashScreen">
-      <UniqueIdentifier>{6dba2c6c-df63-4900-8fc3-d940f586e051}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Core\Components\ClampComp">
       <UniqueIdentifier>{cbe6119b-e3d4-4644-9752-d687a17884d6}</UniqueIdentifier>
     </Filter>
@@ -126,6 +123,18 @@
     </Filter>
     <Filter Include="Core\Utils\Timer">
       <UniqueIdentifier>{1c1c205b-e9db-4fd2-9bb6-498786cf9083}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SpaceShooter\Helper">
+      <UniqueIdentifier>{2fb4f1ad-787d-4456-9fbb-a99859fd0158}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SpaceShooter\Stages\SplashStage">
+      <UniqueIdentifier>{6dba2c6c-df63-4900-8fc3-d940f586e051}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Singletons\Phy">
+      <UniqueIdentifier>{b2011d1f-da0f-498c-a4f1-432d9a470a2a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Components\ColliderComponent">
+      <UniqueIdentifier>{64401561-02e5-4354-9f27-47946efa1de7}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -181,7 +190,7 @@
       <Filter>Core\Stages\StageFactory</Filter>
     </ClCompile>
     <ClCompile Include="Source\SplashStage.cpp">
-      <Filter>SpaceShooter\Stages\SplashScreen</Filter>
+      <Filter>SpaceShooter\Stages\SplashStage</Filter>
     </ClCompile>
     <ClCompile Include="Source\GamePlayStage.cpp">
       <Filter>SpaceShooter\Stages\GamePlay</Filter>
@@ -218,6 +227,15 @@
     </ClCompile>
     <ClCompile Include="Source\Core\M5Timer.cpp">
       <Filter>Core\Utils\Timer</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\SpaceShooterHelp.cpp">
+      <Filter>SpaceShooter\Helper</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Core\M5Phy.cpp">
+      <Filter>Core\Singletons\Phy</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Core\ColliderComponent.cpp">
+      <Filter>Core\Components\ColliderComponent</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -282,7 +300,7 @@
       <Filter>Core\Stages\StageFactory</Filter>
     </ClInclude>
     <ClInclude Include="Source\SplashStage.h">
-      <Filter>SpaceShooter\Stages\SplashScreen</Filter>
+      <Filter>SpaceShooter\Stages\SplashStage</Filter>
     </ClInclude>
     <ClInclude Include="Source\PlayerInputComponent.h">
       <Filter>SpaceShooter\Components\PlayerInputComp</Filter>
@@ -340,6 +358,15 @@
     </ClInclude>
     <ClInclude Include="Source\Core\M5Timer.h">
       <Filter>Core\Utils\Timer</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\SpaceShooterHelp.h">
+      <Filter>SpaceShooter\Helper</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Core\M5Phy.h">
+      <Filter>Core\Singletons\Phy</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Core\ColliderComponent.h">
+      <Filter>Core\Components\ColliderComponent</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

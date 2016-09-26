@@ -65,7 +65,7 @@ void GfxComponent::Update(float /*dt*/)
 }
 /******************************************************************************/
 /*!
-Shutdown function clears all game objects and destroys prototypes.
+Clones the current GfxComponent and registers it with the GfxEngine.
 
 \return
 A new GfxComponent that is a clone of this one
@@ -73,6 +73,7 @@ A new GfxComponent that is a clone of this one
 /******************************************************************************/
 M5Component* GfxComponent::Clone(void)
 {
+	//Alocates new object and compies data
 	GfxComponent* pNew = new GfxComponent;
 	pNew->m_pObj = m_pObj;
 	pNew->m_textureID = m_textureID;

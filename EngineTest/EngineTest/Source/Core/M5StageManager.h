@@ -53,7 +53,6 @@ public:
   static void Quit(void);
   //Tells the stage to restart
   static void Restart(void);
-
 private:
   static void Init(const M5GameData* gameData, int gameDataSize, int framesPerSecond);
   static void Update(void);

@@ -29,7 +29,6 @@ public:
 	friend class M5App;
 	friend class M5StageManager;
 
-	
 	/*Use this to load a texture from file*/
 	static int LoadTexture(const char* fileName);
 	/*You must unload every texture that you load*/

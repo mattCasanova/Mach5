@@ -18,19 +18,12 @@ good place to load game data and initialize object you need for your game.
 #include "Core\M5StageManager.h"
 #include "Core\M5Object.h"
 #include "Core\M5ObjectManager.h"
-#include "Core\GfxComponent.h"
-#include "Core\M5ArcheTypes.h"
-#include "Core\M5Input.h"
 #include "Core\M5Random.h"
+#include "Core\M5IniFile.h"
+#include "Core\M5GameData.h"
+#include "SpaceShooterHelp.h"
 #include <ctime>
 
-
-namespace
-{
-  /*The max time to be in this stage*/
-const float MAX_SPLASH_TIME = 6.0f;
-
-}
 
 /******************************************************************************/
 /*!
@@ -64,17 +57,45 @@ void SplashStage::Init(void)
   M5DEBUG_PRINT("also inspect the code and comments.\n\n");
   M5DEBUG_PRINT("If you find errors, report to lazersquad@gmail.com");
 
-  M5Gfx::SetBackgroundColor(0.0f, 0.f, 0.f);
+  //Create ini reader and starting vars
+  M5IniFile iniFile;
+  float red;
+  float green;
+  float blue;
+
+  //Load file
+  iniFile.ReadFile("Stages\\SplashStage.ini");
+
+  //Read global ini file values
+  iniFile.GetValue("maxSplashTime", m_maxSplashTime);
+  iniFile.GetValue("red", red);
+  iniFile.GetValue("green", green);
+  iniFile.GetValue("blue", blue);
+
+  M5Gfx::SetBackgroundColor(red, green, blue);
+
+  LoadObjects(iniFile);
+ 
+  //Find splash object and center on screen
+  M5Object* pObj = nullptr;
+  M5ObjectManager::GetFirstObjectByType(AT_Splash, pObj);
+
+  if (pObj != nullptr)
+  {
+	  M5Vec2 windowSize = M5App::GetResolution();
+	  //make object square based on smaller side (height)
+	  pObj->scale.x = windowSize.y;
+	  pObj->scale.y = windowSize.y;
+	  //center the splash object
+	  pObj->pos.x = windowSize.x / 2;
+	  pObj->pos.y = windowSize.y / 2;
+  }
 
   /*Reset the timer for this stage*/
-  m_changeTimer = 0.f;
+  m_splashTime = 0.f;
 
-  M5Vec2 windowSize = M5App::GetResolution(); 
-  M5Object* pObj = M5ObjectManager::CreateObject(AT_Splash);
-  pObj->scale.x = windowSize.y;
-  pObj->scale.y = windowSize.y;
-  pObj->pos.x = windowSize.x / 2;
-  pObj->pos.y = windowSize.y / 2;
+  //hard code start level at 1
+  M5StageManager::GetGameData().level = 1;
 }
 /******************************************************************************/
 /*!
@@ -85,10 +106,10 @@ action, behavoir, drawing and stage changes should happen.
 void SplashStage::Update(float dt)
 {
   /*increment timer*/
-  m_changeTimer += dt;
+  m_splashTime += dt;
 
   /*Check for time, only be in this stage for the set time*/
-  if (m_changeTimer > MAX_SPLASH_TIME)
+  if (m_splashTime > m_maxSplashTime)
 	  M5StageManager::SetNextStage(ST_GamePlayStage);
 }
 /******************************************************************************/

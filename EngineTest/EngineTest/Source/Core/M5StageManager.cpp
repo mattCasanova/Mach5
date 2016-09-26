@@ -13,6 +13,7 @@ between levels and menus.
 #include "M5StageManager.h"
 #include "M5App.h"
 #include "M5Gfx.h"
+#include "M5Phy.h"
 #include "M5Input.h"
 #include "M5Timer.h"
 #include "M5Debug.h"
@@ -29,13 +30,14 @@ between levels and menus.
 namespace
 {
 //"Private" class data
-static M5Factory<M5StageTypes, M5StageBuilder, M5Stage> 
-                             s_stageFactory; /*!< Factory for creating Stages based off of the */
+static M5Factory<M5StageTypes, M5StageBuilder, M5Stage>
+s_stageFactory; /*!< Factory for creating Stages based off of the */
 static M5Timer               s_timer;        /*!< Timer used to keep track of frame time.*/
 static M5GameData*           s_pGameData;    /*!< Pointer to user defined shared data from main*/
 static M5StageTypes          s_currStage;    /*!< This is the current stage we are in*/
 static M5StageTypes          s_prevStage;    /*!< This is the last stage we were in*/
 static M5StageTypes          s_nextStage;    /*!< This is the stage we are going into*/
+static bool                  s_isChanging;   /*!< TRUE is we are changing states, false otherwise*/
 static bool                  s_isQuitting;   /*!< TRUE if we are quitting, FALSE otherwise*/
 static bool                  s_isRestarting; /*!< TRUE if we are restarting, FALSE otherwise*/
 
@@ -58,23 +60,23 @@ The desired number of times per second that the game should update.
 /******************************************************************************/
 void M5StageManager::Init(const M5GameData* pGData, int gameDataSize, int framesPerSecond)
 {
-  M5DEBUG_CALL_CHECK(1);
+	M5DEBUG_CALL_CHECK(1);
 
-  /*Initialize stage data*/
-  s_prevStage    = ST_INVALID;
-  s_currStage    = ST_INVALID;
-  s_nextStage    = ST_INVALID;
-  s_isQuitting   = false;
-  s_isRestarting = false;
-  s_timer.Init(framesPerSecond);
+	/*Initialize stage data*/
+	s_prevStage = ST_INVALID;
+	s_currStage = ST_INVALID;
+	s_nextStage = ST_INVALID;
+	s_isQuitting = false;
+	s_isRestarting = false;
+	s_timer.Init(framesPerSecond);
 
-  M5DEBUG_ASSERT(gameDataSize >= 1, "M5GameData must have at least size of 1");
+	M5DEBUG_ASSERT(gameDataSize >= 1, "M5GameData must have at least size of 1");
 
-  /*Allocate space for game data, I don't know the details so just copy bytes*/
-  s_pGameData = reinterpret_cast<M5GameData*>(new char[gameDataSize]);
-  /*Copy all data*/
-  std::memcpy(s_pGameData, pGData, (size_t)gameDataSize);
-  RegisterStages();
+	/*Allocate space for game data, I don't know the details so just copy bytes*/
+	s_pGameData = reinterpret_cast<M5GameData*>(new char[gameDataSize]);
+	/*Copy all data*/
+	std::memcpy(s_pGameData, pGData, (size_t)gameDataSize);
+	RegisterStages();
 }
 /******************************************************************************/
 /*!
@@ -85,19 +87,19 @@ by the user.  It will be called automatically by the system.
 /******************************************************************************/
 void M5StageManager::Shutdown(void)
 {
-  //This was allocated as an array of bytes
-  char* toDelete = reinterpret_cast<char*>(s_pGameData);
-  delete[] toDelete;
-  s_pGameData = 0;
+	//This was allocated as an array of bytes
+	char* toDelete = reinterpret_cast<char*>(s_pGameData);
+	delete[] toDelete;
+	s_pGameData = 0;
 }
 /******************************************************************************/
 /*!
-Adds the type/M5StageBuilder pair to the stage factory.  Users should not need 
-to call this function.  A batch file will automatically register all stages 
+Adds the type/M5StageBuilder pair to the stage factory.  Users should not need
+to call this function.  A batch file will automatically register all stages
 if they are named correctly: eg *Stage
 
 \param [in] type
-The stage type to assocaite the M5StageBuilder with  
+The stage type to assocaite the M5StageBuilder with
 
 \param [in] builder
 A pointer to a new M5StageBuilder type for this stage
@@ -105,7 +107,7 @@ A pointer to a new M5StageBuilder type for this stage
 /******************************************************************************/
 void M5StageManager::AddStage(M5StageTypes type, M5StageBuilder* builder)
 {
-  s_stageFactory.AddBuilder(type, builder);
+	s_stageFactory.AddBuilder(type, builder);
 }
 /******************************************************************************/
 /*!
@@ -140,7 +142,7 @@ TRUE if the manager has been set to quit, FALSE otherwise.
 /******************************************************************************/
 bool M5StageManager::IsQuitting(void)
 {
-  return s_isQuitting;
+	return s_isQuitting;
 }
 /******************************************************************************/
 /*!
@@ -153,7 +155,7 @@ TRUE if the manager is going to restart the stage, FALSE otherwise.
 /******************************************************************************/
 bool M5StageManager::IsRestarting(void)
 {
-  return s_isRestarting;
+	return s_isRestarting;
 }
 /******************************************************************************/
 /*!
@@ -165,7 +167,7 @@ The unique id of the previous stage.
 /******************************************************************************/
 int M5StageManager::GetPreviousStage(void)
 {
-  return s_prevStage;
+	return s_prevStage;
 }
 /******************************************************************************/
 /*!
@@ -177,7 +179,7 @@ The unique id of the current stage.
 /******************************************************************************/
 int M5StageManager::GetCurrentStage(void)
 {
-  return s_currStage;
+	return s_currStage;
 }
 /******************************************************************************/
 /*!
@@ -189,7 +191,7 @@ The unique id of the next stage.
 /******************************************************************************/
 int M5StageManager::GetNextStage(void)
 {
-  return s_nextStage;
+	return s_nextStage;
 }
 /******************************************************************************/
 /*!
@@ -201,7 +203,7 @@ A pointer to the shared GameData
 /******************************************************************************/
 M5GameData& M5StageManager::GetGameData(void)
 {
-  return *s_pGameData;
+	return *s_pGameData;
 }
 /******************************************************************************/
 /*!
@@ -213,44 +215,45 @@ GameLoop.
 /******************************************************************************/
 void M5StageManager::Update(void)
 {
-  float frameTime = 0.0f;
-  /*Get the Current stage*/
-  M5Stage* pCurrentStage = s_stageFactory.Build(s_currStage);
+	float frameTime = 0.0f;
+	/*Get the Current stage*/
+	M5Stage* pCurrentStage = s_stageFactory.Build(s_currStage);
 
-  if (s_isRestarting == true)
-    s_isRestarting = false;/*We need to reset our restart flag*/
-  else
-    pCurrentStage->Load();/*Only load if we are not restarting*/
-    
+	if (s_isRestarting == true)
+		s_isRestarting = false;/*We need to reset our restart flag*/
+	else
+		pCurrentStage->Load();/*Only load if we are not restarting*/
 
-  /*Call the initialize function*/
-  pCurrentStage->Init();
 
-  /*Keep going until the stage has changed or we are quitting.*/
-  while ((s_currStage == s_nextStage) && !s_isQuitting && !s_isRestarting)
-  {
-    /*Our main game loop*/
-    s_timer.StartFrame();/*Save the start time of the frame*/
-    M5Input::Reset(frameTime);
-    M5App::ProcessMessages();
-    pCurrentStage->Update(frameTime);
-	M5ObjectManager::Update(frameTime);
-	M5Gfx::Update();
-    frameTime = s_timer.EndFrame();/*Get the total frame time*/
-  }
+	  /*Call the initialize function*/
+	pCurrentStage->Init();
 
-  /*Make sure to shutdown the stage*/
-  pCurrentStage->Shutdown();
+	/*Keep going until the stage has changed or we are quitting.*/
+	while (!s_isChanging && !s_isQuitting && !s_isRestarting)
+	{
+		/*Our main game loop*/
+		s_timer.StartFrame();/*Save the start time of the frame*/
+		M5Input::Reset(frameTime);
+		M5App::ProcessMessages();
+		M5ObjectManager::Update(frameTime);
+		M5Phy::Update();
+		pCurrentStage->Update(frameTime);
+		M5Gfx::Update();
+		frameTime = s_timer.EndFrame();/*Get the total frame time*/
+	}
 
-  /*Only unload if we are not restarting*/
-  if (!s_isRestarting) {
-    pCurrentStage->Unload();
-    delete pCurrentStage;
-	pCurrentStage = 0;
-  }
+	/*Make sure to shutdown the stage*/
+	pCurrentStage->Shutdown();
 
-  /*Change Stage*/
-  ChangeStage();
+	/*Only unload if we are not restarting*/
+	if (!s_isRestarting) {
+		pCurrentStage->Unload();
+		delete pCurrentStage;
+		pCurrentStage = 0;
+	}
+
+	/*Change Stage*/
+	ChangeStage();
 }
 /******************************************************************************/
 /*!
@@ -266,9 +269,9 @@ A unique id of the stage that the game should start in.
 /******************************************************************************/
 void M5StageManager::SetStartStage(M5StageTypes startStage)
 {
-  s_prevStage = startStage;
-  s_currStage = startStage;
-  s_nextStage = startStage;
+	s_prevStage = startStage;
+	s_currStage = startStage;
+	s_nextStage = startStage;
 }
 /******************************************************************************/
 /*!
@@ -281,7 +284,8 @@ A unique id of the next that the game should start in.
 /******************************************************************************/
 void M5StageManager::SetNextStage(M5StageTypes nextStage)
 {
-  s_nextStage = nextStage;
+	s_isChanging = true;
+	s_nextStage = nextStage;
 }
 /******************************************************************************/
 /*!
@@ -291,7 +295,7 @@ inside a stage.
 /******************************************************************************/
 void M5StageManager::Quit(void)
 {
-  s_isQuitting = true;
+	s_isQuitting = true;
 }
 /******************************************************************************/
 /*!
@@ -305,7 +309,7 @@ stage, and continues updating.
 /******************************************************************************/
 void M5StageManager::Restart(void)
 {
-  s_isRestarting = true;
+	s_isRestarting = true;
 }
 /******************************************************************************/
 /*!
@@ -314,6 +318,7 @@ Used to change the stage ids after the stage has shutdown.
 /******************************************************************************/
 void M5StageManager::ChangeStage(void)
 {
-  s_prevStage = s_currStage;
-  s_currStage = s_nextStage;
+	s_isChanging = false;
+	s_prevStage = s_currStage;
+	s_currStage = s_nextStage;
 }

@@ -14,6 +14,8 @@ Prototypes for the M5Vec2 Struct
 #ifndef M5_VEC2_H
 #define M5_VEC2_H
 
+#include <iostream>
+
 /*! A 2D vector for a 2D game, use a separate variable for Z-Order. 
 Can be used C style with static functions or C++ with methods.*/
 struct M5Vec2
@@ -103,6 +105,8 @@ struct M5Vec2
   //friend function************************************************************
   /*Allows users to scale a vector*/
   friend M5Vec2 operator*(float scale, const M5Vec2& rhs);
+  friend std::istream& operator>>(std::istream& is, M5Vec2& rhs);
+  friend std::ostream& operator<<(std::ostream& os, const M5Vec2& rhs);
 
   float x;/*!< The x coordinate of the vector*/
   float y;/*!< The y coordinate of the vector*/

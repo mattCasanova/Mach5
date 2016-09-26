@@ -714,3 +714,14 @@ M5Vec2 operator*(float scale, const M5Vec2& rhs)
 {
   return rhs * scale;
 }
+std::istream& operator >> (std::istream& is, M5Vec2& rhs)
+{
+	is >> rhs.x;
+	is >> rhs.y;
+	return is;
+}
+std::ostream& operator<<(std::ostream& os, const M5Vec2& rhs)
+{
+	os << rhs.x << " " << rhs.y << " ";
+	return os;
+}

@@ -165,6 +165,8 @@
   <ItemGroup>
     <ClCompile Include="Source\ChasePlayerComponent.cpp" />
     <ClCompile Include="Source\Core\ClampComponent.cpp" />
+    <ClCompile Include="Source\Core\ColliderComponent.cpp" />
+    <ClCompile Include="Source\Core\M5Phy.cpp" />
     <ClCompile Include="Source\Core\M5StateMachine.cpp" />
     <ClCompile Include="Source\Core\GfxComponent.cpp" />
     <ClCompile Include="Source\Core\M5App.cpp" />
@@ -188,6 +190,7 @@
     <ClCompile Include="Source\Core\OutsideViewKillComponent.cpp" />
     <ClCompile Include="Source\Core\WrapComponent.cpp" />
     <ClCompile Include="Source\GamePlayStage.cpp" />
+    <ClCompile Include="Source\SpaceShooterHelp.cpp" />
     <ClCompile Include="Source\Main.cpp" />
     <ClCompile Include="Source\PlayerInputComponent.cpp" />
     <ClCompile Include="Source\RandomGoComponent.cpp">
@@ -199,7 +202,9 @@
   <ItemGroup>
     <ClInclude Include="Source\ChasePlayerComponent.h" />
     <ClInclude Include="Source\Core\ClampComponent.h" />
+    <ClInclude Include="Source\Core\ColliderComponent.h" />
     <ClInclude Include="Source\Core\M5Factory.h" />
+    <ClInclude Include="Source\Core\M5Phy.h" />
     <ClInclude Include="Source\Core\M5StateMachine.h" />
     <ClInclude Include="Source\Core\GfxComponent.h" />
     <ClInclude Include="Source\Core\M5App.h" />
@@ -230,6 +235,7 @@
     <ClInclude Include="Source\Core\OutsideViewKillComponent.h" />
     <ClInclude Include="Source\Core\WrapComponent.h" />
     <ClInclude Include="Source\GamePlayStage.h" />
+    <ClInclude Include="Source\SpaceShooterHelp.h" />
     <ClInclude Include="Source\PlayerInputComponent.h" />
     <ClInclude Include="Source\RandomGoComponent.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>

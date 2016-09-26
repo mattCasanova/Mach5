@@ -19,11 +19,6 @@ Player input for AstroShot
 #include "Core\GfxComponent.h"
 #include <cmath>
 
-namespace
-{
-const float DAMP_EFFECT = 0.99f;
-}
-
 /******************************************************************************/
 /*!
 Sets component type and starting values for player
@@ -32,6 +27,7 @@ Sets component type and starting values for player
 PlayerInputComponent::PlayerInputComponent(void) :
 	M5Component(CT_PlayerInputComponent),
 	m_forwardSpeed(0),
+	m_speedDamp(0),
 	m_rotationSpeed(0)
 {
 }
@@ -64,7 +60,7 @@ void PlayerInputComponent::Update(float dt)
 
 		M5Vec2::Scale(dir, leftThumb, m_forwardSpeed * dt);
 		m_pObj->vel += dir;
-		M5Vec2::Scale(m_pObj->vel, m_pObj->vel, DAMP_EFFECT);
+		M5Vec2::Scale(m_pObj->vel, m_pObj->vel, m_speedDamp);
 
 		if (M5Input::IsTriggered(M5_GAMEPAD_A) || M5Input::IsTriggered(M5_SPACE))
 		{
@@ -93,7 +89,7 @@ void PlayerInputComponent::Update(float dt)
 		M5Vec2 dir(std::cos(m_pObj->rotation), std::sin(m_pObj->rotation));
 		M5Vec2::Scale(dir, dir, m_forwardSpeed * dt);
 		m_pObj->vel += dir;
-		M5Vec2::Scale(m_pObj->vel, m_pObj->vel, DAMP_EFFECT);
+		M5Vec2::Scale(m_pObj->vel, m_pObj->vel, m_speedDamp);
 	}
 
 	if (M5Input::IsPressed(M5_A))
@@ -114,8 +110,9 @@ M5Component* PlayerInputComponent::Clone(void)
 {
 	PlayerInputComponent* pNew = new PlayerInputComponent;
 	pNew->m_forwardSpeed  = m_forwardSpeed;
-	pNew->m_bulletSpeed = m_bulletSpeed;
+	pNew->m_bulletSpeed   = m_bulletSpeed;
 	pNew->m_rotationSpeed = m_rotationSpeed;
+	pNew->m_speedDamp     = m_speedDamp;
 	return pNew;
 }
 /******************************************************************************/
@@ -132,4 +129,5 @@ void PlayerInputComponent::FromFile(M5IniFile& iniFile)
 	iniFile.GetValue("forwardSpeed", m_forwardSpeed);
 	iniFile.GetValue("bulletSpeed", m_bulletSpeed);
 	iniFile.GetValue("rotationSpeed", m_rotationSpeed);
+	iniFile.GetValue("speedDamp", m_speedDamp);
 }

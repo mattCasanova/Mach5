@@ -24,7 +24,8 @@ public:
   virtual void Shutdown(void);
   virtual void Unload(void);
 private:
-  float m_changeTimer;
+  float m_splashTime;
+  float m_maxSplashTime;
 };
 
 

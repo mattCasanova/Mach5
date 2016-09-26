@@ -20,7 +20,7 @@ have at least one data member in it.*/
 struct M5GameData
 {
   /*!< This should be removed and used for your game specific data */
-  int yourGameDataHere;
+  int level;
 };
 
 #endif /* GameData_H */

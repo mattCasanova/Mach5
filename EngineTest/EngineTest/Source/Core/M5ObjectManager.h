@@ -34,7 +34,9 @@ public:
 	static void DestroyObject(int objectID);
 	static void DestroyAllObjects(void);
 	static void DestroyAllObjects(M5ArcheTypes type);
-	static void GetAllObjects(M5ArcheTypes type, std::vector<M5Object*>& returnVec);
+	static void GetFirstObjectByType(M5ArcheTypes type, M5Object*& pObj);
+	static void GetObjectByID(int objectID, M5Object*& pObj);
+	static void GetAllObjectsByType(M5ArcheTypes type, std::vector<M5Object*>& returnVec);
 	static void AddComponent(M5ComponentTypes type, M5ComponentBuilder* pBuilder);
 	static void RemoveComponent(M5ComponentTypes type);
 	static void AddArcheType(M5ArcheTypes type, const char* fileName);
