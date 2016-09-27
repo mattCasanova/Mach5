@@ -262,6 +262,8 @@ void M5StageManager::PauseAndSetNextStage(M5StageTypes nextStage)
 	s_isPausing  = true;
 	s_isChanging = true;
 	s_nextStage  = nextStage;
+	M5ObjectManager::Pause();
+	M5Phy::Pause();
 }
 /******************************************************************************/
 /*!
@@ -270,8 +272,11 @@ Resumes the previous stages
 /******************************************************************************/
 void M5StageManager::Resume(void)
 {
+	M5DEBUG_ASSERT(!s_pauseStack.empty(), "Trying to Resume an e")
 	s_isChanging = true;
 	s_isResuming = true;
+	M5ObjectManager::Resume();
+	M5Phy::Resume();
 }
 /******************************************************************************/
 /*!

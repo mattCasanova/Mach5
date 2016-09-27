@@ -38,9 +38,8 @@ void M5IniFile::ReadFile(const std::string& fileName)
 	m_sections.clear();
 
 	std::ifstream inFile(fileName, std::ios::in);
-
 	//check if the file was opened properly
-	M5DEBUG_ASSERT(inFile.is_open(), "File Could Not be opened!");
+	M5DEBUG_ASSERT(inFile.is_open(), "IniFile could not be opened");
 
 	StringMapPair currSection;//First section has no name, it's the global section
 	std::string line;
@@ -317,8 +316,7 @@ void M5IniFile::WriteFile(const std::string& fileName) const
 {
 	//Create out file and check if it can be opened.
 	std::ofstream outFile(fileName, std::ios::out);
-	if (!outFile.is_open())
-		return;
+	M5DEBUG_ASSERT(outFile.is_open(), "IniFile Could not be opened.");
 
 	//First see if empty section
 	SectionMapCItor emptySection = m_sections.find("");
@@ -326,7 +324,6 @@ void M5IniFile::WriteFile(const std::string& fileName) const
 	{
 		outFile << ";The IniFile object was empty when writing this file" << std::endl;
 		outFile.close();
-		return;
 	}
 
 	//Alwasy write global section first
@@ -358,7 +355,6 @@ void M5IniFile::WriteFile(const std::string& fileName) const
 	}
 
 	outFile.close();
-
 }
 
 

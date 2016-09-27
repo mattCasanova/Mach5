@@ -281,11 +281,10 @@ void M5Gfx::Shutdown(void)
 	M5DEBUG_CALL_CHECK(1);
 
 	M5DEBUG_ASSERT(s_hudComponents.size() == 0 && s_worldComponents.size() == 0,
-		"Some Components were not unloaded.")
+		"Some Components were not unloaded.");
 
-		s_hudComponents.clear();
+	s_hudComponents.clear();
 	s_worldComponents.clear();
-
 	s_resourceManager.Clear();
 
 	glDeleteBuffers((GLsizei)1, &s_mesh.vboID);

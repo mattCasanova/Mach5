@@ -38,9 +38,8 @@ public:
 
 private:
 	static void Update(void);
-
-	static std::vector<ColliderComponent*>      s_colliders;      //!< Vector of regiestered colliders
-	static CollisionPairs s_collisionPairs; //!< This frames collision pairs. 
+	static void Pause(void);
+	static void Resume(void);
 };
 
 

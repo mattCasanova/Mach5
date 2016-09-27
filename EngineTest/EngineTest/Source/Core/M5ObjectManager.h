@@ -30,10 +30,10 @@ public:
 	friend class M5App;
 	friend class M5StageManager;
 
+	// Adds an user created object to the ObjectManager
+	static void AddObject(M5Object* toAdd);
 	// Creates an object of the Specifed ArcheType if it has been loaded
 	static M5Object* CreateObject(M5ArcheTypes type);
-	// Adds an self created object to the ObjectManager
-	static void AddObject(M5Object* toAdd);
 	// Removes and deletes the given object from The objectmanager
 	static void DestroyObject(M5Object* pToDestroy);
 	// Removes and deletes the object with the given object id
@@ -56,10 +56,13 @@ public:
 	static void AddArcheType(M5ArcheTypes type, const char* fileName);
 	// Removes the Archetype from the object factory
 	static void RemoveArcheType(M5ArcheTypes type);
+
 private:
 	static void Init(void);
 	static void Shutdown(void);
 	static void Update(float dt);
+	static void Pause(void);
+	static void Resume(void);
 };
 
 

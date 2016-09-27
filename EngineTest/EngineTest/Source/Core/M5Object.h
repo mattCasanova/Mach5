@@ -19,6 +19,7 @@
 
 //Forward Declarations
 class M5Component;
+class M5IniFile;
 
 //! Component based Game object used in the Mach 5 Engine
 class M5Object
@@ -32,6 +33,7 @@ public:
 	void         RemoveComponent(M5Component* pComponent);
 	void         RemoveAllComponents(void);
 	void         RemoveAllComponents(M5ComponentTypes type);
+	void         FromFile(M5IniFile& iniFile);
 	int          GetID(void) const;
 	M5ArcheTypes GetType(void) const;
 	M5Object*    Clone(void) const;

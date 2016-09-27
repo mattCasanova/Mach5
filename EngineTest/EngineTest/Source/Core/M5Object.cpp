@@ -12,6 +12,7 @@
 #include "M5Object.h"
 #include "M5Debug.h"
 #include "M5Component.h"
+#include "M5IniFile.h"
 #include <algorithm>
 
 namespace
@@ -218,4 +219,24 @@ The M5ArcheType of this object
 M5ArcheTypes M5Object::GetType(void) const
 {
 	return m_type;
+}
+/******************************************************************************/
+/*!
+Reads data (except componets) from a pre loaded inifile
+
+\param iniFile
+The pre-loaded iniFile to read from.
+*/
+/******************************************************************************/
+void M5Object::FromFile(M5IniFile& iniFile)
+{
+	iniFile.SetToSection("");//Sets the file to the global section
+	iniFile.GetValue("posX", pos.x);
+	iniFile.GetValue("posY", pos.y);
+	iniFile.GetValue("velX", vel.x);
+	iniFile.GetValue("velY", vel.y);
+	iniFile.GetValue("scaleX", scale.x);
+	iniFile.GetValue("scaleY", scale.y);
+	iniFile.GetValue("rot", rotation);
+	iniFile.GetValue("rotVel", rotationVel);
 }

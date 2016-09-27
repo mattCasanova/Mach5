@@ -13,8 +13,18 @@ Basis Physics engine for Mach 5.  This is a work in progress.
 #include "M5Object.h"
 #include "ColliderComponent.h"
 
-std::vector<ColliderComponent*> M5Phy::s_colliders;
-CollisionPairs M5Phy::s_collisionPairs;
+#include <stack>
+
+namespace
+{
+//Class Private variables
+
+static std::vector<ColliderComponent*> s_colliders;      //!< Vector of regiestered colliders
+static CollisionPairs                  s_collisionPairs; //!< This frames collision pairs. 
+static int                             s_colliderStart = 0;  //!< The index to start updating on
+static std::stack<int>                 s_pauseStack;
+}
+
 
 void M5Phy::RegisterCollider(ColliderComponent* pCollider)
 {
@@ -22,7 +32,7 @@ void M5Phy::RegisterCollider(ColliderComponent* pCollider)
 }
 void M5Phy::UnregisterCollider(ColliderComponent* pCollider)
 {
-	for (size_t i = 0; i < s_colliders.size(); ++i)
+	for (size_t i = s_colliderStart; i < s_colliders.size(); ++i)
 	{
 		if (s_colliders[i] == pCollider)
 		{
@@ -43,7 +53,7 @@ void M5Phy::Update(void)
 {
 	s_collisionPairs.clear();
 	size_t size = s_colliders.size();
-	for (size_t i = 0; i < size; ++i)
+	for (size_t i = s_colliderStart; i < size; ++i)
 	{
 		ColliderComponent* pFirst = s_colliders[i];
 		for (size_t j = i + 1; j < size; ++j)
@@ -51,4 +61,14 @@ void M5Phy::Update(void)
 			pFirst->TestCollision(s_colliders[j]);
 		}
 	}
+}
+void M5Phy::Pause(void)
+{
+	s_pauseStack.push(s_colliderStart);
+	s_colliderStart = s_colliders.size();
+}
+void M5Phy::Resume(void)
+{
+	s_colliderStart = s_pauseStack.top();
+	s_pauseStack.pop();
 }

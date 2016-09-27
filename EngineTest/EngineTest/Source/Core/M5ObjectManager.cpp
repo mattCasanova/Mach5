@@ -23,6 +23,7 @@ game objects.
 #include "M5Factory.h"
 
 #include <vector>
+#include <stack>
 #include <unordered_map>
 #include <string>
 #include <sstream>
@@ -39,7 +40,9 @@ const int START_SIZE = 100;                                      //!< Starting a
 static M5Factory<M5ComponentTypes, M5ComponentBuilder, M5Component>
                           s_componentFactory;                    //!< Factory of all registered components
 static PrototypeMap       s_prototypes;                          //!< Map of active prototypes in game
-static ObjectVec          s_objects;                             //!< Vector of active objects in game                 
+static ObjectVec          s_objects;                             //!< Vector of active objects in game    
+static int                s_objectStart;                         //!< The value to start updating the object list from.
+static std::stack<int>    s_pauseStack;
 }//end unnamed namespace
 
  /******************************************************************************/
@@ -52,6 +55,8 @@ void M5ObjectManager::Init(void)
 {
 	M5DEBUG_CALL_CHECK(1);
 	s_objects.reserve(START_SIZE);
+	s_objectStart = 0;
+
 	//We must register components before we can create our prototypes
 	RegisterComponents();
 	RegisterArcheTypes();
@@ -64,6 +69,7 @@ Shutdown function clears all game objects and destroys prototypes.
 void M5ObjectManager::Shutdown(void)
 {
 	M5DEBUG_CALL_CHECK(1);
+	s_objectStart = 0;
 	DestroyAllObjects();
 
 	//Delete prototypes
@@ -87,7 +93,7 @@ The time in seconds since the last frame.
 /******************************************************************************/
 void M5ObjectManager::Update(float dt)
 {
-	for (size_t i = 0; i < s_objects.size(); ++i)
+	for (size_t i = s_objectStart; i < s_objects.size(); ++i)
 	{
 		if (s_objects[i]->isDead)
 		{
@@ -110,7 +116,7 @@ Function to delete all currently active game objects.
 void M5ObjectManager::DestroyAllObjects(void)
 {
 	size_t size = s_objects.size();
-	for (size_t i = 0; i < size; ++i)
+	for (size_t i = s_objectStart; i < size; ++i)
 	{
 		delete s_objects[i];
 		s_objects[i] = 0;
@@ -128,7 +134,7 @@ The Archetype to delete
 /******************************************************************************/
 void M5ObjectManager::DestroyAllObjects(M5ArcheTypes type)
 {
-	for (size_t i = 0; i < s_objects.size(); ++i)
+	for (size_t i = s_objectStart; i < s_objects.size(); ++i)
 	{
 		if (s_objects[i]->GetType() == type)
 		{
@@ -189,7 +195,7 @@ An instance of an M5Object to remove and delete.
 /******************************************************************************/
 void M5ObjectManager::DestroyObject(M5Object* pToDestroy)
 {
-	VecItor itor = std::find(s_objects.begin(), s_objects.end(), pToDestroy);
+	VecItor itor = std::find(s_objects.begin() + s_objectStart, s_objects.end(), pToDestroy);
 	M5DEBUG_ASSERT(itor != s_objects.end(), "Trying to destroy an object that doesn't exist");
 
 	delete *itor;
@@ -206,7 +212,7 @@ An instance of an M5Object to remove and delete.
 /******************************************************************************/
 void M5ObjectManager::DestroyObject(int objectID)
 {
-	for (size_t i = 0; i < s_objects.size(); ++i)
+	for (size_t i = s_objectStart; i < s_objects.size(); ++i)
 	{
 		if (s_objects[i]->GetID() == objectID)
 		{
@@ -231,7 +237,7 @@ A pointer to an M5Object to be filled in.
 /******************************************************************************/
 void M5ObjectManager::GetFirstObjectByType(M5ArcheTypes type, M5Object*& pObj)
 {
-	for (size_t i = 0; i < s_objects.size(); ++i)
+	for (size_t i = s_objectStart; i < s_objects.size(); ++i)
 	{
 		if (s_objects[i]->GetType() == type)
 		{
@@ -256,7 +262,7 @@ A pointer to an M5Object to be filled in.
 /******************************************************************************/
 void M5ObjectManager::GetObjectByID(int objectID, M5Object*& pObj)
 {
-	for (size_t i = 0; i < s_objects.size(); ++i)
+	for (size_t i = s_objectStart; i < s_objects.size(); ++i)
 	{
 		if (s_objects[i]->GetID() == objectID)
 		{
@@ -282,7 +288,7 @@ at any time.
 /******************************************************************************/
 void M5ObjectManager::GetAllObjectsByType(M5ArcheTypes type, std::vector<M5Object*>& returnVec)
 {
-	for (size_t i = 0; i < s_objects.size(); ++i)
+	for (size_t i = s_objectStart; i < s_objects.size(); ++i)
 	{
 		if (s_objects[i]->GetType() == type)
 			returnVec.push_back(s_objects[i]);
@@ -331,32 +337,26 @@ void M5ObjectManager::AddArcheType(M5ArcheTypes type, const char* fileName)
 	MapItor found = s_prototypes.find(type);
 	M5DEBUG_ASSERT(found == s_prototypes.end(), "Trying to add a prototype that already exists");
 
-
-	M5IniFile file;//My inifile to open
-	std::string components;//A string of all my components
+	M5IniFile file;//My inifile to open	
 	file.ReadFile(fileName);
 
+
 	M5Object* pObj = new M5Object(type);
+	pObj->FromFile(file);
+
+	std::string components;//A string of all my components
 	file.GetValue("components", components);
-	file.GetValue("posX", pObj->pos.x);
-	file.GetValue("posY", pObj->pos.y);
-	file.GetValue("velX", pObj->vel.x);
-	file.GetValue("velY", pObj->vel.y);
-	file.GetValue("scaleX", pObj->scale.x);
-	file.GetValue("scaleY", pObj->scale.y);
-	file.GetValue("rot", pObj->rotation);
-	file.GetValue("rotVel", pObj->rotationVel);
 
 	//parse the component string and create each component
 	std::stringstream ss(components);
 	std::string name;
+	//Loop through the stream and get each component name
 	while (ss >> name)
 	{
 		M5Component* pComp = s_componentFactory.Build(StringToComponent(name));
 		pComp->FromFile(file);
 		pObj->AddComponent(pComp);
 	}
-
 
 	//Add the prototype to the prototype map
 	s_prototypes.insert(std::make_pair(type, pObj));
@@ -376,4 +376,14 @@ void M5ObjectManager::RemoveArcheType(M5ArcheTypes type)
 	delete found->second;
 	found->second = 0;
 	s_prototypes.erase(found);
+}
+void M5ObjectManager::Pause(void)
+{
+	s_pauseStack.push(s_objectStart);
+	s_objectStart = s_objects.size();
+}
+void M5ObjectManager::Resume(void)
+{
+	s_objectStart = s_pauseStack.top();
+	s_pauseStack.pop();
 }
