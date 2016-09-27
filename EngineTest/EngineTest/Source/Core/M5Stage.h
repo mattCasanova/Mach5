@@ -18,17 +18,17 @@ Base class for M5Stage
 class M5Stage
 {
 public:
-  virtual ~M5Stage(void) {}//emtpy virtual destructor
-  //!Used to Load big resource such as textures in an M5Stage.  This is only called once.
-  virtual void Load(void)       = 0;
-  //!Used to Set/Reset data when the M5Stage starts or restarts
-  virtual void Init(void)       = 0; 
-  //!Called once per frame to update M5Stage Logic
-  virtual void Update(float dt) = 0;
-  //!Called after a Stage Change or request to restart
-  virtual void Shutdown(void)   = 0;
-  //!Used to Unload textures or Save data to file.  This is only called when we are not restarting.
-  virtual void Unload(void)     = 0;
+	//!Used to Load big resource such as textures in an M5Stage.  This is only called once.
+	M5Stage(void) {};
+	//!Used to Unload textures or Save data to file.  This is only called when we are not restarting.
+	virtual ~M5Stage(void) {}//emtpy virtual destructor
+	//!Used to Set/Reset data when the M5Stage starts or restarts
+	virtual void Init(void) = 0;
+	//!Called once per frame to update M5Stage Logic
+	virtual void Update(float dt) = 0;
+	//!Called after a Stage Change or request to restart
+	virtual void Shutdown(void) = 0;
+
 };
 
 #endif

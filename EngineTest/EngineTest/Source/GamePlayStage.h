@@ -17,11 +17,11 @@ This is the stage for game play in AstroShot
 class GamePlayStage : public M5Stage
 {
 public:
-	virtual void Load(void);
+	GamePlayStage(void);
+	~GamePlayStage(void);
 	virtual void Init(void);
 	virtual void Update(float dt);
 	virtual void Shutdown(void);
-	virtual void Unload(void);
 private:
 };
 

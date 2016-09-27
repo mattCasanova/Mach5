@@ -27,13 +27,12 @@ good place to load game data and initialize object you need for your game.
 
 /******************************************************************************/
 /*!
-The load stage will only be called once, when the stage is first entered.
+The Constructor will only be called once, when the stage is first entered.
 You should load resources that won't need to be changed if the stage is 
 restarted.
-
 */
 /******************************************************************************/
-void SplashStage::Load(void)
+SplashStage::SplashStage(void)
 {
   /*Create a debug console*/
   M5DEBUG_CREATE_CONSOLE();
@@ -41,10 +40,22 @@ void SplashStage::Load(void)
 }
 /******************************************************************************/
 /*!
+Use the desctuctor of the stage to clean up any resources from the
+load stage.  Here I need to destroy my console and unload my texture.
+
+*/
+/******************************************************************************/
+SplashStage::~SplashStage(void)
+{
+	//We are done this with ArcheType so lets get rid of it.
+	M5ObjectManager::RemoveArcheType(AT_Splash);
+	M5DEBUG_DESTROY_CONSOLE();
+}
+/******************************************************************************/
+/*!
 The Init function will be called once when the stage is entered, then again
 every time the stage is restarted.  You don't want to load textures here.  Use
-this is reset things to initial starting values for the stage.  Here I am also 
-using this stage to test my vectors and matricies.
+this is reset things to initial starting values for the stage.
 
 */
 /******************************************************************************/
@@ -124,14 +135,4 @@ void SplashStage::Shutdown(void)
 {
 	M5ObjectManager::DestroyAllObjects();
 }
-/******************************************************************************/
-/*!
-This is the unload stage.  Use this stage to clean up any resources from the 
-load stage.  Here I need to destroy my console and unload my texture.
 
-*/
-/******************************************************************************/
-void SplashStage::Unload(void)
-{
-	M5ObjectManager::RemoveArcheType(AT_Splash);
-}

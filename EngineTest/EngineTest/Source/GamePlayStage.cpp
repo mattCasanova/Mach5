@@ -29,7 +29,10 @@ good place to load game data and initialize object you need for your game.
 float maxTime = 1;
 float timer = 0;
 
-void GamePlayStage::Load(void)
+GamePlayStage::GamePlayStage(void)
+{
+}
+GamePlayStage::~GamePlayStage(void)
 {
 }
 void GamePlayStage::Init(void)
@@ -66,6 +69,14 @@ void GamePlayStage::Update(float dt)
 	{
 		M5StageManager::GetGameData().level++;
 		M5StageManager::SetNextStage(ST_GamePlayStage);
+	}
+	else if (M5Input::IsTriggered(M5_R))
+	{
+		M5StageManager::Restart();
+	}
+	else if (M5Input::IsTriggered(M5_P))
+	{
+		M5StageManager::PauseAndSetNextStage(ST_PauseStage);
 	}
 
 	timer += dt;
@@ -112,8 +123,4 @@ void GamePlayStage::Update(float dt)
 void GamePlayStage::Shutdown(void)
 {
 	M5ObjectManager::DestroyAllObjects();
-}
-void GamePlayStage::Unload(void)
-{
-
 }

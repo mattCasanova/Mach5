@@ -136,6 +136,9 @@
     <Filter Include="Core\Components\ColliderComponent">
       <UniqueIdentifier>{64401561-02e5-4354-9f27-47946efa1de7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="SpaceShooter\Stages\Pause">
+      <UniqueIdentifier>{b6c505fe-af6e-4fcf-8b55-6fc2ad75cb90}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Core\M5App.cpp">
@@ -236,6 +239,9 @@
     </ClCompile>
     <ClCompile Include="Source\Core\ColliderComponent.cpp">
       <Filter>Core\Components\ColliderComponent</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\PauseStage.cpp">
+      <Filter>SpaceShooter\Stages\Pause</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -367,6 +373,9 @@
     </ClInclude>
     <ClInclude Include="Source\Core\ColliderComponent.h">
       <Filter>Core\Components\ColliderComponent</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\PauseStage.h">
+      <Filter>SpaceShooter\Stages\Pause</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

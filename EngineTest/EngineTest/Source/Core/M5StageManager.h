@@ -39,16 +39,14 @@ public:
   static bool IsQuitting(void);
   //Test stage is restarting
   static bool IsRestarting(void);
-  //Gets the previous stage of the game
-  static int  GetPreviousStage(void);
-  //Gets the Current Stage of the game
-  static int  GetCurrentStage(void);
-  //Gets the Next stage of the game
-  static int  GetNextStage(void);
   //Gets the pointer to the users game specific data
   static M5GameData& GetGameData(void);
   //Sets the next stage for the game
   static void SetNextStage(M5StageTypes nextStage);
+  // Pauses the current stage, so it can be resuemd but chages stages
+  static void PauseAndSetNextStage(M5StageTypes nextStage);
+  // Resumes the previous stage
+  static void Resume(void);
   //Tells the game to quit
   static void Quit(void);
   //Tells the stage to restart
@@ -57,6 +55,7 @@ private:
   static void Init(const M5GameData* gameData, int gameDataSize, int framesPerSecond);
   static void Update(void);
   static void Shutdown(void);
+  static void InitStage(void);
   static void ChangeStage(void);
 
 };//end M5StageManager

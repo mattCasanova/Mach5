@@ -190,6 +190,7 @@
     <ClCompile Include="Source\Core\OutsideViewKillComponent.cpp" />
     <ClCompile Include="Source\Core\WrapComponent.cpp" />
     <ClCompile Include="Source\GamePlayStage.cpp" />
+    <ClCompile Include="Source\PauseStage.cpp" />
     <ClCompile Include="Source\SpaceShooterHelp.cpp" />
     <ClCompile Include="Source\Main.cpp" />
     <ClCompile Include="Source\PlayerInputComponent.cpp" />
@@ -235,6 +236,7 @@
     <ClInclude Include="Source\Core\OutsideViewKillComponent.h" />
     <ClInclude Include="Source\Core\WrapComponent.h" />
     <ClInclude Include="Source\GamePlayStage.h" />
+    <ClInclude Include="Source\PauseStage.h" />
     <ClInclude Include="Source\SpaceShooterHelp.h" />
     <ClInclude Include="Source\PlayerInputComponent.h" />
     <ClInclude Include="Source\RandomGoComponent.h">
