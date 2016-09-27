@@ -21,6 +21,7 @@ Singleton class to draw and modify the view of the screen
 #include <cstring> /*memset*/
 #include <string>
 #include <vector>
+#include <stack>
 
 #include "windows.h"
 #include "gl/glew.h"
@@ -34,7 +35,7 @@ namespace
 /* Defines for my Graphics Engine                                       */
 /************************************************************************/
 const GLdouble WIN_FOV = 90.0;           /*!< Field of view*/
-const GLdouble CAM_DISTANCE = 60.0;      /*!< Camera distance in the Z*/
+const GLdouble START_CAM_DISTANCE = 60.0;/*!< Camera distance in the Z*/
 const GLdouble CAM_NEAR_CLIP = 1.0;      /*!< Near clip plane in the Z*/
 const GLdouble CAM_FAR_CLIP = 1000.0;    /*!< Far Clip plane in the Z*/
 const GLdouble MIN_CAM_DISTANCE = 2.0f;  /*!< Min camera distance*/
@@ -63,14 +64,38 @@ struct M5Vertex
 	float tu;/*The u texture coord*/
 	float tv;/*The v texture coord*/
 };
+struct GfxState
+{
+	GLdouble cameraZ; 
+	GLdouble cameraX;
+	GLdouble cameraY;    
+	GLdouble cameraRot;
+	int hudStart;
+	int worldStart;
+	int textureID;
+	int xStart;
+	int yStart;
+	int width;
+	int height;
+	float scaleX;
+	float scaleY;
+	float rot;
+	float transX;
+	float transY;
+	float bgRed;
+	float bgGreen;
+	float bgBlue;
+	unsigned char txRed;
+	unsigned char txGreen;
+	unsigned char txBlue;
+	unsigned char txAlpha;
+	
 
+};
 
 //!! A struct to hold and share data important to graphics functions.
-  /*Camera data*/
-GLdouble s_cameraZ;       /*Camera distance in the Z*/
-GLdouble s_cameraX;       /*Camera position in the X*/
-GLdouble s_cameraY;       /*Camera position int he Y*/
-GLdouble s_cameraRot;     /*Camera rotation in radians*/
+GfxState s_gfxState;
+std::stack<GfxState> s_pauseStack;
 
 /*Projection data*/
 GLdouble s_nearClip;      /*!< Near clip plane in the Z*/
@@ -104,6 +129,7 @@ M5Mesh   s_mesh;          /*!< Quad Mesh since it is 2D game engine*/
 
 //! Typedef for my vector of components
 typedef std::vector<GfxComponent*> Components;
+
 Components        s_worldComponents;
 Components        s_hudComponents;
 M5ResourceManager s_resourceManager;
@@ -165,10 +191,10 @@ void M5Gfx::SetCamera(float cameraX, float cameraY,
 	M5Mtx44 rotMatrix;
 	cameraZ = M5Math::Clamp(cameraZ, static_cast<float>(MIN_CAM_DISTANCE),
 		static_cast<float>(MAX_CAM_DISTANCE));
-	s_cameraX = cameraX;
-	s_cameraY = cameraY;
-	s_cameraZ = cameraZ;
-	s_cameraRot = cameraRot;
+	s_gfxState.cameraX = cameraX;
+	s_gfxState.cameraY = cameraY;
+	s_gfxState.cameraZ = cameraZ;
+	s_gfxState.cameraRot = cameraRot;
 
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
@@ -214,11 +240,6 @@ void M5Gfx::Init(HWND window, int width, int height)
 	s_farClip = CAM_FAR_CLIP;
 	s_aspectRatio = (GLdouble)width / height;
 
-	s_cameraZ = CAM_DISTANCE;
-	s_cameraX = 0.0;
-	s_cameraY = 0.0;
-	s_cameraRot = 0.f;
-
 	/*Get Device context for window*/
 	s_deviceContext = GetDC(s_window);
 
@@ -230,9 +251,6 @@ void M5Gfx::Init(HWND window, int width, int height)
 	ReleaseDC(s_window, s_deviceContext);
 	s_deviceContext = 0;
 
-	/*Set Background Clear Color*/
-	glClearColor(0.f, 0.f, 0.f, 1.f);
-
 	/*Set fill mode*/
 	glPolygonMode(GL_FRONT, GL_FILL);
 
@@ -240,11 +258,6 @@ void M5Gfx::Init(HWND window, int width, int height)
 	glEnable(GL_DEPTH_TEST);
 	glClearDepth(1.0f);
 	glDepthFunc(GL_LEQUAL);
-
-	/*No need for culling because it is a 2D game*/
-	//glEnable(GL_CULL_FACE);
-	//glFrontFace(GL_CCW);/*Font face is Counter clock wise*/
-	//glCullFace(GL_BACK);/*cull back face triangles*/
 
 	/*Enable textures*/
 	glEnable(GL_TEXTURE_2D);
@@ -255,17 +268,20 @@ void M5Gfx::Init(HWND window, int width, int height)
 	glEnableClientState(GL_VERTEX_ARRAY);
 	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 
+	//Set my GfxState
 	/*Set my drawing viewPort*/
-	glViewport(0, 0, s_width, s_height);
-
+	SetViewport(0, 0, s_width, s_height);
+	/*Set my camera*/
+	SetCamera(0, 0, static_cast<float>(START_CAM_DISTANCE), 0);
 	/*Set my projection matrix*/
 	SetPerspective(s_fov, s_aspectRatio, s_nearClip, s_farClip);
-
-	/*Set my camera*/
-	SetCamera(static_cast<float>(s_cameraX),
-		static_cast<float>(s_cameraY),
-		static_cast<float>(s_cameraZ),
-		static_cast<float>(s_cameraRot));
+	//Set up Texture
+	SetTextureCoords();
+	SetTextureColor();
+	//Set Background Color
+	SetBackgroundColor();
+	s_gfxState.hudStart = 0;
+	s_gfxState.worldStart = 0;
 
 	/*Set up glew functions*/
 	glewInit();
@@ -407,6 +423,7 @@ The texture id to set.
 /******************************************************************************/
 void M5Gfx::SetTexture(int textureID)
 {
+	s_gfxState.textureID = textureID;
 	glBindTexture(GL_TEXTURE_2D, textureID);
 }
 /******************************************************************************/
@@ -426,7 +443,7 @@ void M5Gfx::SetResolution(int width, int height)
 	s_height = height;
 	s_aspectRatio = static_cast<GLdouble>(width) / height;
 	SetPerspective(s_fov, s_aspectRatio, s_nearClip, s_farClip);
-	glViewport(0, 0, width, height);
+	SetViewport(0, 0, width, height);
 
 	/*update world extents*/
 	CalulateWorldExtents();
@@ -460,6 +477,12 @@ void M5Gfx::SetTextureCoords(float scaleX, float scaleY, float radians, float tr
 	glMatrixMode(GL_TEXTURE);
 	glLoadMatrixf(&transform.m[0][0]);
 	glMatrixMode(GL_MODELVIEW);
+	//save state
+	s_gfxState.scaleX = scaleX;
+	s_gfxState.scaleY = scaleY;
+	s_gfxState.rot = radians;
+	s_gfxState.transX = transX;
+	s_gfxState.transY = transY;
 }
 /******************************************************************************/
 /*!
@@ -477,6 +500,9 @@ The amount of green in the background.  The default is 0.
 /******************************************************************************/
 void M5Gfx::SetBackgroundColor(float red, float green, float blue)
 {
+	s_gfxState.bgRed = red;
+	s_gfxState.bgGreen = green;
+	s_gfxState.bgBlue = blue;
 	glClearColor(red, green, blue, 1.0);
 }
 /******************************************************************************/
@@ -543,7 +569,13 @@ byte of the int is Alpha.
 /******************************************************************************/
 void M5Gfx::SetTextureColor(unsigned color)
 {
-	glColor4ubv(reinterpret_cast<const GLubyte*>(&color));
+	const GLubyte* pColor = reinterpret_cast<const GLubyte*>(&color);
+	s_gfxState.txRed = pColor[0];
+	s_gfxState.txGreen = pColor[1];
+	s_gfxState.txBlue = pColor[2];
+	s_gfxState.txAlpha = pColor[3];
+
+	glColor4ubv(pColor);
 }
 /******************************************************************************/
 /*!
@@ -574,6 +606,12 @@ void M5Gfx::SetTextureColor(unsigned char red, unsigned char green, unsigned cha
 	color[1] = green;
 	color[2] = blue;
 	color[3] = alpha;
+
+	s_gfxState.txRed = color[0];
+	s_gfxState.txGreen = color[1];
+	s_gfxState.txBlue = color[2];
+	s_gfxState.txAlpha = color[3];
+
 	glColor4ubv(color);
 }
 /******************************************************************************/
@@ -651,10 +689,10 @@ coordinates.
 void M5Gfx::SetToPerspective(void)
 {
 	SetPerspective(s_fov, s_aspectRatio, s_nearClip, s_farClip);
-	SetCamera(static_cast<float>(s_cameraX),
-		static_cast<float>(s_cameraY),
-		static_cast<float>(s_cameraZ),
-		static_cast<float>(s_cameraRot));
+	SetCamera(static_cast<float>(s_gfxState.cameraX),
+		static_cast<float>(s_gfxState.cameraY),
+		static_cast<float>(s_gfxState.cameraZ),
+		static_cast<float>(s_gfxState.cameraRot));
 }
 /******************************************************************************/
 /*!
@@ -697,6 +735,11 @@ The new height of the viewport in pixels
 /******************************************************************************/
 void M5Gfx::SetViewport(int xStart, int yStart, int width, int height)
 {
+	s_gfxState.xStart = xStart;
+	s_gfxState.yStart = yStart;
+	s_gfxState.width = width;
+	s_gfxState.height = height;
+
 	glViewport(xStart, yStart, width, height);
 }
 /******************************************************************************/
@@ -712,21 +755,21 @@ void M5Gfx::CalulateWorldExtents(void)
 	float worldMinX;
 	M5Mtx44 rotMatrix;
 
-	rotMatrix.MakeRotateZ(static_cast<float>(-s_cameraRot));
+	rotMatrix.MakeRotateZ(static_cast<float>(-s_gfxState.cameraRot));
 
 	/*Calculate world corners based on camera z*/
 	float angle = M5Math::DegreeToRadian(static_cast<float>(.5f * s_fov));
 
-	worldMaxY = std::tan(angle) * static_cast<float>(s_cameraZ);
+	worldMaxY = std::tan(angle) * static_cast<float>(s_gfxState.cameraZ);
 	worldMaxX = worldMaxY * static_cast<float>(s_aspectRatio);
 	worldMinY = -worldMaxY;
 	worldMinX = -worldMaxX;
 
 	/*Shift the corners based on the camera x and y*/
-	worldMaxY += static_cast<float>(s_cameraY);
-	worldMinY += static_cast<float>(s_cameraY);
-	worldMaxX += static_cast<float>(s_cameraX);
-	worldMinX += static_cast<float>(s_cameraX);
+	worldMaxY += static_cast<float>(s_gfxState.cameraY);
+	worldMinY += static_cast<float>(s_gfxState.cameraY);
+	worldMaxX += static_cast<float>(s_gfxState.cameraX);
+	worldMinX += static_cast<float>(s_gfxState.cameraX);
 
 	/*then rotate the corner points*/
 	s_worldTopLeft.x = worldMinX*rotMatrix.m[0][0] + worldMaxY*rotMatrix.m[1][0];
@@ -937,7 +980,7 @@ The Component to unregister.
 void M5Gfx::UnregisterComponent(GfxComponent* pGfxComp)
 {
 	//Unregister from world list if it exists there
-	for (size_t i = 0; i < s_worldComponents.size(); ++i)
+	for (size_t i = s_gfxState.worldStart; i < s_worldComponents.size(); ++i)
 	{
 		if (s_worldComponents[i] == pGfxComp)
 		{
@@ -946,7 +989,7 @@ void M5Gfx::UnregisterComponent(GfxComponent* pGfxComp)
 		}
 	}
 	//Unregister from hud list if it exists there
-	for (size_t i = 0; i < s_hudComponents.size(); ++i)
+	for (size_t i = s_gfxState.hudStart; i < s_hudComponents.size(); ++i)
 	{
 		if (s_hudComponents[i] == pGfxComp)
 		{
@@ -967,15 +1010,34 @@ void M5Gfx::Update(void)
 	StartScene();
 
 	SetToPerspective();
-	for (size_t i = 0; i < size; ++i)
+	for (size_t i = s_gfxState.worldStart; i < size; ++i)
 		s_worldComponents[i]->Draw();
 
 	SetToOrtho();
 	size = s_hudComponents.size();
-	for (size_t i = 0; i < size; ++i)
+	for (size_t i = s_gfxState.hudStart; i < size; ++i)
 		s_hudComponents[i]->Draw();
 
 	EndScene();
+}
+void M5Gfx::Pause(void)
+{
+	s_pauseStack.push(s_gfxState);
+	s_gfxState.worldStart = s_worldComponents.size();
+	s_gfxState.hudStart = s_hudComponents.size();
+}
+void M5Gfx::Resume(void)
+{
+	s_gfxState = s_pauseStack.top();
+	SetCamera(static_cast<float>(s_gfxState.cameraX), 
+		static_cast<float>(s_gfxState.cameraY),
+		static_cast<float>(s_gfxState.cameraZ),
+		static_cast<float>(s_gfxState.cameraRot));
+	SetBackgroundColor(s_gfxState.bgRed, s_gfxState.bgGreen, s_gfxState.bgBlue);
+	SetTexture(s_gfxState.textureID);
+	SetTextureCoords(s_gfxState.scaleX, s_gfxState.scaleY, s_gfxState.rot, s_gfxState.transX, s_gfxState.transY);
+	SetTextureColor(s_gfxState.txRed, s_gfxState.txGreen, s_gfxState.txBlue, s_gfxState.txAlpha);
+	SetViewport(s_gfxState.xStart, s_gfxState.yStart, s_gfxState.width, s_gfxState.height);
 }
 
 

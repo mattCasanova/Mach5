@@ -262,8 +262,7 @@ void M5StageManager::PauseAndSetNextStage(M5StageTypes nextStage)
 	s_isPausing  = true;
 	s_isChanging = true;
 	s_nextStage  = nextStage;
-	M5ObjectManager::Pause();
-	M5Phy::Pause();
+
 }
 /******************************************************************************/
 /*!
@@ -275,8 +274,7 @@ void M5StageManager::Resume(void)
 	M5DEBUG_ASSERT(!s_pauseStack.empty(), "Trying to Resume an e")
 	s_isChanging = true;
 	s_isResuming = true;
-	M5ObjectManager::Resume();
-	M5Phy::Resume();
+
 }
 /******************************************************************************/
 /*!
@@ -316,6 +314,9 @@ void M5StageManager::InitStage(void)
 	}
 	else if (s_isResuming)
 	{
+		M5ObjectManager::Resume();
+		M5Phy::Resume();
+		M5Gfx::Resume();
 		s_isResuming = s_isChanging = false;
 		PauseInfo pi = s_pauseStack.top();
 		s_pauseStack.pop();
@@ -339,6 +340,9 @@ void M5StageManager::ChangeStage(void)
 	/*Only unload if we are not restarting*/
 	if (s_isPausing)
 	{
+		M5ObjectManager::Pause();
+		M5Phy::Pause();
+		M5Gfx::Pause();
 		PauseInfo pi(s_pStage, s_currStage);
 		s_pauseStack.push(pi);
 		s_isPausing = false;

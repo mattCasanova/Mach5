@@ -136,3 +136,4 @@ void SplashStage::Shutdown(void)
 	M5ObjectManager::DestroyAllObjects();
 }
 
+
