@@ -21,7 +21,7 @@ public:
 	ChasePlayerComponent(void);
 	virtual void Update(float dt);
 	virtual void FromFile(M5IniFile& iniFile);
-	virtual M5Component* Clone(void);
+	virtual ChasePlayerComponent* Clone(void) const;
 private:
 	float m_speed;
 

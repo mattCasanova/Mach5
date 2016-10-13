@@ -28,14 +28,13 @@ public:
 	~GfxComponent(void);
 	void Draw(void) const;
 	virtual void Update(float dt);
-	virtual M5Component* Clone(void);
+	virtual GfxComponent* Clone(void) const;
 	virtual void FromFile(M5IniFile& iniFile);
 	void SetTextureID(int id);
 	void SetDrawSpace(DrawSpace drawSpace);
 private:
 	int       m_textureID;  //!< Texture id loaded from graphics.
 	DrawSpace m_drawSpace;  //!The space to draw in
-
 };
 
 #endif // !GFX_COMPONENT

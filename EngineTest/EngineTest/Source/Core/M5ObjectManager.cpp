@@ -30,19 +30,23 @@ game objects.
 
 namespace
 {
-typedef std::vector<M5Object*>                      ObjectVec;   //!< typedef Container to hold all game objects
-typedef ObjectVec::iterator                         VecItor;     //!< typdef Iterator for object container
-typedef std::unordered_map<M5ArcheTypes, M5Object*> PrototypeMap;//!< typedef Container to hold prototypes
-typedef PrototypeMap::iterator                      MapItor;     //!< typedef Iterator for prototypes
+typedef std::vector<M5Object*>           ObjectVec;   //!< typedef Container to hold all game objects
+typedef ObjectVec::iterator              VecItor;     //!< typdef Iterator for object container
+typedef std::unordered_map<M5ArcheTypes, 
+	                       M5Object*>    ArcheTypeMap;//!< typedef Container to hold prototypes
+typedef ArcheTypeMap::iterator           MapItor;     //!< typedef Iterator for prototypes
+typedef M5Factory<M5ComponentTypes, 
+	    M5ComponentBuilder, 
+	    M5Component>                    ComponentFactory;
 
 const int START_SIZE = 100;                                      //!< Starting alloc count of object pointers
 
-static M5Factory<M5ComponentTypes, M5ComponentBuilder, M5Component>
-                          s_componentFactory;                    //!< Factory of all registered components
-static PrototypeMap       s_prototypes;                          //!< Map of active prototypes in game
-static ObjectVec          s_objects;                             //!< Vector of active objects in game    
-static int                s_objectStart;                         //!< The value to start updating the object list from.
-static std::stack<int>    s_pauseStack;
+
+ ComponentFactory   s_componentFactory;                    //!< Factory of all registered components
+ ArcheTypeMap       s_archetypes;                          //!< Map of active archetypes in game
+ ObjectVec          s_objects;                             //!< Vector of active objects in game    
+ int                s_objectStart;                         //!< The value to start updating the object list from.
+ std::stack<int>    s_pauseStack;
 }//end unnamed namespace
 
  /******************************************************************************/
@@ -73,8 +77,8 @@ void M5ObjectManager::Shutdown(void)
 	DestroyAllObjects();
 
 	//Delete prototypes
-	MapItor itor = s_prototypes.begin();
-	MapItor end = s_prototypes.end();
+	MapItor itor = s_archetypes.begin();
+	MapItor end = s_archetypes.end();
 
 	while (itor != end)
 	{
@@ -157,8 +161,8 @@ A new object of the given M5ArcheTypes type.
 /******************************************************************************/
 M5Object* M5ObjectManager::CreateObject(M5ArcheTypes type)
 {
-	MapItor found = s_prototypes.find(type);
-	M5DEBUG_ASSERT(found != s_prototypes.end(), "Trying to create and Archetype that doesn't exist");
+	MapItor found = s_archetypes.find(type);
+	M5DEBUG_ASSERT(found != s_archetypes.end(), "Trying to create and Archetype that doesn't exist");
 
 	M5Object* pClone = found->second->Clone();
 	s_objects.push_back(pClone);
@@ -334,8 +338,8 @@ The of an ini file that will load data bout the archetype
 /******************************************************************************/
 void M5ObjectManager::AddArcheType(M5ArcheTypes type, const char* fileName)
 {
-	MapItor found = s_prototypes.find(type);
-	M5DEBUG_ASSERT(found == s_prototypes.end(), "Trying to add a prototype that already exists");
+	MapItor found = s_archetypes.find(type);
+	M5DEBUG_ASSERT(found == s_archetypes.end(), "Trying to add a prototype that already exists");
 
 	M5IniFile file;//My inifile to open	
 	file.ReadFile(fileName);
@@ -359,7 +363,7 @@ void M5ObjectManager::AddArcheType(M5ArcheTypes type, const char* fileName)
 	}
 
 	//Add the prototype to the prototype map
-	s_prototypes.insert(std::make_pair(type, pObj));
+	s_archetypes.insert(std::make_pair(type, pObj));
 }
 /******************************************************************************/
 /*!
@@ -371,11 +375,11 @@ The archetype to remove and delete
 /******************************************************************************/
 void M5ObjectManager::RemoveArcheType(M5ArcheTypes type)
 {
-	MapItor found = s_prototypes.find(type);
-	M5DEBUG_ASSERT(found != s_prototypes.end(), "Trying to Remove a prototype that doesn't exist");
+	MapItor found = s_archetypes.find(type);
+	M5DEBUG_ASSERT(found != s_archetypes.end(), "Trying to Remove a prototype that doesn't exist");
 	delete found->second;
 	found->second = 0;
-	s_prototypes.erase(found);
+	s_archetypes.erase(found);
 }
 void M5ObjectManager::Pause(void)
 {

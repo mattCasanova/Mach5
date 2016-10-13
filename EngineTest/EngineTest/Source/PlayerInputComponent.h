@@ -21,7 +21,7 @@ public:
 	PlayerInputComponent(void);
 	~PlayerInputComponent(void);
 	virtual void Update(float dt);
-	virtual M5Component* Clone(void);
+	virtual PlayerInputComponent* Clone(void) const;
 	virtual void FromFile(M5IniFile& iniFile);
 private:
 	float m_forwardSpeed;

@@ -74,7 +74,7 @@ void ShrinkComponent::Update(float dt)
 Virtual constructor for PlayerInputComponent
 */
 /******************************************************************************/
-M5Component* ShrinkComponent::Clone(void)
+ShrinkComponent* ShrinkComponent::Clone(void) const
 {
 	ShrinkComponent* pNew = new ShrinkComponent();
 	return pNew;

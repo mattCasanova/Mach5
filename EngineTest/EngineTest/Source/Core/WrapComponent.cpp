@@ -31,7 +31,7 @@ void WrapComponent::Update(float /*dt*/)
 	m_pObj->pos.x = M5Math::Wrap(m_pObj->pos.x, botLeft.x, topRight.x);
 	m_pObj->pos.y = M5Math::Wrap(m_pObj->pos.y, botLeft.y, topRight.y);
 }
-M5Component* WrapComponent::Clone(void)
+WrapComponent* WrapComponent::Clone(void) const
 {
 	WrapComponent* pNew = new WrapComponent;
 	pNew->m_pObj = m_pObj;

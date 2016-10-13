@@ -19,7 +19,7 @@ class ClampComponent : public M5Component
 public:
 	ClampComponent();
 	virtual void Update(float dt);
-	virtual M5Component* Clone(void);
+	virtual ClampComponent* Clone(void) const;
 };
 
 #endif //CLAMP_COMPONENT_H

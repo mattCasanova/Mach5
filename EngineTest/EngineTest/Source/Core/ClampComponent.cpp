@@ -49,7 +49,7 @@ A new clamp component that is a copy of this one.
 
 */
 /******************************************************************************/
-M5Component* ClampComponent::Clone(void)
+ClampComponent* ClampComponent::Clone(void) const
 {
 	ClampComponent* pNew = new ClampComponent;
 	pNew->m_pObj = m_pObj;

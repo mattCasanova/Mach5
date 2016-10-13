@@ -20,8 +20,7 @@ about it's game object.  For now, it only containts a radius.
 
 ColliderComponent::ColliderComponent(void) :
 	M5Component(CT_ColliderComponent),
-	m_radius(0),
-	m_isResizeable(false)
+	m_radius(0)
 {
 }
 ColliderComponent::~ColliderComponent(void)
@@ -30,21 +29,15 @@ ColliderComponent::~ColliderComponent(void)
 }
 void ColliderComponent::Update(float /*dt*/)
 {
-	//If (m_isResizeable) resize raduis based on scale
-
 }
 void ColliderComponent::FromFile(M5IniFile& iniFile)
 {
-	int resizeableValue = 0;
 	iniFile.SetToSection("ColliderComponent");
 	iniFile.GetValue("radius", m_radius);
-	iniFile.GetValue("isResizeable", resizeableValue);
-	m_isResizeable = resizeableValue == 1;
 }
-M5Component* ColliderComponent::Clone(void)
+ColliderComponent* ColliderComponent::Clone(void) const
 {
 	ColliderComponent* pNew = new ColliderComponent;
-	pNew->m_isResizeable = m_isResizeable;
 	pNew->m_radius = m_radius;
 	pNew->m_pObj = m_pObj;
 

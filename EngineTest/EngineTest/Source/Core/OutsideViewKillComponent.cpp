@@ -62,7 +62,7 @@ void OutsideViewKillComponent::Update(float /*dt*/)
 Virtual constructor for this component
 */
 /******************************************************************************/
-M5Component* OutsideViewKillComponent::Clone(void)
+OutsideViewKillComponent* OutsideViewKillComponent::Clone(void) const
 {
 	OutsideViewKillComponent* pNew = new OutsideViewKillComponent;
 	pNew->m_pObj = m_pObj;

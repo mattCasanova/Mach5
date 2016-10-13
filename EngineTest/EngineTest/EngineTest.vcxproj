@@ -191,6 +191,9 @@
     <ClCompile Include="Source\Core\WrapComponent.cpp" />
     <ClCompile Include="Source\GamePlayStage.cpp" />
     <ClCompile Include="Source\PauseStage.cpp" />
+    <ClCompile Include="Source\RegisterArcheTypes.cpp" />
+    <ClCompile Include="Source\RegisterComponents.cpp" />
+    <ClCompile Include="Source\RegisterStages.cpp" />
     <ClCompile Include="Source\SpaceShooterHelp.cpp" />
     <ClCompile Include="Source\Main.cpp" />
     <ClCompile Include="Source\PlayerInputComponent.cpp" />

@@ -22,13 +22,10 @@ public:
 	~ColliderComponent(void);
 	virtual void Update(float dt);
 	virtual void FromFile(M5IniFile& iniFile);
-	virtual M5Component* Clone(void);
+	virtual ColliderComponent* Clone(void) const;
 	void TestCollision(const ColliderComponent* pOther);
-
-
 private:
 	float m_radius;
-	bool  m_isResizeable;
 };
 
 #endif //COLLIDER_COMPONENT_H

@@ -50,7 +50,7 @@ void ChasePlayerComponent::Update(float)
 Sets component type and starting values for player
 */
 /******************************************************************************/
-M5Component* ChasePlayerComponent::Clone(void)
+ChasePlayerComponent* ChasePlayerComponent::Clone(void) const
 {
 	ChasePlayerComponent* pNew = new ChasePlayerComponent;
 	pNew->m_speed = m_speed;

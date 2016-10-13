@@ -104,7 +104,7 @@ void RandomGoComponent::FromFile(M5IniFile& iniFile)
 	iniFile.GetValue("speed", m_speed);
 	iniFile.GetValue("rotationSpeed", m_speed);
 }
-M5Component* RandomGoComponent::Clone(void)
+RandomGoComponent* RandomGoComponent::Clone(void) const
 {
 	RandomGoComponent* pNew = new RandomGoComponent;
 	pNew->m_speed = m_speed;

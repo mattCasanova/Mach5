@@ -13,15 +13,5 @@ and registers those with the ObjectManager.
 #ifndef REGISTER_ARCHETYPES_H 
 #define REGISTER_ARCHETYPES_H 
  
-#include "Core\M5ArcheTypes.h" 
-#include "Core\M5ObjectManager.h" 
- 
- 
-inline void RegisterArcheTypes(void) {  
-M5ObjectManager::AddArcheType(AT_Bullet, "ArcheTypes\\Bullet.ini"); 
-M5ObjectManager::AddArcheType(AT_Player, "ArcheTypes\\Player.ini"); 
-M5ObjectManager::AddArcheType(AT_Raider, "ArcheTypes\\Raider.ini"); 
-M5ObjectManager::AddArcheType(AT_Splash, "ArcheTypes\\Splash.ini"); 
-M5ObjectManager::AddArcheType(AT_Ufo, "ArcheTypes\\Ufo.ini"); 
-} 
+void RegisterArcheTypes(void);  
 #endif //REGISTER_ARCHETYPES_H 

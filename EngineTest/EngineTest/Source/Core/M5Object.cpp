@@ -130,10 +130,11 @@ M5Object* M5Object::Clone(void) const
 	//create new object
 	M5Object* pClone = new M5Object(m_type);
 	//copy this internal data
-	pClone->pos   = pos;
-	pClone->vel   = vel;
-	pClone->scale = scale;
-	pClone->m_id  = ++s_objectIDCounter;
+	pClone->pos         = pos;
+	pClone->vel         = vel;
+	pClone->scale       = scale;
+	pClone->rotation    = rotation;
+	pClone->rotationVel = rotationVel;
 
 	//clone all components
 	size_t size = m_components.size();

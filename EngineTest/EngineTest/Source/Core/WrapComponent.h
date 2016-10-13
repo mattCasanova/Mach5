@@ -21,7 +21,7 @@ public:
 	WrapComponent(void);
 	~WrapComponent(void);
 	virtual void Update(float dt);
-	virtual M5Component* Clone(void);
+	virtual WrapComponent* Clone(void) const;
 private:
 
 };

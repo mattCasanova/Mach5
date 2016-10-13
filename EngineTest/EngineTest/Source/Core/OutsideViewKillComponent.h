@@ -24,7 +24,7 @@ public:
 	OutsideViewKillComponent(void);
 	~OutsideViewKillComponent(void);
 	virtual void Update(float dt);
-	virtual M5Component* Clone(void);
+	virtual OutsideViewKillComponent* Clone(void) const;
 private:
 
 };

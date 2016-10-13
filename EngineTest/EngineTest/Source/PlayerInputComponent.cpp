@@ -106,7 +106,7 @@ void PlayerInputComponent::Update(float dt)
 Virtual constructor for PlayerInputComponent
 */
 /******************************************************************************/
-M5Component* PlayerInputComponent::Clone(void)
+PlayerInputComponent* PlayerInputComponent::Clone(void) const
 {
 	PlayerInputComponent* pNew = new PlayerInputComponent;
 	pNew->m_forwardSpeed  = m_forwardSpeed;

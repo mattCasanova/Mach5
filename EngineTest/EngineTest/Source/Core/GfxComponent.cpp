@@ -24,7 +24,8 @@ Construtor for GFX component.  Sets default values
 /******************************************************************************/
 GfxComponent::GfxComponent(void):
 	M5Component(CT_GfxComponent),
-	m_textureID(0)
+	m_textureID(0),
+	m_drawSpace(DrawSpace::DS_WORLD)
 {
 }
 /******************************************************************************/
@@ -71,9 +72,9 @@ Clones the current GfxComponent and registers it with the GfxEngine.
 A new GfxComponent that is a clone of this one
 */
 /******************************************************************************/
-M5Component* GfxComponent::Clone(void)
+GfxComponent* GfxComponent::Clone(void) const
 {
-	//Alocates new object and compies data
+	//Allocates new object and copies data
 	GfxComponent* pNew = new GfxComponent;
 	pNew->m_pObj = m_pObj;
 	pNew->m_textureID = m_textureID;

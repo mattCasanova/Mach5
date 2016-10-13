@@ -22,7 +22,7 @@ public:
 	ShrinkComponent(void);
 	~ShrinkComponent(void);
 	virtual void Update(float dt);
-	virtual M5Component* Clone(void);
+	virtual ShrinkComponent* Clone(void) const;
 private:
 	M5Vec2 m_oldScale;
 	bool m_hasStarted;

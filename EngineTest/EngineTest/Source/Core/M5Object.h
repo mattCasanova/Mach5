@@ -51,12 +51,14 @@ public:
 	float        rotationVel; //!< Rotational Velocity of the Game Object
 	bool         isDead;      //!< flag to control when a game object should be destroyed
 private:
+	M5Object(const M5Object& rhs) = delete;
+
 	typedef std::vector<M5Component*> ComponentVec; //!< Typedef for my Vector of Components
 	typedef ComponentVec::iterator VecItor;         //!< Typedef for my container iterator
 
 	ComponentVec m_components;                      //!< Vector of Components to Update
-	M5ArcheTypes m_type;                            //!< The ArcheType of the Game Object
-	int          m_id;                              //!< Unique ID of the Game Object
+	const M5ArcheTypes m_type;                            //!< The ArcheType of the Game Object
+	const int    m_id;                              //!< Unique ID of the Game Object
 	static int   s_objectIDCounter;                 //!< Shared ID counter for all Game Objects 
 
 };

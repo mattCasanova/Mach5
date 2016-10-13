@@ -58,7 +58,7 @@ class RandomGoComponent : public M5StateMachine
 public:
 	RandomGoComponent(void);
 	virtual void FromFile(M5IniFile&);
-	virtual M5Component* Clone(void);
+	virtual RandomGoComponent* Clone(void) const;
 private:
 	friend RLCFindState;
 	friend RLCGoState;

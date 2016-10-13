@@ -39,48 +39,62 @@ goto:eof
 ::******************************************************************************
 :CreateRegisterStages
 ::Create output file
-set REGISTERFILE=RegisterStages.h
+set HEADER=RegisterStages.h
+set SOURCE=RegisterStages.cpp
 ::Add file header
-echo /******************************************************************************/ > %REGISTERFILE%
-echo /*! >> %REGISTERFILE%
-echo \file   RegisterStages.h >> %REGISTERFILE%
-echo \author UserPreBuild.bat >> %REGISTERFILE%
-echo \par    email: lazersquad\@gmail.com >>%REGISTERFILE%
-echo \par    Mach5 Game Engine >> %REGISTERFILE%
-echo. >> %REGISTERFILE%
-echo This file gets auto generated based on the names of the Stages in the >> %REGISTERFILE%
-echo current project.  UserPreBuild.bat looks for files named *Stage.h >> %REGISTERFILE%
-echo and registers those stages with the StageManager. >> %REGISTERFILE%
-echo */ >> %REGISTERFILE%
-echo /******************************************************************************/ >> %REGISTERFILE%
+echo /******************************************************************************/ > %HEADER%
+echo /*! >> %HEADER%
+echo \file   RegisterStages.h >> %HEADER%
+echo \author UserPreBuild.bat >> %HEADER%
+echo \par    email: lazersquad\@gmail.com >>%HEADER%
+echo \par    Mach5 Game Engine >> %HEADER%
+echo. >> %HEADER%
+echo This file gets auto generated based on the names of the Stages in the >> %HEADER%
+echo current project.  UserPreBuild.bat looks for files named *Stage.h >> %HEADER%
+echo and registers those stages with the StageManager. >> %HEADER%
+echo */ >> %HEADER%
+echo /******************************************************************************/ >> %HEADER%
 
 ::Add Code Guards
-echo #ifndef REGISTER_STAGES_H >> %REGISTERFILE%
-echo #define REGISTER_STAGES_H >> %REGISTERFILE%
-echo. >> %REGISTERFILE%
+echo #ifndef REGISTER_STAGES_H >> %HEADER%
+echo #define REGISTER_STAGES_H >> %HEADER%
+echo. >> %HEADER%
 
+echo void RegisterStages(void);  >> %HEADER%
+echo #endif //REGISTER_STAGES_H >> %HEADER%
+
+::Do Source Files
+echo /******************************************************************************/ > %SOURCE%
+echo /*! >> %SOURCE%
+echo \file   RegisterStages.cpp >> %SOURCE%
+echo \author UserPreBuild.bat >> %SOURCE%
+echo \par    email: lazersquad\@gmail.com >>%SOURCE%
+echo \par    Mach5 Game Engine >> %SOURCE%
+echo. >> %SOURCE%
+echo This file gets auto generated based on the names of the Stages in the >> %SOURCE%
+echo current project.  UserPreBuild.bat looks for files named *Stage.h >> %SOURCE%
+echo and registers those stages with the StageManager. >> %SOURCE%
+echo */ >> %SOURCE%
+echo /******************************************************************************/ >> %SOURCE%
 ::Add includes
-echo #include "Core\M5StageManager.h" >> %REGISTERFILE%
-echo #include "Core\M5StageTypes.h" >> %REGISTERFILE%
-echo #include "Core\M5StageBuilder.h" >> %REGISTERFILE%
+echo #include "RegisterStages.h" >> %SOURCE%
+echo #include "Core\M5StageManager.h" >> %SOURCE%
+echo #include "Core\M5StageTypes.h" >> %SOURCE%
+echo #include "Core\M5StageBuilder.h" >> %SOURCE%
 
 ::Include all Stage header files
 for %%f in ( *Stage.h ) do (
-  echo #include "%%f" >> %REGISTERFILE%
+  echo #include "%%f" >> %SOURCE%
 )
-echo. >> %REGISTERFILE%
-echo. >> %REGISTERFILE%
+echo. >> %SOURCE%
+echo. >> %SOURCE%
 
-echo inline void RegisterStages(void) {  >> %REGISTERFILE%
-
+echo void RegisterStages(void) {  >> %SOURCE%
 ::Get all files with the name *Stage in it and output just the file name
 for %%f in ( *Stage.h ) do (
-  echo  M5StageManager::AddStage^(ST_%%~nf, new M5StageTBuilder^< %%~nf ^>^(^) ^); >> %REGISTERFILE%
+  echo   M5StageManager::AddStage^(ST_%%~nf, new M5StageTBuilder^< %%~nf ^>^(^) ^); >> %SOURCE%
 )
-
-
-echo } >> %REGISTERFILE%
-echo #endif //REGISTER_STAGES_H >> %REGISTERFILE%
+echo } >> %SOURCE%
 goto:eof
 ::******************************************************************************
 ::Auto generates the RegisterComponents.h files which registers all user 
@@ -88,56 +102,66 @@ goto:eof
 ::******************************************************************************
 :CreateRegisterComponent
 ::Create output file
-set REGISTERFILE=RegisterComponents.h
+set HEADER=RegisterComponents.h
+set SOURCE=RegisterComponents.cpp
 ::Add file header
-echo /******************************************************************************/ > %REGISTERFILE%
-echo /*! >> %REGISTERFILE%
-echo \file   %REGISTERFILE% >> %REGISTERFILE%
-echo \author UserPreBuild.bat >> %REGISTERFILE%
-echo \par    email: lazersquad\@gmail.com >>%REGISTERFILE%
-echo \par    Mach5 Game Engine >> %REGISTERFILE%
-echo. >> %REGISTERFILE%
-echo This file gets auto generated based on the names of the Components in the >> %REGISTERFILE%
-echo Include folder and current project.  UserPreBuild.bat looks for files named *Component.h >> %REGISTERFILE%
-echo and registers those with the ObjectManager. >> %REGISTERFILE%
-echo */ >> %REGISTERFILE%
-echo /******************************************************************************/ >> %REGISTERFILE%
-
+echo /******************************************************************************/ > %HEADER%
+echo /*! >> %HEADER%
+echo \file   %HEADER% >> %HEADER%
+echo \author UserPreBuild.bat >> %HEADER%
+echo \par    email: lazersquad\@gmail.com >>%HEADER%
+echo \par    Mach5 Game Engine >> %HEADER%
+echo. >> %HEADER%
+echo This file gets auto generated based on the names of the Components in the >> %HEADER%
+echo Include folder and current project.  UserPreBuild.bat looks for files named *Component.h >> %HEADER%
+echo and registers those with the ObjectManager. >> %HEADER%
+echo */ >> %HEADER%
+echo /******************************************************************************/ >> %HEADER%
 ::Add Code Guards
-echo #ifndef REGISTER_COMPONENTS_H >> %REGISTERFILE%
-echo #define REGISTER_COMPONENTS_H >> %REGISTERFILE%
-echo. >> %REGISTERFILE%
+echo #ifndef REGISTER_COMPONENTS_H >> %HEADER%
+echo #define REGISTER_COMPONENTS_H >> %HEADER%
+echo. >> %HEADER%
+echo void RegisterComponents(void); >> %HEADER%
+echo #endif //REGISTER_COMPONENTS_H >> %HEADER%
 
+
+
+echo /******************************************************************************/ > %SOURCE%
+echo /*! >> %SOURCE%
+echo \file   %SOURCE% >> %SOURCE%
+echo \author UserPreBuild.bat >> %SOURCE%
+echo \par    email: lazersquad\@gmail.com >>%SOURCE%
+echo \par    Mach5 Game Engine >> %SOURCE%
+echo. >> %SOURCE%
+echo This file gets auto generated based on the names of the Components in the >> %SOURCE%
+echo Include folder and current project.  UserPreBuild.bat looks for files named *Component.h >> %SOURCE%
+echo and registers those with the ObjectManager. >> %SOURCE%
+echo */ >> %SOURCE%
+echo /******************************************************************************/ >> %SOURCE%
 ::Add includes
-echo #include "Core\M5ObjectManager.h" >> %REGISTERFILE%
-echo #include "Core\M5ComponentTypes.h" >> %REGISTERFILE%
-echo #include "Core\M5ComponentBuilder.h" >> %REGISTERFILE%
-
+echo #include "Core\M5ObjectManager.h" >> %SOURCE%
+echo #include "Core\M5ComponentTypes.h" >> %SOURCE%
+echo #include "Core\M5ComponentBuilder.h" >> %SOURCE%
 ::All Component header files from the Include folder
 for %%f in ( Core\*???Component.h ) do (
-  echo #include "Core\%%~nxf" >> %REGISTERFILE%
+  echo #include "Core\%%~nxf" >> %SOURCE%
 )
 ::All Component header files from the current project
 for %%f in ( *Component.h ) do (
-  echo #include "%%f" >> %REGISTERFILE%
+  echo #include "%%f" >> %SOURCE%
 )
-echo. >> %REGISTERFILE%
-echo. >> %REGISTERFILE%
-
-echo inline void RegisterComponents(void) {  >> %REGISTERFILE%
-
+echo. >> %SOURCE%
+echo. >> %SOURCE%
+echo void RegisterComponents(void) {  >> %SOURCE%
 ::All Component header files from the Include folder
 for %%f in ( Core\*???Component.h ) do (
-  echo  M5ObjectManager::AddComponent^(CT_%%~nf, new M5ComponentTBuilder^< %%~nf ^>^(^) ^); >> %REGISTERFILE%
+  echo  M5ObjectManager::AddComponent^(CT_%%~nf, new M5ComponentTBuilder^< %%~nf ^>^(^) ^); >> %SOURCE%
 )
 ::All Component header files from the current project
 for %%f in ( *Component.h ) do (
-  echo  M5ObjectManager::AddComponent^(CT_%%~nf, new M5ComponentTBuilder^< %%~nf ^>^(^) ^); >> %REGISTERFILE%
+  echo  M5ObjectManager::AddComponent^(CT_%%~nf, new M5ComponentTBuilder^< %%~nf ^>^(^) ^); >> %SOURCE%
 )
-
-
-echo } >> %REGISTERFILE%
-echo #endif //REGISTER_COMPONENTS_H >> %REGISTERFILE%
+echo } >> %SOURCE%
 goto:eof
 ::******************************************************************************
 ::Auto generates the RegisterArcheTypes.h file which adds ArcheTypes to the 
@@ -145,42 +169,57 @@ goto:eof
 ::******************************************************************************
 :CreateRegisterArcheTypes
 ::Create output file
-set REGISTERFILE=RegisterArcheTypes.h
+set HEADER=RegisterArcheTypes.h
+set SOURCE=RegisterArcheTypes.cpp
 ::Add file header
-echo /******************************************************************************/ > %REGISTERFILE%
-echo /*! >> %REGISTERFILE%
-echo \file   RegisterArcheTypes.h >> %REGISTERFILE%
-echo \author PreBuild.bat >> %REGISTERFILE%
-echo \par    email: lazersquad\@gmail.com >>%REGISTERFILE%
-echo \par    Mach5 Game Engine >> %REGISTERFILE%
-echo. >> %REGISTERFILE%
-echo This file gets auto generated based on the names of the ArcheTypes in the >> %REGISTERFILE%
-echo ArcheTypes Folder  UserPreBuild.bat looks for files named *.ini >> %REGISTERFILE%
-echo and registers those with the ObjectManager. >> %REGISTERFILE%
-echo */ >> %REGISTERFILE%
-echo /******************************************************************************/ >> %REGISTERFILE%
-
+echo /******************************************************************************/ > %HEADER%
+echo /*! >> %HEADER%
+echo \file   RegisterArcheTypes.h >> %HEADER%
+echo \author PreBuild.bat >> %HEADER%
+echo \par    email: lazersquad\@gmail.com >>%HEADER%
+echo \par    Mach5 Game Engine >> %HEADER%
+echo. >> %HEADER%
+echo This file gets auto generated based on the names of the ArcheTypes in the >> %HEADER%
+echo ArcheTypes Folder  UserPreBuild.bat looks for files named *.ini >> %HEADER%
+echo and registers those with the ObjectManager. >> %HEADER%
+echo */ >> %HEADER%
+echo /******************************************************************************/ >> %HEADER%
 ::Add Code Guards
-echo #ifndef REGISTER_ARCHETYPES_H >> %REGISTERFILE%
-echo #define REGISTER_ARCHETYPES_H >> %REGISTERFILE%
-echo. >> %REGISTERFILE%
+echo #ifndef REGISTER_ARCHETYPES_H >> %HEADER%
+echo #define REGISTER_ARCHETYPES_H >> %HEADER%
+echo. >> %HEADER%
+echo void RegisterArcheTypes(void);  >> %HEADER%
+echo #endif //REGISTER_ARCHETYPES_H >> %HEADER%
 
+
+
+
+echo /******************************************************************************/ > %SOURCE%
+echo /*! >> %SOURCE%
+echo \file   %SOURCE% >> %SOURCE%
+echo \author PreBuild.bat >> %SOURCE%
+echo \par    email: lazersquad\@gmail.com >>%SOURCE%
+echo \par    Mach5 Game Engine >> %SOURCE%
+echo. >> %SOURCE%
+echo This file gets auto generated based on the names of the ArcheTypes in the >> %SOURCE%
+echo ArcheTypes Folder  UserPreBuild.bat looks for files named *.ini >> %SOURCE%
+echo and registers those with the ObjectManager. >> %SOURCE%
+echo */ >> %SOURCE%
+echo /******************************************************************************/ >> %SOURCE%
 ::Add includes
-echo #include "Core\M5ArcheTypes.h" >> %REGISTERFILE%
-echo #include "Core\M5ObjectManager.h" >> %REGISTERFILE%
-echo. >> %REGISTERFILE%
-echo. >> %REGISTERFILE%
+echo #include "Core\M5ArcheTypes.h" >> %SOURCE%
+echo #include "Core\M5ObjectManager.h" >> %SOURCE%
+echo. >> %SOURCE%
+echo. >> %SOURCE%
 
-echo inline void RegisterArcheTypes(void) {  >> %REGISTERFILE%
+echo void RegisterArcheTypes(void) {  >> %SOURCE%
 
 ::Get all files with the name *Stage in it and output just the file name
 for %%f in ( ..\ArcheTypes\*.ini ) do (
-  echo M5ObjectManager::AddArcheType^(AT_%%~nf, "ArcheTypes\\%%~nf.ini"^); >> %REGISTERFILE%
+  echo M5ObjectManager::AddArcheType^(AT_%%~nf, "ArcheTypes\\%%~nf.ini"^); >> %SOURCE%
 )
+echo } >> %SOURCE%
 
-
-echo } >> %REGISTERFILE%
-echo #endif //REGISTER_ARCHETYPES_H >> %REGISTERFILE%
 goto:eof
 ::******************************************************************************
 ::Auto generates the enum for M5StageTypes based on the files that the user created.
