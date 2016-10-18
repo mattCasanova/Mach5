@@ -18,11 +18,11 @@ Finite Statemachine base class component
 #include "Core\M5Math.h"
 #include <cmath>
 
-RLCFindState::RLCFindState(RandomGoComponent* parent):
+RandomGoComponent::FindState::FindState(RandomGoComponent* parent):
 	m_parent(parent)
 {
 }
-void RLCFindState::Enter(float)
+void RandomGoComponent::FindState::Enter(float)
 {
 	M5Vec2 botLeft;
 	M5Vec2 topRight;
@@ -33,32 +33,32 @@ void RLCFindState::Enter(float)
 	m_parent->m_target.y = M5Random::GetFloat(botLeft.y, topRight.y);
 
 }
-void RLCFindState::Update(float)
+void RandomGoComponent::FindState::Update(float)
 {
 	m_parent->SetNextState(&m_parent->m_rotateState);
 }
-void RLCFindState::Exit(float)
+void RandomGoComponent::FindState::Exit(float)
 {
 }
-RLCRotateState::RLCRotateState(RandomGoComponent* parent) :
+RandomGoComponent::RotateState::RotateState(RandomGoComponent* parent) :
 	m_parent(parent)
 {
 }
 
-void RLCRotateState::Enter(float )
+void RandomGoComponent::RotateState::Enter(float )
 {
 	M5Vec2::Sub(m_dir, m_parent->m_target, m_parent->m_pObj->pos);
 	m_targetRot = std::atan2f(m_dir.y, m_dir.x);
 	m_targetRot = M5Math::Wrap(m_targetRot, 0.f, M5Math::TWO_PI);
 	m_parent->m_pObj->rotationVel = m_parent->m_rotateSpeed;
 }
-void RLCRotateState::Update(float )
+void RandomGoComponent::RotateState::Update(float )
 {
 	m_parent->m_pObj->rotation = M5Math::Wrap(m_parent->m_pObj->rotation, 0.f, M5Math::TWO_PI);
 	if(M5Math::IsInRange(m_parent->m_pObj->rotation, m_targetRot - .1f, m_targetRot + .1f))
 		m_parent->SetNextState(&m_parent->m_goState);
 }
-void RLCRotateState::Exit(float )
+void RandomGoComponent::RotateState::Exit(float )
 {
 	m_parent->m_pObj->rotationVel = 0;
 	m_dir.Normalize();
@@ -66,15 +66,14 @@ void RLCRotateState::Exit(float )
 	m_parent->m_pObj->vel = m_dir;
 }
 
-RLCGoState::RLCGoState(RandomGoComponent* parent) :
+RandomGoComponent::GoState::GoState(RandomGoComponent* parent) :
 	m_parent(parent)
 {
 }
-void RLCGoState::Enter(float )
+void RandomGoComponent::GoState::Enter(float )
 {
-
 }
-void RLCGoState::Update(float )
+void RandomGoComponent::GoState::Update(float )
 {
 	if (M5Intersect::PointCircle(m_parent->m_target,
 		m_parent->m_pObj->pos,
@@ -83,7 +82,7 @@ void RLCGoState::Update(float )
 		m_parent->SetNextState(&m_parent->m_findState);
 	}
 }
-void RLCGoState::Exit(float )
+void RandomGoComponent::GoState::Exit(float )
 {
 	m_parent->m_pObj->vel.Set(0, 0);
 }

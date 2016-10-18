@@ -17,40 +17,6 @@ Component to find, rotate to and move toward a random location
 #include "Core\M5Vec2.h"
 
 //Forward declation
-class RandomGoComponent;
-
-class RLCFindState : public M5State
-{
-public:
-	RLCFindState(RandomGoComponent* parent);
-	void Enter(float dt);
-	void Update(float dt);
-	void Exit(float dt);
-private:
-	RandomGoComponent* m_parent;
-};
-class RLCRotateState : public M5State
-{
-public:
-	RLCRotateState(RandomGoComponent* parent);
-	void Enter(float dt);
-	void Update(float dt);
-	void Exit(float dt);
-private:
-	float m_targetRot;
-	M5Vec2 m_dir;
-	RandomGoComponent* m_parent;
-};
-class RLCGoState : public M5State
-{
-public:
-	RLCGoState(RandomGoComponent* parent);
-	void Enter(float dt);
-	void Update(float dt);
-	void Exit(float dt);
-private:
-	RandomGoComponent* m_parent;
-};
 
 
 class RandomGoComponent : public M5StateMachine
@@ -60,17 +26,50 @@ public:
 	virtual void FromFile(M5IniFile&);
 	virtual RandomGoComponent* Clone(void) const;
 private:
-	friend RLCFindState;
-	friend RLCGoState;
-	friend RLCRotateState;
+	class FindState : public M5State
+	{
+	public:
+		FindState(RandomGoComponent* parent);
+		void Enter(float dt);
+		void Update(float dt);
+		void Exit(float dt);
+	private:
+		RandomGoComponent* m_parent;
+	};
+	class RotateState : public M5State
+	{
+	public:
+		RotateState(RandomGoComponent* parent);
+		void Enter(float dt);
+		void Update(float dt);
+		void Exit(float dt);
+	private:
+		float m_targetRot;
+		M5Vec2 m_dir;
+		RandomGoComponent* m_parent;
+	};
+	class GoState : public M5State
+	{
+	public:
+		GoState(RandomGoComponent* parent);
+		void Enter(float dt);
+		void Update(float dt);
+		void Exit(float dt);
+	private:
+		RandomGoComponent* m_parent;
+	};
 
-	float          m_speed;
-	float          m_rotateSpeed;
-	M5Vec2         m_target;
-	RLCFindState   m_findState;
-	RLCRotateState m_rotateState;
-	RLCGoState     m_goState;
+	friend FindState;
+	friend GoState;
+	friend RotateState;
+
+	float       m_speed;
+	float       m_rotateSpeed;
+	M5Vec2      m_target;
+	FindState   m_findState;
+	RotateState m_rotateState;
+	GoState     m_goState;
 };
 
 
-#endif // !RANDOM_LOCATION_COMPONENT_H
+#endif // !RANDOM_GO_COMPONENT_H
