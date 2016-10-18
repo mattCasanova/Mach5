@@ -24,6 +24,7 @@ CT_OutsideViewKillComponent,
 CT_UIButtonComponent, 
 CT_WrapComponent, 
 CT_ChasePlayerComponent, 
+CT_GrowToSizeComponent, 
 CT_MenuSpawnerComponent, 
 CT_PlayerInputComponent, 
 CT_RandomGoComponent, 
@@ -41,6 +42,7 @@ if(string == "OutsideViewKillComponent") return CT_OutsideViewKillComponent;
 if(string == "UIButtonComponent") return CT_UIButtonComponent; 
 if(string == "WrapComponent") return CT_WrapComponent; 
 if(string == "ChasePlayerComponent") return CT_ChasePlayerComponent; 
+if(string == "GrowToSizeComponent") return CT_GrowToSizeComponent; 
 if(string == "MenuSpawnerComponent") return CT_MenuSpawnerComponent; 
 if(string == "PlayerInputComponent") return CT_PlayerInputComponent; 
 if(string == "RandomGoComponent") return CT_RandomGoComponent; 

@@ -75,7 +75,7 @@ int WINAPI WinMain(HINSTANCE instance,
   iniFile.GetValue("height", initData.height);
   iniFile.GetValue("framesPerSecond", initData.fps);
   iniFile.GetValue("fullScreen", initData.fullScreen);
-  
+
   initData.title        = "AstroShot";
   initData.instance     = instance;
   /*Information about your specific gamedata */

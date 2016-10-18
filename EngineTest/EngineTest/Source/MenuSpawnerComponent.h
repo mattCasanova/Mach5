@@ -27,8 +27,6 @@ private:
 	M5ArcheTypes m_type;
 	float m_velMin;
 	float m_velMax;
-	float m_growMin;
-	float m_growMax;
 	float m_timer;
 	float m_maxTime;
 

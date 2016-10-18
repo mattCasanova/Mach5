@@ -20,6 +20,7 @@ The MainMenu in AstroShot
 #include "Core\M5Phy.h"
 #include "Core\UIButtonComponent.h"
 #include "Core\ChangeStageCommand.h"
+#include "Core\QuitCommand.h"
 #include "Core\GfxComponent.h"
 #include "SpaceShooterHelp.h"
 
@@ -46,6 +47,14 @@ void MainMenuStage::Init(void)
 	pButton->SetOnClick(new ChangeStageCommand(ST_GamePlayStage));
 	pObj->GetComponent(CT_GfxComponent, pGfx);
 	pGfx->SetTexture("Textures//playButton.tga");
+
+	pObj = M5ObjectManager::CreateObject(AT_UIButton);
+	pObj->pos.Set(windowSize.x / 2, windowSize.y * .4f);
+	pObj->scale.Set(256, 64);
+	pObj->GetComponent(CT_UIButtonComponent, pButton);
+	pButton->SetOnClick(new QuitCommand());
+	pObj->GetComponent(CT_GfxComponent, pGfx);
+	pGfx->SetTexture("Textures//QuitButton.tga");
 
 	pObj = M5ObjectManager::CreateObject(AT_MenuTitle);
 	pObj->pos.Set(windowSize.x / 2, windowSize.y * .75f);

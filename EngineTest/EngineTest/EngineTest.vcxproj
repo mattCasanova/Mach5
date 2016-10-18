@@ -165,6 +165,7 @@
   <ItemGroup>
     <ClCompile Include="Source\ChasePlayerComponent.cpp" />
     <ClCompile Include="Source\Core\ChangeStageCommand.cpp" />
+    <ClCompile Include="Source\Core\QuitCommand.cpp" />
     <ClCompile Include="Source\Core\UIButtonComponent.cpp" />
     <ClCompile Include="Source\Core\ClampComponent.cpp" />
     <ClCompile Include="Source\Core\ColliderComponent.cpp" />
@@ -192,6 +193,7 @@
     <ClCompile Include="Source\Core\OutsideViewKillComponent.cpp" />
     <ClCompile Include="Source\Core\WrapComponent.cpp" />
     <ClCompile Include="Source\GamePlayStage.cpp" />
+    <ClCompile Include="Source\GrowToSizeComponent.cpp" />
     <ClCompile Include="Source\MainMenuStage.cpp" />
     <ClCompile Include="Source\MenuSpawnerComponent.cpp" />
     <ClCompile Include="Source\PauseStage.cpp" />
@@ -212,6 +214,7 @@
     <ClInclude Include="Source\Core\ChangeStageCommand.h" />
     <ClInclude Include="Source\Core\M5Command.h" />
     <ClInclude Include="Source\Core\M5CommandTypes.h" />
+    <ClInclude Include="Source\Core\QuitCommand.h" />
     <ClInclude Include="Source\Core\UIButtonComponent.h" />
     <ClInclude Include="Source\Core\ClampComponent.h" />
     <ClInclude Include="Source\Core\ColliderComponent.h" />
@@ -247,6 +250,7 @@
     <ClInclude Include="Source\Core\OutsideViewKillComponent.h" />
     <ClInclude Include="Source\Core\WrapComponent.h" />
     <ClInclude Include="Source\GamePlayStage.h" />
+    <ClInclude Include="Source\GrowToSizeComponent.h" />
     <ClInclude Include="Source\MainMenuStage.h" />
     <ClInclude Include="Source\MenuSpawnerComponent.h" />
     <ClInclude Include="Source\PauseStage.h" />

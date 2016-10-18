@@ -50,8 +50,8 @@ void OutsideViewKillComponent::Update(float /*dt*/)
 	M5Gfx::GetWorldBotLeft(botLeft);
 	M5Gfx::GetWorldTopRight(topRight);
 	
-	if (pos.x + scale.x > topRight.x || pos.x - scale.x < botLeft.x ||
-		pos.y + scale.y > topRight.y || pos.y - scale.y < botLeft.y)
+	if (pos.x - scale.x > topRight.x || pos.x + scale.x < botLeft.x ||
+		pos.y - scale.y > topRight.y || pos.y + scale.y < botLeft.y)
 	{
 		m_pObj->isDead = true;
 	}

@@ -20,6 +20,7 @@ and registers those with the ObjectManager.
 #include "Core\UIButtonComponent.h" 
 #include "Core\WrapComponent.h" 
 #include "ChasePlayerComponent.h" 
+#include "GrowToSizeComponent.h" 
 #include "MenuSpawnerComponent.h" 
 #include "PlayerInputComponent.h" 
 #include "RandomGoComponent.h" 
@@ -34,6 +35,7 @@ void RegisterComponents(void) {
  M5ObjectManager::AddComponent(CT_UIButtonComponent, new M5ComponentTBuilder< UIButtonComponent >() ); 
  M5ObjectManager::AddComponent(CT_WrapComponent, new M5ComponentTBuilder< WrapComponent >() ); 
  M5ObjectManager::AddComponent(CT_ChasePlayerComponent, new M5ComponentTBuilder< ChasePlayerComponent >() ); 
+ M5ObjectManager::AddComponent(CT_GrowToSizeComponent, new M5ComponentTBuilder< GrowToSizeComponent >() ); 
  M5ObjectManager::AddComponent(CT_MenuSpawnerComponent, new M5ComponentTBuilder< MenuSpawnerComponent >() ); 
  M5ObjectManager::AddComponent(CT_PlayerInputComponent, new M5ComponentTBuilder< PlayerInputComponent >() ); 
  M5ObjectManager::AddComponent(CT_RandomGoComponent, new M5ComponentTBuilder< RandomGoComponent >() ); 

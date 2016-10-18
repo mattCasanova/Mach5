@@ -25,8 +25,6 @@ MenuSpawnerComponent::MenuSpawnerComponent(void):
 	m_type(AT_INVALID),
 	m_velMin(1),
 	m_velMax(1),
-	m_growMin(0),
-	m_growMax(0),
 	m_timer(0),
 	m_maxTime(1)
 {
@@ -56,8 +54,6 @@ void MenuSpawnerComponent::FromFile(M5IniFile& iniFile)
 	iniFile.SetToSection("MenuSpawnerComponent");
 	iniFile.GetValue("velMin", m_velMin);
 	iniFile.GetValue("velMax", m_velMax);
-	//iniFile.GetValue("growMin", m_growMin);
-	//iniFile.GetValue("growMax", m_growMax);
 	iniFile.GetValue("maxTime", m_maxTime);
 	iniFile.GetValue("type", type);
 	m_type = StringToArcheType(type);
@@ -72,10 +68,9 @@ void MenuSpawnerComponent::FromFile(M5IniFile& iniFile)
 	 pClone->m_type    = m_type;
 	 pClone->m_velMin  = m_velMin;
 	 pClone->m_velMax  = m_velMax;
-	 pClone->m_growMin = m_growMin;
-	 pClone->m_growMax = m_growMax;
 	 pClone->m_timer   = 0;
 	 pClone->m_maxTime = m_maxTime;
+	 pClone->m_pObj = m_pObj;
 
 	 return pClone;
 }

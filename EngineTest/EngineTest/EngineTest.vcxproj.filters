@@ -160,6 +160,12 @@
     <Filter Include="SpaceShooter\Components\MenuAsteroidSpawnerComp">
       <UniqueIdentifier>{5bec44b6-1a77-46e2-af1d-f99340e3bb2f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="SpaceShooter\Components\GrowToSizeComp">
+      <UniqueIdentifier>{5621b983-4281-4c43-ba05-62a4ab1a11e4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Commands\Quit">
+      <UniqueIdentifier>{b2c0c0fb-e648-4a63-800d-7e5be632d197}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Core\M5App.cpp">
@@ -284,6 +290,12 @@
     </ClCompile>
     <ClCompile Include="Source\MenuSpawnerComponent.cpp">
       <Filter>SpaceShooter\Components\MenuAsteroidSpawnerComp</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\GrowToSizeComponent.cpp">
+      <Filter>SpaceShooter\Components\GrowToSizeComp</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Core\QuitCommand.cpp">
+      <Filter>Core\Commands\Quit</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -436,6 +448,12 @@
     </ClInclude>
     <ClInclude Include="Source\MenuSpawnerComponent.h">
       <Filter>SpaceShooter\Components\MenuAsteroidSpawnerComp</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\GrowToSizeComponent.h">
+      <Filter>SpaceShooter\Components\GrowToSizeComp</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Core\QuitCommand.h">
+      <Filter>Core\Commands\Quit</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
