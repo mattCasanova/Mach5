@@ -33,7 +33,7 @@ private:
 	//! Typedef for my Hash Table of M5ComponentTypes and M5ComponentBuilders
 	typedef std::unordered_map<M5ComponentTypes, M5ComponentBuilder*> BuilderMap;
 	//! Easy Typedef for the itorator to my BuilderMap.
-	typedef BuilderMap::iterator MapItor;
+	typedef BuilderMap::iterator ArcheTypeItor;
 	//! Container to map M5ComponentTypes to M5Builders 
 	BuilderMap m_builderMap; 
 };

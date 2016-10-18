@@ -28,7 +28,7 @@ private:
 	//! Typedef for my Hash Table of M5GameStages and M5StageBuilder's
 	typedef std::unordered_map<EnumType, BuilderType*> BuilderMap;
 	//! Easy Typedef for the itorator to my BuilderMap.
-	typedef typename BuilderMap::iterator MapItor;
+	typedef typename BuilderMap::iterator ArcheTypeItor;
 	//! Container to map M5GameStages to M5Builders 
 	BuilderMap m_builderMap;
 };
@@ -58,7 +58,7 @@ template<typename EnumType, typename BuilderType, typename ReturnType>
 void M5Factory<EnumType, BuilderType, ReturnType>::AddBuilder(EnumType type,
 	BuilderType* pBuilder)
 {
-	std::pair<MapItor, bool> itor = m_builderMap.insert(std::make_pair(type, pBuilder));
+	std::pair<ArcheTypeItor, bool> itor = m_builderMap.insert(std::make_pair(type, pBuilder));
 	M5DEBUG_ASSERT(itor.second == true, "Trying to add a builder that already exists");
 }
 /******************************************************************************/
@@ -96,7 +96,7 @@ A Derived class in the ReturnType inheritance chain.
 template<typename EnumType, typename BuilderType, typename ReturnType>
 ReturnType* M5Factory<EnumType, BuilderType, ReturnType>::Build(EnumType type)
 {
-	MapItor itor = m_builderMap.find(type);
+	ArcheTypeItor itor = m_builderMap.find(type);
 	M5DEBUG_ASSERT(itor != m_builderMap.end(), "Trying to use a Builder that doesn't exist");
 	return itor->second->Build();
 }
@@ -108,8 +108,8 @@ Removes all elements from the factory and deletes the associated builders.
 template<typename EnumType, typename BuilderType, typename ReturnType>
 void M5Factory<EnumType, BuilderType, ReturnType>::ClearBuilders(void)
 {
-	MapItor itor = m_builderMap.begin();
-	MapItor end = m_builderMap.end();
+	ArcheTypeItor itor = m_builderMap.begin();
+	ArcheTypeItor end = m_builderMap.end();
 
 	//Make sure to delete all builder pointers first
 	while (itor != end)

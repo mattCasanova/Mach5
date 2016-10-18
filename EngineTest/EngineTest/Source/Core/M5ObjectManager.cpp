@@ -13,6 +13,7 @@ game objects.
 /******************************************************************************/
 #include "M5ObjectManager.h"
 #include "M5Object.h"
+#include "M5Command.h"
 #include "M5Debug.h"
 #include "M5IniFile.h"
 #include "../RegisterComponents.h"
@@ -21,6 +22,7 @@ game objects.
 #include "M5Component.h"
 #include "M5ComponentBuilder.h"
 #include "M5Factory.h"
+#include "M5CommandTypes.h"
 
 #include <vector>
 #include <stack>
@@ -30,11 +32,14 @@ game objects.
 
 namespace
 {
-typedef std::vector<M5Object*>           ObjectVec;   //!< typedef Container to hold all game objects
-typedef ObjectVec::iterator              VecItor;     //!< typdef Iterator for object container
+typedef std::vector<M5Object*>           ObjectVec;    //!< typedef Container to hold all game objects
+typedef ObjectVec::iterator              VecItor;      //!< typdef Iterator for object container
 typedef std::unordered_map<M5ArcheTypes, 
-	                       M5Object*>    ArcheTypeMap;//!< typedef Container to hold prototypes
-typedef ArcheTypeMap::iterator           MapItor;     //!< typedef Iterator for prototypes
+	                       M5Object*>    ArcheTypeMap; //!< typedef Container to hold prototypes objects
+typedef ArcheTypeMap::iterator           ArcheTypeItor;//!< typedef Iterator for archetype map
+typedef std::unordered_map<M5CommandTypes,
+	                       M5Command*>   CommandMap;   //!< typedef containter to hold prototype commands
+typedef CommandMap::iterator             CommandMapItor;//!< typdef iterator for the command map
 typedef M5Factory<M5ComponentTypes, 
 	    M5ComponentBuilder, 
 	    M5Component>                    ComponentFactory;
@@ -44,6 +49,7 @@ const int START_SIZE = 100;                                      //!< Starting a
 
  ComponentFactory   s_componentFactory;                    //!< Factory of all registered components
  ArcheTypeMap       s_archetypes;                          //!< Map of active archetypes in game
+ CommandMap         s_commands;                            //!< Map of active commands in the game
  ObjectVec          s_objects;                             //!< Vector of active objects in game    
  int                s_objectStart;                         //!< The value to start updating the object list from.
  std::stack<int>    s_pauseStack;
@@ -77,8 +83,8 @@ void M5ObjectManager::Shutdown(void)
 	DestroyAllObjects();
 
 	//Delete prototypes
-	MapItor itor = s_archetypes.begin();
-	MapItor end = s_archetypes.end();
+	ArcheTypeItor itor = s_archetypes.begin();
+	ArcheTypeItor end = s_archetypes.end();
 
 	while (itor != end)
 	{
@@ -161,7 +167,7 @@ A new object of the given M5ArcheTypes type.
 /******************************************************************************/
 M5Object* M5ObjectManager::CreateObject(M5ArcheTypes type)
 {
-	MapItor found = s_archetypes.find(type);
+	ArcheTypeItor found = s_archetypes.find(type);
 	M5DEBUG_ASSERT(found != s_archetypes.end(), "Trying to create and Archetype that doesn't exist");
 
 	M5Object* pClone = found->second->Clone();
@@ -300,6 +306,18 @@ void M5ObjectManager::GetAllObjectsByType(M5ArcheTypes type, std::vector<M5Objec
 }
 /******************************************************************************/
 /*!
+Creates a component of the given type
+
+\param [in] type
+The type of component to Create
+*/
+/******************************************************************************/
+M5Component* M5ObjectManager::CreateComponent(M5ComponentTypes type)
+{
+	return s_componentFactory.Build(type);
+}
+/******************************************************************************/
+/*!
   Adds a component to the M5ObjectManager component factory.
 
   \param [in] type
@@ -338,7 +356,7 @@ The of an ini file that will load data bout the archetype
 /******************************************************************************/
 void M5ObjectManager::AddArcheType(M5ArcheTypes type, const char* fileName)
 {
-	MapItor found = s_archetypes.find(type);
+	ArcheTypeItor found = s_archetypes.find(type);
 	M5DEBUG_ASSERT(found == s_archetypes.end(), "Trying to add a prototype that already exists");
 
 	M5IniFile file;//My inifile to open	
@@ -375,17 +393,77 @@ The archetype to remove and delete
 /******************************************************************************/
 void M5ObjectManager::RemoveArcheType(M5ArcheTypes type)
 {
-	MapItor found = s_archetypes.find(type);
+	ArcheTypeItor found = s_archetypes.find(type);
 	M5DEBUG_ASSERT(found != s_archetypes.end(), "Trying to Remove a prototype that doesn't exist");
 	delete found->second;
 	found->second = 0;
 	s_archetypes.erase(found);
 }
+/******************************************************************************/
+/*!
+Creates a command of the specified type.  Note that this command must be deleted
+by the user.
+
+\param [in] type
+The command to create
+*/
+/******************************************************************************/
+M5Command* M5ObjectManager::CreateCommand(M5CommandTypes type)
+{
+	CommandMapItor itor = s_commands.find(type);
+	M5DEBUG_ASSERT(itor != s_commands.end(), "Tring to Create a command that doesn't exist");
+
+	return itor->second->Clone();
+}
+/******************************************************************************/
+/*!
+Adds a cloneable command to the object manager.  Note that the M5ObjectManager
+will delete the given command.
+
+\param [in] type
+The command to add
+
+\param [in] pCommand
+The M5Command that will be cloned.
+*/
+/******************************************************************************/
+void M5ObjectManager::AddCommand(M5CommandTypes type, M5Command* pCommand)
+{
+	CommandMapItor itor = s_commands.find(type);
+	M5DEBUG_ASSERT(itor == s_commands.end(), "Tring to Create a command that alraedy exist");
+	s_commands.insert(std::make_pair(type, pCommand));
+}
+/******************************************************************************/
+/*!
+Removes and deletes the associated Command from the M5ObjectManager
+
+\param [in] type
+The archetype to remove and delete
+*/
+/******************************************************************************/
+void M5ObjectManager::RemoveCommand(M5CommandTypes type)
+{
+	CommandMapItor itor = s_commands.find(type);
+	M5DEBUG_ASSERT(itor != s_commands.end(), "Tring to delete a command that doesn't exist");
+	delete itor->second;
+	itor->second = nullptr;
+	s_commands.erase(itor);
+}
+/******************************************************************************/
+/*!
+Stops Updating all objects creating up to this point.
+*/
+/******************************************************************************/
 void M5ObjectManager::Pause(void)
 {
 	s_pauseStack.push(s_objectStart);
 	s_objectStart = s_objects.size();
 }
+/******************************************************************************/
+/*!
+Resumes updating objects created before the last pause.
+*/
+/******************************************************************************/
 void M5ObjectManager::Resume(void)
 {
 	s_objectStart = s_pauseStack.top();

@@ -16,13 +16,15 @@ good place to load game data and initialize object you need for your game.
 #include "Core\M5Debug.h"
 #include "Core\M5Vec2.h"
 #include "Core\M5StageManager.h"
-#include "Core\M5Object.h"
 #include "Core\M5ObjectManager.h"
+#include "Core\M5Object.h"
 #include "Core\M5Random.h"
 #include "Core\M5IniFile.h"
 #include "Core\M5GameData.h"
+#include "Core\M5StageTypes.h"
 #include "SpaceShooterHelp.h"
 #include <ctime>
+#include <string>
 
 
 /******************************************************************************/
@@ -70,27 +72,24 @@ void SplashStage::Init(void)
 
   //Create ini reader and starting vars
   M5IniFile iniFile;
-  float red;
-  float green;
-  float blue;
-
+  std::string nextStage;
   //Load file
   iniFile.ReadFile("Stages\\SplashStage.ini");
 
   //Read global ini file values
   iniFile.GetValue("maxSplashTime", m_maxSplashTime);
-  iniFile.GetValue("red", red);
-  iniFile.GetValue("green", green);
-  iniFile.GetValue("blue", blue);
-
-  M5Gfx::SetBackgroundColor(red, green, blue);
-
+  iniFile.GetValue("nextStage", nextStage);
+  m_nextStage = StringToStage(nextStage);
+  
+  //Read Objects From IniFile
   LoadObjects(iniFile);
  
   //Find splash object and center on screen
   M5Object* pObj = nullptr;
   M5ObjectManager::GetFirstObjectByType(AT_Splash, pObj);
 
+  //Scale splash object based on window size.  This could be a component,
+  //but the size can't be read from a file because it is based on window resoltion
   if (pObj != nullptr)
   {
 	  M5Vec2 windowSize = M5App::GetResolution();
@@ -102,6 +101,8 @@ void SplashStage::Init(void)
 	  pObj->pos.y = windowSize.y / 2;
   }
 
+  //Set background color
+  M5Gfx::SetBackgroundColor(0, 0, 0);
   /*Reset the timer for this stage*/
   m_splashTime = 0.f;
 
@@ -121,7 +122,7 @@ void SplashStage::Update(float dt)
 
   /*Check for time, only be in this stage for the set time*/
   if (m_splashTime > m_maxSplashTime)
-	  M5StageManager::SetNextStage(ST_GamePlayStage);
+	  M5StageManager::SetNextStage(m_nextStage);
 }
 /******************************************************************************/
 /*!

@@ -23,6 +23,7 @@ class M5ResourceManager
 public:
 	~M5ResourceManager(void);
 	int LoadTexture(const char* fileName);
+	void UpdateTextureCount(int textureID);
 	void UnloadTexture(int textureID);
 	void Clear(void);
 

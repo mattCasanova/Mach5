@@ -34,7 +34,7 @@ private:
 	//! Typedef for my Hash Table of M5GameStages and M5StageBuilder's
 	typedef std::unordered_map<M5StageTypes, M5StageBuilder*> BuilderMap;
 	//! Easy Typedef for the itorator to my BuilderMap.
-	typedef BuilderMap::iterator MapItor;
+	typedef BuilderMap::iterator ArcheTypeItor;
 	//! Container to map M5StageTypes to M5StageBuilder 
 	BuilderMap m_builderMap; 
 };

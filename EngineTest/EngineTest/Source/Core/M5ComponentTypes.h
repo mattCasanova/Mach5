@@ -21,8 +21,10 @@ CT_ClampComponent,
 CT_ColliderComponent, 
 CT_GfxComponent, 
 CT_OutsideViewKillComponent, 
+CT_UIButtonComponent, 
 CT_WrapComponent, 
 CT_ChasePlayerComponent, 
+CT_MenuSpawnerComponent, 
 CT_PlayerInputComponent, 
 CT_RandomGoComponent, 
 CT_ShrinkComponent, 
@@ -36,8 +38,10 @@ if(string == "ClampComponent") return CT_ClampComponent;
 if(string == "ColliderComponent") return CT_ColliderComponent; 
 if(string == "GfxComponent") return CT_GfxComponent; 
 if(string == "OutsideViewKillComponent") return CT_OutsideViewKillComponent; 
+if(string == "UIButtonComponent") return CT_UIButtonComponent; 
 if(string == "WrapComponent") return CT_WrapComponent; 
 if(string == "ChasePlayerComponent") return CT_ChasePlayerComponent; 
+if(string == "MenuSpawnerComponent") return CT_MenuSpawnerComponent; 
 if(string == "PlayerInputComponent") return CT_PlayerInputComponent; 
 if(string == "RandomGoComponent") return CT_RandomGoComponent; 
 if(string == "ShrinkComponent") return CT_ShrinkComponent; 

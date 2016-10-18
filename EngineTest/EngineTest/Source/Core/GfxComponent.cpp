@@ -35,6 +35,7 @@ Destructor for component.  Unregisters from graphics enigne.
 /******************************************************************************/
 GfxComponent::~GfxComponent(void)
 {
+	M5Gfx::UnloadTexture(m_textureID);
 	M5Gfx::UnregisterComponent(this);
 }
 /******************************************************************************/
@@ -77,7 +78,7 @@ GfxComponent* GfxComponent::Clone(void) const
 	//Allocates new object and copies data
 	GfxComponent* pNew = new GfxComponent;
 	pNew->m_pObj = m_pObj;
-	pNew->m_textureID = m_textureID;
+	pNew->SetTextureID(m_textureID);
 	pNew->m_drawSpace = m_drawSpace;
 
 	if (m_drawSpace == DrawSpace::DS_WORLD)
@@ -97,7 +98,24 @@ The new texture id for this component
 /******************************************************************************/
 void GfxComponent::SetTextureID(int id)
 {
+	if (m_textureID != 0)
+		M5Gfx::UnloadTexture(m_textureID);
+	M5Gfx::UpdateTextureCount(id);
 	m_textureID = id;
+}
+/******************************************************************************/
+/*!
+Sets the texture id by loading the file via the graphics engine
+
+\param [in] id
+The new texture id for this component
+*/
+/******************************************************************************/
+void GfxComponent::SetTexture(const char* fileName)
+{
+	if (m_textureID != 0)
+		M5Gfx::UnloadTexture(m_textureID);
+	m_textureID = M5Gfx::LoadTexture(fileName);
 }
 /******************************************************************************/
 /*!
@@ -132,13 +150,15 @@ void GfxComponent::FromFile(M5IniFile& iniFile)
 	iniFile.SetToSection("GfxComponent");
 	iniFile.GetValue("texture", fileName);
 	path += fileName;
+	if (m_textureID != 0)
+		M5Gfx::UnloadTexture(m_textureID);
 	m_textureID = M5Gfx::LoadTexture(path.c_str());
 
 	//Get drawspace
 	std::string drawSpace;
 	iniFile.GetValue("drawSpace", drawSpace);
 
-	//Note, should be lowercase
+	//Note, should be lowercase, otherwise it will be part of hud
 	if (drawSpace == "world")
 		m_drawSpace = DrawSpace::DS_WORLD;
 	else

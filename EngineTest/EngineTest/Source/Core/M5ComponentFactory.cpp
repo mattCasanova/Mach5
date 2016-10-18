@@ -37,7 +37,7 @@ A pointer to a ComponentBuilder that will be owned and deleted by the factory.
 /******************************************************************************/
 void M5ComponentFactory::AddBuilder(M5ComponentTypes name, M5ComponentBuilder* pBuilder)
 {
-	std::pair<MapItor, bool> itor = m_builderMap.insert(std::make_pair(name, pBuilder));
+	std::pair<ArcheTypeItor, bool> itor = m_builderMap.insert(std::make_pair(name, pBuilder));
 	M5DEBUG_ASSERT(itor.second == true, "Trying to add a builder that already exists");
 }
 /******************************************************************************/
@@ -74,7 +74,7 @@ A Derived class in the M5Component inheritance chain.
 /******************************************************************************/
 M5Component* M5ComponentFactory::Build(M5ComponentTypes name)
 {
-	MapItor itor = m_builderMap.find(name);
+	ArcheTypeItor itor = m_builderMap.find(name);
 	M5DEBUG_ASSERT(itor != m_builderMap.end(), "Trying to use a Builder that doesn't exist");
 	return itor->second->Build();
 }
@@ -85,8 +85,8 @@ Removes all elements from the factory and deletes the associated builders.
 /******************************************************************************/
 void M5ComponentFactory::ClearBuilders(void)
 {
-	MapItor itor = m_builderMap.begin();
-	MapItor end = m_builderMap.end();
+	ArcheTypeItor itor = m_builderMap.begin();
+	ArcheTypeItor end = m_builderMap.end();
 
 	//Make sure to delete all builder pointers first
 	while (itor != end)

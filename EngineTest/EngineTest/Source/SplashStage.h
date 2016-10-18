@@ -14,6 +14,7 @@ place to load data and/or resources that you will need for all of your stages.
 #define SPLASHSTAGE_H
 
 #include "Core\M5Stage.h"
+#include "Core\M5StageTypes.h"
 
 class SplashStage : public M5Stage
 {
@@ -26,6 +27,8 @@ public:
 private:
 	float m_splashTime;
 	float m_maxSplashTime;
+	M5StageTypes m_nextStage;
+
 };
 
 

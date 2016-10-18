@@ -930,6 +930,20 @@ int M5Gfx::LoadTexture(const char* fileName)
 }
 /******************************************************************************/
 /*!
+This function adds one to the given texture count.  This should be called if
+The textureID is shared, for example in a clone function.
+
+\param textureID
+The ID to update
+
+*/
+/******************************************************************************/
+void M5Gfx::UpdateTextureCount(int textureID)
+{
+	s_resourceManager.UpdateTextureCount(textureID);
+}
+/******************************************************************************/
+/*!
 This function returns the texture memory (allocated when you called
 LoadTexture) back to the graphics card.  This must be called for every texture
 you loaded.
@@ -1020,12 +1034,23 @@ void M5Gfx::Update(void)
 
 	EndScene();
 }
+/******************************************************************************/
+/*!
+Pauses the graphics engine and saves the state of all user modifiable variables.
+*/
+/******************************************************************************/
 void M5Gfx::Pause(void)
 {
 	s_pauseStack.push(s_gfxState);
 	s_gfxState.worldStart = s_worldComponents.size();
 	s_gfxState.hudStart = s_hudComponents.size();
 }
+/******************************************************************************/
+/*!
+Resumes the Previusly saved state of the graphics engine.
+
+*/
+/******************************************************************************/
 void M5Gfx::Resume(void)
 {
 	s_gfxState = s_pauseStack.top();

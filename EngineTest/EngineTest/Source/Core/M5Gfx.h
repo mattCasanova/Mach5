@@ -31,6 +31,8 @@ public:
 
 	/*Use this to load a texture from file*/
 	static int LoadTexture(const char* fileName);
+	/*Use this to load a texture from file*/
+	static void UpdateTextureCount(int textureID);
 	/*You must unload every texture that you load*/
 	static void UnloadTexture(int textureID);
 	/*Sets the position of the camera in perspective mode.  There is no camera in ortho mode.*/

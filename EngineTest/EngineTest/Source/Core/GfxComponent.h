@@ -31,6 +31,7 @@ public:
 	virtual GfxComponent* Clone(void) const;
 	virtual void FromFile(M5IniFile& iniFile);
 	void SetTextureID(int id);
+	void SetTexture(const char* fileName);
 	void SetDrawSpace(DrawSpace drawSpace);
 private:
 	int       m_textureID;  //!< Texture id loaded from graphics.

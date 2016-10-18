@@ -389,7 +389,7 @@ int LoadTGA(M5Texture* pTexture, const char* fileName)
 
  /******************************************************************************/
  /*!
-Destructor for ResourceManager class.  This checks to make sure all textures 
+Destructor for ResourceManager class.  This checks to make sure all textures
 have been unloaded.
  */
  /******************************************************************************/
@@ -408,7 +408,7 @@ void M5ResourceManager::Clear(void)
 	M5TextureMapItor itor = m_textureMap.begin();
 	M5TextureMapItor end = m_textureMap.end();
 
-	while(itor != end)
+	while (itor != end)
 	{
 		glDeleteTextures(1, (GLuint*)&itor->second.id);
 		++itor;
@@ -474,6 +474,32 @@ int M5ResourceManager::LoadTexture(const char* fileName)
 }
 /******************************************************************************/
 /*!
+This function adds one to the given texture count.  This should be called if
+The textureID is shared, for example in a clone function.
+
+\param textureID
+The ID to update
+
+*/
+/******************************************************************************/
+void M5ResourceManager::UpdateTextureCount(int textureID)
+{
+	//Get itors to start and end
+	M5TextureMapItor begin = m_textureMap.begin();
+	M5TextureMapItor end = m_textureMap.end();
+
+	//loop through and find the correct id
+	for (; begin != end; ++begin)
+	{
+		if (begin->second.id == textureID)
+		{
+			++(begin->second.count);
+			break;
+		}
+	}
+}
+/******************************************************************************/
+/*!
 This function returns the texture memory (allocated when you called
 LoadTexture) back to the graphics card.  This must be called for every texture
 you loaded.
@@ -489,7 +515,7 @@ void M5ResourceManager::UnloadTexture(int textureID)
 {
 	//Get itors to start and end
 	M5TextureMapItor begin = m_textureMap.begin();
-	M5TextureMapItor end   = m_textureMap.end();
+	M5TextureMapItor end = m_textureMap.end();
 
 	//loop through and find the correct id
 	for (; begin != end; ++begin)
