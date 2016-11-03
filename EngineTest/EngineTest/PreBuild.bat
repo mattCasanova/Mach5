@@ -15,22 +15,21 @@ cd Source
 
 echo CreateStageEnum
 call:CreateStageEnum
-
-echo CreateComponentEnum
-call:CreateComponentEnum
-
-echo CreateCommandEnum
-call:CreateCommandEnum
-
 echo CreateRegisterStages
 call:CreateRegisterStages
 
+echo CreateCommandEnum
+call:CreateCommandEnum
+echo CreateRegisterCommand
+call:CreateRegisterCommand
+
+echo CreateComponentEnum
+call:CreateComponentEnum
 echo CreateRegisterComponent
 call:CreateRegisterComponent
 
 echo CreateArcheTypeEnum
 call:CreateArcheTypesEnum
-
 echo CreateRegisterArcheType
 call:CreateRegisterArcheTypes
 
@@ -442,12 +441,74 @@ echo return CMD_INVALID; >> %ENUMFILE%
 echo } >> %ENUMFILE%
 echo #endif //M5COMMAND_TYPE_H >> %ENUMFILE%
 
-
-
-
-
 goto:eof
+::******************************************************************************
+::Auto generates the RegisterCommands.h files which registers all user 
+::created commands with the ObjectManager
+::******************************************************************************
+:CreateRegisterCommand
+::Create output file
+set HEADER=RegisterCommands.h
+set SOURCE=RegisterCommands.cpp
+::Add file header
+echo /******************************************************************************/ > %HEADER%
+echo /*! >> %HEADER%
+echo \file   %HEADER% >> %HEADER%
+echo \author PreBuild.bat >> %HEADER%
+echo \par    email: lazersquad\@gmail.com >>%HEADER%
+echo \par    Mach5 Game Engine >> %HEADER%
+echo. >> %HEADER%
+echo This file gets auto generated based on the names of the Commands in the >> %HEADER%
+echo Include folder and current project.  PreBuild.bat looks for files named *Command.h >> %HEADER%
+echo and registers those with the ObjectManager. >> %HEADER%
+echo */ >> %HEADER%
+echo /******************************************************************************/ >> %HEADER%
+::Add Code Guards
+echo #ifndef REGISTER_COMMANDS_H >> %HEADER%
+echo #define REGISTER_COMMANDS_H >> %HEADER%
+echo. >> %HEADER%
+echo void RegisterCommands(void); >> %HEADER%
+echo #endif //REGISTER_COMMANDS_H >> %HEADER%
 
+
+
+echo /******************************************************************************/ > %SOURCE%
+echo /*! >> %SOURCE%
+echo \file   %SOURCE% >> %SOURCE%
+echo \author PreBuild.bat >> %SOURCE%
+echo \par    email: lazersquad\@gmail.com >>%SOURCE%
+echo \par    Mach5 Game Engine >> %SOURCE%
+echo. >> %SOURCE%
+echo This file gets auto generated based on the names of the Commands in the >> %SOURCE%
+echo Include folder and current project.  PreBuild.bat looks for files named *Command.h >> %SOURCE%
+echo and registers those with the ObjectManager. >> %SOURCE%
+echo */ >> %SOURCE%
+echo /******************************************************************************/ >> %SOURCE%
+::Add includes
+echo #include "Core\M5ObjectManager.h" >> %SOURCE%
+echo #include "Core\M5CommandTypes.h" >> %SOURCE%
+echo #include "Core\M5TBuilder.h" >> %SOURCE%
+::All Component header files from the Include folder
+for %%f in ( Core\*Command.h ) do (
+  echo #include "Core\%%~nxf" >> %SOURCE%
+)
+::All Component header files from the current project
+for %%f in ( *Command.h ) do (
+  echo #include "%%f" >> %SOURCE%
+)
+echo. >> %SOURCE%
+echo. >> %SOURCE%
+echo void RegisterCommands(void) {  >> %SOURCE%
+::All Component header files from the Include folder
+for %%f in ( Core\*???Command.h ) do (
+  echo  M5ObjectManager::AddCommand^(CMD_%%~nf, new %%~nf^(^) ^); >> %SOURCE%
+)
+::All Component header files from the current project
+for %%f in ( *???Command.h ) do (
+  echo  M5ObjectManager::AddCommand^(CMD_%%~nf, new %%~nf^(^) ^); >> %SOURCE%
+)
+echo } >> %SOURCE%
+goto:eof
 
 
 

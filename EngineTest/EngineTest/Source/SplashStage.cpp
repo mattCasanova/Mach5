@@ -80,32 +80,13 @@ void SplashStage::Init(void)
   iniFile.GetValue("maxSplashTime", m_maxSplashTime);
   iniFile.GetValue("nextStage", nextStage);
   m_nextStage = StringToStage(nextStage);
-  
   //Read Objects From IniFile
   LoadObjects(iniFile);
- 
-  //Find splash object and center on screen
-  M5Object* pObj = nullptr;
-  M5ObjectManager::GetFirstObjectByType(AT_Splash, pObj);
 
-  //Scale splash object based on window size.  This could be a component,
-  //but the size can't be read from a file because it is based on window resoltion
-  if (pObj != nullptr)
-  {
-	  M5Vec2 windowSize = M5App::GetResolution();
-	  //make object square based on smaller side (height)
-	  pObj->scale.x = windowSize.y;
-	  pObj->scale.y = windowSize.y;
-	  //center the splash object
-	  pObj->pos.x = windowSize.x / 2;
-	  pObj->pos.y = windowSize.y / 2;
-  }
-
-  //Set background color
+  //Set background color.  
   M5Gfx::SetBackgroundColor(0, 0, 0);
   /*Reset the timer for this stage*/
   m_splashTime = 0.f;
-
   //hard code start level at 1
   M5StageManager::GetGameData().level = 1;
 }

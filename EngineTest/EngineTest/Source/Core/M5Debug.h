@@ -24,7 +24,7 @@ bool Assert(bool expression, const char* outputMessage,
   const char* fucntionName, const char* fileName,
   unsigned lineNumber);
 void CreateConsole(void);
-void DestroyConsole(void);
+void DestroyConsole(bool finalDestroy = false);
 void ClearScreen(void);
 void TestResult(bool expression, const char* testName);
 

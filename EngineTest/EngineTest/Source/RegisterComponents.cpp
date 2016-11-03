@@ -17,6 +17,7 @@ and registers those with the ObjectManager.
 #include "Core\ColliderComponent.h" 
 #include "Core\GfxComponent.h" 
 #include "Core\OutsideViewKillComponent.h" 
+#include "Core\RepositionComponent.h" 
 #include "Core\UIButtonComponent.h" 
 #include "Core\WrapComponent.h" 
 #include "ChasePlayerComponent.h" 
@@ -32,6 +33,7 @@ void RegisterComponents(void) {
  M5ObjectManager::AddComponent(CT_ColliderComponent, new M5ComponentTBuilder< ColliderComponent >() ); 
  M5ObjectManager::AddComponent(CT_GfxComponent, new M5ComponentTBuilder< GfxComponent >() ); 
  M5ObjectManager::AddComponent(CT_OutsideViewKillComponent, new M5ComponentTBuilder< OutsideViewKillComponent >() ); 
+ M5ObjectManager::AddComponent(CT_RepositionComponent, new M5ComponentTBuilder< RepositionComponent >() ); 
  M5ObjectManager::AddComponent(CT_UIButtonComponent, new M5ComponentTBuilder< UIButtonComponent >() ); 
  M5ObjectManager::AddComponent(CT_WrapComponent, new M5ComponentTBuilder< WrapComponent >() ); 
  M5ObjectManager::AddComponent(CT_ChasePlayerComponent, new M5ComponentTBuilder< ChasePlayerComponent >() ); 

@@ -30,7 +30,6 @@ public:
 	virtual UIButtonComponent* Clone(void) const;
 	void SetOnClick(M5Command* pCommand);
 private:
-	M5Vec2     m_clickPoint;
 	M5Command* m_pOnClick;
 };
 

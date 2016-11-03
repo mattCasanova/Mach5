@@ -154,6 +154,11 @@ void CreateConsole(void)
 		SetConsoleTitle("Debug Console");
 		s_hasConsole = true;
 	}
+	else
+	{
+		HWND console = FindWindow(0, "Debug Console");
+		ShowWindow(console, true);
+	}
 
 #else
 	//In release mode do nothing
@@ -164,18 +169,32 @@ void CreateConsole(void)
 This will destroy the console window for debug printing.  Do NOT call this
 function, use the macro instead.
 
+
+\param finalDestroy
+Flag to know if the game is shutting down.  This should never be true for 
+users because they should be using the Macro
+
 \attention
 Do NOT Call this function.  M5DEBUG_DESTROY_CONSOLE();
 
 */
 /******************************************************************************/
-void DestroyConsole(void)
+void DestroyConsole(bool finalDestroy /*= false*/)
 {
 #if defined(DEBUG) | defined(_DEBUG)
 	if (s_hasConsole == true)
 	{
-		FreeConsole();
-		s_hasConsole = false;
+		//This should only be true at the end of the game
+		if (finalDestroy == true)
+		{
+			FreeConsole();
+			s_hasConsole = false;
+		}
+		else
+		{
+			HWND myConsole = FindWindow(0, "Debug Console");
+			ShowWindow(myConsole, false);
+		}
 	}
 	
 #else

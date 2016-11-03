@@ -15,14 +15,18 @@ Creates a command to change stages
 #include "M5Command.h"
 #include "M5StageTypes.h"
 
+//Forward Declaration
+class M5IniFile;
+
 class ChangeStageCommand : public M5Command
 {
 public:
 	ChangeStageCommand(M5StageTypes nextStage);
 	ChangeStageCommand(void);
-	void Execute(void);
+	virtual void Execute(void);
 	void SetNextStage(M5StageTypes nextStage);
-	ChangeStageCommand* Clone(void) const;
+	virtual ChangeStageCommand* Clone(void) const;
+	virtual void FromFile(M5IniFile&);
 private:
 	M5StageTypes m_stage;
 };

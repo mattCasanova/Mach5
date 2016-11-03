@@ -19,13 +19,14 @@ and creates an enumeration value of AT_*.
 enum M5ArcheTypes {  
 AT_Bullet, 
 AT_MenuAsteroid, 
+AT_MenuPlayButton, 
+AT_MenuQuitButton, 
 AT_MenuSpawner, 
 AT_MenuTitle, 
 AT_Player, 
 AT_Raider, 
 AT_Splash, 
 AT_Ufo, 
-AT_UIButton, 
 AT_INVALID 
 }; 
  
@@ -34,13 +35,14 @@ AT_INVALID
 inline M5ArcheTypes StringToArcheType(const std::string& string) { 
 if(string == "Bullet") return AT_Bullet; 
 if(string == "MenuAsteroid") return AT_MenuAsteroid; 
+if(string == "MenuPlayButton") return AT_MenuPlayButton; 
+if(string == "MenuQuitButton") return AT_MenuQuitButton; 
 if(string == "MenuSpawner") return AT_MenuSpawner; 
 if(string == "MenuTitle") return AT_MenuTitle; 
 if(string == "Player") return AT_Player; 
 if(string == "Raider") return AT_Raider; 
 if(string == "Splash") return AT_Splash; 
 if(string == "Ufo") return AT_Ufo; 
-if(string == "UIButton") return AT_UIButton; 
 return AT_INVALID; 
 } 
 #endif //M5ARCHE_TYPES_H 

@@ -371,6 +371,9 @@ void M5App::Shutdown(void)
   M5StageManager::Shutdown();
   /*Clean up windows*/
   UnregisterClass(CLASS_NAME, s_instance);
+
+  //destroy the debug console if it was created.
+  M5Debug::DestroyConsole(true);
 }
 /******************************************************************************/
 /*!

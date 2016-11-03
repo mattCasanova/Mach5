@@ -21,6 +21,7 @@ CT_ClampComponent,
 CT_ColliderComponent, 
 CT_GfxComponent, 
 CT_OutsideViewKillComponent, 
+CT_RepositionComponent, 
 CT_UIButtonComponent, 
 CT_WrapComponent, 
 CT_ChasePlayerComponent, 
@@ -39,6 +40,7 @@ if(string == "ClampComponent") return CT_ClampComponent;
 if(string == "ColliderComponent") return CT_ColliderComponent; 
 if(string == "GfxComponent") return CT_GfxComponent; 
 if(string == "OutsideViewKillComponent") return CT_OutsideViewKillComponent; 
+if(string == "RepositionComponent") return CT_RepositionComponent; 
 if(string == "UIButtonComponent") return CT_UIButtonComponent; 
 if(string == "WrapComponent") return CT_WrapComponent; 
 if(string == "ChasePlayerComponent") return CT_ChasePlayerComponent; 

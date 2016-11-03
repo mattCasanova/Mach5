@@ -166,6 +166,7 @@
     <ClCompile Include="Source\ChasePlayerComponent.cpp" />
     <ClCompile Include="Source\Core\ChangeStageCommand.cpp" />
     <ClCompile Include="Source\Core\QuitCommand.cpp" />
+    <ClCompile Include="Source\Core\RepositionComponent.cpp" />
     <ClCompile Include="Source\Core\UIButtonComponent.cpp" />
     <ClCompile Include="Source\Core\ClampComponent.cpp" />
     <ClCompile Include="Source\Core\ColliderComponent.cpp" />
@@ -198,6 +199,7 @@
     <ClCompile Include="Source\MenuSpawnerComponent.cpp" />
     <ClCompile Include="Source\PauseStage.cpp" />
     <ClCompile Include="Source\RegisterArcheTypes.cpp" />
+    <ClCompile Include="Source\RegisterCommands.cpp" />
     <ClCompile Include="Source\RegisterComponents.cpp" />
     <ClCompile Include="Source\RegisterStages.cpp" />
     <ClCompile Include="Source\SpaceShooterHelp.cpp" />
@@ -214,7 +216,9 @@
     <ClInclude Include="Source\Core\ChangeStageCommand.h" />
     <ClInclude Include="Source\Core\M5Command.h" />
     <ClInclude Include="Source\Core\M5CommandTypes.h" />
+    <ClInclude Include="Source\Core\M5TBuilder.h" />
     <ClInclude Include="Source\Core\QuitCommand.h" />
+    <ClInclude Include="Source\Core\RepositionComponent.h" />
     <ClInclude Include="Source\Core\UIButtonComponent.h" />
     <ClInclude Include="Source\Core\ClampComponent.h" />
     <ClInclude Include="Source\Core\ColliderComponent.h" />
@@ -254,6 +258,7 @@
     <ClInclude Include="Source\MainMenuStage.h" />
     <ClInclude Include="Source\MenuSpawnerComponent.h" />
     <ClInclude Include="Source\PauseStage.h" />
+    <ClInclude Include="Source\RegisterCommands.h" />
     <ClInclude Include="Source\SpaceShooterHelp.h" />
     <ClInclude Include="Source\PlayerInputComponent.h" />
     <ClInclude Include="Source\RandomGoComponent.h">

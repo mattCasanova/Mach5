@@ -11,7 +11,8 @@ Creates a command to change stages
 /******************************************************************************/
 #include "ChangeStageCommand.h"
 #include "M5StageManager.h"
-
+#include "M5IniFile.h"
+#include <string>
 
 ChangeStageCommand::ChangeStageCommand(M5StageTypes nextStage):m_stage(nextStage)
 {
@@ -31,4 +32,11 @@ ChangeStageCommand* ChangeStageCommand::Clone(void) const
 void ChangeStageCommand::SetNextStage(M5StageTypes nextStage)
 {
 	m_stage = nextStage;
+}
+void ChangeStageCommand::FromFile(M5IniFile& iniFile)
+{
+	iniFile.SetToSection("ChangeStageCommand");
+	std::string nextStage;
+	iniFile.GetValue("next", nextStage);
+	SetNextStage(StringToStage(nextStage));
 }

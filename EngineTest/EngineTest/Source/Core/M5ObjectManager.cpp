@@ -18,6 +18,7 @@ game objects.
 #include "M5IniFile.h"
 #include "../RegisterComponents.h"
 #include "../RegisterArcheTypes.h"
+#include "../RegisterCommands.h"
 
 #include "M5Component.h"
 #include "M5ComponentBuilder.h"
@@ -68,6 +69,7 @@ void M5ObjectManager::Init(void)
 	s_objectStart = 0;
 
 	//We must register components before we can create our prototypes
+	RegisterCommands();
 	RegisterComponents();
 	RegisterArcheTypes();
 }
@@ -83,14 +85,24 @@ void M5ObjectManager::Shutdown(void)
 	DestroyAllObjects();
 
 	//Delete prototypes
-	ArcheTypeItor itor = s_archetypes.begin();
-	ArcheTypeItor end = s_archetypes.end();
+	ArcheTypeItor archeTypeStart = s_archetypes.begin();
+	ArcheTypeItor archeTypeEnd = s_archetypes.end();
 
-	while (itor != end)
+	while (archeTypeStart != archeTypeEnd)
 	{
-		delete itor->second;
-		itor->second = 0;
-		++itor;
+		delete archeTypeStart->second;
+		archeTypeStart->second = 0;
+		++archeTypeStart;
+	}
+
+	CommandMapItor commandStart = s_commands.begin();
+	CommandMapItor commandEnd = s_commands.end();
+
+	while (commandStart != commandEnd)
+	{
+		delete commandStart->second;
+		commandStart->second = 0;
+		++commandStart;
 	}
 }
 /******************************************************************************/
