@@ -44,5 +44,5 @@ void PauseStage::Update(float /*dt*/)
 }
 void PauseStage::Shutdown(void)
 {
-	//M5ObjectManager::DestroyAllObjects();
+	M5ObjectManager::DestroyAllObjects();
 }

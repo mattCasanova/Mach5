@@ -13,8 +13,10 @@ The MainMenu in AstroShot
 #include "Core\M5ObjectManager.h"
 #include "Core\M5App.h"
 #include "Core\M5IniFile.h"
+#include "Core\M5StageManager.h"
+#include "Core\M5GameData.h"
 #include "SpaceShooterHelp.h"
-
+#include <string>
 
 MainMenuStage::MainMenuStage(void)
 {
@@ -24,10 +26,11 @@ MainMenuStage::~MainMenuStage(void)
 }
 void MainMenuStage::Init(void)
 {
+	std::string loadDir = "Stages\\";
 	//Create ini reader and starting vars
 	M5IniFile iniFile;
 	//Load file
-	iniFile.ReadFile("Stages\\MainMenuStage.ini");
+	iniFile.ReadFile(loadDir + M5StageManager::GetGameData().menuFile);
 	//Read Objects From IniFile
 	LoadObjects(iniFile);
 }

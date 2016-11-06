@@ -61,8 +61,10 @@ void UIButtonComponent::Update(float)
 }
 /******************************************************************************/
 /*!
-Sets object to dead if it is outside of the view port.  Right now this only
-works if the viewport isn't rotated.
+Reads the command for the button from an inifile
+
+\param iniFile
+The ini file to read from
 */
 /******************************************************************************/
 void UIButtonComponent::FromFile(M5IniFile& iniFile)
@@ -75,8 +77,7 @@ void UIButtonComponent::FromFile(M5IniFile& iniFile)
 }
 /******************************************************************************/
 /*!
-Sets object to dead if it is outside of the view port.  Right now this only
-works if the viewport isn't rotated.
+virtual contructor for the UIButtonComponent
 */
 /******************************************************************************/
 UIButtonComponent* UIButtonComponent::Clone(void) const

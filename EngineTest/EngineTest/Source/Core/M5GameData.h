@@ -15,12 +15,15 @@ M5App::Init.
 #ifndef M5GAMEDATA_H
 #define M5GAMEDATA_H
 
+#include <string>
 /*! This struct holds game data that is shared between stages. This struct must
 have at least one data member in it.*/
 struct M5GameData
 {
   /*!< This should be removed and used for your game specific data */
   int level;
+  int maxLevels;
+  std::string menuFile;
 };
 
 #endif /* GameData_H */

@@ -28,6 +28,7 @@ private:
 	float m_speedDamp;
 	float m_bulletSpeed;
 	float m_rotationSpeed;
+	float m_rotationalDamp;
 
 };
 

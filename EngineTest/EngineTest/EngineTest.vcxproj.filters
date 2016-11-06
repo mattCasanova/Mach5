@@ -172,6 +172,12 @@
     <Filter Include="Core\Components\RepositionComp">
       <UniqueIdentifier>{0d0ecf7c-4f24-4718-bc78-97dc8e2032db}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Core\Commands\PauseStage">
+      <UniqueIdentifier>{3be71127-d067-4b1e-b47e-466c086adb13}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Commands\ResumeStage">
+      <UniqueIdentifier>{d494afaa-fb68-40b8-947f-ccd003b20709}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Core\M5App.cpp">
@@ -308,6 +314,12 @@
     </ClCompile>
     <ClCompile Include="Source\Core\RepositionComponent.cpp">
       <Filter>Core\Components\RepositionComp</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Core\PauseStageCommand.cpp">
+      <Filter>Core\Commands\PauseStage</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Core\ResumeStageCommand.cpp">
+      <Filter>Core\Commands\ResumeStage</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -475,6 +487,12 @@
     </ClInclude>
     <ClInclude Include="Source\Core\RepositionComponent.h">
       <Filter>Core\Components\RepositionComp</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Core\PauseStageCommand.h">
+      <Filter>Core\Commands\PauseStage</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Core\ResumeStageCommand.h">
+      <Filter>Core\Commands\ResumeStage</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

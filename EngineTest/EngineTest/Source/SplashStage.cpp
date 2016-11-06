@@ -72,14 +72,16 @@ void SplashStage::Init(void)
 
   //Create ini reader and starting vars
   M5IniFile iniFile;
+  std::string loadDir = "Stages\\";
   std::string nextStage;
   //Load file
-  iniFile.ReadFile("Stages\\SplashStage.ini");
+  iniFile.ReadFile(loadDir + M5StageManager::GetGameData().menuFile);
 
   //Read global ini file values
   iniFile.GetValue("maxSplashTime", m_maxSplashTime);
   iniFile.GetValue("nextStage", nextStage);
   m_nextStage = StringToStage(nextStage);
+  M5StageManager::GetGameData().menuFile = nextStage + ".ini";
   //Read Objects From IniFile
   LoadObjects(iniFile);
 
@@ -87,8 +89,6 @@ void SplashStage::Init(void)
   M5Gfx::SetBackgroundColor(0, 0, 0);
   /*Reset the timer for this stage*/
   m_splashTime = 0.f;
-  //hard code start level at 1
-  M5StageManager::GetGameData().level = 1;
 }
 /******************************************************************************/
 /*!

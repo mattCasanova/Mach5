@@ -11,8 +11,9 @@ Creates a command to change stages
 /******************************************************************************/
 #include "ChangeStageCommand.h"
 #include "M5StageManager.h"
+#include "M5GameData.h"
 #include "M5IniFile.h"
-#include <string>
+
 
 ChangeStageCommand::ChangeStageCommand(M5StageTypes nextStage):m_stage(nextStage)
 {
@@ -23,6 +24,7 @@ ChangeStageCommand::ChangeStageCommand(void) :m_stage(ST_INVALID)
 void ChangeStageCommand::Execute(void)
 {
 	M5StageManager::SetNextStage(m_stage);
+	M5StageManager::GetGameData().menuFile = m_menuFile;
 }
 ChangeStageCommand* ChangeStageCommand::Clone(void) const
 {
@@ -38,5 +40,8 @@ void ChangeStageCommand::FromFile(M5IniFile& iniFile)
 	iniFile.SetToSection("ChangeStageCommand");
 	std::string nextStage;
 	iniFile.GetValue("next", nextStage);
-	SetNextStage(StringToStage(nextStage));
+	iniFile.GetValue("menuFile", m_menuFile);
+	
+	m_stage = StringToStage(nextStage);
+
 }

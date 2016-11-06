@@ -30,6 +30,7 @@ This is file contains the main function to make a basic window.
 #include "Core\M5IniFile.h"
 
 #include "Core\M5Debug.h"
+#include <string>
 
 /******************************************************************************/
 /*!
@@ -63,9 +64,11 @@ int WINAPI WinMain(HINSTANCE instance,
   /*This should appear at the top of winmain to have windows find memory leaks*/
   M5DEBUG_LEAK_CHECKS(-1);
 
-  M5InitData initData;          /*Declare my InitStruct*/
-  M5GameData gameData = { 0 };  /*Create my game data initial values*/
-  M5IniFile iniFile;            /*To load my init data from file*/
+  M5InitData initData;  /*Declare my InitStruct*/
+  M5GameData gameData;  /*Create my game data initial values*/
+  M5IniFile iniFile;    /*To load my init data from file*/
+  std::string title;
+  std::string startStage;
 
   iniFile.ReadFile("GameData/InitData.ini");
   iniFile.SetToSection("InitData");
@@ -75,18 +78,27 @@ int WINAPI WinMain(HINSTANCE instance,
   iniFile.GetValue("height", initData.height);
   iniFile.GetValue("framesPerSecond", initData.fps);
   iniFile.GetValue("fullScreen", initData.fullScreen);
+  iniFile.GetValue("title", title);
+  iniFile.GetValue("startStage", startStage);
 
-  initData.title        = "AstroShot";
+  gameData.menuFile = startStage + ".ini";
+
+  iniFile.SetToSection("GameData");
+  /*Set up Starting Game data*/
+  iniFile.GetValue("startLevel", gameData.level);
+  iniFile.GetValue("maxLevel", gameData.maxLevels);
+  
+
+  //Other init data 
+  initData.title        = title.c_str();
   initData.instance     = instance;
-  /*Information about your specific gamedata */
   initData.pGData       = &gameData;
-  initData.gameDataSize = sizeof(M5GameData);
 
   /*Pass InitStruct to Function.  This function must be called first!!!*/
   M5App::Init(initData);
   
   /*Make sure to add what stage we will start in*/
-  M5StageManager::SetStartStage(ST_SplashStage);
+  M5StageManager::SetStartStage(StringToStage(startStage));
 
   /*Start running the game*/
   M5App::Update();

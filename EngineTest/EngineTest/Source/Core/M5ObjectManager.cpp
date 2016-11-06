@@ -133,18 +133,34 @@ void M5ObjectManager::Update(float dt)
 /******************************************************************************/
 /*!
 Function to delete all currently active game objects.
+
+\param destroyPause
+A flag to know if we should even destroy objects int the paused stage
 */
 /******************************************************************************/
-void M5ObjectManager::DestroyAllObjects(void)
+void M5ObjectManager::DestroyAllObjects(bool destroyPaused /*= false*/)
 {
-	size_t size = s_objects.size();
-	for (size_t i = s_objectStart; i < size; ++i)
+	if (destroyPaused)
 	{
-		delete s_objects[i];
-		s_objects[i] = 0;
-	}
+		int size = s_objects.size();
+		for (int i = 0; i < size; ++i)
+		{
+			delete s_objects[i];
+			s_objects[i] = 0;
+		}
 
-	s_objects.clear();
+		s_objects.clear();
+	}
+	else
+	{
+		int size = s_objects.size();
+		for (int i = size - 1; i >= s_objectStart; --i)
+		{
+			delete s_objects[i];
+			s_objects[i] = 0;
+			s_objects.pop_back();
+		}
+	}
 }
 /******************************************************************************/
 /*!
@@ -212,6 +228,9 @@ function.
 
 \param [in,out] pToDestroy
 An instance of an M5Object to remove and delete.
+
+\attention
+You shouldn't try to destroy an object that is in  paused stage
 
 */
 /******************************************************************************/

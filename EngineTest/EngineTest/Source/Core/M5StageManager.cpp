@@ -19,7 +19,7 @@ between levels and menus.
 #include "M5Debug.h"
 #include "M5ObjectManager.h"
 #include "..\RegisterStages.h"
-
+#include "M5GameData.h"
 #include "M5Stage.h"
 #include "M5StageBuilder.h"
 #include "M5Factory.h"
@@ -72,7 +72,7 @@ The size of the M5GameData struct so we know how much memory to allocate.
 The desired number of times per second that the game should update.
 */
 /******************************************************************************/
-void M5StageManager::Init(const M5GameData* pGData, int gameDataSize, int framesPerSecond)
+void M5StageManager::Init(const M5GameData& gameData, int framesPerSecond)
 {
 	M5DEBUG_CALL_CHECK(1);
 
@@ -87,12 +87,8 @@ void M5StageManager::Init(const M5GameData* pGData, int gameDataSize, int frames
 	s_isChanging   = true; //make sure we load the first stage
 	s_timer.Init(framesPerSecond);
 
-	M5DEBUG_ASSERT(gameDataSize >= 1, "M5GameData must have at least size of 1");
-
 	/*Allocate space for game data, I don't know the details so just copy bytes*/
-	s_pGameData = reinterpret_cast<M5GameData*>(new char[gameDataSize]);
-	/*Copy all data*/
-	std::memcpy(s_pGameData, pGData, (size_t)gameDataSize);
+	s_pGameData = new M5GameData(gameData);
 	RegisterStages();
 }
 /******************************************************************************/
@@ -105,8 +101,7 @@ by the user.  It will be called automatically by the system.
 void M5StageManager::Shutdown(void)
 {
 	//This was allocated as an array of bytes
-	char* toDelete = reinterpret_cast<char*>(s_pGameData);
-	delete[] toDelete;
+	delete s_pGameData;
 	s_pGameData = 0;
 }
 /******************************************************************************/

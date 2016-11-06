@@ -41,7 +41,7 @@ public:
 	// Removes and deletes the object with the given object id
 	static void DestroyObject(int objectID);
 	//Removes and deletes all objects from the object manager
-	static void DestroyAllObjects(void);
+	static void DestroyAllObjects(bool destroyPaused = false);
 	//Destroys and deletes all objects of the given M5ArcheType from the M5ObjectManager
 	static void DestroyAllObjects(M5ArcheTypes type);
 	// Finds the first occurace of the given Archetype
