@@ -15,14 +15,12 @@ and registers those stages with the StageManager.
 #include "Core\M5StageTypes.h" 
 #include "Core\M5StageBuilder.h" 
 #include "GamePlayStage.h" 
-#include "MainMenuStage.h" 
-#include "PauseStage.h" 
+#include "MenuStage.h" 
 #include "SplashStage.h" 
  
  
 void RegisterStages(void) {  
   M5StageManager::AddStage(ST_GamePlayStage, new M5StageTBuilder< GamePlayStage >() ); 
-  M5StageManager::AddStage(ST_MainMenuStage, new M5StageTBuilder< MainMenuStage >() ); 
-  M5StageManager::AddStage(ST_PauseStage, new M5StageTBuilder< PauseStage >() ); 
+  M5StageManager::AddStage(ST_MenuStage, new M5StageTBuilder< MenuStage >() ); 
   M5StageManager::AddStage(ST_SplashStage, new M5StageTBuilder< SplashStage >() ); 
 } 

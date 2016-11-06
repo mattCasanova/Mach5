@@ -199,9 +199,8 @@
     <ClCompile Include="Source\Core\WrapComponent.cpp" />
     <ClCompile Include="Source\GamePlayStage.cpp" />
     <ClCompile Include="Source\GrowToSizeComponent.cpp" />
-    <ClCompile Include="Source\MainMenuStage.cpp" />
+    <ClCompile Include="Source\MenuStage.cpp" />
     <ClCompile Include="Source\MenuSpawnerComponent.cpp" />
-    <ClCompile Include="Source\PauseStage.cpp" />
     <ClCompile Include="Source\RegisterArcheTypes.cpp" />
     <ClCompile Include="Source\RegisterCommands.cpp" />
     <ClCompile Include="Source\RegisterComponents.cpp" />
@@ -263,9 +262,8 @@
     <ClInclude Include="Source\Core\WrapComponent.h" />
     <ClInclude Include="Source\GamePlayStage.h" />
     <ClInclude Include="Source\GrowToSizeComponent.h" />
-    <ClInclude Include="Source\MainMenuStage.h" />
+    <ClInclude Include="Source\MenuStage.h" />
     <ClInclude Include="Source\MenuSpawnerComponent.h" />
-    <ClInclude Include="Source\PauseStage.h" />
     <ClInclude Include="Source\RegisterCommands.h" />
     <ClInclude Include="Source\SpaceShooterHelp.h" />
     <ClInclude Include="Source\PlayerInputComponent.h" />
