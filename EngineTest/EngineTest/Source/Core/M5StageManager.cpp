@@ -53,6 +53,7 @@ static bool                  s_isQuitting;   /*!< TRUE if we are quitting, FALSE
 static bool                  s_isRestarting; /*!< TRUE if we are restarting, FALSE otherwise*/
 static bool                  s_isPausing;
 static bool                  s_isResuming;
+static bool                  s_drawPaused;   /*< True if we are pausing and want to draw the paused items*/
 
 
 }//end unnamed namespace
@@ -252,12 +253,12 @@ Pauses the current stage and changes to a the next one.
 A unique id of the next that the game should start in.
 */
 /******************************************************************************/
-void M5StageManager::PauseAndSetNextStage(M5StageTypes nextStage)
+void M5StageManager::PauseAndSetNextStage(M5StageTypes nextStage, bool drawPaused /*= false*/)
 {
 	s_isPausing  = true;
 	s_isChanging = true;
-	s_nextStage  = nextStage;
-
+	s_nextStage = nextStage;
+	s_drawPaused = drawPaused;
 }
 /******************************************************************************/
 /*!
@@ -266,7 +267,7 @@ Resumes the previous stages
 /******************************************************************************/
 void M5StageManager::Resume(void)
 {
-	M5DEBUG_ASSERT(!s_pauseStack.empty(), "Trying to Resume an e")
+	M5DEBUG_ASSERT(!s_pauseStack.empty(), "Trying to Resume with no pause")
 	s_isChanging = true;
 	s_isResuming = true;
 
@@ -337,16 +338,38 @@ void M5StageManager::ChangeStage(void)
 	{
 		M5ObjectManager::Pause();
 		M5Phy::Pause();
-		M5Gfx::Pause();
+		M5Gfx::Pause(s_drawPaused);
 		PauseInfo pi(s_pStage, s_currStage);
 		s_pauseStack.push(pi);
 		s_isPausing = false;
 	}
-	else if (!s_isRestarting) {
+	else if (s_isResuming)
+	{
 		/*Make sure to shutdown the stage*/
 		s_pStage->Shutdown();
 		delete s_pStage;
 		s_pStage = nullptr;
+	}
+	else if (!s_isRestarting) //Just changine the stage
+	{
+		/*Make sure to shutdown the stage*/
+		s_pStage->Shutdown();
+		delete s_pStage;
+		s_pStage = nullptr;
+
+		//If we are setting the next state, that means we are ignore all
+		//paused states, so lets clear the pause stack
+		while (!s_pauseStack.empty())
+		{
+			M5Gfx::Resume();
+			M5Phy::Resume();
+			M5ObjectManager::Resume();
+			PauseInfo pi = s_pauseStack.top();
+			pi.pStage->Shutdown();
+			delete pi.pStage;
+			s_pauseStack.pop();
+		}
+
 	}
 	else if (s_isRestarting)
 	{

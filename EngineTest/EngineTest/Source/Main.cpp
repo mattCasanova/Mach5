@@ -99,7 +99,6 @@ int WINAPI WinMain(HINSTANCE instance,
   
   /*Make sure to add what stage we will start in*/
   M5StageManager::SetStartStage(StringToStage(startStage));
-
   /*Start running the game*/
   M5App::Update();
   /*This function must be called after the window has closed!!!*/

@@ -73,9 +73,6 @@ struct GfxState
 	int hudStart;
 	int worldStart;
 	int textureID;
-	int xStart;
-	int yStart;
-	int width;
 	int height;
 	float scaleX;
 	float scaleY;
@@ -442,7 +439,7 @@ void M5Gfx::SetResolution(int width, int height)
 	s_width = width;
 	s_height = height;
 	s_aspectRatio = static_cast<GLdouble>(width) / height;
-	SetPerspective(s_fov, s_aspectRatio, s_nearClip, s_farClip);
+	//SetPerspective(s_fov, s_aspectRatio, s_nearClip, s_farClip);
 	SetViewport(0, 0, width, height);
 
 	/*update world extents*/
@@ -735,11 +732,6 @@ The new height of the viewport in pixels
 /******************************************************************************/
 void M5Gfx::SetViewport(int xStart, int yStart, int width, int height)
 {
-	s_gfxState.xStart = xStart;
-	s_gfxState.yStart = yStart;
-	s_gfxState.width = width;
-	s_gfxState.height = height;
-
 	glViewport(xStart, yStart, width, height);
 }
 /******************************************************************************/
@@ -792,12 +784,13 @@ Helper function to create a font for debug text drawing to the screen.
 /******************************************************************************/
 void M5Gfx::FontInit(void)
 {
+	const float FONT_HEIGHT_SCALE = .03f;
 	/*Get a list of bitmaps from openGl*/
 	s_fontBase = glGenLists(NUMBER_OF_CHARACTERS);
 
 	/*Create my windows font*/
 	s_font = CreateFont(
-		(int)(s_height * .03f),/*Height*/ //TODO: Make this const
+		(int)(s_height * FONT_HEIGHT_SCALE),/*Height*/ //TODO: Make this const
 		0,                     /*width*/
 		0,                     /*angle of escapement*/
 		0,                     /*orientation,*/
@@ -1037,18 +1030,23 @@ void M5Gfx::Update(void)
 /******************************************************************************/
 /*!
 Pauses the graphics engine and saves the state of all user modifiable variables.
+
+\param drawPaused
+True if we want to draw the paused objects.  False otherwise
 */
 /******************************************************************************/
-void M5Gfx::Pause(void)
+void M5Gfx::Pause(bool drawPaused /*= false*/)
 {
 	s_pauseStack.push(s_gfxState);
-	s_gfxState.worldStart = s_worldComponents.size();
-	s_gfxState.hudStart = s_hudComponents.size();
+	if (!drawPaused)
+	{
+		s_gfxState.worldStart = s_worldComponents.size();
+		s_gfxState.hudStart = s_hudComponents.size();
+	}
 }
 /******************************************************************************/
 /*!
 Resumes the Previusly saved state of the graphics engine.
-
 */
 /******************************************************************************/
 void M5Gfx::Resume(void)
@@ -1062,7 +1060,6 @@ void M5Gfx::Resume(void)
 	SetTexture(s_gfxState.textureID);
 	SetTextureCoords(s_gfxState.scaleX, s_gfxState.scaleY, s_gfxState.rot, s_gfxState.transX, s_gfxState.transY);
 	SetTextureColor(s_gfxState.txRed, s_gfxState.txGreen, s_gfxState.txBlue, s_gfxState.txAlpha);
-	SetViewport(s_gfxState.xStart, s_gfxState.yStart, s_gfxState.width, s_gfxState.height);
 }
 
 

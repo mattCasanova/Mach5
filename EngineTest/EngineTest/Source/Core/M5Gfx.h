@@ -75,7 +75,7 @@ private:
 	/*This should be called once after drawing all objects*/
 	static void EndScene(void);
 	static void Update(void);
-	static void Pause(void);
+	static void Pause(bool drawPaused = false);
 	static void Resume(void);
 	static void SetResolution(int width, int height);
 	static void CalulateWorldExtents(void);

@@ -44,7 +44,7 @@ public:
   //Sets the next stage for the game
   static void SetNextStage(M5StageTypes nextStage);
   // Pauses the current stage, so it can be resuemd but chages stages
-  static void PauseAndSetNextStage(M5StageTypes nextStage);
+  static void PauseAndSetNextStage(M5StageTypes nextStage, bool drawPaused = false);
   // Resumes the previous stage
   static void Resume(void);
   //Tells the game to quit

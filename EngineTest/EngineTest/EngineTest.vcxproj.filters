@@ -178,6 +178,12 @@
     <Filter Include="Core\Commands\ResumeStage">
       <UniqueIdentifier>{d494afaa-fb68-40b8-947f-ccd003b20709}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Core\Commands\ChangeResolution">
+      <UniqueIdentifier>{fdaf2930-1b31-4a37-b802-db4abab58af5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Commands\SetFullScreen">
+      <UniqueIdentifier>{a4e7092f-f1f5-4a4a-aaf7-fcac1f93ea0a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Core\M5App.cpp">
@@ -320,6 +326,12 @@
     </ClCompile>
     <ClCompile Include="Source\Core\ResumeStageCommand.cpp">
       <Filter>Core\Commands\ResumeStage</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Core\ChangeResolutionCommand.cpp">
+      <Filter>Core\Commands\ChangeResolution</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Core\SetFullscreenCommand.cpp">
+      <Filter>Core\Commands\SetFullScreen</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -493,6 +505,12 @@
     </ClInclude>
     <ClInclude Include="Source\Core\ResumeStageCommand.h">
       <Filter>Core\Commands\ResumeStage</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Core\ChangeResolutionCommand.h">
+      <Filter>Core\Commands\ChangeResolution</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Core\SetFullscreenCommand.h">
+      <Filter>Core\Commands\SetFullScreen</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

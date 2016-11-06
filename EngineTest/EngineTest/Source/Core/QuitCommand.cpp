@@ -11,6 +11,7 @@ Creates a command to Quit the game
 /******************************************************************************/
 #include "QuitCommand.h"
 #include "M5StageManager.h"
+#include "M5ObjectManager.h"
 
 void QuitCommand::Execute(void)
 {
