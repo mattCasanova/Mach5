@@ -28,9 +28,9 @@ public:
 	template<typename T>
 	void GetValue(const std::string& key, T& value) const;
 	void SetToSection(const std::string& sectionName);
-	
 	void AddSection(const std::string& sectionName);
-	void AddKeyValue(const std::string& key, const std::string& value);
+	template<typename T>
+	void AddKeyValue(const std::string& key, const T& value);
 	void WriteFile(const std::string& fileName) const;
 private:
 	///Template types 
@@ -101,5 +101,30 @@ inline void M5IniFile::GetValue(const std::string& key, std::string& value) cons
 
 	value = itor->second;
 }
+/******************************************************************************/
+/*!
+Adds a key/value pair to the current section of the M5IniFile.  If the key
+already exists, it will be updated with the new value.
 
+\attention This won't be added to any actual files until you call WriteFile
+
+\param [in] key
+The key name to add.
+
+\param [in] value
+The value to add
+
+*/
+/******************************************************************************/
+template<typename T>
+void M5IniFile::AddKeyValue(const std::string& key, const T& value)
+{
+	std::stringstream ss;
+	ss << value;
+	KeyValMapItor found = m_currSection->find(key);
+	if (found == m_currSection->end())
+		m_currSection->insert(std::make_pair(key, ss.str()));
+	else
+		found->second = ss.str();
+}
 #endif //M5INI_FILE_H

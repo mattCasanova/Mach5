@@ -199,6 +199,7 @@ void DestroyConsole(bool finalDestroy /*= false*/)
 	
 #else
 	//In release mode do nothing
+	finalDestroy;
 #endif
 }
 /******************************************************************************/

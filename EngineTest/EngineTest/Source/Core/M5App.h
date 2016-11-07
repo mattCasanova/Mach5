@@ -62,6 +62,8 @@ public:
   static void SetResolution(int width, int height);
   /*Returns the width and height of the window (client area)*/
   static M5Vec2 GetResolution(void);
+  /*Gets the fullscreen value of the App*/
+  static bool GetFullScreen(void);
 
 private:
   static LRESULT CALLBACK M5WinProc(HWND win, UINT msg, WPARAM wp, LPARAM lp);

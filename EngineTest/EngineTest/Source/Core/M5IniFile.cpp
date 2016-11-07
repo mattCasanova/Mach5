@@ -283,29 +283,6 @@ void M5IniFile::AddSection(const std::string& sectionName)
 }
 /******************************************************************************/
 /*!
-Adds a key/value pair to the current section of the M5IniFile.  If the key 
-already exists, it will be updated with the new value.
-
-\attention This won't be added to any actual files until you call WriteFile
-
-\param [in] key
-The key name to add.
-
-\param [in] value
-The value to add
-
-*/
-/******************************************************************************/
-void M5IniFile::AddKeyValue(const std::string& key, const std::string& value)
-{
-	KeyValMapItor found = m_currSection->find(key);
-	if (found == m_currSection->end())
-		m_currSection->insert(std::make_pair(key, value));
-	else
-		found->second = value;
-}
-/******************************************************************************/
-/*!
 Writes the current contents of the M5IniFile class to a file.
 
 \param [in] fileName

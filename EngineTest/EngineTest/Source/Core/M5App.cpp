@@ -389,6 +389,18 @@ M5Vec2 M5App::GetResolution(void)
 }
 /******************************************************************************/
 /*!
+Returns true if the window is fullscreen, false otherwise
+
+\return
+Returns true if the window is fullscreen, false otherwise
+*/
+/******************************************************************************/
+bool M5App::GetFullScreen(void)
+{
+	return s_isFullScreen;
+}
+/******************************************************************************/
+/*!
 Allows user to request that the game is visable, or not.
 
 \param [in] showWindow

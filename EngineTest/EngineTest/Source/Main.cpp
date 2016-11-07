@@ -104,6 +104,18 @@ int WINAPI WinMain(HINSTANCE instance,
   /*This function must be called after the window has closed!!!*/
   M5App::Shutdown();
   
+  //Save the new state to the initfile
+  int width         = static_cast<int>(M5App::GetResolution().x);
+  int height        = static_cast<int>(M5App::GetResolution().y);
+  bool isFullScreen = M5App::GetFullScreen();
+
+  iniFile.SetToSection("InitData");
+  iniFile.AddKeyValue("width", width);
+  iniFile.AddKeyValue("height", height);
+  iniFile.AddKeyValue("fullScreen", isFullScreen);
+  iniFile.WriteFile("GameData/InitData.ini");
+
+
   return 0;
 }
 
