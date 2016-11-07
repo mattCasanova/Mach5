@@ -15,6 +15,7 @@ place to load data and/or resources that you will need for all of your stages.
 
 #include "Core\M5Stage.h"
 #include "Core\M5StageTypes.h"
+#include <string>
 
 class SplashStage : public M5Stage
 {
@@ -28,6 +29,8 @@ private:
 	float m_splashTime;
 	float m_maxSplashTime;
 	M5StageTypes m_nextStage;
+	std::string m_nextFile;
+
 
 };
 

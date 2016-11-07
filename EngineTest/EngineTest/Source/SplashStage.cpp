@@ -14,7 +14,6 @@ good place to load game data and initialize object you need for your game.
 
 #include "Core\M5App.h"
 #include "Core\M5Debug.h"
-#include "Core\M5Vec2.h"
 #include "Core\M5StageManager.h"
 #include "Core\M5ObjectManager.h"
 #include "Core\M5Object.h"
@@ -80,6 +79,7 @@ void SplashStage::Init(void)
   //Read global ini file values
   iniFile.GetValue("maxSplashTime", m_maxSplashTime);
   iniFile.GetValue("nextStage", nextStage);
+  iniFile.GetValue("nextFile", m_nextFile);
   m_nextStage = StringToStage(nextStage);
   M5StageManager::GetGameData().menuFile = nextStage + ".ini";
   //Read Objects From IniFile
@@ -103,7 +103,10 @@ void SplashStage::Update(float dt)
 
   /*Check for time, only be in this stage for the set time*/
   if (m_splashTime > m_maxSplashTime)
+  {
 	  M5StageManager::SetNextStage(m_nextStage);
+	  M5StageManager::GetGameData().menuFile = m_nextFile;
+  }
 }
 /******************************************************************************/
 /*!

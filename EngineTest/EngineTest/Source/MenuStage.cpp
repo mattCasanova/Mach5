@@ -1,6 +1,6 @@
 /******************************************************************************/
 /*!
-\file   MainMenuStage.cpp
+\file   MenuStage.cpp
 \author Matt Casanova
 \par    email: lazersquad\@gmail.com
 \par    Mach5 Game Engine
@@ -9,7 +9,7 @@
 The MainMenu in AstroShot
 */
 /******************************************************************************/
-#include "MainMenuStage.h"
+#include "MenuStage.h"
 #include "Core\M5ObjectManager.h"
 #include "Core\M5App.h"
 #include "Core\M5IniFile.h"
@@ -18,13 +18,13 @@ The MainMenu in AstroShot
 #include "SpaceShooterHelp.h"
 #include <string>
 
-MainMenuStage::MainMenuStage(void)
+MenuStage::MenuStage(void)
 {
 }
-MainMenuStage::~MainMenuStage(void)
+MenuStage::~MenuStage(void)
 {
 }
-void MainMenuStage::Init(void)
+void MenuStage::Init(void)
 {
 	std::string loadDir = "Stages\\";
 	//Create ini reader and starting vars
@@ -34,10 +34,10 @@ void MainMenuStage::Init(void)
 	//Read Objects From IniFile
 	LoadObjects(iniFile);
 }
-void MainMenuStage::Update(float /*dt*/)
+void MenuStage::Update(float /*dt*/)
 {
 }
-void MainMenuStage::Shutdown(void)
+void MenuStage::Shutdown(void)
 {
 	M5ObjectManager::DestroyAllObjects();
 }

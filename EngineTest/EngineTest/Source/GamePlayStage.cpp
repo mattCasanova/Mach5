@@ -76,7 +76,7 @@ void GamePlayStage::Update(float dt)
 	}
 	else if (M5Input::IsTriggered(M5_P))
 	{
-		M5StageManager::PauseAndSetNextStage(ST_MainMenuStage, true);
+		M5StageManager::PauseAndSetNextStage(ST_MenuStage, true);
 		M5StageManager::GetGameData().menuFile = "PauseStage.ini";
 	}
 

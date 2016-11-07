@@ -25,6 +25,10 @@ Construtor for GFX component.  Sets default values
 GfxComponent::GfxComponent(void):
 	M5Component(CT_GfxComponent),
 	m_textureID(0),
+	m_texScaleX(1),
+	m_texScaleY(1),
+	m_texTransX(0),
+	m_texTransY(0),
 	m_drawSpace(DrawSpace::DS_WORLD)
 {
 }
@@ -50,7 +54,9 @@ void GfxComponent::Draw(void) const
 		m_pObj->rotation, 
 		m_pObj->pos, 
 		0);
+	M5Gfx::SetTextureCoords(m_texScaleX, m_texScaleY, 0, m_texTransX, m_texTransY);
 	M5Gfx::SetTexture(m_textureID);
+	//M5Gfx::setT
 	M5Gfx::Draw(world);
 }
 /******************************************************************************/
@@ -80,6 +86,10 @@ GfxComponent* GfxComponent::Clone(void) const
 	pNew->m_pObj = m_pObj;
 	pNew->SetTextureID(m_textureID);
 	pNew->m_drawSpace = m_drawSpace;
+	pNew->m_texScaleX = m_texScaleX;
+	pNew->m_texScaleY = m_texScaleY;
+	pNew->m_texTransX = m_texTransX;
+	pNew->m_texTransY = m_texTransY;
 
 	if (m_drawSpace == DrawSpace::DS_WORLD)
 		M5Gfx::RegisterWorldComponent(pNew);
@@ -99,7 +109,10 @@ The new texture id for this component
 void GfxComponent::SetTextureID(int id)
 {
 	if (m_textureID != 0)
+	{
+		//unregiester, regiester with gfxEngine
 		M5Gfx::UnloadTexture(m_textureID);
+	}
 	M5Gfx::UpdateTextureCount(id);
 	m_textureID = id;
 }
@@ -114,7 +127,10 @@ The new texture id for this component
 void GfxComponent::SetTexture(const char* fileName)
 {
 	if (m_textureID != 0)
+	{
+		//unregiester, regiester gfxengine
 		M5Gfx::UnloadTexture(m_textureID);
+	}
 	m_textureID = M5Gfx::LoadTexture(fileName);
 }
 /******************************************************************************/
@@ -149,6 +165,12 @@ void GfxComponent::FromFile(M5IniFile& iniFile)
 	std::string fileName;
 	iniFile.SetToSection("GfxComponent");
 	iniFile.GetValue("texture", fileName);
+	iniFile.GetValue("texScaleX", m_texScaleX);
+	iniFile.GetValue("texScaleY", m_texScaleY);
+	iniFile.GetValue("texTransX", m_texTransX);
+	iniFile.GetValue("texTransY", m_texTransY);
+
+
 	path += fileName;
 	if (m_textureID != 0)
 		M5Gfx::UnloadTexture(m_textureID);
@@ -163,5 +185,13 @@ void GfxComponent::FromFile(M5IniFile& iniFile)
 		m_drawSpace = DrawSpace::DS_WORLD;
 	else
 		m_drawSpace = DrawSpace::DS_HUD;
-
+}
+/******************************************************************************/
+/*!
+Returns the textureId used by the Gfx Component
+*/
+/******************************************************************************/
+int GfxComponent::GetTextureID(void) const
+{
+	return m_textureID;
 }

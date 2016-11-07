@@ -1,28 +1,28 @@
 /******************************************************************************/
 /*!
-\file   MainMenuStage.h
+\file   MenuStage.h
 \author Matt Casanova
 \par    email: lazersquad\@gmail.com
 \par    Mach5 Game Engine
 \date   2016/10/17
 
-The MainMenu in AstroShot
+The MenuStage in AstroShot
 */
 /******************************************************************************/
-#ifndef MAIN_MENU_STAGE_H
-#define MAIN_MENU_STAGE_H
+#ifndef MENU_STAGE_H
+#define MENU_STAGE_H
 
 #include "Core\M5Stage.h"
 
-class MainMenuStage : public M5Stage
+class MenuStage : public M5Stage
 {
 public:
-	MainMenuStage(void);
-	~MainMenuStage(void);
+	MenuStage(void);
+	~MenuStage(void);
 	virtual void Init(void);
 	virtual void Update(float dt);
 	virtual void Shutdown(void);
 private:
 };
 
-#endif //MAIN_MENU_STAGE_H
+#endif //MENU_STAGE_H

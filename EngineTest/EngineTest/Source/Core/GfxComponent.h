@@ -31,10 +31,15 @@ public:
 	virtual GfxComponent* Clone(void) const;
 	virtual void FromFile(M5IniFile& iniFile);
 	void SetTextureID(int id);
+	int  GetTextureID(void) const;
 	void SetTexture(const char* fileName);
 	void SetDrawSpace(DrawSpace drawSpace);
 private:
 	int       m_textureID;  //!< Texture id loaded from graphics.
+	float     m_texScaleX;
+	float     m_texScaleY;
+	float     m_texTransX;
+	float     m_texTransY;
 	DrawSpace m_drawSpace;  //!The space to draw in
 };
 
