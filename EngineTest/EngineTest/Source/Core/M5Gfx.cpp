@@ -835,7 +835,7 @@ void M5Gfx::VertexBufferInit(void)
 {
 	const int VERT_COUNT = 6;
 	/*Hard code my verts, because we are only supporting one vbo*/
-	M5Vertex vertArray[6] = {
+	M5Vertex vertArray[VERT_COUNT] = {
 	  { .5f, .5f, 0.f, 1.f, 1.f }, /*1*/
 	  { -.5f, .5f, 0.f, 0.f, 1.f }, /*2*/
 	  { -.5f, -.5f, 0.f, 0.f, 0.f }, /*3*/
@@ -863,6 +863,7 @@ renderContext will be valid.
 /******************************************************************************/
 void M5Gfx::RenderContextInit(void)
 {
+	const int MAX_BITS_DEPTH = 32;
 	/*A struct the specifies information about the back buffer*/
 	PIXELFORMATDESCRIPTOR pfd;
 	int pixelFormat; /*The result value after choosing my pixel format*/
@@ -877,8 +878,8 @@ void M5Gfx::RenderContextInit(void)
 	/*A set of flags that specify the properties of the pixel buffer*/
 	pfd.dwFlags = PFD_DRAW_TO_WINDOW | PFD_SUPPORT_OPENGL | PFD_DOUBLEBUFFER;
 	pfd.iPixelType = PFD_TYPE_RGBA;
-	pfd.cColorBits = 32;
-	pfd.cDepthBits = 32;
+	pfd.cColorBits = MAX_BITS_DEPTH;
+	pfd.cDepthBits = MAX_BITS_DEPTH;
 
 	/*Choose back buffer information*/
 	pixelFormat = ChoosePixelFormat(s_deviceContext, &pfd);

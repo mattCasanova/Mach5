@@ -274,24 +274,26 @@ void M5App::Init(const M5InitData& initData)
   s_style = WINDOWED_STYLE;
 
   /*Use default for my WNDCLASS*/
-  s_winClass.style = CS_HREDRAW | CS_VREDRAW | CS_OWNDC;
-  s_winClass.cbClsExtra = 0;
-  s_winClass.cbWndExtra = 0;
-  s_winClass.hInstance = initData.instance; /*This is the instance from WinMain*/
-  s_winClass.hIcon = LoadIcon(NULL, IDI_APPLICATION);
-  s_winClass.hCursor = LoadCursor(NULL, IDC_ARROW);
+  s_winClass.style         = CS_HREDRAW | CS_VREDRAW | CS_OWNDC;
+  s_winClass.cbClsExtra    = 0;
+  s_winClass.cbWndExtra    = 0;
+  s_winClass.hInstance     = initData.instance; /*This is the instance from WinMain*/
+  s_winClass.hIcon         = LoadIcon(NULL, IDI_APPLICATION);
+  s_winClass.hCursor       = LoadCursor(NULL, IDC_ARROW);
   s_winClass.hbrBackground = (HBRUSH)GetStockObject(WHITE_BRUSH);
-  s_winClass.lpszMenuName = NULL;
+  s_winClass.lpszMenuName  = NULL;
   s_winClass.lpszClassName = CLASS_NAME;
-  s_winClass.lpfnWndProc = M5WinProc;/*This is my winproc function*/
+  s_winClass.lpfnWndProc   = M5WinProc;/*This is my winproc function*/
 
   /*First register class */
   RegisterClass(&s_winClass);
 
-  int xStart = 0, yStart = 0;
-  RECT size = { 0, 0, 0, 0 };
+  int xStart = 0;
+  int yStart = 0;
+  RECT size  = { 0, 0, 0, 0 };
+
   /*Set up suggested window size*/
-  size.right = initData.width;
+  size.right  = initData.width;
   size.bottom = initData.height;
   M5AdjustAndCenterWindow(s_style, size, xStart, yStart);
 
@@ -340,9 +342,6 @@ void M5App::Update(void)
   /*Loop until the application needs to quit.*/
   while (!s_isQuitting)
   {
-    //TODO: do I need this????
-
-    //ProcessMessages();
     /*Update the stages*/
     M5StageManager::Update();
 
