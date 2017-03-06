@@ -42,16 +42,20 @@ works if the viewport isn't rotated.
 /******************************************************************************/
 void OutsideViewKillComponent::Update(float /*dt*/)
 {
-	M5Vec2 pos = m_pObj->pos;
-	M5Vec2 scale = m_pObj->scale;
-	scale *= .5f;
+	//Save position and half scale to new variables for readability.
+	const float HALF = .5f;
+	M5Vec2 halfScale = m_pObj->scale * HALF;
+	M5Vec2 pos       = m_pObj->pos;
+
+	//Get world extents
 	M5Vec2 botLeft;
 	M5Vec2 topRight;
 	M5Gfx::GetWorldBotLeft(botLeft);
 	M5Gfx::GetWorldTopRight(topRight);
 	
-	if (pos.x - scale.x > topRight.x || pos.x + scale.x < botLeft.x ||
-		pos.y - scale.y > topRight.y || pos.y + scale.y < botLeft.y)
+	//If object is outside of world, mark as dead
+	if ( ( (pos.x - halfScale.x) > topRight.x ) || ( (pos.x + halfScale.x) < botLeft.x ) ||
+		 ( (pos.y - halfScale.y) > topRight.y ) || ( (pos.y + halfScale.y) < botLeft.y ) )
 	{
 		m_pObj->isDead = true;
 	}

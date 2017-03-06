@@ -13,6 +13,7 @@ The MainMenu in AstroShot
 #include "Core\M5ObjectManager.h"
 #include "Core\M5App.h"
 #include "Core\M5IniFile.h"
+#include "Core\M5Input.h"
 #include "Core\M5StageManager.h"
 #include "Core\M5GameData.h"
 #include "SpaceShooterHelp.h"
@@ -36,6 +37,7 @@ void MenuStage::Init(void)
 }
 void MenuStage::Update(float /*dt*/)
 {
+
 }
 void MenuStage::Shutdown(void)
 {

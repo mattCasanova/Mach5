@@ -83,18 +83,18 @@ The time in seconds since the last frame.
 /******************************************************************************/
 void M5Object::Update(float dt)
 {
-	for (size_t i = 0; i < m_components.size(); ++i)
+	int endIndex = m_components.size() - 1;
+	for (; endIndex >= 0; --endIndex)
 	{
-		if (m_components[i]->isDead)
+		if (m_components[endIndex]->isDead)
 		{
-			delete m_components[i];
-			m_components[i] = m_components[m_components.size() - 1];
+			delete m_components[endIndex];
+			m_components[endIndex] = m_components[m_components.size() - 1];
 			m_components.pop_back();
-			--i;//so that we can update the shifted object 
 		}
 		else
 		{
-			m_components[i]->Update(dt);
+			m_components[endIndex]->Update(dt);
 		}
 	}
 
@@ -158,8 +158,9 @@ The component to add
 void M5Object::AddComponent(M5Component* pComponent)
 {
 	//Make sure this component doesn't already exist
-	VecItor itor = std::find(m_components.begin(), m_components.end(), pComponent);
-	M5DEBUG_ASSERT(itor == m_components.end(), "Trying to add a component that already exists");
+	
+	M5DEBUG_ASSERT(std::find(m_components.begin(), m_components.end(), pComponent) == m_components.end(), 
+		"Trying to add a component that already exists");
 	
 	//Set this object as the parent
 	pComponent->SetParent(this);
@@ -167,30 +168,26 @@ void M5Object::AddComponent(M5Component* pComponent)
 }
 /******************************************************************************/
 /*!
-Removes the instance of a specific component
+Removes the instance of a specific component by marking the isDead value as true
 
 \param pComponent
 The component instance to remove
 */
 /******************************************************************************/
-void M5Object::RemoveComponent(M5Component* pComponent)
+void M5Object::RemoveComponent(M5Component* pToRemove)
 {
 	VecItor end = m_components.end();
 	//Make the sure the instance exists in this object
-	VecItor itor = std::find(m_components.begin(), end, pComponent);
-	M5DEBUG_ASSERT(itor != end, "Trying to remove a component that doesn't exist");
-	//swap with last component
-	std::iter_swap(itor, --end);
-	m_components.pop_back();
+	VecItor itor = std::find(m_components.begin(), end, pToRemove);
+	
+	if (itor != end)
+		return;
 
-	//Clear parent before deleting
-	pComponent->SetParent(0);
-	delete pComponent;
-
+	(*itor)->isDead = true;
 }
 /******************************************************************************/
 /*!
-Removes all components of this specific type
+Removes all components of this specific type by marking them as dead.
 
 \param type
 The type of component to remove
@@ -201,12 +198,7 @@ void M5Object::RemoveAllComponents(M5ComponentTypes type)
 	for (size_t i = 0; i < m_components.size(); ++i)
 	{
 		if (m_components[i]->GetType() == type)
-		{
-			delete m_components[i];
-			m_components[i] = m_components[m_components.size() - 1];
-			m_components.pop_back();
-			--i;//we need to check the one we just swapped.
-		}
+			m_components[i]->isDead = true;
 	}
 }
 /******************************************************************************/

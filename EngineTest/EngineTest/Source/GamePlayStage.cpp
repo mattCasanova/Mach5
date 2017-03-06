@@ -57,14 +57,14 @@ void GamePlayStage::Update(float dt)
 	M5Object* pPlayer;
 	M5ObjectManager::GetFirstObjectByType(AT_Player, pPlayer);
 
-	if (M5Input::IsPressed(M5_ESCAPE))
+	if (M5Input::IsPressed(M5_ESCAPE) ||M5Input::IsTriggered(M5_GAMEPAD_BACK))
 	{
 		M5StageManager::PauseAndSetNextStage(ST_MenuStage, true);
 		M5StageManager::GetGameData().menuFile = "PauseStage.ini";
 	}
 	else if(pPlayer == nullptr)
 		M5StageManager::Quit();
-	else if (M5Input::IsTriggered(M5_Z))//Dynamically Shrink
+	else if (M5Input::IsTriggered(M5_Z) || M5Input::IsTriggered(M5_GAMEPAD_B))//Dynamically Shrink
 	{
 		pPlayer->AddComponent(new ShrinkComponent);
 	}

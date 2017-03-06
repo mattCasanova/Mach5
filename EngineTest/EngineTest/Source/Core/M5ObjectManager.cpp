@@ -387,8 +387,7 @@ The of an ini file that will load data bout the archetype
 /******************************************************************************/
 void M5ObjectManager::AddArcheType(M5ArcheTypes type, const char* fileName)
 {
-	ArcheTypeItor found = s_archetypes.find(type);
-	M5DEBUG_ASSERT(found == s_archetypes.end(), "Trying to add a prototype that already exists");
+	M5DEBUG_ASSERT(s_archetypes.find(type) == s_archetypes.end(), "Trying to add a prototype that already exists");
 
 	M5IniFile file;//My inifile to open	
 	file.ReadFile(fileName);
@@ -460,8 +459,8 @@ The M5Command that will be cloned.
 /******************************************************************************/
 void M5ObjectManager::AddCommand(M5CommandTypes type, M5Command* pCommand)
 {
-	CommandMapItor itor = s_commands.find(type);
-	M5DEBUG_ASSERT(itor == s_commands.end(), "Tring to Create a command that alraedy exist");
+	M5DEBUG_ASSERT(s_commands.find(type) == s_commands.end(), 
+		"Tring to Create a command that alraedy exist");
 	s_commands.insert(std::make_pair(type, pCommand));
 }
 /******************************************************************************/

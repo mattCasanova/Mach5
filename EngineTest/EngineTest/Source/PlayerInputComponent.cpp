@@ -46,6 +46,23 @@ Updates the player based on input
 /******************************************************************************/
 void PlayerInputComponent::Update(float dt)
 {
+	//Check game pad direction
+	if (M5Input::GamePadIsConnected())
+	{
+		M5Vec2 dir;
+		M5Input::GetLeftThumb(dir);
+
+
+		if (dir.LengthSquared() > 0)
+		{
+			m_pObj->rotation = std::atan2f(dir.y, dir.x);
+			M5Vec2::Scale(dir, dir, m_forwardSpeed * dt);
+			m_pObj->vel += dir;
+			M5Vec2::Scale(m_pObj->vel, m_pObj->vel, m_speedDamp);
+		}
+	}
+
+
 	//first check for rotation
 	if (M5Input::IsPressed(M5_A)) 
 	{
@@ -71,7 +88,7 @@ void PlayerInputComponent::Update(float dt)
 	}
 
 	//then check for bullets 
-	if (M5Input::IsTriggered(M5_SPACE))
+	if (M5Input::IsTriggered(M5_SPACE) || M5Input::IsTriggered(M5_GAMEPAD_A))
 	{
 	
 		M5Object* bullet1 = M5ObjectManager::CreateObject(AT_Bullet);

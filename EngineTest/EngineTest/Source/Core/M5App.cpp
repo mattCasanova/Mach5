@@ -221,8 +221,8 @@ void M5App::SetFullScreen(bool fullScreen)
       s_isFullScreen = false;
       s_style = WINDOWED_STYLE;
       ChangeDisplaySettings(NULL, 0);/*If So Switch Back To The Desktop*/
-      M5Debug::MessagePopup("FullScreen is not supported. "
-        "You are being switched to Windowed Mode");
+      M5Debug::MessagePopup(
+		  "FullScreen is not supported. You are being switched to Windowed Mode");
     }
   }
   else
