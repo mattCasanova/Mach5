@@ -86,7 +86,7 @@ void M5ObjectManager::Shutdown(void)
 
 	//Delete prototypes
 	ArcheTypeItor archeTypeStart = s_archetypes.begin();
-	ArcheTypeItor archeTypeEnd = s_archetypes.end();
+	ArcheTypeItor archeTypeEnd   = s_archetypes.end();
 
 	while (archeTypeStart != archeTypeEnd)
 	{
@@ -96,7 +96,7 @@ void M5ObjectManager::Shutdown(void)
 	}
 
 	CommandMapItor commandStart = s_commands.begin();
-	CommandMapItor commandEnd = s_commands.end();
+	CommandMapItor commandEnd   = s_commands.end();
 
 	while (commandStart != commandEnd)
 	{
@@ -135,7 +135,7 @@ void M5ObjectManager::Update(float dt)
 Function to delete all currently active game objects.
 
 \param destroyPause
-A flag to know if we should even destroy objects int the paused stage
+A flag to know if we should even destroy objects that are paused
 */
 /******************************************************************************/
 void M5ObjectManager::DestroyAllObjects(bool destroyPaused /*= false*/)
@@ -175,11 +175,7 @@ void M5ObjectManager::DestroyAllObjects(M5ArcheTypes type)
 	for (size_t i = s_objectStart; i < s_objects.size(); ++i)
 	{
 		if (s_objects[i]->GetType() == type)
-		{
-			delete s_objects[i];
-			s_objects[i] = s_objects[s_objects.size() - 1];
-			s_objects.pop_back();
-		}
+			s_objects[i]->isDead = true;
 	}
 }
 /******************************************************************************/
@@ -195,8 +191,10 @@ A new object of the given M5ArcheTypes type.
 /******************************************************************************/
 M5Object* M5ObjectManager::CreateObject(M5ArcheTypes type)
 {
+	//Make sure the archetype can be created before we try to create one
 	ArcheTypeItor found = s_archetypes.find(type);
-	M5DEBUG_ASSERT(found != s_archetypes.end(), "Trying to create and Archetype that doesn't exist");
+	if (found == s_archetypes.end())
+		return nullptr;
 
 	M5Object* pClone = found->second->Clone();
 	s_objects.push_back(pClone);
@@ -213,8 +211,10 @@ The M5Object To Add
 /******************************************************************************/
 void M5ObjectManager::AddObject(M5Object* pToAdd)
 {
+	//Make sure we don't add the same object twice
 	VecItor found = std::find(s_objects.begin(), s_objects.end(), pToAdd);
-	M5DEBUG_ASSERT(found == s_objects.end(), "Trying to Add an Object that already exists");
+	if (found != s_objects.end())
+		return;
 
 	s_objects.push_back(pToAdd);
 }
@@ -229,19 +229,17 @@ function.
 \param [in,out] pToDestroy
 An instance of an M5Object to remove and delete.
 
-\attention
-You shouldn't try to destroy an object that is in  paused stage
 
 */
 /******************************************************************************/
 void M5ObjectManager::DestroyObject(M5Object* pToDestroy)
 {
+	//Make sure the object exists
 	VecItor itor = std::find(s_objects.begin() + s_objectStart, s_objects.end(), pToDestroy);
-	M5DEBUG_ASSERT(itor != s_objects.end(), "Trying to destroy an object that doesn't exist");
+	if (itor == s_objects.end())
+		return;
 
-	delete *itor;
-	std::iter_swap(itor, --s_objects.end());
-	s_objects.pop_back();
+	(*itor)->isDead = true;
 }
 /******************************************************************************/
 /*!
@@ -256,11 +254,7 @@ void M5ObjectManager::DestroyObject(int objectID)
 	for (size_t i = s_objectStart; i < s_objects.size(); ++i)
 	{
 		if (s_objects[i]->GetID() == objectID)
-		{
-			delete s_objects[i];
-			s_objects[i] = s_objects[s_objects.size() - 1];
-			s_objects.pop_back();
-		}
+			s_objects[i]->isDead = true;
 	}
 }
 /******************************************************************************/
@@ -273,11 +267,12 @@ The type to find
 \param [out] pObj
 A pointer to an M5Object to be filled in.
 
-\attention If the type isn't found, the parameter is not set at all.
+\attention If the type isn't found, the parameter is set to null.
 */
 /******************************************************************************/
 void M5ObjectManager::GetFirstObjectByType(M5ArcheTypes type, M5Object*& pObj)
 {
+	pObj = nullptr;
 	for (size_t i = s_objectStart; i < s_objects.size(); ++i)
 	{
 		if (s_objects[i]->GetType() == type)
@@ -298,11 +293,12 @@ The id to find
 \param [out] pObj
 A pointer to an M5Object to be filled in.
 
-\attention If the type isn't found, the parameter is not set at all.
+\attention If the type isn't found, the parameter is set to null
 */
 /******************************************************************************/
 void M5ObjectManager::GetObjectByID(int objectID, M5Object*& pObj)
 {
+	pObj = nullptr;
 	for (size_t i = s_objectStart; i < s_objects.size(); ++i)
 	{
 		if (s_objects[i]->GetID() == objectID)
@@ -387,7 +383,8 @@ The of an ini file that will load data bout the archetype
 /******************************************************************************/
 void M5ObjectManager::AddArcheType(M5ArcheTypes type, const char* fileName)
 {
-	M5DEBUG_ASSERT(s_archetypes.find(type) == s_archetypes.end(), "Trying to add a prototype that already exists");
+	if (s_archetypes.find(type) != s_archetypes.end())
+		return;
 
 	M5IniFile file;//My inifile to open	
 	file.ReadFile(fileName);
@@ -423,8 +420,11 @@ The archetype to remove and delete
 /******************************************************************************/
 void M5ObjectManager::RemoveArcheType(M5ArcheTypes type)
 {
+	//Make sure the ArcheType exists before deleting it
 	ArcheTypeItor found = s_archetypes.find(type);
-	M5DEBUG_ASSERT(found != s_archetypes.end(), "Trying to Remove a prototype that doesn't exist");
+	if (found == s_archetypes.end())
+		return;
+	
 	delete found->second;
 	found->second = 0;
 	s_archetypes.erase(found);
@@ -440,8 +440,10 @@ The command to create
 /******************************************************************************/
 M5Command* M5ObjectManager::CreateCommand(M5CommandTypes type)
 {
+	//Make sure the type exists before creating one
 	CommandMapItor itor = s_commands.find(type);
-	M5DEBUG_ASSERT(itor != s_commands.end(), "Tring to Create a command that doesn't exist");
+	if (itor == s_commands.end())
+		return nullptr;
 
 	return itor->second->Clone();
 }
@@ -459,8 +461,9 @@ The M5Command that will be cloned.
 /******************************************************************************/
 void M5ObjectManager::AddCommand(M5CommandTypes type, M5Command* pCommand)
 {
-	M5DEBUG_ASSERT(s_commands.find(type) == s_commands.end(), 
-		"Tring to Create a command that alraedy exist");
+	//If it already exists, then just return
+	if (s_commands.find(type) != s_commands.end())
+		return;
 	s_commands.insert(std::make_pair(type, pCommand));
 }
 /******************************************************************************/
@@ -473,8 +476,11 @@ The archetype to remove and delete
 /******************************************************************************/
 void M5ObjectManager::RemoveCommand(M5CommandTypes type)
 {
+	//Make sure the command exists before we try to delete it.
 	CommandMapItor itor = s_commands.find(type);
-	M5DEBUG_ASSERT(itor != s_commands.end(), "Tring to delete a command that doesn't exist");
+	if (itor == s_commands.end())
+		return;
+	
 	delete itor->second;
 	itor->second = nullptr;
 	s_commands.erase(itor);

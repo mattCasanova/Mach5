@@ -87,7 +87,7 @@ void M5Object::GetComponent(M5ComponentTypes type, T*& pComp)
 			return;
 		}
 	}
-	pComp =  0;
+	pComp =  nullptr;
 }
 /******************************************************************************/
 /*!

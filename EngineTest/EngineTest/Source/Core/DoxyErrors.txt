@@ -38,6 +38,9 @@ C:/Users/Matt/Dropbox/Matt/Personal/Mach5/EngineTest/EngineTest/Source/Core/M5Co
 C:/Users/Matt/Dropbox/Matt/Personal/Mach5/EngineTest/EngineTest/Source/Core/M5Command.h:25: warning: Member Clone(void) const  =0 (function) of class M5Command is not documented.
 C:/Users/Matt/Dropbox/Matt/Personal/Mach5/EngineTest/EngineTest/Source/Core/M5GameData.h:25: warning: Member maxLevels (variable) of class M5GameData is not documented.
 C:/Users/Matt/Dropbox/Matt/Personal/Mach5/EngineTest/EngineTest/Source/Core/M5GameData.h:26: warning: Member menuFile (variable) of class M5GameData is not documented.
+C:/Users/Matt/Dropbox/Matt/Personal/Mach5/EngineTest/EngineTest/Source/Core/M5Object.cpp:172: warning: argument 'pComponent' of command @param is not found in the argument list of M5Object::RemoveComponent(M5Component *pToRemove)
+C:/Users/Matt/Dropbox/Matt/Personal/Mach5/EngineTest/EngineTest/Source/Core/M5Object.h:33: warning: The following parameters of M5Object::RemoveComponent(M5Component *pToRemove) are not documented:
+  parameter 'pToRemove'
 C:/Users/Matt/Dropbox/Matt/Personal/Mach5/EngineTest/EngineTest/Source/Core/M5ObjectManager.h:64: warning: return type of member M5ObjectManager::CreateCommand is not documented
 C:/Users/Matt/Dropbox/Matt/Personal/Mach5/EngineTest/EngineTest/Source/Core/M5ObjectManager.h:54: warning: return type of member M5ObjectManager::CreateComponent is not documented
 C:/Users/Matt/Dropbox/Matt/Personal/Mach5/EngineTest/EngineTest/Source/Core/M5ObjectManager.cpp:135: warning: argument 'destroyPause' of command @param is not found in the argument list of M5ObjectManager::DestroyAllObjects(bool destroyPaused=false)

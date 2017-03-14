@@ -148,7 +148,8 @@ M5Object* M5Object::Clone(void) const
 }
 /******************************************************************************/
 /*!
-Adds a component to this object
+Adds a component to this object.  You can't add the same component pointer 
+twice.
 
 \param pComponent
 The component to add
@@ -158,9 +159,9 @@ The component to add
 void M5Object::AddComponent(M5Component* pComponent)
 {
 	//Make sure this component doesn't already exist
-	
-	M5DEBUG_ASSERT(std::find(m_components.begin(), m_components.end(), pComponent) == m_components.end(), 
-		"Trying to add a component that already exists");
+	VecItor found = std::find(m_components.begin(), m_components.end(), pComponent);
+	if (found != m_components.end())
+		return;
 	
 	//Set this object as the parent
 	pComponent->SetParent(this);
@@ -176,8 +177,8 @@ The component instance to remove
 /******************************************************************************/
 void M5Object::RemoveComponent(M5Component* pToRemove)
 {
-	VecItor end = m_components.end();
 	//Make the sure the instance exists in this object
+	VecItor end = m_components.end();
 	VecItor itor = std::find(m_components.begin(), end, pToRemove);
 	
 	if (itor != end)
