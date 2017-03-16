@@ -181,6 +181,9 @@
     <Filter Include="SpaceShooter\Stages\Menu">
       <UniqueIdentifier>{9e3faabe-edcb-471e-9a39-64455b47d520}</UniqueIdentifier>
     </Filter>
+    <Filter Include="SpaceShooter\Components\RandomGoComp\RandomGoStates">
+      <UniqueIdentifier>{87b8b4e7-b840-44de-b4e7-abe8843f2c14}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Core\M5App.cpp">
@@ -326,6 +329,9 @@
     </ClCompile>
     <ClCompile Include="Source\MenuStage.cpp">
       <Filter>SpaceShooter\Stages\Menu</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\RandomGoStates.cpp">
+      <Filter>SpaceShooter\Components\RandomGoComp</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -502,6 +508,9 @@
     </ClInclude>
     <ClInclude Include="Source\MenuStage.h">
       <Filter>SpaceShooter\Stages\Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\RandomGoStates.h">
+      <Filter>SpaceShooter\Components\RandomGoComp\RandomGoStates</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

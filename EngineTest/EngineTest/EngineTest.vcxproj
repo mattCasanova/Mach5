@@ -201,6 +201,7 @@
     <ClCompile Include="Source\GrowToSizeComponent.cpp" />
     <ClCompile Include="Source\MenuStage.cpp" />
     <ClCompile Include="Source\MenuSpawnerComponent.cpp" />
+    <ClCompile Include="Source\RandomGoStates.cpp" />
     <ClCompile Include="Source\RegisterArcheTypes.cpp" />
     <ClCompile Include="Source\RegisterCommands.cpp" />
     <ClCompile Include="Source\RegisterComponents.cpp" />
@@ -264,6 +265,7 @@
     <ClInclude Include="Source\GrowToSizeComponent.h" />
     <ClInclude Include="Source\MenuStage.h" />
     <ClInclude Include="Source\MenuSpawnerComponent.h" />
+    <ClInclude Include="Source\RandomGoStates.h" />
     <ClInclude Include="Source\RegisterCommands.h" />
     <ClInclude Include="Source\SpaceShooterHelp.h" />
     <ClInclude Include="Source\PlayerInputComponent.h" />

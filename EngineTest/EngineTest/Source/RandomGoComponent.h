@@ -15,54 +15,24 @@ Component to find, rotate to and move toward a random location
 #include "Core\M5Component.h"
 #include "Core\M5StateMachine.h"
 #include "Core\M5Vec2.h"
+#include "RandomGoStates.h"
 
-//Forward declation
-
-
+//! Component to find, rotate to and move toward a random location
 class RandomGoComponent : public M5StateMachine
 {
 public:
 	RandomGoComponent(void);
 	virtual void FromFile(M5IniFile&);
 	virtual RandomGoComponent* Clone(void) const;
+	M5State* GetState(RandomGoStates state);
+
+	M5Object* GetM5Object(void);
+	float  GetSpeed(void) const;
+	float  GetRotationSpeed(void) const;
+	M5Vec2 GetTarget(void) const;
+	void   SetTarget(const M5Vec2& newTarget);
+
 private:
-	class FindState : public M5State
-	{
-	public:
-		FindState(RandomGoComponent* parent);
-		void Enter(float dt);
-		void Update(float dt);
-		void Exit(float dt);
-	private:
-		RandomGoComponent* m_parent;
-	};
-	class RotateState : public M5State
-	{
-	public:
-		RotateState(RandomGoComponent* parent);
-		void Enter(float dt);
-		void Update(float dt);
-		void Exit(float dt);
-	private:
-		float m_targetRot;
-		M5Vec2 m_dir;
-		RandomGoComponent* m_parent;
-	};
-	class GoState : public M5State
-	{
-	public:
-		GoState(RandomGoComponent* parent);
-		void Enter(float dt);
-		void Update(float dt);
-		void Exit(float dt);
-	private:
-		RandomGoComponent* m_parent;
-	};
-
-	friend FindState;
-	friend GoState;
-	friend RotateState;
-
 	float       m_speed;
 	float       m_rotateSpeed;
 	M5Vec2      m_target;

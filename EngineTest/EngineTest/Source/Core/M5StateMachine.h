@@ -22,11 +22,11 @@ public:
 	//! Empty virtual destructor
 	virtual ~M5State(void) {}
 	//! Called when we first enter a state
-	virtual void Enter(float dt)  = 0;
+	virtual void Enter(void)      = 0;
 	//! called once per frame
 	virtual void Update(float dt) = 0;
 	//! called before we exit a state
-	virtual void Exit(float dt)   = 0;
+	virtual void Exit(void)       = 0;
 };
 
 //! Base class for Finite statemanchine component for AstroShot
@@ -37,9 +37,9 @@ public:
 	virtual ~M5StateMachine(void);
 	virtual void Update(float dt);
 	void SetNextState(M5State* pNext);
+	void SetStartState(M5State* pStart);
 private:
 	M5State* m_pCurr; //!< a pointer to our current state to be updated
-	M5State* m_pNext; //!< a pointer to the next state to be updated
 };
 
 #endif //M5STATEMACNINE_H

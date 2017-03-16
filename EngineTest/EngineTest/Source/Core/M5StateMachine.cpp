@@ -13,31 +13,24 @@ Finite Statemachine base class component
 
 M5StateMachine::M5StateMachine(M5ComponentTypes type):
 	M5Component(type),
-	m_pCurr(0),
-	m_pNext(0)
+	m_pCurr(nullptr)
 {
+}
+void M5StateMachine::SetStartState(M5State* pStart)
+{
+	m_pCurr = pStart;
+	m_pCurr->Enter();
 }
 M5StateMachine::~M5StateMachine(void)
 {
-	//Empty Base class
 }
 void M5StateMachine::Update(float dt)
 {
-	if (m_pCurr == 0)
-	{
-		m_pCurr = m_pNext;
-		m_pCurr->Enter(dt);
-	}
-	else if (m_pCurr == m_pNext)
-		m_pCurr->Update(dt);
-	else
-	{
-		m_pCurr->Exit(dt);
-		m_pCurr = m_pNext;
-		m_pCurr->Enter(dt);
-	}
+	m_pCurr->Update(dt);
 }
 void M5StateMachine::SetNextState(M5State* pNext)
 {
-	m_pNext = pNext;
+	m_pCurr->Exit();
+	m_pCurr = pNext;
+	m_pCurr->Enter();
 }

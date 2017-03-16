@@ -36,10 +36,14 @@ Sets component type and starting values for player
 /******************************************************************************/
 void ChasePlayerComponent::Update(float)
 {
-	std::vector<M5Object*> players;
-	M5ObjectManager::GetAllObjectsByType(AT_Player, players);
+	M5Object* player;
+	M5ObjectManager::GetFirstObjectByType(AT_Player, player);
+
+	if (!player)
+		return;
+
 	M5Vec2 dir;
-	M5Vec2::Sub(dir, players[0]->pos, m_pObj->pos);
+	M5Vec2::Sub(dir, player->pos, m_pObj->pos);
 	m_pObj->rotation = std::atan2f(dir.y, dir.x);
 	dir.Normalize();
 	dir *= m_speed;
