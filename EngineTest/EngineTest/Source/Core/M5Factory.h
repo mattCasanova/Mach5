@@ -20,7 +20,7 @@ class M5Factory
 {
 public:
 	~M5Factory(void);
-	void AddBuilder(EnumType type, BuilderType* builder);
+	bool AddBuilder(EnumType type, BuilderType* builder);
 	void RemoveBuilder(EnumType type);
 	ReturnType* Build(EnumType type);
 	void ClearBuilders(void);
@@ -52,14 +52,16 @@ The type to associate with the given builder.
 
 \param [in] pBuilder
 A pointer to a Builder that will be owned and deleted by the factory.
+
+\return
+true if the insertion was succesful, false otherwise.
 */
 /******************************************************************************/
 template<typename EnumType, typename BuilderType, typename ReturnType>
-void M5Factory<EnumType, BuilderType, ReturnType>::AddBuilder(EnumType type,
-	BuilderType* pBuilder)
+bool M5Factory<EnumType, BuilderType, ReturnType>::AddBuilder(EnumType type, BuilderType* pBuilder)
 {
 	std::pair<ArcheTypeItor, bool> itor = m_builderMap.insert(std::make_pair(type, pBuilder));
-	M5DEBUG_ASSERT(itor.second == true, "Trying to add a builder that already exists");
+	return itor.second;
 }
 /******************************************************************************/
 /*!
@@ -73,8 +75,8 @@ template<typename EnumType, typename BuilderType, typename ReturnType>
 void M5Factory<EnumType, BuilderType, ReturnType>::RemoveBuilder(EnumType type)
 {
 	BuilderMap::iterator itor = m_builderMap.find(type);
-	M5DEBUG_ASSERT(itor != m_builderMap.end(),
-		"Trying to Remove a Builder that doesn't exist");
+	if (itor == m_builderMap.end())
+		return;
 
 	//First delete the builder
 	delete itor->second;
@@ -90,15 +92,15 @@ Returns a new ReturnType pointer based on the type of the builder.
 The type of object to build
 
 \return
-A Derived class in the ReturnType inheritance chain.
+A Derived class in the ReturnType inheritance chain or null if the builder 
+didn't exist.
 */
 /******************************************************************************/
 template<typename EnumType, typename BuilderType, typename ReturnType>
 ReturnType* M5Factory<EnumType, BuilderType, ReturnType>::Build(EnumType type)
 {
 	ArcheTypeItor itor = m_builderMap.find(type);
-	M5DEBUG_ASSERT(itor != m_builderMap.end(), "Trying to use a Builder that doesn't exist");
-	return itor->second->Build();
+	return (itor == m_builderMap.end()) ? nullptr : itor->second->Build();
 }
 /******************************************************************************/
 /*!

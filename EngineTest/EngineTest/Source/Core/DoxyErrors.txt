@@ -63,6 +63,7 @@ C:/Users/Matt/Dropbox/Matt/Personal/Mach5/EngineTest/EngineTest/Source/Core/M5St
   parameter 'drawPaused'
 C:/Users/Matt/Dropbox/Matt/Personal/Mach5/EngineTest/EngineTest/Source/Core/M5StateMachine.h:36: warning: Member M5StateMachine(M5ComponentTypes type) (function) of class M5StateMachine is not documented.
 C:/Users/Matt/Dropbox/Matt/Personal/Mach5/EngineTest/EngineTest/Source/Core/M5StateMachine.h:39: warning: Member SetNextState(M5State *pNext) (function) of class M5StateMachine is not documented.
+C:/Users/Matt/Dropbox/Matt/Personal/Mach5/EngineTest/EngineTest/Source/Core/M5StateMachine.h:40: warning: Member SetStartState(M5State *pStart) (function) of class M5StateMachine is not documented.
 C:/Users/Matt/Dropbox/Matt/Personal/Mach5/EngineTest/EngineTest/Source/Core/M5Vec2.h:108: warning: Member operator>>(std::istream &is, M5Vec2 &rhs) (friend) of class M5Vec2 is not documented.
 C:/Users/Matt/Dropbox/Matt/Personal/Mach5/EngineTest/EngineTest/Source/Core/M5Vec2.h:109: warning: Member operator<<(std::ostream &os, const M5Vec2 &rhs) (friend) of class M5Vec2 is not documented.
 C:/Users/Matt/Dropbox/Matt/Personal/Mach5/EngineTest/EngineTest/Source/Core/OutsideViewKillComponent.h:27: warning: return type of member OutsideViewKillComponent::Clone is not documented
