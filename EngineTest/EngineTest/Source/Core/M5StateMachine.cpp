@@ -16,11 +16,6 @@ M5StateMachine::M5StateMachine(M5ComponentTypes type):
 	m_pCurr(nullptr)
 {
 }
-void M5StateMachine::SetStartState(M5State* pStart)
-{
-	m_pCurr = pStart;
-	m_pCurr->Enter();
-}
 M5StateMachine::~M5StateMachine(void)
 {
 }
@@ -30,7 +25,9 @@ void M5StateMachine::Update(float dt)
 }
 void M5StateMachine::SetNextState(M5State* pNext)
 {
-	m_pCurr->Exit();
+	if(m_pCurr)
+		m_pCurr->Exit();
+	
 	m_pCurr = pNext;
 	m_pCurr->Enter();
 }

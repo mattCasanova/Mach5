@@ -22,7 +22,7 @@ RandomGoComponent::RandomGoComponent():
 	m_rotateState(this),
 	m_goState(this)
 {
-	SetStartState(&m_findState);
+	SetNextState(&m_findState);
 }
 void RandomGoComponent::FromFile(M5IniFile& iniFile)
 {
