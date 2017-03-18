@@ -14,7 +14,7 @@ Base graphics component.  For now it just contains a texture.
 
 #include "M5Component.h"
 
-enum class DrawSpace
+enum DrawSpace
 {
 	DS_WORLD,
 	DS_HUD
