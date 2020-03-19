@@ -20,7 +20,7 @@ class M5Component;
 class M5ComponentBuilder
 {
 public:
-	~M5ComponentBuilder() {} //empty virtual destructor
+	virtual ~M5ComponentBuilder() {} //empty virtual destructor
 	//! Virtual Build call that must be overloaded by all Derived Builders
 	virtual M5Component* Build(void) = 0;
 private:
